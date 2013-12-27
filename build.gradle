@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+sourceCompatibility = 1.6
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+jettyRun{
+	httpPort=8081
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-core', version: '3.1.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '3.1.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '3.1.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '3.1.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '3.1.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '3.1.3.RELEASE'
+
+    compile 'javax.servlet:jstl:1.2'
+
+    compile ('org.hibernate:hibernate-entitymanager:3.5.0-Final')
+    compile 'com.h2database:h2:1.3.161'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+    compile 'net.sf.ehcache:ehcache-core:2.5.2'
+    compile 'javax.servlet:servlet-api:2.5'
+
+}
+
+task copyToLib(type: Copy) {
+    into "lib"
+    from configurations.runtime
+}
