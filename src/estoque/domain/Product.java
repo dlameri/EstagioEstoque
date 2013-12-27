@@ -19,9 +19,6 @@ public class Product {
 	@GeneratedValue(generator="product_id", strategy=GenerationType.AUTO)
 	@Column(name="CD_SKU")
 	private Long id;
-
-	@Column(name="NM_NOME", nullable=false)
-	private String name;
 	
 	@Column(name="CD_PRECO_DE", nullable=false)
 	private double priceFrom;
@@ -53,14 +50,6 @@ public class Product {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public double getPriceFrom() {

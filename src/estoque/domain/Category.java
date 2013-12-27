@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,10 +20,6 @@ public class Category {
 	@Column(name="NM_NOME", nullable=false)
 	private String name;
 
-	@OneToMany
-	@JoinColumn(name="CD_SUBCATEGORIA", referencedColumnName="CD_SUBCATEGORIA")
-	private Subcategory subcategory;
-	
 	public Long getId() {
 		return id;
 	}
@@ -40,13 +34,5 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Subcategory getSubcategory() {
-		return subcategory;
-	}
-
-	public void setSubcategory(Subcategory subcategory) {
-		this.subcategory = subcategory;
 	}
 }

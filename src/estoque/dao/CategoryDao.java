@@ -8,14 +8,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import estoque.domain.Item;
+import estoque.domain.Category;
 
 
-public class ItemDao {
+public class CategoryDao {
 
 	private SessionFactory sessionFactory;
 
-	public ItemDao() {
+	public CategoryDao() {
 		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() )
 																		.buildServiceRegistry();
@@ -23,11 +23,11 @@ public class ItemDao {
 		
 	}
 	
-	public Long create(Item item) {
+	public Long create(Category category) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			Long id = (Long) session().save(item);
+			Long id = (Long) session().save(category);
 	        tx.commit();
 	        return id;
 		} catch (Exception e) {

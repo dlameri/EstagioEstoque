@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -46,6 +47,10 @@ public class Item {
 	@OneToMany
 	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
 	private Product product;
+	
+	@ManyToOne
+	@JoinColumn(name="CD_SUBCATEGORIA")
+	private Subcategory subcategory;
 
 	public Long getId() {
 		return id;
@@ -125,5 +130,13 @@ public class Item {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Subcategory getSubcategory() {
+		return subcategory;
+	}
+
+	public void setSubcategory(Subcategory subcategory) {
+		this.subcategory = subcategory;
 	}
 }

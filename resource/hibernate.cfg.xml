@@ -10,17 +10,28 @@
 		   <property name="hibernate.hbm2ddl.auto">create</property>
 		
 		   <!-- Dados de Configuracao do Usuario -->
+<!-- 		   Oracle -->
 <!-- 		   <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
 <!-- 		   <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property> -->
 <!-- 		   <property name="hibernate.connection.username">ESTAGIOX</property> -->
 <!-- 		   <property name="hibernate.connection.password">ESTAGIOX</property> -->
 <!-- 		   <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property> -->
 		   
-		   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		   <property name="hibernate.connection.url">jdbc:mysql://localhost/academic</property>
-		   <property name="hibernate.connection.username">root</property>
+<!-- 		   MySQL -->
+<!-- 		   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> -->
+<!-- 		   <property name="hibernate.connection.url">jdbc:mysql://localhost/academic</property> -->
+<!-- 		   <property name="hibernate.connection.username">root</property> -->
+<!-- 		   <property name="hibernate.connection.password"></property> -->
+<!-- 		   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> -->
+
+<!-- H2 -->
+		   <property name="hibernate.connection.driver_class">org.h2.Driver</property>
+		   <property name="hibernate.hbm2ddl.auto">create</property>
+		   <property name="hibernate.connection.url">jdbc:h2:mem</property>
+		   <property name="hibernate.connection.username">sa</property>
 		   <property name="hibernate.connection.password"></property>
-		   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		   <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+
 		
 		   <!-- Dominios que serao mapeados -->
 		   <mapping class="domain.Item" />
