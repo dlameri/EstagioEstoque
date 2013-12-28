@@ -1,5 +1,7 @@
 package estoque.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +43,7 @@ public class Product {
 	
 	@OneToMany
 	@JoinColumn(name="CD_IMAGEM", referencedColumnName="CD_IMAGEM")
-	private Image image;
+	private List<Image> image;
 	
 
 	public Long getId() {
@@ -99,4 +101,13 @@ public class Product {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+
+	public List<Image> getImage() {
+		return image;
+	}
+
+	public void setImage(List<Image> image) {
+		this.image = image;
+	}
+	
 }

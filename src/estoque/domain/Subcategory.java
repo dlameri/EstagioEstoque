@@ -1,5 +1,7 @@
 package estoque.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class Subcategory {
 	
 	@OneToMany
 	@JoinColumn(name="CD_ITEM", referencedColumnName="CD_ITEM", nullable=false)
-	private Item item;
+	private List<Item> item;
 
 	public Long getId() {
 		return id;
@@ -55,12 +57,13 @@ public class Subcategory {
 		this.category = category;
 	}
 
-	public Item getItem() {
+	public List<Item> getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(List<Item> item) {
 		this.item = item;
 	}
+
 	
 }

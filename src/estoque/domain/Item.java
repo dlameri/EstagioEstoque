@@ -1,5 +1,7 @@
 package estoque.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +48,7 @@ public class Item {
 	
 	@OneToMany
 	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
-	private Product product;
+	private List<Product> product;
 	
 	@ManyToOne
 	@JoinColumn(name="CD_SUBCATEGORIA")
@@ -124,14 +126,6 @@ public class Item {
 		this.model = model;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	public Subcategory getSubcategory() {
 		return subcategory;
 	}
@@ -139,4 +133,14 @@ public class Item {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
+
+	public List<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
+	
+	
 }
