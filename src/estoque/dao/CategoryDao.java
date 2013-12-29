@@ -2,6 +2,7 @@ package estoque.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
@@ -50,6 +51,43 @@ public class CategoryDao {
 		return category;
 	}
 
+	
+	public void update(Category category) {
+		Transaction tx = null;
+		try {
+			tx = session().beginTransaction();
+			session().update(category);
+	        tx.commit();
+		} catch (Exception e) {
+			if( tx != null ) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session().close();
+		}
+	}
+	
+	public Category findById(Long id) {
+		Transaction tx = session().beginTransaction();
+		Category category = (Category) session().get(Category.class, id);
+		tx.commit();
+		return category;
+	}
+	
+	public void delete(Category category) {
+		Transaction tx = null;
+		try {
+			tx = session().beginTransaction();
+			session().delete( session().merge(category) );
+			tx.commit();
+		} catch (HibernateException e) {
+			if( tx != null ) {
+				tx.rollback();
+			}
+		}
+	}
+	
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
 		if( session == null ) {
