@@ -1,6 +1,5 @@
 package estoque.domain;
 
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,49 +8,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ITEM")
+@Table(name = "ITEM")
 public class Item {
 	@Id
-	@SequenceGenerator(name="item_id", sequenceName="item_id")
-	@GeneratedValue(generator="item_id", strategy=GenerationType.AUTO)
-	@Column(name="CD_ITEM")
+	@SequenceGenerator(name = "item_id", sequenceName = "item_id")
+	@GeneratedValue(generator = "item_id", strategy = GenerationType.AUTO)
+	@Column(name = "CD_ITEM")
 	private Long id;
 
-	@Column(name="NM_NOME", nullable=false)
+	@Column(name = "NM_NOME", nullable = false)
 	private String name;
-	
-	@Column(name="NM_DESCRICAO_LONGA", nullable=false)
+
+	@Column(name = "NM_DESCRICAO_LONGA", nullable = false)
 	private String longDescription;
-	
-	@Column(name="NM_DESCRICAO_CURTA", nullable=false)
+
+	@Column(name = "NM_DESCRICAO_CURTA", nullable = false)
 	private String shortDescription;
-	
-	@Column(name="NM_DIMENSOES", nullable=false)
+
+	@Column(name = "NM_DIMENSOES", nullable = false)
 	private String dimensions;
-	
-	@Column(name="CD_PESO", nullable=false)
+
+	@Column(name = "CD_PESO", nullable = false)
 	private Integer weight;
-	
-	@Column(name="CD_GARANTIA", nullable=false)
+
+	@Column(name = "CD_GARANTIA", nullable = false)
 	private Integer warranty;
-	
-	@Column(name="NM_MARCA", nullable=false)
+
+	@Column(name = "NM_MARCA", nullable = false)
 	private String brand;
-	
-	@Column(name="NM_MODELO", nullable=false)
+
+	@Column(name = "NM_MODELO", nullable = false)
 	private String model;
-	
-	@OneToMany
-	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
-	private List<Product> product;
-	
+
 	@ManyToOne
-	@JoinColumn(name="CD_SUBCATEGORIA")
+	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
 	private Subcategory subcategory;
 
 	public Long getId() {
@@ -133,14 +127,4 @@ public class Item {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
-
-	public List<Product> getProduct() {
-		return product;
-	}
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
-	
-	
 }

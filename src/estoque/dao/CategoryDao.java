@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
 import estoque.domain.Category;
 
 
@@ -41,6 +42,7 @@ public class CategoryDao {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Transaction tx = session().beginTransaction();
 		List<Category> category = session().createCriteria(Category.class).list();
