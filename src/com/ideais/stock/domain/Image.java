@@ -1,5 +1,6 @@
 package com.ideais.stock.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,8 @@ public class Image {
 	@Column(name="BO_PRINCIPAL")
 	private Boolean main;
 	
-	@ManyToOne
-	@JoinColumn(name="CD_PRODUTO")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
 	private Product product;
 
 	public Long getId() {

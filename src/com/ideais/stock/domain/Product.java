@@ -1,6 +1,7 @@
 package com.ideais.stock.domain;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +18,11 @@ public class Product {
 	@Id
 	@SequenceGenerator(name="product_id", sequenceName="product_id")
 	@GeneratedValue(generator="product_id", strategy=GenerationType.AUTO)
-	@Column(name="CD_SKU")
+	@Column(name="CD_PRODUTO")
 	private Long id;
+	
+	@Column(name="CD_SKU")
+	private Long sku;
 	
 	@Column(name="CD_PRECO_DE", nullable=false)
 	private double priceFrom;
@@ -35,8 +39,8 @@ public class Product {
 	@Column(name="CD_ESTOQUE", nullable=false)
 	private Integer stock;
 	
-	@ManyToOne
-	@JoinColumn(name="CD_ITEM")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="CD_ITEM", referencedColumnName="CD_ITEM", nullable=false)
 	private Item item;
 
 	public Long getId() {
@@ -69,6 +73,14 @@ public class Product {
 
 	public void setOptionName(String optionName) {
 		this.optionName = optionName;
+	}
+
+	public Long getSku() {
+		return sku;
+	}
+
+	public void setSku(Long sku) {
+		this.sku = sku;
 	}
 
 	public String getOptionValue() {

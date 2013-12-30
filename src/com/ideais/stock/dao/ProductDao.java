@@ -11,14 +11,12 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 
-
-public class ItemDao {
-
+public class ProductDao {
 	private SessionFactory sessionFactory;
 
-	public ItemDao() {
+	public ProductDao() {
 		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() )
 																		.buildServiceRegistry();
@@ -26,11 +24,11 @@ public class ItemDao {
 		
 	}
 	
-	public Long create(Item item) {
+	public Long create(Product product) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			Long id = (Long) session().save(item);
+			Long id = (Long) session().save(product);
 	        tx.commit();
 	        return id;
 		} catch (Exception e) {
@@ -46,19 +44,19 @@ public class ItemDao {
 	
 
 	@SuppressWarnings("unchecked")
-	public List<Item> findAll() {
+	public List<Product> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Item> item = session().createCriteria(Item.class).list();
+		List<Product> product = session().createCriteria(Product.class).list();
 		tx.commit();
-		return item;
+		return product;
 	}
 
 	
-	public void update(Item item) {
+	public void update(Product product) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			session().update(item);
+			session().update(product);
 	        tx.commit();
 		} catch (Exception e) {
 			if( tx != null ) {
@@ -70,18 +68,18 @@ public class ItemDao {
 		}
 	}
 	
-	public Item findById(Long id) {
+	public Product findById(Long id) {
 		Transaction tx = session().beginTransaction();
-		Item item = (Item) session().get(Item.class, id);
+		Product product = (Product) session().get(Product.class, id);
 		tx.commit();
-		return item;
+		return product;
 	}
 	
-	public void delete(Item item) {
+	public void delete(Product product) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			session().delete( session().merge(item) );
+			session().delete( session().merge(product) );
 			tx.commit();
 		} catch (HibernateException e) {
 			if( tx != null ) {
