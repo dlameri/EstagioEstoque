@@ -6,3 +6,6 @@
 *.ear
 /bin
 .gradle/
+.classpath
+*.db
+.settings/org.eclipse.jdt.core.prefs
