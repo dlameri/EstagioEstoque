@@ -1,5 +1,6 @@
-package estoque.domain;
+package com.ideais.stock.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Subcategory {
 	@Column(name="NM_NOME", nullable=false)
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="CD_CATEGORIA", referencedColumnName="CD_CATEGORIA", nullable=false)
 	private Category category;
 

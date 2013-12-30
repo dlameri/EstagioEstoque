@@ -1,3 +1,4 @@
+package com.ideias.test.dao;
 //package dao;
 //
 //import static org.junit.Assert.assertEquals;

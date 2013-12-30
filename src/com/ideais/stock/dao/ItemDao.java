@@ -1,4 +1,4 @@
-package estoque.dao;
+package com.ideais.stock.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionException;
@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import estoque.domain.Item;
+import com.ideais.stock.domain.Item;
 
 
 public class ItemDao {
