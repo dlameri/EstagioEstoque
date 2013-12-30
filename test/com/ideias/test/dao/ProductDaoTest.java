@@ -7,25 +7,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.ItemDao;
+import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 
 @RunWith(JUnit4.class)
-public class ItemDaoTest {
-
-	private ItemDao itemDao;
-
+public class ProductDaoTest {
+	private ProductDao productDao;
+	
 	@Before
 	public void setUp() {
-		this.itemDao = new ItemDao();
+		this.productDao = new ProductDao();
 	}
 	
 	@Test
-	public void test_create() {
+	public void create() {
 		Item item = new Item();
+		Product product = new Product();
 		Subcategory subcategory = new Subcategory();
 		Category category = new Category();
 		
@@ -38,14 +39,24 @@ public class ItemDaoTest {
 		item.setBrand("Paco Ideais");
 		item.setModel("XTVZB-4435");
 		
+		product.setSku(01L);
+		product.setOptionName("Cor");
+		product.setOptionValue("Branca");
+		product.setPriceFrom(1999.90);
+		product.setPriceFor(19.90);
+		product.setStock(9999);
+		
 		subcategory.setName("Luvas");
+		
 		
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
 		item.setSubcategory(subcategory);
+		product.setItem(item);
 		
-		Long id = itemDao.create(item);
+		Long id = productDao.create(product);
+		
 		assertEquals( id, item.getId() );
 	}
 }
