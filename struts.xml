@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="basicstruts2" extends="struts-default">	
+		
+		<action name="addproduct" class="com.ideais.stock.dao.CategoryDao" method="create">
+			<result name="success">/shoppingcart.jsp</result>
+		</action>
+		
+	</package>
+</struts>
