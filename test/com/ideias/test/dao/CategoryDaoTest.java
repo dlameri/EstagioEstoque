@@ -1,15 +1,14 @@
-package dao;
+package com.ideias.test.dao;
 
 import static org.junit.Assert.assertEquals;
-
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import estoque.dao.CategoryDao;
-import estoque.domain.Category;
+import com.ideais.stock.dao.CategoryDao;
+import com.ideais.stock.domain.Category;
 
 
 @RunWith(JUnit4.class)

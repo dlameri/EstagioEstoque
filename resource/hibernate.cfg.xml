@@ -33,11 +33,11 @@
 				<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 
 		   <!-- Dominios que serao mapeados -->
-		   <mapping class="estoque.domain.Item" />
-		   <mapping class="estoque.domain.Product" />
-		   <mapping class="estoque.domain.Category" />
-		   <mapping class="estoque.domain.Subcategory" />
-		   <mapping class="estoque.domain.Image" />
+		   <mapping class="com.ideais.stock.domain.Item" />
+		   <mapping class="com.ideais.stock.domain.Product" />
+		   <mapping class="com.ideais.stock.domain.Category" />
+		   <mapping class="com.ideais.stock.domain.Subcategory" />
+		   <mapping class="com.ideais.stock.domain.Image" />
 
 	</session-factory>
 </hibernate-configuration>

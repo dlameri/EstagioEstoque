@@ -1,4 +1,4 @@
-package estoque.domain;
+package com.ideais.stock.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
