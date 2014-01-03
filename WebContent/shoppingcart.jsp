@@ -4,19 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ADD CATEGORIA</title>
+<title>Hello World</title>
 </head>
 <body>
-	<marquee><h1>ADD CATEGORIA</h1></marquee>
+	<h1>CARRINHO DE COMPRAS</h1>
 	<ul>
 		<s:iterator value="cart.products">
-			<li> <s:property value="id" /> : <s:property value="name" /> </li>	
+			<li> <s:property value="name" /> </li>	
 		</s:iterator>
 	</ul>
 	
-	<s:form action="addcategory">
-		<s:textfield name="category.name" />
-
+	<s:form action="addproduct">
+		<s:textfield name="product.id" />
+		<s:textfield name="product.name" />
+		<s:textfield name="product.quantity" />
+		
 		<s:submit value="Add"/>
 	</s:form>
 </body>
