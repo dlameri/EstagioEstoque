@@ -3,6 +3,7 @@
 	version="2.5">
 
 	<display-name>Hello World</display-name>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

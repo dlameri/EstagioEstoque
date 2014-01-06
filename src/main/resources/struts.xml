@@ -4,14 +4,13 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="basicstruts2" extends="struts-default">
 
-		<action name="hello" class="com.ideais.estagio.web.HelloAction" method="execute">
-			<result name="success">/greeting.jsp</result>
+		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory">
+			<result name="success">/index.jsp</result>
 		</action>
 		
-		
-		<action name="addproduct" class="com.ideais.estagio.web.shoppingcart.AddProductAction" method="add">
-			<result name="success">/shoppingcart.jsp</result>
-		</action>
+		<action name="listcategory" class="com.ideais.stock.action.CategoryAction" method="listCategory">
+         <result name="success">/students.jsp</result>
+       </action>
 		
 	</package>
 </struts>
