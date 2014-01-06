@@ -8,11 +8,13 @@
 <title>Categoria</title>
 </head>
 <body>
+
 	<h1>Categoria</h1>
 	
-	<s:form action="addcategory">
-		<s:textfield name="category.name" />
-		<s:submit value="Add"/>
-	</s:form>
+	<ul>
+		<s:iterator value="categories">
+			<li> <s:property value="name" /> </li>	
+		</s:iterator>
+	</ul>
+
 </body>
-</html>
