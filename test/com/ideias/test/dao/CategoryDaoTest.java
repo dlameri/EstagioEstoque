@@ -33,7 +33,8 @@ public class CategoryDaoTest {
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, categoryDao.findAll().size());
+		test_create();
+		assertEquals(1, categoryDao.findAll().size());
 	}
 	
 	@Test

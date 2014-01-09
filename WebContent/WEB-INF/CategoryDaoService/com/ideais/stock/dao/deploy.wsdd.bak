@@ -1,0 +1,135 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CategoryDaoService WSDL service -->
+
+  <service name="CategoryDao" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://dao.stock.ideais.com"/>
+      <parameter name="wsdlServiceElement" value="CategoryDaoService"/>
+      <parameter name="schemaQualified" value="http://domain.stock.ideais.com,http://dao.stock.ideais.com"/>
+      <parameter name="wsdlServicePort" value="CategoryDao"/>
+      <parameter name="className" value="com.ideais.stock.dao.CategoryDaoSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="CategoryDao"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="delete" qname="operNS:delete" xmlns:operNS="http://dao.stock.ideais.com" soapAction="" >
+        <parameter qname="pns:category" xmlns:pns="http://dao.stock.ideais.com" type="tns:Category" xmlns:tns="http://domain.stock.ideais.com"/>
+      </operation>
+      <operation name="update" qname="operNS:update" xmlns:operNS="http://dao.stock.ideais.com" soapAction="" >
+        <parameter qname="pns:category" xmlns:pns="http://dao.stock.ideais.com" type="tns:Category" xmlns:tns="http://domain.stock.ideais.com"/>
+      </operation>
+      <operation name="create" qname="operNS:create" xmlns:operNS="http://dao.stock.ideais.com" returnQName="retNS:createReturn" xmlns:retNS="http://dao.stock.ideais.com" returnType="rtns:long" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:category" xmlns:pns="http://dao.stock.ideais.com" type="tns:Category" xmlns:tns="http://domain.stock.ideais.com"/>
+      </operation>
+      <operation name="findAll" qname="operNS:findAll" xmlns:operNS="http://dao.stock.ideais.com" returnQName="retNS:findAllReturn" xmlns:retNS="http://dao.stock.ideais.com" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://dao.stock.ideais.com" returnItemQName="tns:item" xmlns:tns="http://dao.stock.ideais.com" soapAction="" >
+      </operation>
+      <operation name="findById" qname="operNS:findById" xmlns:operNS="http://dao.stock.ideais.com" returnQName="retNS:findByIdReturn" xmlns:retNS="http://dao.stock.ideais.com" returnType="rtns:Category" xmlns:rtns="http://domain.stock.ideais.com" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://dao.stock.ideais.com" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="update findById findAll delete create"/>
+
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>findById"
+        type="java:com.ideais.stock.dao.FindById"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>createResponse"
+        type="java:com.ideais.stock.dao.CreateResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>findByIdResponse"
+        type="java:com.ideais.stock.dao.FindByIdResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>create"
+        type="java:com.ideais.stock.dao.Create"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>deleteResponse"
+        type="java:com.ideais.stock.dao.DeleteResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>delete"
+        type="java:com.ideais.stock.dao.Delete"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>findAll"
+        type="java:com.ideais.stock.dao.FindAll"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>findAllResponse"
+        type="java:com.ideais.stock.dao.FindAllResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>update"
+        type="java:com.ideais.stock.dao.Update"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://domain.stock.ideais.com"
+        qname="ns:Category"
+        type="java:com.ideais.stock.domain.Category"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dao.stock.ideais.com"
+        qname="ns:>updateResponse"
+        type="java:com.ideais.stock.dao.UpdateResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
