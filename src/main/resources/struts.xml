@@ -5,12 +5,9 @@
 	<package name="basicstruts2" extends="struts-default">
 
 		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory">
-			<result name="success">/category-list.jsp</result>
+			<result name="success">/web/category-list.jsp</result>
 		</action>
 		
-		<action name="listcategory" class="com.ideais.stock.action.CategoryAction" method="listCategory">
-         <result name="success">/category-list.jsp</result>
-       </action>
 		
 	</package>
 </struts>
