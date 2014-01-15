@@ -7,7 +7,6 @@
 		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory">
 			<result name="success">/web/category-list.jsp</result>
 		</action>
-		
-		
+				
 	</package>
 </struts>

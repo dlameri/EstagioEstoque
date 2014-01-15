@@ -5,11 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Estoque</title>
+<title>Categoria</title>
 </head>
 <body>
-	<h1>Estoque</h1>
+	<h1>Categoria</h1>
 
-<p>manda ver JJ</p>
+	<s:form action="addcategory">
+		<s:textfield name="category.name" />
+		<s:submit value="Add" />
+	</s:form>
 </body>
 </html>

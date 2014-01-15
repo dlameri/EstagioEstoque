@@ -43,6 +43,7 @@ dependencies {
 	compile 'junit:junit:4.10'
 	compile 'org.apache.struts:struts2-core:2.3.16'
 	compile 'mysql:mysql-connector-java:5.1.28'
+	compile 'org.jboss.resteasy:resteasy-links:3.0.6.Final'
 
 }
 
