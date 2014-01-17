@@ -8,11 +8,10 @@ import javax.ws.rs.core.MediaType;
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
 
-@Path("api")
+@Path("/category")
 public class CategoryWS {
 	CategoryDao categoryDao = new CategoryDao();
-	
-	@Path("/category")
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Category> getCategories() {
@@ -21,7 +20,7 @@ public class CategoryWS {
 
 	@Path("/{id}")
 	@GET
-	@Produces( { MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Category getCategoryById(@PathParam("id") Long id) {
 		return categoryDao.findById(id);
 	}
