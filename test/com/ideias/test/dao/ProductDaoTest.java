@@ -9,6 +9,7 @@ import org.junit.runners.JUnit4;
 
 import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
@@ -33,7 +34,7 @@ public class ProductDaoTest {
 		item.setName("Luva de boxe");
 		item.setLongDescription("Uma descrição longa.");
 		item.setShortDescription("Uma descrição curta.");
-		item.setDimensions("50x50x150");
+		item.setDimensions(new Dimensions(50., 50., 150.));
 		item.setWeight(500000);
 		item.setWarranty(36);
 		item.setBrand("Paco Ideais");
