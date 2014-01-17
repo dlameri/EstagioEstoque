@@ -21,13 +21,13 @@ public class Product {
 	@Column(name="CD_PRODUTO")
 	private Long id;
 	
-	@Column(name="CD_SKU")
+	@Column(name="NR_SKU")
 	private Long sku;
 	
-	@Column(name="CD_PRECO_DE", nullable=false)
+	@Column(name="NR_PRECO_DE", nullable=false)
 	private double priceFrom;
 	
-	@Column(name="CD_PRECO_POR", nullable=false)
+	@Column(name="NR_PRECO_POR", nullable=false)
 	private double priceFor;
 	
 	@Column(name="NM_NOME_OPCAO")
@@ -36,7 +36,7 @@ public class Product {
 	@Column(name="NM_VALOR_OPCAO")
 	private String optionValue;
 	
-	@Column(name="CD_ESTOQUE", nullable=false)
+	@Column(name="NR_ESTOQUE", nullable=false)
 	private Integer stock;
 	
 	@ManyToOne(cascade=CascadeType.ALL)

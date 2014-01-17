@@ -17,7 +17,7 @@ public class Category {
 	@Column(name="CD_CATEGORIA")
 	private Long id;
 	
-	@Column(name="NM_NOME", nullable=false)
+	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 
 	public Long getId() {

@@ -21,8 +21,23 @@ public class Image {
 	@Column(name="CD_IMAGEM")
 	private Long id;
 	
-	@Column(name="NM_CAMINHO")
-	private String path;
+	@Column(name="NM_CAMINHO_VITRINE")
+	private String showcasePath;
+	
+	@Column(name="NM_CAMINHO_PRODUTO")
+	private String productPath;
+	
+	@Column(name="NM_CAMINHO_SUPERZOOM")
+	private String superzoomPath;
+	
+	@Column(name="NM_CAMINHO_CARRINHO")
+	private String shoppingCartPath;
+	
+	@Column(name="NM_CAMINHO_ANDROID_VITRINE")
+	private String androidShowcasePath;
+	
+	@Column(name="NM_CAMINHO_ANDROID_PRODUTO")
+	private String androidProductPath;
 	
 	@Column(name="BO_PRINCIPAL")
 	private Boolean main;
@@ -39,12 +54,52 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getPath() {
-		return path;
+	public String getShowcasePath() {
+		return showcasePath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setShowcasePath(String showcasePath) {
+		this.showcasePath = showcasePath;
+	}
+
+	public String getProductPath() {
+		return productPath;
+	}
+
+	public void setProductPath(String productPath) {
+		this.productPath = productPath;
+	}
+
+	public String getSuperzoomPath() {
+		return superzoomPath;
+	}
+
+	public void setSuperzoomPath(String superzoomPath) {
+		this.superzoomPath = superzoomPath;
+	}
+
+	public String getShoppingCartPath() {
+		return shoppingCartPath;
+	}
+
+	public void setShoppingCartPath(String shoppingCartPath) {
+		this.shoppingCartPath = shoppingCartPath;
+	}
+
+	public String getAndroidShowcasePath() {
+		return androidShowcasePath;
+	}
+
+	public void setAndroidShowcasePath(String androidShowcasePath) {
+		this.androidShowcasePath = androidShowcasePath;
+	}
+
+	public String getAndroidProductPath() {
+		return androidProductPath;
+	}
+
+	public void setAndroidProductPath(String androidProductPath) {
+		this.androidProductPath = androidProductPath;
 	}
 
 	public Boolean getMain() {

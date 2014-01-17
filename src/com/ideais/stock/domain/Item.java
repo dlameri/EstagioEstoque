@@ -31,12 +31,12 @@ public class Item {
 	private String shortDescription;
 
 	@Column(name = "NM_DIMENSOES", nullable = false)
-	private String dimensions;
+	private Dimensions dimensions;
 
-	@Column(name = "CD_PESO", nullable = false)
+	@Column(name = "NR_PESO", nullable = false)
 	private Integer weight;
 
-	@Column(name = "CD_GARANTIA", nullable = false)
+	@Column(name = "NR_GARANTIA", nullable = false)
 	private Integer warranty;
 
 	@Column(name = "NM_MARCA", nullable = false)
@@ -48,6 +48,10 @@ public class Item {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
 	private Subcategory subcategory;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "CD_CATEGORIA", referencedColumnName = "CD_CATEGORIA", nullable = false)
+	private Category category;
 
 	public Long getId() {
 		return id;
@@ -81,11 +85,11 @@ public class Item {
 		this.shortDescription = shortDescription;
 	}
 
-	public String getDimensions() {
+	public Dimensions getDimensions() {
 		return dimensions;
 	}
 
-	public void setDimensions(String dimensions) {
+	public void setDimensions(Dimensions dimensions) {
 		this.dimensions = dimensions;
 	}
 
@@ -127,5 +131,13 @@ public class Item {
 
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }
