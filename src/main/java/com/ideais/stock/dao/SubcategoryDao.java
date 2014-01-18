@@ -2,6 +2,8 @@ package main.java.com.ideais.stock.dao;
 
 import java.util.List;
 
+import main.java.com.ideais.stock.domain.Subcategory;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
@@ -10,9 +12,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-
-import main.java.com.ideais.stock.domain.Category;
-import main.java.com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryDao {
 	private SessionFactory sessionFactory;
@@ -45,7 +44,7 @@ public class SubcategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Subcategory> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Category.class).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).list();
 		tx.commit();
 		return subcategory;
 	}

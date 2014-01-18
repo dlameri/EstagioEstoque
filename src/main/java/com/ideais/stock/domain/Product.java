@@ -1,6 +1,8 @@
 package main.java.com.ideais.stock.domain;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,6 +48,18 @@ public class Product {
 	@JoinColumn(name="CD_ITEM", referencedColumnName="CD_ITEM", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Item item;
+	
+	@OneToMany(mappedBy="product")
+	@Cascade(CascadeType.ALL)
+	private List<Image> images;
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
 
 	public Long getId() {
 		return id;

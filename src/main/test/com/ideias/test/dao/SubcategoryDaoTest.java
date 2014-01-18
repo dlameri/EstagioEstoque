@@ -16,23 +16,25 @@ import main.java.com.ideais.stock.domain.Subcategory;
 public class SubcategoryDaoTest {
 
 	private SubcategoryDao subcategoryDao;
+	private Category category;
+	private Subcategory subcategory;
 	
 	@Before
 	public void setUp() {
 		this.subcategoryDao = new SubcategoryDao();
+		
+		category = new Category();
+		subcategory = new Subcategory();
+
+		category.setName("Esportes");
+		subcategory.setCategory(category);
+		subcategory.setName("Tenis");
 	}
 	
 	@Test
 	public void test_create() {
-		Category category = new Category();
-		Subcategory subcategory = new Subcategory();
-		
-		category.setName("Esportes");
-		subcategory.setCategory(category);
-		subcategory.setName("Tenis");
-		
-		
 		Long id = subcategoryDao.create(subcategory);
+
 		assertEquals(id, subcategory.getId());
 	}
 	
@@ -43,13 +45,6 @@ public class SubcategoryDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Category category = new Category();
-		Subcategory subcategory = new Subcategory();
-		
-		category.setName("Esportes");
-		subcategory.setCategory(category);
-		subcategory.setName("Tenis");
-		
 		Long id = subcategoryDao.create(subcategory);
 		Subcategory subcategory2 = subcategoryDao.findById(id);
 		
@@ -58,13 +53,6 @@ public class SubcategoryDaoTest {
 	
 	@Test
 	public void test_update() {
-		Category category = new Category();
-		Subcategory subcategory = new Subcategory();
-		
-		category.setName("Esportes");
-		subcategory.setCategory(category);
-		subcategory.setName("Tenis");
-		
 		Long id = subcategoryDao.create(subcategory);
 		
 		subcategory.setName("Camisas");
@@ -74,4 +62,14 @@ public class SubcategoryDaoTest {
 		
 		assertEquals("Camisas", savedSubcategory.getName());
 	}
+	
+	@Test
+	public void test_delete() {
+		subcategoryDao.create(subcategory);
+		
+		subcategoryDao.delete(subcategory);
+		
+		assertEquals(0, subcategoryDao.findAll().size());
+	}
+	
 }
