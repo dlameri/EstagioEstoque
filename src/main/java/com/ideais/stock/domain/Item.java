@@ -31,10 +31,6 @@ public class Item {
 	@Column(name = "NM_DESCRICAO_CURTA", nullable = false)
 	private String shortDescription;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
-	private Dimensions dimensions;
-
 	@Column(name = "NR_PESO", nullable = false)
 	private Integer weight;
 
@@ -54,6 +50,10 @@ public class Item {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "CD_CATEGORIA", referencedColumnName = "CD_CATEGORIA", nullable = false)
 	private Category category;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
+	private Dimensions dimensions;
 
 	public Long getId() {
 		return id;

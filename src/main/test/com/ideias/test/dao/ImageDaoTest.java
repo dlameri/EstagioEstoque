@@ -19,29 +19,32 @@ import main.java.com.ideais.stock.domain.Subcategory;
 public class ImageDaoTest {
 	
 	private ImageDao imageDao;
+	private Image image;
+	private Product product;
+	private Subcategory subcategory;
+	private Category category;
+	private Dimensions dimensions;
+	private Item item;
 	
 	@Before
 	public void setUp() {
 		this.imageDao = new ImageDao();
-	}
-	
-	@Test
-	public void test_create() {
-		Image image = new Image();
-		Product product = new Product();
-		Item item = new Item();
-		Subcategory subcategory = new Subcategory();
-		Category category = new Category();
-		Dimensions dimencions = new Dimensions();
 		
-		dimencions.setDepth(10.);
-		dimencions.setHeight(20.);
-		dimencions.setWidth(30.);
+		image = new Image();
+		product = new Product();
+		item = new Item();
+		subcategory = new Subcategory();
+		category = new Category();
+		dimensions = new Dimensions();
+		
+		dimensions.setDepth(10.);
+		dimensions.setHeight(20.);
+		dimensions.setWidth(30.);
 		
 		item.setName("Luva de boxe");
 		item.setLongDescription("Uma descrição longa.");
 		item.setShortDescription("Uma descrição curta.");
-		item.setDimensions(dimencions);
+		item.setDimensions(dimensions);
 		item.setWeight(500000);
 		item.setWarranty(36);
 		item.setBrand("Paco Ideais");
@@ -59,12 +62,16 @@ public class ImageDaoTest {
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
+		item.setCategory(category);
 		item.setSubcategory(subcategory);
 		product.setItem(item);
 	
 		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
 		image.setProduct(product);
-		
+	}
+	
+	@Test
+	public void test_create() {
 		Long id = imageDao.create(image);
 		
 		assertEquals( id, image.getId() );
@@ -77,9 +84,6 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Image image = new Image();
-		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");	
-
 		Image image2 = imageDao.findById(imageDao.create(image));
 		
 		assertEquals(new Long(1), image2.getId());
@@ -87,8 +91,6 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_update() {
-		Image image = new Image();
-		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");	
 		Long id = imageDao.create(image);
 		
 		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
@@ -100,9 +102,7 @@ public class ImageDaoTest {
 	}
 	
 	@Test
-	public void test_delete_Image() {
-		Image image = new Image();
-		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");	
+	public void test_delete() {
 		imageDao.create(image);
 		
 		imageDao.delete(image);

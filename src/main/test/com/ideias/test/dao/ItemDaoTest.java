@@ -49,6 +49,7 @@ public class ItemDaoTest {
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
+		item.setCategory(category);
 		item.setSubcategory(subcategory);
 		
 		Long id = itemDao.create(item);
