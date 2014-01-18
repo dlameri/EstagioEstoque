@@ -10,5 +10,4 @@
 *.db
 .settings/org.eclipse.jdt.core.prefs
 
-# configuração do banco #
-hibernate.cfg.xml
+

@@ -10,4 +10,6 @@
 *.db
 .settings/org.eclipse.jdt.core.prefs
 
+hibernate.cfg.xml
+
 
