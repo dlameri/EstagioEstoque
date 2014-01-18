@@ -82,6 +82,7 @@ public class ImageDao {
 			session().delete( session().merge(image) );
 			tx.commit();
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			if( tx != null ) {
 				tx.rollback();
 			}

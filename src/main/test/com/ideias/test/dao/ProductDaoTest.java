@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.ideais.stock.dao.ImageDao;
 import main.java.com.ideais.stock.dao.ProductDao;
 import main.java.com.ideais.stock.domain.Category;
 import main.java.com.ideais.stock.domain.Dimensions;
@@ -24,7 +23,6 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class ProductDaoTest {
 	private ProductDao productDao;
-	private ImageDao imageDao;
 	private Item item;
 	private Product product;
 	private Subcategory subcategory;
@@ -34,7 +32,6 @@ public class ProductDaoTest {
 	
 	@Before
 	public void setUp() {
-		this.imageDao = new ImageDao();
 		this.productDao = new ProductDao();
 		
 		item = new Item();

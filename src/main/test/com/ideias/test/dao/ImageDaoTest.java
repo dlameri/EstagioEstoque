@@ -1,6 +1,9 @@
 package main.test.com.ideias.test.dao;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import main.java.com.ideais.stock.dao.ImageDao;
 import main.java.com.ideais.stock.domain.Category;
 import main.java.com.ideais.stock.domain.Dimensions;
@@ -24,6 +27,7 @@ public class ImageDaoTest {
 	private Category category;
 	private Dimensions dimensions;
 	private Item item;
+	private List<Image> images;
 	
 	@Before
 	public void setUp() {

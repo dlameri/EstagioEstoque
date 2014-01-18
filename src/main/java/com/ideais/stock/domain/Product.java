@@ -50,7 +50,7 @@ public class Product {
 	private Item item;
 	
 	@OneToMany(mappedBy="product")
-	@Cascade(CascadeType.ALL)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
 
 	public List<Image> getImages() {
