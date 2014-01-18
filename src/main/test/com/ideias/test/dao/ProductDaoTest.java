@@ -30,11 +30,16 @@ public class ProductDaoTest {
 		Product product = new Product();
 		Subcategory subcategory = new Subcategory();
 		Category category = new Category();
+		Dimensions dimencions = new Dimensions();
+		
+		dimencions.setDepth(10.);
+		dimencions.setHeight(20.);
+		dimencions.setWidth(30.);
 		
 		item.setName("Luva de boxe");
 		item.setLongDescription("Uma descrição longa.");
 		item.setShortDescription("Uma descrição curta.");
-		item.setDimensions(new Dimensions(50., 50., 150.));
+		item.setDimensions(dimencions);
 		item.setWeight(500000);
 		item.setWarranty(36);
 		item.setBrand("Paco Ideais");

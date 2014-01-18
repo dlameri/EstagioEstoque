@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,7 +31,8 @@ public class Item {
 	@Column(name = "NM_DESCRICAO_CURTA", nullable = false)
 	private String shortDescription;
 
-	@Column(name = "NM_DIMENSOES", nullable = false)
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
 	private Dimensions dimensions;
 
 	@Column(name = "NR_PESO", nullable = false)
