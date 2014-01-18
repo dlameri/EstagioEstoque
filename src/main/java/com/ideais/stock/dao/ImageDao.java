@@ -46,7 +46,7 @@ public class ImageDao {
 	@SuppressWarnings("unchecked")
 	public List<Image> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Image> image = session().createCriteria(Category.class).list();
+		List<Image> image = session().createCriteria(Image.class).list();
 		tx.commit();
 		return image;
 	}
