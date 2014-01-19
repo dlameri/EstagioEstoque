@@ -1,4 +1,4 @@
-package main.java.com.ideais.stock.domain;
+package com.ideais.stock.domain;
 
 
 import java.util.List;

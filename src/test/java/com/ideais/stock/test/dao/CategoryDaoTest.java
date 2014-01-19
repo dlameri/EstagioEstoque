@@ -1,4 +1,4 @@
-package main.test.com.ideias.test.dao;
+package com.ideais.stock.test.dao;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import main.java.com.ideais.stock.dao.CategoryDao;
-import main.java.com.ideais.stock.domain.Category;
+import com.ideais.stock.dao.CategoryDao;
+import com.ideais.stock.domain.Category;
 
 
 @RunWith(JUnit4.class)

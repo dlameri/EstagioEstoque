@@ -1,4 +1,4 @@
-package main.java.com.ideais.stock.dao;
+package com.ideais.stock.dao;
 
 import java.util.List;
 
@@ -11,8 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import main.java.com.ideais.stock.domain.Category;
-import main.java.com.ideais.stock.domain.Image;
+import com.ideais.stock.domain.Image;
 
 public class ImageDao {
 	

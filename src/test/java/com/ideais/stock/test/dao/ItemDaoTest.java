@@ -1,16 +1,18 @@
-package main.test.com.ideias.test.dao;
+package com.ideais.stock.test.dao;
 
 import static org.junit.Assert.assertEquals;
-import main.java.com.ideais.stock.dao.ItemDao;
-import main.java.com.ideais.stock.domain.Category;
-import main.java.com.ideais.stock.domain.Dimensions;
-import main.java.com.ideais.stock.domain.Item;
-import main.java.com.ideais.stock.domain.Subcategory;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import com.ideais.stock.dao.ItemDao;
+import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Dimensions;
+import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Subcategory;
 
 
 @RunWith(JUnit4.class)
@@ -58,6 +60,24 @@ public class ItemDaoTest {
 
 		assertEquals( id, item.getId() );
 	}
+	
+	@Test
+	public void test_create_with_product() {
+		Product product = new Product();
+
+		product.setSku(01L);
+		product.setOptionName("Cor");
+		product.setOptionValue("Branca");
+		product.setPriceFrom(1999.90);
+		product.setPriceFor(19.90);
+		product.setStock(9999);
+		product.setItem(item);
+
+		Long id = itemDao.create(item);
+
+		assertEquals( id, item.getId() );
+	}
+	
 	
 	@Test
 	public void test_delete() {
