@@ -16,7 +16,6 @@ public class CategoryAction extends ActionSupport {
 	private List<Category> categories = new ArrayList<Category>();
 
 	public String addCategory() {
-
 		categoryDao.create(category);
 		return SUCCESS;
 	}
