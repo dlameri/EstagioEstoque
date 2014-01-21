@@ -8,6 +8,7 @@ import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -18,21 +19,24 @@ public class SubcategoryDao {
 	private SessionFactory sessionFactory;
 
 	public SubcategoryDao() {
-		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() ).buildServiceRegistry();
+		Configuration configure = new Configuration()
+				.configure("hibernate.cfg.xml");
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
+				.applySettings(configure.getProperties())
+				.buildServiceRegistry();
 		sessionFactory = configure.buildSessionFactory(serviceRegistry);
-		
+
 	}
-	
+
 	public Long create(Subcategory subcategory) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
 			Long id = (Long) session().save(subcategory);
-	        tx.commit();
-	        return id;
+			tx.commit();
+			return id;
 		} catch (Exception e) {
-			if( tx != null ) {
+			if (tx != null) {
 				tx.rollback();
 			}
 			e.printStackTrace();
@@ -41,24 +45,23 @@ public class SubcategoryDao {
 			session().close();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Subcategory> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Category.class).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).list();
 		tx.commit();
 		return subcategory;
 	}
 
-	
 	public void update(Subcategory subcategory) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
 			session().update(subcategory);
-	        tx.commit();
+			tx.commit();
 		} catch (Exception e) {
-			if( tx != null ) {
+			if (tx != null) {
 				tx.rollback();
 			}
 			e.printStackTrace();
@@ -66,30 +69,39 @@ public class SubcategoryDao {
 			session().close();
 		}
 	}
-	
+
 	public Subcategory findById(Long id) {
 		Transaction tx = session().beginTransaction();
 		Subcategory subcategory = (Subcategory) session().get(Subcategory.class, id);
 		tx.commit();
 		return subcategory;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Subcategory> findByCategoryId(Long id2) {
+		Transaction tx = session().beginTransaction();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class)
+				.add(Restrictions.like("category", id2)).list();
+		tx.commit();
+		return subcategory;
+	}
+
 	public void delete(Subcategory subcategory) {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			session().delete( session().merge(subcategory) );
+			session().delete(session().merge(subcategory));
 			tx.commit();
 		} catch (HibernateException e) {
-			if( tx != null ) {
+			if (tx != null) {
 				tx.rollback();
 			}
 		}
 	}
-	
+
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
-		if( session == null ) {
+		if (session == null) {
 			throw new SessionException("Sessão está nula");
 		}
 		return session;
