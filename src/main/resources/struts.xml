@@ -4,6 +4,7 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="basicstruts2" extends="struts-default">
 
+<<<<<<< HEAD
  		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory"> 
  			<result name="success">home.jsp</result> 
 		</action>
@@ -12,5 +13,11 @@
          <result name="success">home.jsp</result>
        </action>
 		
+=======
+		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory">
+			<result name="success">/web/category-list.jsp</result>
+		</action>
+				
+>>>>>>> 37323214bb7758759617bd636eb07822fbb8ac53
 	</package>
 </struts>
