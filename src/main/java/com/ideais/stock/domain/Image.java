@@ -1,6 +1,5 @@
-package main.java.com.ideais.stock.domain;
+package com.ideais.stock.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 
 @Entity
@@ -22,28 +24,29 @@ public class Image {
 	private Long id;
 	
 	@Column(name="NM_CAMINHO_VITRINE")
-	private String showcasePath;
+	private String showcaseUrl;
 	
 	@Column(name="NM_CAMINHO_PRODUTO")
-	private String productPath;
+	private String productUrl;
 	
 	@Column(name="NM_CAMINHO_SUPERZOOM")
-	private String superzoomPath;
+	private String superzoomUrl;
 	
 	@Column(name="NM_CAMINHO_CARRINHO")
-	private String shoppingCartPath;
+	private String shoppingCartUrl;
 	
 	@Column(name="NM_CAMINHO_ANDROID_VITRINE")
-	private String androidShowcasePath;
+	private String androidShowcaseUrl;
 	
 	@Column(name="NM_CAMINHO_ANDROID_PRODUTO")
-	private String androidProductPath;
+	private String androidProductUrl;
 	
 	@Column(name="BO_PRINCIPAL")
 	private Boolean main;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Product product;
 
 	public Long getId() {
@@ -54,52 +57,52 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getShowcasePath() {
-		return showcasePath;
+	public String getShowcaseUrl() {
+		return showcaseUrl;
 	}
 
-	public void setShowcasePath(String showcasePath) {
-		this.showcasePath = showcasePath;
+	public void setShowcaseUrl(String showcaseUrl) {
+		this.showcaseUrl = showcaseUrl;
 	}
 
-	public String getProductPath() {
-		return productPath;
+	public String getProductUrl() {
+		return productUrl;
 	}
 
-	public void setProductPath(String productPath) {
-		this.productPath = productPath;
+	public void setProductUrl(String productUrl) {
+		this.productUrl = productUrl;
 	}
 
-	public String getSuperzoomPath() {
-		return superzoomPath;
+	public String getSuperzoomUrl() {
+		return superzoomUrl;
 	}
 
-	public void setSuperzoomPath(String superzoomPath) {
-		this.superzoomPath = superzoomPath;
+	public void setSuperzoomUrl(String superzoomUrl) {
+		this.superzoomUrl = superzoomUrl;
 	}
 
-	public String getShoppingCartPath() {
-		return shoppingCartPath;
+	public String getShoppingCartUrl() {
+		return shoppingCartUrl;
 	}
 
-	public void setShoppingCartPath(String shoppingCartPath) {
-		this.shoppingCartPath = shoppingCartPath;
+	public void setShoppingCartUrl(String shoppingCartUrl) {
+		this.shoppingCartUrl = shoppingCartUrl;
 	}
 
-	public String getAndroidShowcasePath() {
-		return androidShowcasePath;
+	public String getAndroidShowcaseUrl() {
+		return androidShowcaseUrl;
 	}
 
-	public void setAndroidShowcasePath(String androidShowcasePath) {
-		this.androidShowcasePath = androidShowcasePath;
+	public void setAndroidShowcaseUrl(String androidShowcaseUrl) {
+		this.androidShowcaseUrl = androidShowcaseUrl;
 	}
 
-	public String getAndroidProductPath() {
-		return androidProductPath;
+	public String getAndroidProductUrl() {
+		return androidProductUrl;
 	}
 
-	public void setAndroidProductPath(String androidProductPath) {
-		this.androidProductPath = androidProductPath;
+	public void setAndroidProductUrl(String androidProductUrl) {
+		this.androidProductUrl = androidProductUrl;
 	}
 
 	public Boolean getMain() {
@@ -116,5 +119,10 @@ public class Image {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	
+	@Override
+	public String toString() {
+		return productUrl;
 	}
 }

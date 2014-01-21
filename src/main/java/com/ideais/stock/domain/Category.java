@@ -1,4 +1,4 @@
-package main.java.com.ideais.stock.domain;
+package com.ideais.stock.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,5 +34,10 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

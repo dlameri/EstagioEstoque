@@ -1,4 +1,4 @@
-package main.test.com.ideias.test.dao;
+package com.ideais.stock.test.dao;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,13 +7,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import main.java.com.ideais.stock.dao.ImageDao;
-import main.java.com.ideais.stock.domain.Category;
-import main.java.com.ideais.stock.domain.Dimensions;
-import main.java.com.ideais.stock.domain.Image;
-import main.java.com.ideais.stock.domain.Item;
-import main.java.com.ideais.stock.domain.Product;
-import main.java.com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.dao.ImageDao;
+import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Dimensions;
+import com.ideais.stock.domain.Image;
+import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Subcategory;
 
 @RunWith(JUnit4.class)
 public class ImageDaoTest {
@@ -66,7 +66,7 @@ public class ImageDaoTest {
 		item.setSubcategory(subcategory);
 		product.setItem(item);
 	
-		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
+		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
 		image.setProduct(product);
 	}
 	
@@ -93,12 +93,12 @@ public class ImageDaoTest {
 	public void test_update() {
 		Long id = imageDao.create(image);
 		
-		image.setProductPath("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
+		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
 		imageDao.update(image);
 		
 		Image savedImage = imageDao.findById(id);
 		
-		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", savedImage.getProductPath());
+		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", savedImage.getProductUrl());
 	}
 	
 	@Test

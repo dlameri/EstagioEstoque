@@ -1,12 +1,15 @@
-package main.java.com.ideais.stock.webservice;
+package com.ideais.stock.webservice;
 
 import java.util.List;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import main.java.com.ideais.stock.dao.CategoryDao;
-import main.java.com.ideais.stock.domain.Category;
+import com.ideais.stock.dao.CategoryDao;
+import com.ideais.stock.domain.Category;
 
 @Path("/category")
 public class CategoryWS {

@@ -1,4 +1,4 @@
-package main.java.com.ideais.stock.dao;
+package com.ideais.stock.dao;
 
 import java.util.List;
 
@@ -11,8 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import main.java.com.ideais.stock.domain.Category;
-import main.java.com.ideais.stock.domain.Image;
+import com.ideais.stock.domain.Image;
 
 public class ImageDao {
 	
@@ -46,7 +45,7 @@ public class ImageDao {
 	@SuppressWarnings("unchecked")
 	public List<Image> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Image> image = session().createCriteria(Category.class).list();
+		List<Image> image = session().createCriteria(Image.class).list();
 		tx.commit();
 		return image;
 	}
@@ -82,6 +81,7 @@ public class ImageDao {
 			session().delete( session().merge(image) );
 			tx.commit();
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			if( tx != null ) {
 				tx.rollback();
 			}

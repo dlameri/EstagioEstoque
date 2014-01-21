@@ -1,10 +1,10 @@
-package main.java.com.ideais.stock.action;
+package com.ideais.stock.action;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.ideais.stock.dao.CategoryDao;
-import main.java.com.ideais.stock.domain.Category;
+import com.ideais.stock.dao.CategoryDao;
+import com.ideais.stock.domain.Category;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CategoryAction extends ActionSupport {

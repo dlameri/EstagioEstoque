@@ -1,6 +1,5 @@
-package main.java.com.ideais.stock.domain;
+package com.ideais.stock.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="SUBCATEGORIA")
@@ -23,8 +25,9 @@ public class Subcategory {
 	@Column(name="NM_NOME", nullable=false)
 	private String name;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="CD_CATEGORIA", referencedColumnName="CD_CATEGORIA", nullable=false)
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 
 	public Long getId() {
