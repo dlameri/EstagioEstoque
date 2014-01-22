@@ -9,13 +9,6 @@
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
-		<!-- Dados de Configuracao do Usuario -->
-		<!-- Oracle -->
-		<!-- <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
-		<!-- <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property> -->
-		<!-- <property name="hibernate.connection.username">ESTAGIOX</property> -->
-		<!-- <property name="hibernate.connection.password">ESTAGIOX</property> -->
-		<!-- <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property> -->
 
 		<!-- MySQL -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
@@ -31,6 +24,14 @@
 		<!-- <property name="hibernate.connection.username">sa</property> -->
 		<!-- <property name="hibernate.connection.password"></property> -->
 		<!-- <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property> -->
+
+		<!-- Dados de Configuracao do Usuario -->
+		<!-- Oracle -->
+		<!-- <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+		<!-- <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property> -->
+		<!-- <property name="hibernate.connection.username">ESTAGIOX</property> -->
+		<!-- <property name="hibernate.connection.password">ESTAGIOX</property> -->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property> -->
 
 		<!-- Dominios que serao mapeados -->
 		<mapping class="com.ideais.stock.domain.Item" />
