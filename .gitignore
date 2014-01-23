@@ -8,7 +8,7 @@
 .gradle/
 .classpath
 *.db
-.settings/org.eclipse.jdt.core.prefs
+.settings/
 
 hibernate.cfg.xml
 
