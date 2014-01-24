@@ -20,6 +20,7 @@ public class CategoryWS {
 	public List<Category> getCategories() {
 		return categoryDao.findAll();
 	}
+	
 
 	@Path("/{id}")
 	@GET
