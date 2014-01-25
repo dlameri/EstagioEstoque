@@ -46,7 +46,7 @@ public class ProductDaoTest {
 		dimensions.setHeight(20.);
 		dimensions.setWidth(30.);
 		
-		category.setName("Esportes");
+		category.setName("Luta");
 
 		subcategory.setName("Luvas");
 		subcategory.setCategory(category);
