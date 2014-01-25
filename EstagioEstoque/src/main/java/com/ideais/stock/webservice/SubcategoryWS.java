@@ -15,6 +15,7 @@ import com.ideais.stock.domain.Subcategory;
 
 @Path("/subcategory")
 public class SubcategoryWS {
+	CategoryDao categoryDao = new CategoryDao();
 	SubcategoryDao subcategoryDao = new SubcategoryDao();
 
 	@GET
@@ -34,6 +35,7 @@ public class SubcategoryWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Subcategory> getSubategoriesByCategoryId(@PathParam("id") Long id) {
-		return subcategoryDao.findByCategoryId(id);
+		Category category = categoryDao.findById(id);
+		return subcategoryDao.findByCategoryId(category);
 	}
 }

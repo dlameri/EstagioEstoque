@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryDao {
@@ -77,10 +78,9 @@ public class SubcategoryDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Subcategory> findByCategoryId(Long id2) {
+	public List<Subcategory> findByCategoryId(Category category) {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Subcategory.class)
-				.add(Restrictions.like("category", id2)).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).add(Restrictions.like("CD_CATEGORIA", category)).list();
 		tx.commit();
 		return subcategory;
 	}
