@@ -2,12 +2,13 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
@@ -18,6 +19,7 @@ public class SubcategoryDaoTest {
 	private SubcategoryDao subcategoryDao;
 	private Category category;
 	private Subcategory subcategory;
+	private List<Subcategory> subcategories;
 	
 	@Before
 	public void setUp() {
@@ -25,10 +27,12 @@ public class SubcategoryDaoTest {
 		
 		category = new Category();
 		subcategory = new Subcategory();
-
+		
 		category.setName("Esportes");
+		
 		subcategory.setCategory(category);
 		subcategory.setName("Tenis");
+		
 	}
 	
 	@Test

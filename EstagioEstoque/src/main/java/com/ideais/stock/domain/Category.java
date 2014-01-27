@@ -27,7 +27,7 @@ public class Category {
 	private String name;
 	
 	@OneToMany(mappedBy="category")
-	@Cascade(CascadeType.DELETE)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
 
 	public Long getId() {
