@@ -85,6 +85,11 @@ public class ProductDaoTest {
 	}
 	
 	@Test
+	public void test_find_all() {
+		assertEquals(0, productDao.findAll().size());
+	}
+	
+	@Test
 	public void test_delete() {
 		productDao.create(product);
 		
