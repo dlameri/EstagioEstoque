@@ -74,7 +74,6 @@ public class ProductDaoTest {
 		image.setProduct(product);
 		images.add(image);
 		product.setImages(images);
-		
 	}
 	
 	@Test

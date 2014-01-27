@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,9 +28,18 @@ public class Category {
 	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 	
-	@OneToMany(mappedBy="category")
+	
+	@OneToMany(mappedBy="category", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
+
+	public List<Subcategory> getSubcategories() {
+		return subcategories;
+	}
+
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
 
 	public Long getId() {
 		return id;

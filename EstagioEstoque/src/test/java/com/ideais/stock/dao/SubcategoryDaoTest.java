@@ -2,6 +2,7 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -27,11 +28,14 @@ public class SubcategoryDaoTest {
 		
 		category = new Category();
 		subcategory = new Subcategory();
+		subcategories = new ArrayList<Subcategory>();
 		
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
 		subcategory.setName("Tenis");
+		subcategories.add(subcategory);
+		category.setSubcategories(subcategories);
 		
 	}
 	

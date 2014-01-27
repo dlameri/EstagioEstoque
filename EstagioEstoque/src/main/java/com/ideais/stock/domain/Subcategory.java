@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -25,6 +26,7 @@ public class Subcategory {
 	@Column(name="NM_NOME", nullable=false)
 	private String name;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="CD_CATEGORIA", referencedColumnName="CD_CATEGORIA", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)

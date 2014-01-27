@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -44,6 +45,7 @@ public class Image {
 	@Column(name="BO_PRINCIPAL")
 	private Boolean main;
 	
+	@JsonBackReference 
 	@ManyToOne
 	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)

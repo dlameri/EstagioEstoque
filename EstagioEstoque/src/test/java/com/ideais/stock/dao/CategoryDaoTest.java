@@ -16,7 +16,7 @@ public class CategoryDaoTest {
 
 	private CategoryDao categoryDao;
 	private Category category;
-
+	
 	@Before
 	public void setUp() {
 		this.categoryDao = new CategoryDao();

@@ -51,8 +51,7 @@ public class Product {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Item item;
 	
-	@JsonBackReference 
-	@OneToMany(mappedBy="product", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="product", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
 
