@@ -10,21 +10,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.ProductDao;
+import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Image;
-import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Subcategory;
 
 
 
 @RunWith(JUnit4.class)
 public class ProductDaoTest {
-	private ProductDao productDao;
-	private Item item;
+	private ItemDao itemDao;
 	private Product product;
+	private Item item;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
@@ -32,10 +32,10 @@ public class ProductDaoTest {
 	
 	@Before
 	public void setUp() {
-		this.productDao = new ProductDao();
+		this.itemDao = new ItemDao();
 		
-		item = new Item();
 		product = new Product();
+		item = new Item();
 		subcategory = new Subcategory();
 		category = new Category();
 		dimensions = new Dimensions();
@@ -51,49 +51,49 @@ public class ProductDaoTest {
 		subcategory.setName("Luvas");
 		subcategory.setCategory(category);
 		
-		item.setName("Luva de boxe");
-		item.setLongDescription("Uma descrição longa.");
-		item.setShortDescription("Uma descrição curta.");
-		item.setWeight(500000);
-		item.setWarranty(36);
-		item.setBrand("Paco Ideais");
-		item.setModel("XTVZB-4435");
-		item.setCategory(category);
-		item.setSubcategory(subcategory);
-		item.setDimensions(dimensions);
+		product.setName("Luva de boxe");
+		product.setLongDescription("Uma descrição longa.");
+		product.setShortDescription("Uma descrição curta.");
+		product.setWeight(500000);
+		product.setWarranty(36);
+		product.setBrand("Paco Ideais");
+		product.setModel("XTVZB-4435");
+		product.setCategory(category);
+		product.setSubcategory(subcategory);
+		product.setDimensions(dimensions);
 		
-		product.setSku(01L);
-		product.setOptionName("Cor");
-		product.setOptionValue("Branca");
-		product.setPriceFrom(1999.90);
-		product.setPriceFor(19.90);
-		product.setStock(9999);
-		product.setItem(item);
+		item.setSku(01L);
+		item.setOptionName("Cor");
+		item.setOptionValue("Branca");
+		item.setPriceFrom(1999.90);
+		item.setPriceFor(19.90);
+		item.setStock(9999);
+		item.setItem(product);
 		
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
-		image.setProduct(product);
+		image.setProduct(item);
 		images.add(image);
-		product.setImages(images);
+		item.setImages(images);
 	}
 	
 	@Test
 	public void test_create() {
-		Long id = productDao.create(product);
+		Long id = itemDao.create(item);
 		
-		assertEquals( id, product.getId() );
+		assertEquals( id, item.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, productDao.findAll().size());
+		assertEquals(0, itemDao.findAll().size());
 	}
 	
 	@Test
 	public void test_delete() {
-		productDao.create(product);
+		itemDao.create(item);
 		
-		productDao.delete(product);
+		itemDao.delete(item);
 		
-		assertEquals( 0, productDao.findAll().size() );
+		assertEquals( 0, itemDao.findAll().size() );
 	}
 }

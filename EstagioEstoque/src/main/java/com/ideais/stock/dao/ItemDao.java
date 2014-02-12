@@ -15,7 +15,6 @@ import com.ideais.stock.domain.Item;
 
 
 public class ItemDao {
-
 	private SessionFactory sessionFactory;
 
 	public ItemDao() {

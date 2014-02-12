@@ -8,23 +8,23 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ideais.stock.dao.ProductDao;
-import com.ideais.stock.domain.Product;
+import com.ideais.stock.dao.ItemDao;
+import com.ideais.stock.domain.Item;
 
 @Path("/product")
 public class ProductWS {
-	ProductDao productDao = new ProductDao();
+	ItemDao productDao = new ItemDao();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Product> getProducts() {
+	public List<Item> getProducts() {
 		return productDao.findAll();
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Product getProductById(@PathParam ("id") Long id) {
+	public Item getProductById(@PathParam ("id") Long id) {
 		return productDao.findById(id);
 	}
 //	
