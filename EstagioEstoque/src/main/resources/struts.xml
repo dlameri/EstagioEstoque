@@ -8,5 +8,9 @@
  			<result name="success">category-list.jsp</result> 
 		</action>
 		
+		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction" method="deleteCategory"> 
+ 			<result name="success">category-list.jsp</result> 
+		</action>
+		
 	</package>
 </struts>
