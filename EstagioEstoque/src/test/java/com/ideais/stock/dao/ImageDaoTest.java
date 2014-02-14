@@ -11,8 +11,8 @@ import com.ideais.stock.dao.ImageDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Image;
-import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Subcategory;
 
 @RunWith(JUnit4.class)
@@ -20,19 +20,19 @@ public class ImageDaoTest {
 	
 	private ImageDao imageDao;
 	private Image image;
-	private Product product;
+	private Item item;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
-	private Item item;
+	private Product product;
 	
 	@Before
 	public void setUp() {
 		this.imageDao = new ImageDao();
 		
 		image = new Image();
-		product = new Product();
 		item = new Item();
+		product = new Product();
 		subcategory = new Subcategory();
 		category = new Category();
 		dimensions = new Dimensions();
@@ -41,33 +41,33 @@ public class ImageDaoTest {
 		dimensions.setHeight(20.);
 		dimensions.setWidth(30.);
 		
-		item.setName("Luva de boxe");
-		item.setLongDescription("Uma descrição longa.");
-		item.setShortDescription("Uma descrição curta.");
-		item.setDimensions(dimensions);
-		item.setWeight(500000);
-		item.setWarranty(36);
-		item.setBrand("Paco Ideais");
-		item.setModel("XTVZB-4435");
+		product.setName("Luva de boxe");
+		product.setLongDescription("Uma descrição longa.");
+		product.setShortDescription("Uma descrição curta.");
+		product.setDimensions(dimensions);
+		product.setWeight(500000);
+		product.setWarranty(36);
+		product.setBrand("Paco Ideais");
+		product.setModel("XTVZB-4435");
 		
-		product.setSku(01L);
-		product.setOptionName("Cor");
-		product.setOptionValue("Branca");
-		product.setPriceFrom(1999.90);
-		product.setPriceFor(19.90);
-		product.setStock(9999);
+		item.setSku(01L);
+		item.setOptionName("Cor");
+		item.setOptionValue("Branca");
+		item.setPriceFrom(1999.90);
+		item.setPriceFor(19.90);
+		item.setStock(9999);
 		
 		subcategory.setName("Luvas");
 		
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
-		item.setCategory(category);
-		item.setSubcategory(subcategory);
-		product.setItem(item);
+		product.setCategory(category);
+		product.setSubcategory(subcategory);
+		item.setItem(product);
 	
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
-		image.setProduct(product);
+		image.setProduct(item);
 	}
 	
 	@Test

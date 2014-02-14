@@ -10,6 +10,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class CategoryAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
+	
+	private String id;
 
 	private Category category = new Category();
 	private CategoryDao categoryDao = new CategoryDao();
@@ -40,5 +42,13 @@ public class CategoryAction extends ActionSupport {
 	public void setCategories(List<Category> Categories) {
 		this.categories = categories;
 	}
+	
+	public String deleteCategory() {
+		categoryDao.delete(categoryDao.findById(Long.valueOf(id)));
+		return SUCCESS;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 }

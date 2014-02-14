@@ -47,9 +47,9 @@ public class Image {
 	
 	@JsonBackReference 
 	@ManyToOne
-	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
+	@JoinColumn(name="CD_ITEM", referencedColumnName="CD_ITEM", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
-	private Product product;
+	private Item item;
 
 	public Long getId() {
 		return id;
@@ -115,12 +115,12 @@ public class Image {
 		this.main = main;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Item getProduct() {
+		return item;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProduct(Item product) {
+		this.item = product;
 	}
 	
 	@Override

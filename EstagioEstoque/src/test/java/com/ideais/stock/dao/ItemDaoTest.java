@@ -7,27 +7,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.ItemDao;
+import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
-import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Subcategory;
 
 
 @RunWith(JUnit4.class)
 public class ItemDaoTest {
 
-	private ItemDao itemDao;
+	private ProductDao productDao;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
-	private Item item;
+	private Product product;
 	@Before
 	public void setUp() {
-		this.itemDao = new ItemDao();
+		this.productDao = new ProductDao();
 		
-		item = new Item();
+		product = new Product();
 		subcategory = new Subcategory();
 		category = new Category();
 		dimensions = new Dimensions();
@@ -36,55 +36,55 @@ public class ItemDaoTest {
 		dimensions.setHeight(20.);
 		dimensions.setWidth(30.);
 		
-		item.setName("Luva de boxe");
-		item.setLongDescription("Uma descrição longa.");
-		item.setShortDescription("Uma descrição curta.");
-		item.setDimensions(dimensions);
-		item.setWeight(500000);
-		item.setWarranty(36);
-		item.setBrand("Paco Ideais");
-		item.setModel("XTVZB-4435");
+		product.setName("Luva de boxe");
+		product.setLongDescription("Uma descrição longa.");
+		product.setShortDescription("Uma descrição curta.");
+		product.setDimensions(dimensions);
+		product.setWeight(500000);
+		product.setWarranty(36);
+		product.setBrand("Paco Ideais");
+		product.setModel("XTVZB-4435");
 		
 		subcategory.setName("Luvas");
 		
 		category.setName("Esportes");
 		
 		subcategory.setCategory(category);
-		item.setCategory(category);
-		item.setSubcategory(subcategory);
+		product.setCategory(category);
+		product.setSubcategory(subcategory);
 	}
 	
 	@Test
 	public void test_create() {
-		Long id = itemDao.create(item);
+		Long id = productDao.create(product);
 
-		assertEquals( id, item.getId() );
+		assertEquals( id, product.getId() );
 	}
 	
 	@Test
 	public void test_create_with_product() {
-		Product product = new Product();
+		Item item = new Item();
 
-		product.setSku(01L);
-		product.setOptionName("Cor");
-		product.setOptionValue("Branca");
-		product.setPriceFrom(1999.90);
-		product.setPriceFor(19.90);
-		product.setStock(9999);
-		product.setItem(item);
+		item.setSku(01L);
+		item.setOptionName("Cor");
+		item.setOptionValue("Branca");
+		item.setPriceFrom(1999.90);
+		item.setPriceFor(19.90);
+		item.setStock(9999);
+		item.setItem(product);
 
-		Long id = itemDao.create(item);
+		Long id = productDao.create(product);
 
-		assertEquals( id, item.getId() );
+		assertEquals( id, product.getId() );
 	}
 	
 	
 	@Test
 	public void test_delete() {
-		itemDao.create(item);
+		productDao.create(product);
 		
-		itemDao.delete(item);
+		productDao.delete(product);
 
-		assertEquals( 0, itemDao.findAll().size() );
+		assertEquals( 0, productDao.findAll().size() );
 	}
 }

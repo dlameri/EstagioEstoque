@@ -1,64 +1,67 @@
 package com.ideais.stock.domain;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "ITEM")
+@Table(name="ITEM")
 public class Item {
 	@Id
-	@SequenceGenerator(name = "item_id", sequenceName = "item_id")
-	@GeneratedValue(generator = "item_id", strategy = GenerationType.AUTO)
-	@Column(name = "CD_ITEM")
+	@SequenceGenerator(name="item_id", sequenceName="item_id")
+	@GeneratedValue(generator="item_id", strategy=GenerationType.AUTO)
+	@Column(name="CD_ITEM")
 	private Long id;
-
-	@Column(name = "NM_NOME", nullable = false)
-	private String name;
-
-	@Column(name = "NM_DESCRICAO_LONGA", nullable = false)
-	private String longDescription;
-
-	@Column(name = "NM_DESCRICAO_CURTA", nullable = false)
-	private String shortDescription;
-
-	@Column(name = "NR_PESO", nullable = false)
-	private Integer weight;
-
-	@Column(name = "NR_GARANTIA", nullable = false)
-	private Integer warranty;
-
-	@Column(name = "NM_MARCA", nullable = false)
-	private String brand;
-
-	@Column(name = "NM_MODELO", nullable = false)
-	private String model;
-
-	@ManyToOne
-	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private Subcategory subcategory;
+	
+	@Column(name="NR_SKU")
+	private Long sku;
+	
+	@Column(name="NR_PRECO_DE", nullable=false)
+	private double priceFrom;
+	
+	@Column(name="NR_PRECO_POR", nullable=false)
+	private double priceFor;
+	
+	@Column(name="NM_NOME_OPCAO")
+	private String optionName;
+	
+	@Column(name="NM_VALOR_OPCAO")
+	private String optionValue;
+	
+	@Column(name="NR_ESTOQUE", nullable=false)
+	private Integer stock;
 	
 	@ManyToOne
-	@JoinColumn(name = "CD_CATEGORIA", referencedColumnName = "CD_CATEGORIA", nullable = false)
+	@JoinColumn(name="CD_PRODUCT", referencedColumnName="CD_PRODUCT", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
-	private Category category;
+	private Product product;
 	
-	@OneToOne
-	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
-	@Cascade(CascadeType.ALL)
-	private Dimensions dimensions;
+	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
+	private List<Image> images;
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,83 +71,59 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public double getPriceFrom() {
+		return priceFrom;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPriceFrom(double priceFrom) {
+		this.priceFrom = priceFrom;
 	}
 
-	public String getLongDescription() {
-		return longDescription;
+	public double getPriceFor() {
+		return priceFor;
 	}
 
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
+	public void setPriceFor(double priceFor) {
+		this.priceFor = priceFor;
 	}
 
-	public String getShortDescription() {
-		return shortDescription;
+	public String getOptionName() {
+		return optionName;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
 	}
 
-	public Dimensions getDimensions() {
-		return dimensions;
+	public Long getSku() {
+		return sku;
 	}
 
-	public void setDimensions(Dimensions dimensions) {
-		this.dimensions = dimensions;
+	public void setSku(Long sku) {
+		this.sku = sku;
 	}
 
-	public Integer getWeight() {
-		return weight;
+	public String getOptionValue() {
+		return optionValue;
 	}
 
-	public void setWeight(Integer weight) {
-		this.weight = weight;
+	public void setOptionValue(String optionValue) {
+		this.optionValue = optionValue;
 	}
 
-	public Integer getWarranty() {
-		return warranty;
+	public Integer getStock() {
+		return stock;
 	}
 
-	public void setWarranty(Integer warranty) {
-		this.warranty = warranty;
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
-	public String getBrand() {
-		return brand;
+	public Product getItem() {
+		return product;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public Subcategory getSubcategory() {
-		return subcategory;
-	}
-
-	public void setSubcategory(Subcategory subcategory) {
-		this.subcategory = subcategory;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setItem(Product item) {
+		this.product = item;
 	}
 }
