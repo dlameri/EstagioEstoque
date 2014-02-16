@@ -64,4 +64,11 @@ public class CategoryDaoTest {
 		
 		assertEquals( 0, categoryDao.findAll().size() );
 	}
+	
+	@Test
+	public void test_find_by_name() {
+		String name = "asfasf";
+		
+		assertEquals(name, categoryDao.findByName(name).getName());
+	}
 }

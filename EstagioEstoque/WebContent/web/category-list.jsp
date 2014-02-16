@@ -12,13 +12,6 @@
 
 	<h1>Categoria</h1>
 	
-	
-<!-- 	<ul> -->
-<%-- 		<s:iterator value="categories"> --%>
-<%-- 		<li> <s:property value="name" /> </li>	 --%>
-<%-- 		</s:iterator> --%>
-<!-- 	</ul> -->
-
 	<ul>
 		<c:forEach items="${categories}" var="category">
 			<li> ${category.name} - <a href="deletecategory?id=${category.id}">deletar</a> </li>	
