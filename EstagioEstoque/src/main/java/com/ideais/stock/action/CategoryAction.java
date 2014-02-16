@@ -28,7 +28,7 @@ public class CategoryAction extends ActionSupport {
 
 	public String listCategories() {
 		categories = categoryDao.findAll();
-		return "success";
+		return SUCCESS;
 	}
 
 	public Category getCategory() {
@@ -39,7 +39,7 @@ public class CategoryAction extends ActionSupport {
 		this.category = category;
 	}
 
-	public void setCategories(List<Category> Categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 	

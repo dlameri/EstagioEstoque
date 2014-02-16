@@ -2,6 +2,7 @@ package com.ideais.stock.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
@@ -49,7 +50,7 @@ public class SubcategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Subcategory> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		return subcategory;
 	}

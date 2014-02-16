@@ -2,12 +2,14 @@ package com.ideais.stock.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -46,7 +48,7 @@ public class CategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Category> category = session().createCriteria(Category.class).list();
+		List<Category> category = session().createCriteria(Category.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		return category;
 	}
@@ -71,6 +73,14 @@ public class CategoryDao {
 	public Category findById(Long id) {
 		Transaction tx = session().beginTransaction();
 		Category category = (Category) session().get(Category.class, id);
+		tx.commit();
+		return category;
+	}
+	
+	public Category findByName(String name) {
+		Transaction tx = session().beginTransaction();
+		Category category = (Category) session().createCriteria(Category.class).
+				add(Restrictions.eq("name", name)).uniqueResult();
 		tx.commit();
 		return category;
 	}

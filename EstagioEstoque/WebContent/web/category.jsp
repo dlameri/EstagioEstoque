@@ -14,5 +14,6 @@
 		<s:textfield name="category.name" />
 		<s:submit value="Add" />
 	</s:form>
+	
 </body>
 </html>

@@ -18,6 +18,7 @@ import com.ideais.stock.domain.Subcategory;
 public class SubcategoryDaoTest {
 
 	private SubcategoryDao subcategoryDao;
+	private CategoryDao categoryDao;
 	private Category category;
 	private Subcategory subcategory;
 	private List<Subcategory> subcategories;
@@ -25,6 +26,7 @@ public class SubcategoryDaoTest {
 	@Before
 	public void setUp() {
 		this.subcategoryDao = new SubcategoryDao();
+		this.categoryDao = new CategoryDao();
 		
 		category = new Category();
 		subcategory = new Subcategory();
@@ -78,6 +80,23 @@ public class SubcategoryDaoTest {
 		subcategoryDao.delete(subcategory);
 		
 		assertEquals(0, subcategoryDao.findAll().size());
+	}
+	
+	@Test
+	public void create_with_existing_category() {
+		category = categoryDao.findByName("asfasf");
+		
+		if (category != null) {
+			subcategory.setCategory(category);
+			subcategory.setName("Tenis");
+			category.getSubcategories().add(subcategory);
+			category.setSubcategories(category.getSubcategories());
+		}
+		
+		Long id = subcategoryDao.create(subcategory);
+		
+		assertEquals(subcategory.getId(), id);
+		
 	}
 	
 }
