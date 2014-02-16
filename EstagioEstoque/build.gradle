@@ -28,23 +28,26 @@ dependencies {
 	compile 'org.slf4j:slf4j-log4j12:1.4.2'
 
     compile 'javax.servlet:jstl:1.2'
+    compile 'javax.servlet:servlet-api:2.5'
 
 	compile 'org.hibernate:hibernate-core:4.1.6.Final'
 	compile 'org.hibernate:hibernate-entitymanager:4.1.6.Final'
-    compile 'com.h2database:h2:1.3.161'
+	compile 'org.hibernate:hibernate-c3p0:4.0.1.Final'
+	
     compile 'commons-dbcp:commons-dbcp:1.4'
     compile 'net.sf.ehcache:ehcache-core:2.5.2'
-    compile 'javax.servlet:servlet-api:2.5'
 	compile 'junit:junit:4.10'
 	compile 'org.apache.struts:struts2-core:2.3.16'
+	
 	compile 'mysql:mysql-connector-java:5.1.28'
+	compile 'com.h2database:h2:1.3.161'
+	
 	compile 'com.sun.jersey:jersey-core:1.18'
 	compile 'com.sun.jersey:jersey-client:1.18'
 	compile 'com.sun.jersey:jersey-json:1.18'
 	compile 'com.sun.jersey:jersey-server:1.18'
 	compile 'com.sun.jersey:jersey-servlet:1.18'
-
-
+	
 }
 
 
