@@ -16,7 +16,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "PRODUCT")
+@Table(name = "PRODUTO")
 public class Product {
 	@Id
 	@SequenceGenerator(name = "product_id", sequenceName = "product_id")

@@ -71,7 +71,7 @@ public class ItemDaoTest {
 		item.setPriceFrom(1999.90);
 		item.setPriceFor(19.90);
 		item.setStock(9999);
-		item.setItem(product);
+		item.setProduct(product);
 
 		Long id = productDao.create(product);
 

@@ -115,12 +115,12 @@ public class Image {
 		this.main = main;
 	}
 
-	public Item getProduct() {
+	public Item getItem() {
 		return item;
 	}
 
-	public void setProduct(Item product) {
-		this.item = product;
+	public void setItem (Item item) {
+		this.item = item;
 	}
 	
 	@Override

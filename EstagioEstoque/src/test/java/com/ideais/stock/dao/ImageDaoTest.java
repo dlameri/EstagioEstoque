@@ -64,10 +64,10 @@ public class ImageDaoTest {
 		subcategory.setCategory(category);
 		product.setCategory(category);
 		product.setSubcategory(subcategory);
-		item.setItem(product);
+		item.setProduct(product);
 	
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
-		image.setProduct(item);
+		image.setItem(item);
 	}
 	
 	@Test

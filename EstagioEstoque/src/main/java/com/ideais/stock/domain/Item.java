@@ -119,11 +119,11 @@ public class Item {
 		this.stock = stock;
 	}
 
-	public Product getItem() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setItem(Product item) {
-		this.product = item;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

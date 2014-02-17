@@ -13,8 +13,8 @@ import javax.persistence.Table;
 public class Dimensions {
 	
 	@Id
-	@SequenceGenerator(name = "item_id", sequenceName = "item_id")
-	@GeneratedValue(generator = "item_id", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "dimensions_id", sequenceName = "dimensions_id")
+	@GeneratedValue(generator = "dimensions_id", strategy = GenerationType.AUTO)
 	@Column(name = "CD_DIMENSOES")
 	private Long id;
 	
@@ -59,6 +59,4 @@ public class Dimensions {
 	public void setDepth(Double depth) {
 		this.depth = depth;
 	}
-
-
 }

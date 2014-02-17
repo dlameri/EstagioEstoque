@@ -13,19 +13,13 @@
 	<ul type="none">
 		<li><a href="category.jsp">Categorias</a></li>
 		<li>
-			<form action="listcategories" method="get">
-				<input type="submit" value="List Categories" />
-			</form>
+			<a href="listcategories">List Categories</a>
 		</li>
 		<li>
-			<form action="enteraddsubcategory" method="get">
-				<input type="submit" value="Add Subcategory" />
-			</form>
+			<a href="enteraddsubcategory">Add Subcategory</a>
 		</li>
 		<li>
-			<form action="listsubcategories" method="get">
-				<input type="submit" value="List Subcategories" />
-			</form>
+			<a href="listsubcategories">List Subcategories</a>
 		</li>
 	</ul>
 </body>
