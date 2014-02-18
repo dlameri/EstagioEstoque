@@ -2,17 +2,18 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.ImageDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Image;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 @RunWith(JUnit4.class)
@@ -53,8 +54,8 @@ public class ImageDaoTest {
 		item.setSku(01L);
 		item.setOptionName("Cor");
 		item.setOptionValue("Branca");
-		item.setPriceFrom(1999.90);
-		item.setPriceFor(19.90);
+		item.setPriceFrom(new BigDecimal (1999.90));
+		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		
 		subcategory.setName("Luvas");

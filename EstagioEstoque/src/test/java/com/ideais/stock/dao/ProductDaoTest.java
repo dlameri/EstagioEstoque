@@ -2,6 +2,7 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,8 +66,8 @@ public class ProductDaoTest {
 		item.setSku(01L);
 		item.setOptionName("Cor");
 		item.setOptionValue("Branca");
-		item.setPriceFrom(1999.90);
-		item.setPriceFor(19.90);
+		item.setPriceFrom(new BigDecimal (1999.90));
+		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		item.setProduct(product);
 		
