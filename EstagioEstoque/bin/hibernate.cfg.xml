@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>																																																																																																																																																																																																																																																																																																																																																				
+		<!-- Configuracao do Hibernate -->
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+
+		<!-- MySQL -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- configuration pool via c3p0-->   
+		<property name="c3p0.acquire_increment">1</property>   
+		<property name="c3p0.idle_test_period">100</property>
+		<property name="c3p0.max_size">2</property>   
+		<property name="c3p0.max_statements">0</property>   
+		<property name="c3p0.min_size">1</property>   
+		<property name="c3p0.timeout">100</property>
+
+		<!-- H2 -->
+		<!-- <property name="hibernate.connection.driver_class">org.h2.Driver</property> -->
+		<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
+		<!-- <property name="hibernate.connection.url">jdbc:h2:file:banco</property> -->
+		<!-- <property name="hibernate.connection.username">sa</property> -->
+		<!-- <property name="hibernate.connection.password"></property> -->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property> -->
+
+		<!-- Dados de Configuracao do Usuario -->
+		<!-- Oracle -->
+		<!-- <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+		<!-- <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property> -->
+		<!-- <property name="hibernate.connection.username">ESTAGIOX</property> -->
+		<!-- <property name="hibernate.connection.password">ESTAGIOX</property> -->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property> -->
+
+		<!-- Dominios que serao mapeados -->
+		<mapping class="com.ideais.stock.domain.Item" />
+		<mapping class="com.ideais.stock.domain.Product" />
+		<mapping class="com.ideais.stock.domain.Category" />
+		<mapping class="com.ideais.stock.domain.Subcategory" />
+		<mapping class="com.ideais.stock.domain.Image" />
+		<mapping class="com.ideais.stock.domain.Dimensions" />
+
+	</session-factory>
+</hibernate-configuration>
