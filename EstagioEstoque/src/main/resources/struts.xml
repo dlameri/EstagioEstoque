@@ -12,9 +12,8 @@
  			<result name="success">category-list.jsp</result> 
 		</action>
 		
-		
  		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction" method="addSubcategory"> 
- 			<result name="success">subcategory-list.jsp</result> 
+ 			<result name="success">error.jsp</result> 
 		</action>
 		
 		<action name="deletesubcategory" class="com.ideais.stock.action.SubcategoryAction" method="deleteSubcategory"> 

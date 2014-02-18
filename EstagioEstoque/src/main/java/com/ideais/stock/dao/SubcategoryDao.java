@@ -87,19 +87,9 @@ public class SubcategoryDao {
 	}
 
 	public void delete(Subcategory subcategory) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			subcategory.getCategory().getSubcategories().remove(subcategory);
-			CategoryDao categoryDao = new CategoryDao();
-			categoryDao.update(subcategory.getCategory());
-			session().delete(session().merge(subcategory));
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
+		subcategory.getCategory().getSubcategories().remove(subcategory);
+		CategoryDao categoryDao = new CategoryDao();
+		categoryDao.update(subcategory.getCategory());
 	}
 
 	private Session session() {

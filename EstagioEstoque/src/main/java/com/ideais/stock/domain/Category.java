@@ -28,7 +28,7 @@ public class Category {
 	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 	
-	@OneToMany(mappedBy="category", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="category", fetch = FetchType.EAGER, orphanRemoval=true)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
 
