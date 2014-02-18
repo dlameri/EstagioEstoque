@@ -8,32 +8,31 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.ideais.stock.dao.ItemDao;
-import com.ideais.stock.domain.Item;
+import com.ideais.stock.dao.ProductDao;
+import com.ideais.stock.domain.Product;
 
 @Path("/product")
 public class ProductWS {
-	ItemDao productDao = new ItemDao();
+	ProductDao productDao = new ProductDao();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> getProducts() {
+	public List<Product> getProducts() {
 		return productDao.findAll();
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Item getProductById(@PathParam ("id") Long id) {
+	public Product getProductById(@PathParam ("id") Long id) {
 		return productDao.findById(id);
 	}
-//	
-//	@Path("/category/{id}")
-//	@GET
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public List<Subcategory> getSubategoriesByCategoryId(@PathParam("id") Long id) {
-//		Category category = categoryDao.findById(id);
-//		return subcategoryDao.findByCategoryId(category);
-//	}
+	
+	@Path("/seach/{textToSeach}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Product> seachProducts(@PathParam ("textToSeach") String textToSeach) {
+		return productDao.seach(textToSeach);
+	}
 
 }
