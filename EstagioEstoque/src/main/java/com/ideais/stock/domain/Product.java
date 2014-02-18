@@ -44,6 +44,9 @@ public class Product {
 
 	@Column(name = "NM_MODELO", nullable = false)
 	private String model;
+	
+	@Column(name = "BO_ATIVO", nullable = false)
+	private Boolean active;
 
 	@ManyToOne
 	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
@@ -146,5 +149,13 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

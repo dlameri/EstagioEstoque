@@ -4,35 +4,45 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="basicstruts2" extends="struts-default">
 
- 		<action name="addcategory" class="com.ideais.stock.action.CategoryAction" method="addCategory"> 
- 			<result name="success">category-list.jsp</result> 
+		<action name="home" class="com.ideais.stock.action.CategoryAction" method="execute">
+			<result name="success">home.jsp</result>
 		</action>
-		
-		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction" method="deleteCategory"> 
- 			<result name="success">category-list.jsp</result> 
+
+		<action name="addcategory" class="com.ideais.stock.action.CategoryAction"
+			method="addCategory">
+			<result name="success">category-list.jsp</result>
 		</action>
-		
-		
- 		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction" method="addSubcategory"> 
- 			<result name="success">subcategory-list.jsp</result> 
+
+		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
+			method="deleteCategory">
+			<result name="success">category-list.jsp</result>
 		</action>
-		
-		<action name="deletesubcategory" class="com.ideais.stock.action.SubcategoryAction" method="deleteSubcategory"> 
- 			<result name="success">subcategory-list.jsp</result> 
+
+		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction"
+			method="addSubcategory">
+			<result name="success">error.jsp</result>
 		</action>
-		
-		<action name="listcategories" class="com.ideais.stock.action.CategoryAction" method="listCategories"> 
- 			<result name="success">category-list.jsp</result> 
+
+		<action name="deletesubcategory" class="com.ideais.stock.action.SubcategoryAction"
+			method="deleteSubcategory">
+			<result name="success">subcategory-list.jsp</result>
 		</action>
-		
-		<action name="enteraddsubcategory" class="com.ideais.stock.action.SubcategoryAction" method="listCategories"> 
- 			<result name="success">subcategory.jsp</result> 
+
+		<action name="listcategories" class="com.ideais.stock.action.CategoryAction"
+			method="listCategories">
+			<result name="success">category-list.jsp</result>
 		</action>
-		
-		<action name="listsubcategories" class="com.ideais.stock.action.SubcategoryAction" method="listCategories"> 
- 			<result name="success">subcategory-list.jsp</result> 
+
+		<action name="enteraddsubcategory" class="com.ideais.stock.action.SubcategoryAction"
+			method="listCategories">
+			<result name="success">subcategory.jsp</result>
 		</action>
-		
-		
+
+		<action name="listsubcategories" class="com.ideais.stock.action.SubcategoryAction"
+			method="listCategories">
+			<result name="success">subcategory-list.jsp</result>
+		</action>
+
+
 	</package>
 </struts>
