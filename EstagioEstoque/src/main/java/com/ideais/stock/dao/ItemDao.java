@@ -90,6 +90,7 @@ public class ItemDao {
 		}
 	}
 	
+	
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
 		if( session == null ) {

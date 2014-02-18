@@ -9,6 +9,7 @@ import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -89,6 +90,14 @@ public class ProductDao {
 				tx.rollback();
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product> seach(String textToSeach) {
+		Transaction tx = session().beginTransaction();		
+		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("name", "%"+textToSeach+"%")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		return products;
 	}
 	
 	private Session session() {
