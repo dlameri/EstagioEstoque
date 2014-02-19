@@ -10,7 +10,4 @@
 *.db
 .settings/
 
-
-
-
-
+hibernate.cfg.xml

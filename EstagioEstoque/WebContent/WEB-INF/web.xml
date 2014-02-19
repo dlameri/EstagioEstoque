@@ -18,34 +18,6 @@
 		<url-pattern>/web/*</url-pattern>
 	</filter-mapping>
 
-<!-- 	<servlet> -->
-<!-- 		<display-name>Apache-Axis Servlet</display-name> -->
-<!-- 		<servlet-name>AxisServlet</servlet-name> -->
-<!-- 		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AxisServlet</servlet-name> -->
-<!-- 		<url-pattern>/servlet/AxisServlet</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AxisServlet</servlet-name> -->
-<!-- 		<url-pattern>*.jws</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AxisServlet</servlet-name> -->
-<!-- 		<url-pattern>/services/*</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet> -->
-<!-- 		<display-name>Axis Admin Servlet</display-name> -->
-<!-- 		<servlet-name>AdminServlet</servlet-name> -->
-<!-- 		<servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class> -->
-<!-- 		<load-on-startup>100</load-on-startup> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>AdminServlet</servlet-name> -->
-<!-- 		<url-pattern>/servlet/AdminServlet</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-
 
 	<servlet>
 		<servlet-name>JerseyRESTful</servlet-name>
@@ -60,6 +32,10 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<context-param>
+		<param-name>resteasy.scan</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 	<servlet-mapping>
 		<servlet-name>JerseyRESTful</servlet-name>
