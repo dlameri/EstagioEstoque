@@ -68,7 +68,7 @@ public class CategoryDaoTest {
 	public void test_find_by_name() {
 	    	category.setName("Celulares Teste");
 	    	categoryDao.create(category);
-		String name = "es T";
+		String name = "Celulares Teste";
 		
 		assertEquals(name, categoryDao.findByName(name).getName());
 	}

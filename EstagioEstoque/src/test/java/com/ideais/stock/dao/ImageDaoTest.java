@@ -43,6 +43,7 @@ public class ImageDaoTest {
 		dimensions.setWidth(30.);
 		
 		product.setName("Luva de boxe");
+		product.setActive(true);
 		product.setLongDescription("Uma descrição longa.");
 		product.setShortDescription("Uma descrição curta.");
 		product.setDimensions(dimensions);
@@ -52,6 +53,7 @@ public class ImageDaoTest {
 		product.setModel("XTVZB-4435");
 		
 		item.setSku(01L);
+		item.setActive(true);
 		item.setOptionName("Cor");
 		item.setOptionValue("Branca");
 		item.setPriceFrom(new BigDecimal (1999.90));
@@ -85,9 +87,9 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Image image2 = imageDao.findById(imageDao.create(image));
-		
-		assertEquals(new Long(1), image2.getId());
+	    	Long id = imageDao.create(image);
+	    
+		assertEquals(id, imageDao.findById(id).getId());
 	}
 	
 	@Test
