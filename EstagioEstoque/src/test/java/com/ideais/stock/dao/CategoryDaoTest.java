@@ -59,7 +59,6 @@ public class CategoryDaoTest {
 	@Test
 	public void test_delete() {
 		categoryDao.create(category);
-		
 		categoryDao.delete(category);
 		
 		assertEquals( 0, categoryDao.findAll().size() );
@@ -67,7 +66,9 @@ public class CategoryDaoTest {
 	
 	@Test
 	public void test_find_by_name() {
-		String name = "asfasf";
+	    	category.setName("Celulares Teste");
+	    	categoryDao.create(category);
+		String name = "es T";
 		
 		assertEquals(name, categoryDao.findByName(name).getName());
 	}

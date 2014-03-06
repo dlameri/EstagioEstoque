@@ -53,6 +53,7 @@ public class ProductDaoTest {
 		subcategory.setCategory(category);
 		
 		product.setName("Luva de boxe");
+		product.setActive(true);
 		product.setLongDescription("Uma descrição longa.");
 		product.setShortDescription("Uma descrição curta.");
 		product.setWeight(500000);
@@ -64,6 +65,7 @@ public class ProductDaoTest {
 		product.setDimensions(dimensions);
 		
 		item.setSku(01L);
+		item.setActive(true);
 		item.setOptionName("Cor");
 		item.setOptionValue("Branca");
 		item.setPriceFrom(new BigDecimal (1999.90));
