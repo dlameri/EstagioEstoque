@@ -15,6 +15,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Subcategory;
 
 
 public class ProductDao {
@@ -106,7 +107,14 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();		
 		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("category", category)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
-		System.out.println(category.getId());
+		return products;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findBySubcategoryId(Subcategory subcategory) {
+		Transaction tx = session().beginTransaction();		
+		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("subcategory", subcategory)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
 		return products;
 	}
 	
