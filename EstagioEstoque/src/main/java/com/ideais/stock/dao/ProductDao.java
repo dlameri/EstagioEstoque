@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 
 
@@ -97,6 +98,15 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();		
 		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("name", "%"+textToSeach+"%")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		return products;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> findByCategoryId(Category category) {
+		Transaction tx = session().beginTransaction();		
+		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("category", category)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		System.out.println(category.getId());
 		return products;
 	}
 	

@@ -11,13 +11,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.dao.ProductDao;
-import com.ideais.stock.domain.CartWS;
+import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.webservice.domain.CartWS;
 
 @Path("/product")
 public class ProductWS {
 	ProductDao productDao = new ProductDao();
+	CategoryDao categoryDao = new CategoryDao();
+	Category category = new Category();
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -37,6 +41,14 @@ public class ProductWS {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Product> seachProducts(@PathParam("textToSeach") String textToSeach) {
 		return productDao.seach(textToSeach);
+	}
+	
+	@Path("/bycategoryid/{id}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Product> seachProductsByCategyId(@PathParam("id") Long id) {
+	    	category.setId(id);
+		return productDao.findByCategoryId(category);
 	}
 
 	@Path("/updatestock")

@@ -15,12 +15,12 @@ import com.ideais.stock.domain.Category;
 public class CategoryWS {
 	CategoryDao categoryDao = new CategoryDao();
 
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Category> getCategories() {
 		return categoryDao.findAll();
 	}
-	
 
 	@Path("/{id}")
 	@GET
@@ -28,4 +28,6 @@ public class CategoryWS {
 	public Category getCategoryById(@PathParam("id") Long id) {
 		return categoryDao.findById(id);
 	}
+	
+
 }

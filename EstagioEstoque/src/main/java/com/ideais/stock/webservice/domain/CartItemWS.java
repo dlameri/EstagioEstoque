@@ -1,4 +1,6 @@
-package com.ideais.stock.domain;
+package com.ideais.stock.webservice.domain;
+
+import com.ideais.stock.domain.Item;
 
 public class CartItemWS {
 	private Long cartItemId;

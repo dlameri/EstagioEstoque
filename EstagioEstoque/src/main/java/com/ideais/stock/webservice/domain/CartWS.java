@@ -1,4 +1,4 @@
-package com.ideais.stock.domain;
+package com.ideais.stock.webservice.domain;
 
 import java.util.ArrayList;
 import java.util.List;

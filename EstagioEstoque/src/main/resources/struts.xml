@@ -7,6 +7,11 @@
 		<action name="home" class="com.ideais.stock.action.CategoryAction" method="execute">
 			<result name="success">home.jsp</result>
 		</action>
+		
+		<action name="include" class="com.ideais.stock.action.TemplateAction"
+			method="include">
+			<result name="success">template.jsp</result>
+		</action>
 
 		<action name="addcategory" class="com.ideais.stock.action.CategoryAction"
 			method="addCategory">
