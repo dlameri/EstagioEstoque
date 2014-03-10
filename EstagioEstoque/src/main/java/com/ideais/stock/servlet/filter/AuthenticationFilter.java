@@ -38,13 +38,11 @@ public class AuthenticationFilter implements Filter {
             this.context.log("Unauthorized access request");
             res.sendRedirect("/EstagioEstoque/index.html");
         }else{
-            // pass the request along the filter chain
             chain.doFilter(request, response);
         }    
     }
  
     public void destroy() {
-        //close any resources here
     }
  
 }

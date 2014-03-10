@@ -66,3 +66,22 @@ Produto:
 	@PUT
 		da baixa no estoque
 	}
+
+
+Item:
+	@Path("/api/item")
+
+
+	@GET
+		retorna todos os itens
+	}
+
+	@Path("/{id}")
+	@GET
+		retorna o item com o id desejado
+	}
+	
+	@Path("/byproductid/{id}")
+	@GET
+		retorna os itens do produto correspondente
+	}

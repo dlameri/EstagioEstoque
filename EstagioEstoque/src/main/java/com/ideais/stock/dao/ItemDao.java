@@ -9,10 +9,12 @@ import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 
 
 public class ItemDao {
@@ -97,5 +99,13 @@ public class ItemDao {
 			throw new SessionException("Sessão está nula");
 		}
 		return session;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Item> findByProductId(Product product) {
+		Transaction tx = session().beginTransaction();		
+		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		return itens;
 	}
 }
