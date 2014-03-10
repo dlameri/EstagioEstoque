@@ -15,7 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -49,6 +51,7 @@ public class Item {
 	@Column(name="BO_ATIVO", nullable=false)
 	private Boolean active;
 	
+	@JsonBackReference 
 	@ManyToOne
 	@JoinColumn(name="CD_PRODUCT", referencedColumnName="CD_PRODUCT", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
@@ -57,6 +60,29 @@ public class Item {
 	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
+	
+	@Transient
+	private Long productId;
+	
+	@Transient
+	private String productName;
+	
+	public Long getProductId() {
+	    return productId;
+	}
+
+	public void setProductId(Long productId) {
+	    this.productId = productId;
+	}
+
+	public String getProductName() {
+	    return productName;
+	}
+
+	public void setProductName(String productName) {
+	    this.productName = productName;
+	}
+
 
 	public List<Image> getImages() {
 		return images;

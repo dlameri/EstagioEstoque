@@ -85,8 +85,3 @@ Item:
 	@GET
 		retorna os itens do produto correspondente
 	}
-
-
-
-item receber uma lista de ids e retornar a lista
-

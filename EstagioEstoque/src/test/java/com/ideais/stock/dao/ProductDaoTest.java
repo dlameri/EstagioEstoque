@@ -11,12 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Image;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 
@@ -30,11 +29,13 @@ public class ProductDaoTest {
 	private Category category;
 	private Dimensions dimensions;
 	private List<Image> images;
+	private List<Item> items;
 	
 	@Before
 	public void setUp() {
 		this.itemDao = new ItemDao();
 		
+		items = new ArrayList<Item>();
 		product = new Product();
 		item = new Item();
 		subcategory = new Subcategory();
@@ -73,10 +74,13 @@ public class ProductDaoTest {
 		item.setStock(9999);
 		item.setProduct(product);
 		
+		items.add(item);
+		
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
 		image.setItem(item);
 		images.add(image);
 		item.setImages(images);
+		product.setItems(items);
 	}
 	
 	@Test

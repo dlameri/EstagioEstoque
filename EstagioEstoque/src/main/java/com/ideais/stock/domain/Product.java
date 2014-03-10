@@ -1,19 +1,25 @@
 package com.ideais.stock.domain;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -58,10 +64,23 @@ public class Product {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 	
+	@OneToMany(mappedBy="product", fetch = FetchType.EAGER)
+	@Cascade(CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<Item> items;
+
 	@OneToOne
 	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
 	@Cascade(CascadeType.ALL)
 	private Dimensions dimensions;
+	
+	public List<Item> getItems() {
+	    return items;
+	}
+
+	public void setItems(List<Item> items) {
+	    this.items = items;
+	}
 
 	public Long getId() {
 		return id;
