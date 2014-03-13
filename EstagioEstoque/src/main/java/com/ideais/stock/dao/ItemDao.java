@@ -77,6 +77,22 @@ public class ItemDao {
 		tx.commit();
 		return item;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Item> findByProductId(Product product) {
+		Transaction tx = session().beginTransaction();		
+		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		return itens;
+	}
+	
+	 @SuppressWarnings("unchecked")
+	 public List<Item> findByIds(List<Long> ids) {
+	 Transaction tx = session().beginTransaction();	
+	 List<Item> item = session().createCriteria(Item.class).add(Restrictions.in("id", ids)).list();
+	 tx.commit();
+	 return item;
+	 }
 		
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
@@ -86,11 +102,4 @@ public class ItemDao {
 		return session;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Item> findByProductId(Product product) {
-		Transaction tx = session().beginTransaction();		
-		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		tx.commit();
-		return itens;
-	}
 }
