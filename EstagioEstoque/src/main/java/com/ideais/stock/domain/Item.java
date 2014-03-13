@@ -2,7 +2,10 @@ package com.ideais.stock.domain;
 
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,10 +36,10 @@ public class Item {
 	@Column(name="NR_SKU")
 	private Long sku;
 	
-	@Column(name="NR_PRECO_DE", nullable=false)
+	@Column(name = "NR_PRECO_DE", precision = 7, scale = 2, nullable = false)
 	private BigDecimal priceFrom;
-	
-	@Column(name="NR_PRECO_POR", nullable=false)
+
+	@Column(name = "NR_PRECO_POR", precision = 7, scale = 2, nullable = false)
 	private BigDecimal priceFor;
 	
 	@Column(name="NM_NOME_OPCAO")
@@ -67,22 +70,25 @@ public class Item {
 	@Transient
 	private String productName;
 	
-	public Long getProductId() {
-	    return productId;
-	}
+	@Transient
+	private String formatedPriceFrom;
 
-	public void setProductId(Long productId) {
-	    this.productId = productId;
+	@Transient
+	private String formatedPriceFor;
+	
+	public String valueFormater(BigDecimal value) {
+	    Locale Local = new Locale("pt", "BR");
+	    DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Local));
+	    return df.format(value);
+	}
+	
+	public Long getProductId() {
+	    return product.getId();
 	}
 
 	public String getProductName() {
-	    return productName;
+	    return product.getName();
 	}
-
-	public void setProductName(String productName) {
-	    this.productName = productName;
-	}
-
 
 	public List<Image> getImages() {
 		return images;
@@ -162,5 +168,13 @@ public class Item {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+	
+	public String getFormatedPriceFrom() {
+	    return valueFormater(priceFrom);
+	}
+
+	public String getFormatedPriceFor() {
+		return valueFormater(priceFor);
 	}
 }

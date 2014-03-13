@@ -3,7 +3,6 @@ package com.ideais.stock.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
@@ -73,20 +72,6 @@ public class ImageDao {
 		Image image = (Image) session().get(Image.class, id);
 		tx.commit();
 		return image;
-	}
-	
-	public void delete(Image image) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			session().delete( session().merge(image) );
-			tx.commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			if( tx != null ) {
-				tx.rollback();
-			}
-		}
 	}
 	
 	private Session session() {
