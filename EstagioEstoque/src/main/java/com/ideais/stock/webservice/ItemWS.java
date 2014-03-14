@@ -45,6 +45,6 @@ public class ItemWS {
 	 @Consumes({ MediaType.APPLICATION_JSON })
 	 @Produces({ MediaType.APPLICATION_JSON })
 	 public List<Item> consumeJSON(List<Long> ids) {	
-	 return itemDao.findByIds(ids);
+		 return itemDao.findByIds(ids);
 	 }
 }
