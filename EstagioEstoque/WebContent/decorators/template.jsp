@@ -21,7 +21,7 @@
   <div id="logo" class="container">
 		<h1>
 			<img src="../images/logobolinha.png"> <a href="#"><span>Ideais
-					Eletronics -.-'</span></a>
+					Electronics</span></a>
 		</h1>
 		<p>Sistema de Controle e Administração de Estoque</p>
 	</div>
@@ -40,7 +40,7 @@
 		</div>
     <decorator:body />
    <footer id="copyright">
-		<p>Copyright (c) 2013 Stock Team Enterprise All rights reserved. Design by Stock Team Enterprises.</p>
+		<p>Copyright (c) 2014 Stock Team Enterprise All rights reserved. Design by Stock Team Enterprises.</p>
 	</footer>
 </body>
 </html>

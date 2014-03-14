@@ -21,25 +21,6 @@
 
 </head>
 <body>
-	<div id="logo" class="container">
-		<h1>
-			<img src="../images/logobolinha.png"> <a href="#"><span>Estágio
-					Ideais</span></a>
-		</h1>
-		<p>Sistema de Controle e Administração de Estoque</p>
-	</div>
-	<div id="wrapper" class="container">
-		<div id="menu" class="container">
-			<ul>
-				<li><a href="home.jsp" accesskey="1" title="">Sistema de
-						Cadastro</a></li>
-				<li class="current_page_item"><a accesskey="1" title="">Produtos
-						Cadastrados</a></li>
-			</ul>
-		</div>
-		<div id="three-column" class="container">
-			<div>
-				<span class="icon icon-cogs"></span>
 				<div class="title">
 					<h2>Adicionar Nova Categoria</h2>
 					<s:form action="addcategory">
@@ -47,12 +28,5 @@
 						<s:submit value="Add new category" />
 					</s:form>
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="copyright">
-		<p>Copyright (c) 2013 Stock Team Enterprise All rights
-			reserved. | Design by Stock Team Enterprises.</p>
-	</div>
 </body>
 </html>
