@@ -103,14 +103,5 @@ public class ImageDaoTest {
 		
 		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", savedImage.getProductUrl());
 	}
-	
-	@Test
-	public void test_delete() {
-		imageDao.create(image);
-		
-		imageDao.delete(image);
-		
-		assertEquals( 0, imageDao.findAll().size() );
-	}
 
 }

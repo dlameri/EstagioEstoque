@@ -3,7 +3,6 @@ package com.ideais.stock.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
@@ -79,20 +78,22 @@ public class ItemDao {
 		return item;
 	}
 	
-	public void delete(Item item) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			session().delete( session().merge(item) );
-			tx.commit();
-		} catch (HibernateException e) {
-			if( tx != null ) {
-				tx.rollback();
-			}
-		}
+	@SuppressWarnings("unchecked")
+	public List<Item> findByProductId(Product product) {
+		Transaction tx = session().beginTransaction();		
+		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		return itens;
 	}
 	
-	
+	 @SuppressWarnings("unchecked")
+	 public List<Item> findByIds(List<Long> ids) {
+	 Transaction tx = session().beginTransaction();	
+	 List<Item> item = session().createCriteria(Item.class).add(Restrictions.in("id", ids)).list();
+	 tx.commit();
+	 return item;
+	 }
+		
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
 		if( session == null ) {
@@ -101,11 +102,4 @@ public class ItemDao {
 		return session;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Item> findByProductId(Product product) {
-		Transaction tx = session().beginTransaction();		
-		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		tx.commit();
-		return itens;
-	}
 }
