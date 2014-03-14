@@ -12,63 +12,58 @@ import com.ideais.stock.domain.Category;
 
 
 @RunWith(JUnit4.class)
-public class CategoryDaoTest {
+public class CategoryDaoTest extends AbstractDaoTest {
 
 	private CategoryDao categoryDao;
-	private Category category;
-	
+
 	@Before
 	public void setUp() {
 		this.categoryDao = new CategoryDao();
-		
-		category = new Category();
-		category.setName("Esportes");
+		super.setUp(categoryDao.getSessionFactory());
 	}
 	
 	@Test
 	public void test_create() {
-		Long id = categoryDao.create(category);
+		Category category = new Category();
+		category.setName("Esportes");
 		
+		Long id = categoryDao.create(category);
 		assertEquals( id, category.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, categoryDao.findAll().size());
+		assertEquals(1, categoryDao.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-		Category category2 = categoryDao.findById(categoryDao.create(category));
+		Category category2 = categoryDao.findById(1L);
 		
 		assertEquals(new Long(1), category2.getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Long id = categoryDao.create(category);
+		Category category = categoryDao.findById(1L);
 		
 		category.setName("Celulares");
 		categoryDao.update(category);
 		
-		Category savedCategory = categoryDao.findById(id);
-		
+		Category savedCategory = categoryDao.findById(1L);
 		assertEquals("Celulares", savedCategory.getName());
 	}
 	
 	@Test
 	public void test_delete() {
-		categoryDao.create(category);
-		categoryDao.delete(category);
+		categoryDao.delete(categoryDao.findById(1L));
 		
 		assertEquals( 0, categoryDao.findAll().size() );
 	}
 	
 	@Test
 	public void test_find_by_name() {
-	    	category.setName("Celulares Teste");
-	    	categoryDao.create(category);
-		String name = "Celulares Teste";
+		String name = "HISTORIA";
 		
 		assertEquals(name, categoryDao.findByName(name).getName());
 	}

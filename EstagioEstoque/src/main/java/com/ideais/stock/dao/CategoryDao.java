@@ -105,4 +105,8 @@ public class CategoryDao {
 		}
 		return session;
 	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 }
