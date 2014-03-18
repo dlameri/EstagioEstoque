@@ -14,7 +14,11 @@
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
 		<property name="hibernate.connection.username">root</property>
+<<<<<<< HEAD
 		<property name="hibernate.connection.password">root</property>
+=======
+		<property name="hibernate.connection.password"></property>
+>>>>>>> 19948285a0e143930c8b441cb52790bbe76461bf
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- configuration pool via c3p0-->   
