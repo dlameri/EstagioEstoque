@@ -9,6 +9,7 @@ import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class SubcategoryAction extends ActionSupport {
@@ -51,11 +52,6 @@ public class SubcategoryAction extends ActionSupport {
 		return categories;
 	}
 
-	public String listCategories() {
-		categories = categoryDao.findAll();
-		return SUCCESS;
-	}
-
 	public String listSubcategories() {
 		categories = categoryDao.findAll();
 		Map<Category, List<Subcategory>> mapa = new HashMap<Category, List<Subcategory>>();
@@ -80,8 +76,16 @@ public class SubcategoryAction extends ActionSupport {
 	}
 	
 	public String deleteSubcategory() {
-		subcategoryDao.delete(subcategoryDao.findById(Long.valueOf(id)));
-		return SUCCESS;
+		try {
+			if (Validade.isValid(id)) {
+				subcategoryDao.delete(subcategoryDao.findById(Long.valueOf(id)));
+				return SUCCESS;
+			} else {
+				return ERROR;
+			}
+		} catch (Exception e) {
+			return ERROR;
+		}
 	}
 
 	public void setId(String id) {

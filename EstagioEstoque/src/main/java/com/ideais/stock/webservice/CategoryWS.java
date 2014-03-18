@@ -29,5 +29,4 @@ public class CategoryWS {
 		return categoryDao.findById(id);
 	}
 	
-
 }

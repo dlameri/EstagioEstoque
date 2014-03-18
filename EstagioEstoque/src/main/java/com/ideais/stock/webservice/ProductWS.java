@@ -66,5 +66,12 @@ public class ProductWS {
 		String output = cart.toString();
 		return Response.status(200).entity(output).build();
 	}
+	
+	@Path("/orderbyrank")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public List<Product> getProductsOrderByRank() {
+		return productDao.findAllOrderByRank();
+	}
 
 }

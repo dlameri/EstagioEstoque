@@ -28,10 +28,8 @@
 	<div id="wrapper" class="container">
 		<div id="menu" class="container">
 			<ul>
-				<li><a href="category.jsp">Add Categorias</a></li>
-				<li><a href="listcategories">List Categories</a></li>
-				<li><a href="enteraddsubcategory">Add Subcategory</a></li>
-				<li><a href="listsubcategories">List Subcategories</a></li>
+				<li><a href="categorias">Categorias</a></li>
+				<li><a href="subcategorias">Subcategorias</a></li>
 				<li><form action="/EstagioEstoque/LogoutServlet" method="post">
 						<input type="submit" value="Logout" >
 					</form>

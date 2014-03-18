@@ -4,50 +4,60 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="basicstruts2" extends="struts-default">
 
-		<action name="home" class="com.ideais.stock.action.CategoryAction" method="execute">
-			<result name="success">home.jsp</result>
-		</action>
-		
-		<action name="include" class="com.ideais.stock.action.TemplateAction"
-			method="include">
-			<result name="success">template.jsp</result>
+		<action name="home" class="com.ideais.stock.action.CategoryAction"
+			method="execute">
+			<result name="success">index.jsp</result>
 		</action>
 
-		<action name="addcategory" class="com.ideais.stock.action.CategoryAction"
-			method="addCategory">
-			<result name="success">category-list.jsp</result>
+		<action name="saveCategory" class="com.ideais.stock.action.CategoryAction"
+			method="saveCategory">
+			<result name="success" type="redirect">
+				<param name="location">web/categorias</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">web/categorias?error=true</param>
+			</result>
+		</action>
+
+		<action name="categorias" class="com.ideais.stock.action.CategoryAction"
+			method="listCategories">
+			<result name="success">categorias.jsp</result>
 		</action>
 
 		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
 			method="deleteCategory">
-			<result name="success">category-list.jsp</result>
+			<result name="success" type="redirect">
+				<param name="location">web/categorias</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">web/categorias?error=true</param>
+			</result>
+		</action>
+		
+		<action name="subcategorias" class="com.ideais.stock.action.SubcategoryAction"
+			method="listSubcategories">
+			<result name="success">subcategory.jsp</result>
 		</action>
 
 		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction"
 			method="addSubcategory">
-			<result name="success">error.jsp</result>
+			<result name="success" type="redirect">
+				<param name="location">web/subcategorias</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">web/subcategorias?error=true</param>
+			</result>
 		</action>
 
 		<action name="deletesubcategory" class="com.ideais.stock.action.SubcategoryAction"
 			method="deleteSubcategory">
-			<result name="success">subcategory-list.jsp</result>
+			<result name="success" type="redirect">
+				<param name="location">web/subcategorias</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">web/subcategorias?error=true</param>
+			</result>
 		</action>
-
-		<action name="listcategories" class="com.ideais.stock.action.CategoryAction"
-			method="listCategories">
-			<result name="success">category-list.jsp</result>
-		</action>
-
-		<action name="enteraddsubcategory" class="com.ideais.stock.action.SubcategoryAction"
-			method="listCategories">
-			<result name="success">subcategory.jsp</result>
-		</action>
-
-		<action name="listsubcategories" class="com.ideais.stock.action.SubcategoryAction"
-			method="listCategories">
-			<result name="success">subcategory-list.jsp</result>
-		</action>
-
 
 	</package>
 </struts>

@@ -12,8 +12,8 @@
 </head>
 <body>
 	<h1>Subcategoria</h1>
-
-	<form action="addsubcategory" method="get">
+	
+		<form action="addsubcategory" method="get">
 		<fieldset>
 			<input type="radio" name="selector" checked="true"/>
 			<label>Selecione uma categoria:</label>
@@ -22,7 +22,7 @@
 					<option value="${category.name}">${category.name}</option>
 				</c:forEach>
 			</select>
-			
+
 			<input type="radio" name="selector" />
 			<label>Crie uma nova categria:</label>
 			<input type="text" name="category.name" id="newCategory" disabled="disabled" style="display: block;"/>
@@ -31,6 +31,25 @@
 			<input type="submit" id="btn" value="Add" />
 		</fieldset>	
 	</form>
+
+<%-- 	<s:form action="addsubcategory"> --%>
+<%-- 			<s:radio label="Selecione uma categoria" label="Categoria" name="subcategory.category" list="categories"/> --%>
+<%-- 			<s:textfield label="Subcategoria" name="subcategory.name" style="display: block;"/>  --%>
+<%-- 			<s:submit id="btn" value="Add" /> --%>
+<%-- 	</s:form> --%>
+	----------------------------------
+		<ul>
+		<c:forEach items="${categories}" var="category">
+			<li>${category.name}</li>
+			<ul>
+			<c:forEach items="${category.subcategories}" var="subcategory">
+				<li>
+					${subcategory.name} - editar - <a href="deletesubcategory?id=${subcategory.id}">deletar</a>
+				</li>
+			</c:forEach>
+			</ul>
+		</c:forEach>
+	</ul>
 
 </body>
 </html>

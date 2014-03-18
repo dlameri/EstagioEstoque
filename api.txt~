@@ -67,6 +67,11 @@ Produto:
 		da baixa no estoque
 	}
 
+	@Path("/orderbyrank")
+	@GET
+		retorna todos os produtos ordenados pelo maior rank
+	}
+
 
 Item:
 	@Path("/api/item")
@@ -85,3 +90,10 @@ Item:
 	@GET
 		retorna os itens do produto correspondente
 	}
+
+	@Path("/orderbyrank")
+	@GET
+		retorna todos os itens ordenados pelo maior rank
+	}
+
+

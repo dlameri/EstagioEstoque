@@ -8,6 +8,7 @@ import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
@@ -29,6 +30,7 @@ public class ItemDao {
 	
 	public Long create(Item item) {
 		Transaction tx = null;
+		item.setRank(0);
 		try {
 			tx = session().beginTransaction();
 			Long id = (Long) session().save(item);
@@ -50,6 +52,14 @@ public class ItemDao {
 	public List<Item> findAll() {
 		Transaction tx = session().beginTransaction();
 		List<Item> item = session().createCriteria(Item.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		tx.commit();
+		return item;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Item> findAllOrderByRank() {
+		Transaction tx = session().beginTransaction();
+		List<Item> item = session().createCriteria(Item.class).addOrder(Property.forName("rank").desc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		return item;
 	}

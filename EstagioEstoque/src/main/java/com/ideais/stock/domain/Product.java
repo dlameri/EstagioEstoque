@@ -74,6 +74,21 @@ public class Product {
 	@Cascade(CascadeType.ALL)
 	private Dimensions dimensions;
 	
+	@Column(name = "NR_RANK")
+	private Integer rank;
+	
+	public Integer getRank() {
+		rank = 0;
+		for (int i = 0; i < items.size(); i++) {
+			rank = rank + items.get(i).getRank();
+		}
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+
 	public List<Item> getItems() {
 	    return items;
 	}
