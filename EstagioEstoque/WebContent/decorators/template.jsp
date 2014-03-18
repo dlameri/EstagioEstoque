@@ -30,10 +30,7 @@
 			<ul>
 				<li><a href="categorias">Categorias</a></li>
 				<li><a href="subcategorias">Subcategorias</a></li>
-				<li><form action="/EstagioEstoque/LogoutServlet" method="post">
-						<input type="submit" value="Logout" >
-					</form>
-				</li>
+				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
 		</div>
     <decorator:body />
