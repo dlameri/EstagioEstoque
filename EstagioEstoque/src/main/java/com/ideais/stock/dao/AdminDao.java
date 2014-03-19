@@ -23,8 +23,7 @@ public class AdminDao {
 	public AdminDao() {
 		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() ).buildServiceRegistry();
-		sessionFactory = configure.buildSessionFactory(serviceRegistry);
-		
+		sessionFactory = configure.buildSessionFactory(serviceRegistry);	
 	}
 	
 	public Long create(Admin admin) {

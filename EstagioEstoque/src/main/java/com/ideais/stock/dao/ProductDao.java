@@ -33,6 +33,7 @@ public class ProductDao {
 	
 	public Long create(Product product) {
 		Transaction tx = null;
+		product.setActive(true);
 		try {
 			tx = session().beginTransaction();
 			Long id = (Long) session().save(product);

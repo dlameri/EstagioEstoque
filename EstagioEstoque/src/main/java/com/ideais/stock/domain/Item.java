@@ -51,7 +51,7 @@ public class Item {
 	@Column(name="NR_ESTOQUE", nullable=false)
 	private Integer stock;
 	
-	@Column(name="NM_RANK", nullable=false)
+	@Column(name="NM_RANK", nullable = false)
 	private Integer rank;
 
 	@Column(name="BO_ATIVO", nullable=false)

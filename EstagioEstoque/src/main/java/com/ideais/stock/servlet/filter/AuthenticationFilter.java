@@ -21,7 +21,7 @@ public class AuthenticationFilter implements Filter {
      
     public void init(FilterConfig fConfig) throws ServletException {
         this.context = fConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
+        this.context.log("Filtro de login iniciado!");
     }
      
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -35,8 +35,8 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = req.getSession(false);
          
         if(session == null && !(uri.endsWith("jsp") || uri.endsWith("LoginServlet"))){
-            this.context.log("Unauthorized access request");
-            res.sendRedirect("/EstagioEstoque/index.jsp");
+            this.context.log("Acesso não autorizado!");
+            res.sendRedirect("EstagioEstoque/");
         }else{
             chain.doFilter(request, response);
         }    

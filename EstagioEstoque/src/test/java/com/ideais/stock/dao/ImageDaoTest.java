@@ -51,6 +51,7 @@ public class ImageDaoTest {
 		product.setWarranty(36);
 		product.setBrand("Paco Ideais");
 		product.setModel("XTVZB-4435");
+		product.setActive(true);
 		
 		item.setSku(01L);
 		item.setActive(true);
@@ -59,6 +60,7 @@ public class ImageDaoTest {
 		item.setPriceFrom(new BigDecimal (1999.90));
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
+		item.setRank(0);
 		
 		subcategory.setName("Luvas");
 		
@@ -69,7 +71,13 @@ public class ImageDaoTest {
 		product.setSubcategory(subcategory);
 		item.setProduct(product);
 	
-		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
+		image.setMain(true);
+		image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+		image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+		image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+		image.setAndroidShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+		image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+		image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setItem(item);
 	}
 	

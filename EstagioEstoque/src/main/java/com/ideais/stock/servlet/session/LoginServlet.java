@@ -10,29 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.ideais.stock.dao.AdminDao;
  
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final String userID = "admin";
-    private final String password = "password";
+
+    private AdminDao adminDao = new AdminDao();
  
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
  
-        String user = request.getParameter("user");
+        String email = request.getParameter("email");
         String pwd = request.getParameter("pwd");
-         
-        if(userID.equals(user) && password.equals(pwd)){
+        
+        if(adminDao.autorized(email, pwd)){
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            session.setAttribute("email", email);
             session.setMaxInactiveInterval(30*60); //setting session to expiry in 30 mins
-            Cookie userName = new Cookie("user", user);
+            Cookie userName = new Cookie("email", email);
             userName.setMaxAge(30*60);
             response.addCookie(userName);
             response.sendRedirect("/EstagioEstoque/web");
         }else{
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/EstagioEstoque");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("EstagioEstoque");
             rd.include(request, response);
         }
  

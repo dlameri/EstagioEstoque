@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
  
 @WebFilter("/RequestLoggingFilter")
@@ -21,7 +20,6 @@ public class RequestLoggingFilter implements Filter {
      
     public void init(FilterConfig fConfig) throws ServletException {
         this.context = fConfig.getServletContext();
-        this.context.log("RequestLoggingFilter initialized");
     }
  
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -30,15 +28,8 @@ public class RequestLoggingFilter implements Filter {
         while(params.hasMoreElements()){
             String name = params.nextElement();
             String value = request.getParameter(name);
-            this.context.log(req.getRemoteAddr() + "::Request Params::{"+name+"="+value+"}");
         }
-         
-        Cookie[] cookies = req.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                this.context.log(req.getRemoteAddr() + "::Cookie::{"+cookie.getName()+","+cookie.getValue()+"}");
-            }
-        }
+
         chain.doFilter(request, response);
     }
  
