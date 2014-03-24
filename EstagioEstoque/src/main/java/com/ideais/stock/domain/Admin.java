@@ -12,13 +12,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ADMINSTRADOR")
+@Table(name="ADMINISTRADOR")
 public class Admin {
 	
 	@Id
 	@SequenceGenerator(name="admin_id", sequenceName="admin_id")
 	@GeneratedValue(generator="admin_id", strategy=GenerationType.AUTO)
-	@Column(name="CD_ADMINSTRADOR")
+	@Column(name="CD_ADMINISTRADOR")
 	private Long id;
 	
 	@Column(name="NM_NOME", nullable=false, unique=true)
@@ -30,7 +30,7 @@ public class Admin {
 	@Column(name="NM_EMAIL", nullable=false, unique=true)
 	private String email;
 	
-	public static String makeSecurePassword(String passwordToHash){
+	private String makeSecurePassword(String passwordToHash){
 		String salt = "catalogo";
         String generatedPassword = null;
         try {
@@ -70,7 +70,7 @@ public class Admin {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = this.makeSecurePassword(password);
 	}
 
 	public String getEmail() {

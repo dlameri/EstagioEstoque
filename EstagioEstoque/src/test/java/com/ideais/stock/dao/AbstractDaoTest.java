@@ -36,7 +36,7 @@ public class AbstractDaoTest {
 			session().createSQLQuery("DELETE FROM DIMENSOES").executeUpdate();
 			session().createSQLQuery("DELETE FROM SUBCATEGORIA").executeUpdate();
 			session().createSQLQuery("DELETE FROM CATEGORIA").executeUpdate();
-			session().createSQLQuery("INSERT INTO CATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'HISTORIA')").executeUpdate();
+			session().createSQLQuery("INSERT INTO CATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'Historia')").executeUpdate();
 //			session().createSQLQuery("INSERT INTO SUBCATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'HISTORIA')").executeUpdate();
 			tx.commit();
 		} catch(Exception e) {
