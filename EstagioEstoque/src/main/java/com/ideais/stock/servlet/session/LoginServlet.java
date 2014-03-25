@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String pwd = request.getParameter("pwd");
         
+<<<<<<< HEAD
         if(adminDao.autorized(email, pwd)){
             HttpSession session = request.getSession();
             session.setAttribute("email", email);
@@ -35,6 +36,21 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/EstagioEstoque/web");
         }else{
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/");
+=======
+        if ( adminDao.authorized(email, pwd) ) {
+        	System.out.println("\n\nAutorizado\n\n");
+			HttpSession session = request.getSession();
+			session.setAttribute("email", email);
+			session.setMaxInactiveInterval(30 * 60); // setting session to
+														// expiry in 30 mins
+			Cookie userName = new Cookie("email", email);
+			userName.setMaxAge(30 * 60);
+			response.addCookie(userName);
+			response.sendRedirect("/EstagioEstoque/web");
+		} else {
+			System.out.println("\n\nNao Autorizado\n\n");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("EstagioEstoque");
+>>>>>>> 4cbe80b7029414885e5588c77a608c315442ed9b
             rd.include(request, response);
         }
  

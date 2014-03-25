@@ -27,7 +27,8 @@ public class AdminDao {
 	}
 	
 	public Long create(Admin admin) {
-		admin.setPassword(admin.makeSecurePassword(admin.getPassword()));
+//		admin.setPassword(Admin.makeSecurePassword(admin.getPassword()));
+//		admin.makeSecurePassword();
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
@@ -56,7 +57,7 @@ public class AdminDao {
 	
 	public void update(Admin admin) {
 		Transaction tx = null;
-		admin.setPassword(admin.makeSecurePassword(admin.getPassword()));
+//		admin.makeSecurePassword();
 		try {
 			tx = session().beginTransaction();
 			session().update(admin);
@@ -91,7 +92,7 @@ public class AdminDao {
 		}
 	}
 	
-	public Boolean autorized(String email, String password) {
+	public Boolean authorized(String email, String password) {
 		if (email == null || email.isEmpty()) {
 			return false;
 		}
@@ -102,8 +103,10 @@ public class AdminDao {
 		
 		Transaction tx = session().beginTransaction();
 		Admin admin = new Admin();
-		password = admin.makeSecurePassword(password);
-		List<Admin> admins = session().createCriteria(Admin.class).add(Restrictions.like("email", email)).add(Restrictions.like("password", password)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		admin.setPassword(password);
+//		password = admin.makeSecurePassword(password);
+		@SuppressWarnings("unchecked")
+		List<Admin> admins = session().createCriteria(Admin.class).add(Restrictions.like("email", email)).add(Restrictions.like("password", admin.getPassword())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		
 		if (admins.size() == 1){

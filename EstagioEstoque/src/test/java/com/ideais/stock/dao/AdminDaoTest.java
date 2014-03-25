@@ -71,7 +71,7 @@ public class AdminDaoTest {
 		String email = "";
 		String password = "123";
 		
-		assertEquals(false, adminDao.autorized(email, password));
+		assertEquals(false, adminDao.authorized(email, password));
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class AdminDaoTest {
 		String email = "admin@teste.com";
 		String password = "";
 		
-		assertEquals(false, adminDao.autorized(email, password));
+		assertEquals(false, adminDao.authorized(email, password));
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class AdminDaoTest {
 		String email = "admin@teste.com";
 		String password = "321";
 		
-		assertEquals(false, adminDao.autorized(email, password));
+		assertEquals(false, adminDao.authorized(email, password));
 	}
 	
 	@Test
@@ -98,7 +98,7 @@ public class AdminDaoTest {
 		String email = "admin@teste.com";
 		String password = "123";
 		
-		assertEquals(true, adminDao.autorized(email, password));
+		assertEquals(true, adminDao.authorized(email, password));
 	}
 	
 }
