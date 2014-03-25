@@ -36,7 +36,7 @@ public class AuthenticationFilter implements Filter {
          
         if(session == null && !(uri.endsWith("jsp") || uri.endsWith("LoginServlet"))){
             this.context.log("Acesso não autorizado!");
-            res.sendRedirect("EstagioEstoque/");
+            res.sendRedirect("/EstagioEstoque");
         }else{
             chain.doFilter(request, response);
         }    

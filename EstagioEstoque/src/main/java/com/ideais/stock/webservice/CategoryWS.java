@@ -15,10 +15,10 @@ import com.ideais.stock.domain.Category;
 public class CategoryWS {
 	CategoryDao categoryDao = new CategoryDao();
 
-
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Category> getCategories() {
+		System.out.println();
 		return categoryDao.findAll();
 	}
 

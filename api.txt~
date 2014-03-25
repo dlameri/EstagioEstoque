@@ -4,7 +4,7 @@ Categoria:
 
 
 	@GET
-		retorna todas as categorias
+		retorna todas as categorias em ordem alfabética
 	}
 
 	@Path("/{id}")
@@ -19,7 +19,7 @@ Subategoria:
 
 
 	@GET
-		retorna todas as subcategorias
+		retorna todas as subcategorias em ordem alfabética
 	}
 
 	@Path("/{id}")
@@ -39,7 +39,12 @@ Produto:
 
 
 	@GET
-		retorna uma lista com todos os produtos
+		retorna uma lista com os 20 primeiros produtos ativos ordenados pelo rank
+
+		parametros que podem ser usados para personalizar a busca:
+		orderColum="coluna que você deseja ordenar"  --  o nome da coluna deve ser o mesmo nome que está no json. default=rank
+		order="asc" ou "desc" default=desc
+		
 	}
 
 	@Path("/{id}")

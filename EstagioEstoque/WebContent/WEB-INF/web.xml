@@ -105,4 +105,5 @@
 		<filter-name>AuthenticationFilter</filter-name>
 		<url-pattern>/web/*</url-pattern>
 	</filter-mapping>
+	
 </web-app>

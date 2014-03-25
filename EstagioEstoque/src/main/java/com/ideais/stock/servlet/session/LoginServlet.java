@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(userName);
             response.sendRedirect("/EstagioEstoque/web");
         }else{
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("EstagioEstoque");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/");
             rd.include(request, response);
         }
  
