@@ -26,7 +26,6 @@ public class LoginServlet extends HttpServlet {
         String pwd = request.getParameter("pwd");
         
         if ( adminDao.authorized(email, pwd) ) {
-        	System.out.println("\n\nAutorizado\n\n");
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 			session.setMaxInactiveInterval(30 * 60); // setting session to
@@ -36,9 +35,7 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(userName);
 			response.sendRedirect("/EstagioEstoque/web");
 		} else {
-			System.out.println("\n\nNao Autorizado\n\n");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("EstagioEstoque");
-            rd.include(request, response);
+			response.sendRedirect("/EstagioEstoque/index.jsp?error=true");
         }
  
     }

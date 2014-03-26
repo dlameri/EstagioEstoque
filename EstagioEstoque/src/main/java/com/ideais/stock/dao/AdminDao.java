@@ -27,8 +27,6 @@ public class AdminDao {
 	}
 	
 	public Long create(Admin admin) {
-//		admin.setPassword(Admin.makeSecurePassword(admin.getPassword()));
-//		admin.makeSecurePassword();
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
@@ -57,7 +55,6 @@ public class AdminDao {
 	
 	public void update(Admin admin) {
 		Transaction tx = null;
-//		admin.makeSecurePassword();
 		try {
 			tx = session().beginTransaction();
 			session().update(admin);
@@ -104,7 +101,6 @@ public class AdminDao {
 		Transaction tx = session().beginTransaction();
 		Admin admin = new Admin();
 		admin.setPassword(password);
-//		password = admin.makeSecurePassword(password);
 		@SuppressWarnings("unchecked")
 		List<Admin> admins = session().createCriteria(Admin.class).add(Restrictions.like("email", email)).add(Restrictions.like("password", admin.getPassword())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
