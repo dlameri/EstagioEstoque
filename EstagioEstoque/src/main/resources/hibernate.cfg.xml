@@ -7,7 +7,7 @@
 		<!-- Configuracao do Hibernate -->
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
-		<property name="hibernate.hbm2ddl.auto">updade</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 
 
 		<!-- MySQL -->

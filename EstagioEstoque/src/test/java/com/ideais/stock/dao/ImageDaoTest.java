@@ -62,9 +62,9 @@ public class ImageDaoTest {
 		item.setStock(9999);
 		item.setRank(0);
 		
-		subcategory.setName("Luvas");
+		subcategory.setName("Luvas4");
 		
-		category.setName("Esportes");
+		category.setName("Esportes4");
 		
 		subcategory.setCategory(category);
 		product.setCategory(category);

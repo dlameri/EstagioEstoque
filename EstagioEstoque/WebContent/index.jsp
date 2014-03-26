@@ -32,8 +32,8 @@
 				<td>
 					<form action="LoginServlet" method="post">
 						<h3>ACESSO RESTRITO</h3><br>						
-						Name:<input type="text" name="email" value="admin@teste.com">
-						Password:<input type="password" name="pwd" value="123">
+						Email:<input type="text" name="email" value="admin@teste.com">
+						Senha:<input type="password" name="pwd" value="123">
 						<input type="submit" value="Login"> 
 					</form>
 					<label>Rodar o teste create do admin para criar o administrador no banco.</label>

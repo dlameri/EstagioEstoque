@@ -1,12 +1,15 @@
 package com.ideais.stock.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Property;
@@ -17,6 +20,8 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.factory.QueryFactory;
+import com.ideais.stock.util.Validade;
 
 
 public class ProductDao {
@@ -54,7 +59,28 @@ public class ProductDao {
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Product> product = session().createCriteria(Product.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		Query q = (Query) session().createQuery("from Product").setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Product> product = q.list();
+		tx.commit();
+		return product;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
+		Transaction tx = session().beginTransaction();
+		Criteria c = session().createCriteria(Product.class);
+		
+		try {
+			c = QueryFactory.factory(c, orderColum, order, active, firstResult, maxResults);
+			System.out.println("------------------------ >>>  orderColum: " + orderColum +", order: "+ order + ", " + active + ", " + firstResult + ", " + maxResults);
+		} catch (SQLException e) {
+			System.out.println("----------------  SQL ERROR ---------------- ");
+			System.out.println("criterea: " + c + ", orderColum: "+ orderColum +", order: "+ order + ", " + active + ", " + firstResult + ", " + maxResults);
+			e.printStackTrace();
+		}
+		
+		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Product> product = c.list();
 		tx.commit();
 		return product;
 	}
