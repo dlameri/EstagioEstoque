@@ -13,17 +13,17 @@ public final class QueryFactory {
 		if (orderColum != null) {	
 			if (order != null && order.equals("asc")) {
 				criteria.addOrder(Property.forName(orderColum).asc());
-				System.out.println("---------------------- >>> asc");
 			}
 			if (order != null && order.equals("desc")) {
 				criteria.addOrder(Property.forName(orderColum).desc());
-				System.out.println("---------------------- >>> desc");
 			} 
 		}
 		
 		if (active != null && !active.equals("all")){
 			criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
 		}
+		
+		criteria.setMaxResults(setMaxResult(maxResults));
 		
 		return criteria;
 	
@@ -37,6 +37,22 @@ public final class QueryFactory {
 			return true;
 		}
 		return false;
+	}
+	
+	private static int setMaxResult (String firstResult){
+		Integer intToTest = null;
+		try {
+		    intToTest = Integer.parseInt(firstResult);
+		    if (intToTest > 51) {
+		    	return 50;
+		    }
+		    if (intToTest <= 0) {
+		    	return 1;
+		    }
+		    return intToTest;
+		} catch (NumberFormatException e) {
+		    return 20;
+		}
 	}
 
 }

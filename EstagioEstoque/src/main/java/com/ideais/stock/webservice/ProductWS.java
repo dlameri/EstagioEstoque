@@ -25,7 +25,7 @@ public class ProductWS {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Product> getProducts(@QueryParam("orderColum") @DefaultValue("rank") String orderColum, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("10") String maxResults) {
+	public List<Product> getProducts(@QueryParam("orderColum") @DefaultValue("rank") String orderColum, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
 		return productDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
 	}
 

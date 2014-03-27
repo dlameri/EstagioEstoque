@@ -45,6 +45,7 @@ Produto:
 		orderColum="coluna que você deseja ordenar"  --  o nome da coluna deve ser o mesmo nome que está no json. default=rank
 		order="asc" ou "desc" default=desc
 		active="true", "false" ou "all" default=true  (qualquer outro valor vai ser "false")
+		maxResults=de 1 a 50 -- define o maximo de resultados a ser exibido. se for mais de 50 vai retornar 50 e se for menor que 1 vai retornar 1. default = 20
 	}
 
 	@Path("/{id}")

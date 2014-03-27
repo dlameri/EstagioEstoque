@@ -44,7 +44,7 @@ Produto:
 		parametros que podem ser usados para personalizar a busca:
 		orderColum="coluna que você deseja ordenar"  --  o nome da coluna deve ser o mesmo nome que está no json. default=rank
 		order="asc" ou "desc" default=desc
-		
+		active="true", "false" ou "all" default=true  (qualquer outro valor vai ser "false")
 	}
 
 	@Path("/{id}")
