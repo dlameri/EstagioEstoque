@@ -60,6 +60,7 @@ public class ProductDao {
 		Query q = (Query) session().createQuery("from Product").setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Product> product = q.list();
 		tx.commit();
+		session().close();
 		return product;
 	}
 	
@@ -80,6 +81,7 @@ public class ProductDao {
 		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Product> product = c.list();
 		tx.commit();
+		session().close();
 		return product;
 	}
 	
@@ -88,6 +90,7 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();
 		List<Product> product = session().createCriteria(Product.class).addOrder(Property.forName("rank").desc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return product;
 	}
 
@@ -126,6 +129,7 @@ public class ProductDao {
 				tx.rollback();
 			}
 		}
+		session().close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -133,6 +137,7 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();		
 		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("name", "%"+textToSeach+"%")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return products;
 	}
 	
@@ -141,6 +146,7 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();		
 		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("category", category)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return products;
 	}
 	
@@ -149,6 +155,7 @@ public class ProductDao {
 		Transaction tx = session().beginTransaction();		
 		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("subcategory", subcategory)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return products;
 	}
 	

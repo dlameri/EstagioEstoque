@@ -51,6 +51,7 @@ public class CategoryDao {
 		Transaction tx = session().beginTransaction();
 		List<Category> category = session().createCriteria(Category.class).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return category;
 	}
 
@@ -75,6 +76,7 @@ public class CategoryDao {
 		Transaction tx = session().beginTransaction();
 		Category category = (Category) session().get(Category.class, id);
 		tx.commit();
+		session().close();
 		return category;
 	}
 	
@@ -83,6 +85,7 @@ public class CategoryDao {
 		Category category = (Category) session().createCriteria(Category.class).
 				add(Restrictions.eq("name", name)).uniqueResult();
 		tx.commit();
+		session().close();
 		return category;
 	}
 	
@@ -97,6 +100,7 @@ public class CategoryDao {
 				tx.rollback();
 			}
 		}
+		session().close();
 	}
 	
 	private Session session() {

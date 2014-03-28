@@ -53,6 +53,7 @@ public class ItemDao {
 		Transaction tx = session().beginTransaction();
 		List<Item> item = session().createCriteria(Item.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return item;
 	}
 	
@@ -61,6 +62,7 @@ public class ItemDao {
 		Transaction tx = session().beginTransaction();
 		List<Item> item = session().createCriteria(Item.class).addOrder(Property.forName("rank").desc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return item;
 	}
 
@@ -85,6 +87,7 @@ public class ItemDao {
 		Transaction tx = session().beginTransaction();
 		Item item = (Item) session().get(Item.class, id);
 		tx.commit();
+		session().close();
 		return item;
 	}
 	
@@ -93,6 +96,7 @@ public class ItemDao {
 		Transaction tx = session().beginTransaction();		
 		List<Item> itens = session().createCriteria(Item.class).add(Restrictions.like("product", product)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return itens;
 	}
 	
@@ -101,6 +105,7 @@ public class ItemDao {
 	 Transaction tx = session().beginTransaction();	
 	 List<Item> item = session().createCriteria(Item.class).add(Restrictions.in("id", ids)).list();
 	 tx.commit();
+	 session().close();
 	 return item;
 	 }
 		

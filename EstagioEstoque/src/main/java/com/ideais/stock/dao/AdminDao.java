@@ -49,6 +49,7 @@ public class AdminDao {
 		Transaction tx = session().beginTransaction();
 		List<Admin> category = session().createCriteria(Admin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return category;
 	}
 
@@ -73,6 +74,7 @@ public class AdminDao {
 		Transaction tx = session().beginTransaction();
 		Admin admin = (Admin) session().get(Admin.class, id);
 		tx.commit();
+		session().close();
 		return admin;
 	}
 	
@@ -87,6 +89,7 @@ public class AdminDao {
 				tx.rollback();
 			}
 		}
+		session().close();
 	}
 	
 	public Boolean authorized(String email, String password) {

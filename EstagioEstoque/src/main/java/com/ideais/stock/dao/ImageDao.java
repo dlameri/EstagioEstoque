@@ -47,6 +47,7 @@ public class ImageDao {
 		Transaction tx = session().beginTransaction();
 		List<Image> image = session().createCriteria(Image.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
+		session().close();
 		return image;
 	}
 
@@ -71,6 +72,7 @@ public class ImageDao {
 		Transaction tx = session().beginTransaction();
 		Image image = (Image) session().get(Image.class, id);
 		tx.commit();
+		session().close();
 		return image;
 	}
 	
