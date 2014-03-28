@@ -49,7 +49,7 @@ public class Cadastration {
 					subcategory.setCategory(category);
 					subcategoryDao.create(subcategory);
 					
-					for (int j2 = 0; j2 < 60 && j < 2; j2++) {
+					for (int j2 = 0; j2 < 60; j2++) {
 						
 						product.setCategory(category);
 						product.setSubcategory(subcategory);
@@ -69,7 +69,7 @@ public class Cadastration {
 						
 						productDao.create(product);
 						
-						for (int k = 0; k < 3 && j2 < 5; k++) {
+						for (int k = 0; k < 3; k++) {
 							
 							item.setSku(01L +k);
 							item.setActive(true);
