@@ -9,7 +9,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
-import org.hibernate.SharedSessionContract;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Property;
@@ -21,7 +20,6 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.factory.QueryFactory;
-import com.ideais.stock.util.Validade;
 
 
 public class ProductDao {
