@@ -8,18 +8,22 @@ import org.hibernate.criterion.Restrictions;
 
 public final class QueryFactory {
 	
+	private static final int DEFAULT_OFFSET_VALUE = 0;
+	private static final int DEFAULT_MAX_RESULTS_VALUE = 20;
+	private static final int MAXIMUM_MAX_RESULTS_VALUE = 50;
+
 	public static Criteria factory (Criteria criteria, String orderColum, String order, String active, String firstResult, String maxResults) throws SQLException {
 		
 		if (orderColum != null) {	
-			if (order != null && order.equals("asc")) {
+			if ("asc".equals(order)) {
 				criteria.addOrder(Property.forName(orderColum).asc());
 			}
-			if (order != null && order.equals("desc")) {
+			if ("desc".equals(order)) {
 				criteria.addOrder(Property.forName(orderColum).desc());
 			} 
 		}
 		
-		if (active != null && !active.equals("all")){
+		if ( !("all".equals(active)) ){
 			criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
 		}
 		
@@ -31,41 +35,39 @@ public final class QueryFactory {
 	}
 	
 	private static Boolean parseStringToBoolean (String string){
-		if (string == null) {
-			return false;
-		}
-		if (string.equals("true")){
+		if ("true".equals(string)){
 			return true;
 		}
 		return false;
 	}
 	
 	private static int setFirstResult (String firstResult){
-		Integer intToTest = null;
+		Integer offsetNumber;
 		try {
-		    intToTest = Integer.parseInt(firstResult);
-		    if (intToTest < 0) {
-		    	return 1;
+		    offsetNumber = Integer.parseInt(firstResult);
+		    if (offsetNumber < 0) {
+		    	return DEFAULT_OFFSET_VALUE;
 		    }
-		    return intToTest;
+		    return offsetNumber;
 		} catch (NumberFormatException e) {
-		    return 20;
+		    return DEFAULT_OFFSET_VALUE;
 		}
 	}
 	
 	private static int setMaxResult (String maxResult){
-		Integer intToTest = null;
+		Integer intToTest;
+		
 		try {
 		    intToTest = Integer.parseInt(maxResult);
-		    if (intToTest > 51) {
-		    	return 50;
+		    if (intToTest >= MAXIMUM_MAX_RESULTS_VALUE) {
+		    	return MAXIMUM_MAX_RESULTS_VALUE;
 		    }
-		    if (intToTest <= 0) {
-		    	return 1;
+		    if (intToTest < 1) {
+		    	return DEFAULT_MAX_RESULTS_VALUE;
 		    }
 		    return intToTest;
 		} catch (NumberFormatException e) {
-		    return 20;
+		    return DEFAULT_MAX_RESULTS_VALUE;
 		}
 	}
 
