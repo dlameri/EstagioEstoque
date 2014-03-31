@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 public final class QueryFactory {
 	
 	public static Criteria factory (Criteria criteria, String orderColum, String order, String active, String firstResult, String maxResults) throws SQLException {
-	
+		
 		if (orderColum != null) {	
 			if (order != null && order.equals("asc")) {
 				criteria.addOrder(Property.forName(orderColum).asc());
@@ -23,6 +23,7 @@ public final class QueryFactory {
 			criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
 		}
 		
+		criteria.setFirstResult(setFirstResult(firstResult));
 		criteria.setMaxResults(setMaxResult(maxResults));
 		
 		return criteria;
@@ -39,10 +40,23 @@ public final class QueryFactory {
 		return false;
 	}
 	
-	private static int setMaxResult (String firstResult){
+	private static int setFirstResult (String firstResult){
 		Integer intToTest = null;
 		try {
 		    intToTest = Integer.parseInt(firstResult);
+		    if (intToTest < 0) {
+		    	return 1;
+		    }
+		    return intToTest;
+		} catch (NumberFormatException e) {
+		    return 20;
+		}
+	}
+	
+	private static int setMaxResult (String maxResult){
+		Integer intToTest = null;
+		try {
+		    intToTest = Integer.parseInt(maxResult);
 		    if (intToTest > 51) {
 		    	return 50;
 		    }

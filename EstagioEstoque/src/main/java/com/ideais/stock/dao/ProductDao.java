@@ -71,14 +71,10 @@ public class ProductDao {
 		
 		try {
 			c = QueryFactory.factory(c, orderColum, order, active, firstResult, maxResults);
-			System.out.println("------------------------ >>>  orderColum: " + orderColum +", order: "+ order + ", " + active + ", " + firstResult + ", " + maxResults);
 		} catch (SQLException e) {
-			System.out.println("----------------  SQL ERROR ---------------- ");
-			System.out.println("criterea: " + c + ", orderColum: "+ orderColum +", order: "+ order + ", " + active + ", " + firstResult + ", " + maxResults);
-			e.printStackTrace();
+			// TODO fazer o catch
 		}
 		
-		c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Product> product = c.list();
 		tx.commit();
 		session().close();
