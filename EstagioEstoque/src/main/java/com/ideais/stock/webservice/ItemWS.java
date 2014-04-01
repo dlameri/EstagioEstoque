@@ -20,8 +20,8 @@ public class ItemWS {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> getItems(@QueryParam("orderColum") @DefaultValue("rank") String orderColum, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
-		return itemDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
+	public List<Item> getItems(@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+		return itemDao.personalizedQuery(orderColumn, order, active, firstResult, maxResults);
 	}
 	
 	@Path("/orderbyrank")
@@ -41,10 +41,10 @@ public class ItemWS {
 	@Path("/byproductid/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> seachItemsByCategyId(@PathParam("id") Long id, @QueryParam("orderColum") @DefaultValue("rank") String orderColum, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+	public List<Item> searchItemsByCategoryId(@PathParam("id") Long id, @QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
 		Product product = new Product();
 		product.setId(id);
-		return itemDao.findByProductId(product, maxResults, maxResults, maxResults, maxResults, maxResults);
+		return itemDao.findByProductId(product, orderColumn, order, active, firstResult, maxResults);
 	}
 	
 }

@@ -36,17 +36,17 @@ public class ProductWS {
 		return productDao.findById(id);
 	}
 
-	@Path("/seach/{textToSeach}")
+	@Path("/search/{textToSearch}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Product> seachProducts(@PathParam("textToSeach") String textToSeach) {
-		return productDao.seach(textToSeach);
+	public List<Product> searchProducts(@PathParam("textToSearch") String textToSearch) {
+		return productDao.search(textToSearch);
 	}
 	
 	@Path("/bycategoryid/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Product> seachProductsByCategyId(@PathParam("id") Long id) {
+	public List<Product> searchProductsByCategyId(@PathParam("id") Long id) {
 		Category category = new Category();
 	    	category.setId(id);
 		return productDao.findByCategoryId(category);
@@ -55,7 +55,7 @@ public class ProductWS {
 	@Path("/bysubcategoryid/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Product> seachProductsBySubategyId(@PathParam("id") Long id) {
+	public List<Product> searchProductsBySubcategoryId(@PathParam("id") Long id) {
 	    	Subcategory subcategory = new Subcategory();
 	    	subcategory.setId(id);
 		return productDao.findBySubcategoryId(subcategory);

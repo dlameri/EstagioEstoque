@@ -27,14 +27,14 @@ public class SubcategoryWS {
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Subcategory getSubategoriesById(@PathParam("id") Long id) {
+	public Subcategory getSubcategoriesById(@PathParam("id") Long id) {
 		return subcategoryDao.findById(id);
 	}
 	
 	@Path("/category/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Subcategory> getSubategoriesByCategoryId(@PathParam("id") Long id) {
+	public List<Subcategory> getSubcategoriesByCategoryId(@PathParam("id") Long id) {
 		Category category = categoryDao.findById(id);
 		return subcategoryDao.findByCategoryId(category);
 	}

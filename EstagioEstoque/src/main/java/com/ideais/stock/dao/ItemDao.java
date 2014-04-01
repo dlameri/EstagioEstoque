@@ -60,35 +60,35 @@ public class ItemDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Item> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
+	public List<Item> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
 		Transaction tx = session().beginTransaction();
-		Criteria c = session().createCriteria(Item.class);
+		Criteria criteria = session().createCriteria(Item.class);
 		
 		try {
-			c = QueryFactory.factory(c, orderColum, order, active, firstResult, maxResults);
+			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 		} catch (SQLException e) {
 			// TODO fazer o catch
 		}
 		
-		List<Item> items = c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Item> items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		session().close();
 		return items;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Item> findByProductId(Product product, String orderColum, String order, String active, String firstResult, String maxResults) {
+	public List<Item> findByProductId(Product product, String orderColumn, String order, String active, String firstResult, String maxResults) {
 		Transaction tx = session().beginTransaction();		
-		Criteria c = session().createCriteria(Item.class).add(Restrictions.like("product", product));
+		Criteria criteria = session().createCriteria(Item.class).add(Restrictions.like("product", product));
 		
 		try {
-			c = QueryFactory.factory(c, orderColum, order, active, firstResult, maxResults);
+			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 		} catch (SQLException e) {
 			System.out.println("----------------------- error ----------------------------------");
 			// TODO fazer o catch
 		}
 		
-		List<Item> itens = c.list();
+		List<Item> itens = criteria.list();
 		tx.commit();
 		session().close();
 		return itens;
@@ -97,7 +97,11 @@ public class ItemDao {
 	@SuppressWarnings("unchecked")
 	public List<Item> findAllOrderByRank() {
 		Transaction tx = session().beginTransaction();
-		List<Item> item = session().createCriteria(Item.class).addOrder(Property.forName("rank").desc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		
+		Criteria criteria = session().createCriteria(Item.class);
+		criteria.addOrder(Property.forName("rank").desc());
+		List<Item> item = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		
 		tx.commit();
 		session().close();
 		return item;
@@ -128,14 +132,14 @@ public class ItemDao {
 		return item;
 	}
 	
-	 @SuppressWarnings("unchecked")
-	 public List<Item> findByIds(List<Long> ids) {
-	 Transaction tx = session().beginTransaction();	
-	 List<Item> item = session().createCriteria(Item.class).add(Restrictions.in("id", ids)).list();
-	 tx.commit();
-	 session().close();
-	 return item;
-	 }
+	@SuppressWarnings("unchecked")
+	public List<Item> findByIds(List<Long> ids) {
+		Transaction tx = session().beginTransaction();	
+		List<Item> item = session().createCriteria(Item.class).add(Restrictions.in("id", ids)).list();
+		tx.commit();
+		session().close();
+		return item;
+	}
 		
 	private Session session() {
 		Session session = sessionFactory.getCurrentSession();
@@ -144,5 +148,4 @@ public class ItemDao {
 		}
 		return session;
 	}
-
 }

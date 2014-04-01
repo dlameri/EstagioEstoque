@@ -67,24 +67,30 @@ public class ProductDao {
 	@SuppressWarnings("unchecked")
 	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
 		Transaction tx = session().beginTransaction();
-		Criteria c = session().createCriteria(Product.class);
+		Criteria criteria = session().createCriteria(Product.class);
 		
 		try {
-			c = QueryFactory.factory(c, orderColum, order, active, firstResult, maxResults);
+			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
 		} catch (SQLException e) {
 			// TODO fazer o catch
 		}
 		
-		List<Product> product = c.list();
+		List<Product> products = criteria.list();
+		
 		tx.commit();
 		session().close();
-		return product;
+		return products;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> findAllOrderByRank() {
 		Transaction tx = session().beginTransaction();
-		List<Product> product = session().createCriteria(Product.class).addOrder(Property.forName("rank").desc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+		Criteria criteria = session().createCriteria(Product.class);
+		criteria.addOrder(Property.forName("rank").desc());
+		criteria.add(Restrictions.isNotEmpty("items"));
+		List<Product> product = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		
 		tx.commit();
 		session().close();
 		return product;
@@ -129,9 +135,15 @@ public class ProductDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Product> seach(String textToSeach) {
+	public List<Product> search(String textToSearch) {
 		Transaction tx = session().beginTransaction();		
-		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("name", "%"+textToSeach+"%")).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		
+		Criteria criteria = session().createCriteria(Product.class);
+		criteria.add(Restrictions.like("name", "%"+textToSearch+"%"));
+		
+		List<Product> products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		 
+		
 		tx.commit();
 		session().close();
 		return products;
@@ -140,7 +152,11 @@ public class ProductDao {
 	@SuppressWarnings("unchecked")
 	public List<Product> findByCategoryId(Category category) {
 		Transaction tx = session().beginTransaction();		
-		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("category", category)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		
+		Criteria criteria = session().createCriteria(Product.class);
+		criteria.add(Restrictions.like("category", category));
+		List<Product> products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
 		tx.commit();
 		session().close();
 		return products;
@@ -149,7 +165,11 @@ public class ProductDao {
 	@SuppressWarnings("unchecked")
 	public List<Product> findBySubcategoryId(Subcategory subcategory) {
 		Transaction tx = session().beginTransaction();		
-		List<Product> products = session().createCriteria(Product.class).add(Restrictions.like("subcategory", subcategory)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
+		Criteria criteria = session().createCriteria(Product.class);
+		criteria.add(Restrictions.like("subcategory", subcategory));
+		List<Product> products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+
 		tx.commit();
 		session().close();
 		return products;
