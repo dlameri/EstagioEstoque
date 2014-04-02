@@ -1,6 +1,7 @@
 package com.ideais.stock.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -36,7 +37,6 @@ public class ProductDao {
 	
 	public Long create(Product product) {
 		Transaction tx = null;
-		product.setActive(true);
 		try {
 			tx = session().beginTransaction();
 			Long id = (Long) session().save(product);

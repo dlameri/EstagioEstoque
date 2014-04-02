@@ -84,7 +84,6 @@ public class ItemDao {
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 		} catch (SQLException e) {
-			System.out.println("----------------------- error ----------------------------------");
 			// TODO fazer o catch
 		}
 		

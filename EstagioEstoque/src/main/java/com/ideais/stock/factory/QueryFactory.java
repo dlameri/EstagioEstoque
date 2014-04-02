@@ -31,7 +31,6 @@ public final class QueryFactory {
 		criteria.setMaxResults(setMaxResult(maxResults));
 		
 		return criteria;
-	
 	}
 	
 	private static Boolean parseStringToBoolean (String string){

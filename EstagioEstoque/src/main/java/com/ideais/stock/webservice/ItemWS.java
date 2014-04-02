@@ -2,17 +2,22 @@ package com.ideais.stock.webservice;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.webservice.domain.CartItemWS;
+import com.ideais.stock.webservice.domain.CartWS;
 
 @Path("/item")
 public class ItemWS {
@@ -45,6 +50,27 @@ public class ItemWS {
 		Product product = new Product();
 		product.setId(id);
 		return itemDao.findByProductId(product, orderColumn, order, active, firstResult, maxResults);
+	}
+	
+	@Path("/updatestock")
+	@PUT
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response updatestock(CartWS cart) {
+		String output = cart.getCartItems().toString();
+		
+		for (int i = 0; i < cart.getCartItems().size(); i++) {
+			CartItemWS itemWS = cart.getCartItems().get(i);
+			Item item = itemDao.findById(itemWS.getCartItemId());
+			// TODO tratar
+			item.setStock(item.getStock() - itemWS.getQuantity());
+			item.setRank(item.getRank() + itemWS.getQuantity());
+			item.getProduct().setRank(item.getProduct().getRank() + itemWS.getQuantity());
+			itemDao.update(item);
+		}
+		System.out.println(cart.getCartItems().get(0).getCartItemId());
+		System.out.println(cart.getCartItems().get(0).getQuantity());
+		return Response.status(201).entity(output).build();
+		// TODO criar classe de constante
 	}
 	
 }

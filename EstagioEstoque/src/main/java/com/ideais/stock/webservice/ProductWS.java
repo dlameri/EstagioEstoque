@@ -17,6 +17,7 @@ import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.webservice.domain.CartItemWS;
 import com.ideais.stock.webservice.domain.CartWS;
 
 @Path("/product")
@@ -59,14 +60,6 @@ public class ProductWS {
 	    	Subcategory subcategory = new Subcategory();
 	    	subcategory.setId(id);
 		return productDao.findBySubcategoryId(subcategory);
-	}
-
-	@Path("/updatestock")
-	@PUT
-	@Consumes({ MediaType.APPLICATION_JSON })
-	public Response consumeJSON(CartWS cart) {
-		String output = cart.toString();
-		return Response.status(200).entity(output).build();
 	}
 	
 	@Path("/orderbyrank")
