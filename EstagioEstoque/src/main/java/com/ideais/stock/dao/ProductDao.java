@@ -1,7 +1,6 @@
 package com.ideais.stock.dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;

@@ -61,14 +61,15 @@ public class ItemWS {
 		for (int i = 0; i < cart.getCartItems().size(); i++) {
 			CartItemWS itemWS = cart.getCartItems().get(i);
 			Item item = itemDao.findById(itemWS.getCartItemId());
-			// TODO tratar
-			item.setStock(item.getStock() - itemWS.getQuantity());
+			Integer newItemStock = item.getStock() - itemWS.getQuantity();
+			if (newItemStock < 0 || itemWS.getQuantity() <= 0){
+				return Response.status(400).entity(output).build();
+			}
+			item.setStock(newItemStock);
 			item.setRank(item.getRank() + itemWS.getQuantity());
 			item.getProduct().setRank(item.getProduct().getRank() + itemWS.getQuantity());
 			itemDao.update(item);
 		}
-		System.out.println(cart.getCartItems().get(0).getCartItemId());
-		System.out.println(cart.getCartItems().get(0).getQuantity());
 		return Response.status(201).entity(output).build();
 		// TODO criar classe de constante
 	}
