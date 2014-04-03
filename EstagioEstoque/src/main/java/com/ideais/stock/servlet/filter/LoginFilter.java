@@ -14,6 +14,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ideais.stock.dao.AdminDao;
 import com.ideais.stock.domain.Admin;
 
@@ -22,6 +24,8 @@ import com.ideais.stock.domain.Admin;
  */
 @WebFilter("/LoginFilter")
 public class LoginFilter implements Filter {
+	
+	private static final Logger LOG = Logger.getLogger(LoginFilter.class.getName()); 
 
     /**
      * Default constructor. 
@@ -51,7 +55,6 @@ public class LoginFilter implements Filter {
 		
 		Boolean validator = false;
 		
-		
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if ( "email".equals(cookie.getName()) ) {
@@ -69,7 +72,7 @@ public class LoginFilter implements Filter {
 		if (validator) {
 			chain.doFilter(request, response);
 		} else {
-			System.out.println("\n\n\nnegado\n\n\n");
+			LOG.info("Acesso Negado");
 			httpResponse.sendRedirect("/EstagioEstoque/index.jsp");
 		}
 	}

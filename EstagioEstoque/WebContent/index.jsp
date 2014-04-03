@@ -31,19 +31,20 @@
 			<tr>
 				<td>
 					<form action="LoginServlet" method="post">
-						<h3>ACESSO RESTRITO</h3><br>						
-						Email:<input type="text" name="email" value="admin@teste.com">
-						Senha:<input type="password" name="pwd" value="123">
-						<input type="submit" value="Login"> 
+						<h3>ACESSO RESTRITO</h3><br>
+						<labe>Email:</label>
+						<input label="asd" type="text" name="email" value="admin@teste.com"><br/>
+						<labe>Senha:</label>
+						<input type="password" name="pwd" value="123"><br/>
+						<input type="submit" value="Login">
 					</form>
-					<label>Rodar o teste create do admin para criar o administrador no banco.</label>
 				</td>
 			</tr>
 		</table>
 	</div>	
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<footer id="copyright">
-		<p>Copyright (c) 2013 Stock Team Enterprise All rights reserved. |
+		<p>Copyright (c) 2014 Stock Team Enterprise All rights reserved. |
 			Design by Stock Team Enterprises.</p>
 	</footer>
 </body>

@@ -58,6 +58,22 @@
 				<param name="location">web/subcategorias?error=true</param>
 			</result>
 		</action>
+		
+		
+		<action name="addproduct" class="com.ideais.stock.action.ProductAction"
+			method="addProduct">
+			<result name="success" type="redirect">
+				<param name="location">web/produtos</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">web/produtos?error=true</param>
+			</result>
+		</action>
+		
+		<action name="produtos" class="com.ideais.stock.action.ProductAction"
+			method="listProducts">
+			<result name="success">product.jsp</result>
+		</action>
 
 	</package>
 </struts>

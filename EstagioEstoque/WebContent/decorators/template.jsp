@@ -20,7 +20,7 @@
 <body>
   <div id="logo" class="container">
 		<h1>
-			<img src="../images/logobolinha.png"> <a href="#"><span>Ideais
+			<img src="../images/logobolinha.png"> <a href="/EstagioEstoque/web/"><span>Ideais
 					Electronics</span></a>
 		</h1>
 		<p>Sistema de Controle e Administração de Estoque</p>
@@ -30,6 +30,7 @@
 			<ul>
 				<li><a href="categorias">Categorias</a></li>
 				<li><a href="subcategorias">Subcategorias</a></li>
+				<li><a href="produtos">Produtos</a></li>
 				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
 		</div>

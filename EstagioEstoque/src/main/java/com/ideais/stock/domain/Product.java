@@ -52,7 +52,10 @@ public class Product {
 	private String model;
 	
 	@Column(name = "BO_ATIVO", nullable = false)
-	private Boolean active;
+	private Boolean active = true;
+
+	@Column(name = "NR_RANK", nullable = false)
+	private Integer rank = 0;
 
 	@ManyToOne
 	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
@@ -73,9 +76,6 @@ public class Product {
 	@JoinColumn(name = "CD_DIMENSOES", referencedColumnName = "CD_DIMENSOES", nullable = false)
 	@Cascade(CascadeType.ALL)
 	private Dimensions dimensions;
-	
-	@Column(name = "NR_RANK")
-	private Integer rank;
 	
 	public Integer getRank() {
 		return rank;

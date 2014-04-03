@@ -54,11 +54,6 @@ public class SubcategoryAction extends ActionSupport {
 
 	public String listSubcategories() {
 		categories = categoryDao.findAll();
-		Map<Category, List<Subcategory>> mapa = new HashMap<Category, List<Subcategory>>();
-		
-		for (Category category : categories) {
-			mapa.put(category, category.getSubcategories());
-		}
 		
 		return SUCCESS;
 	}
@@ -71,9 +66,9 @@ public class SubcategoryAction extends ActionSupport {
 		this.subcategory = subcategory;
 	}
 
-	public void setSubcategories(List<Subcategory> subcategories) {
-		this.subcategories = subcategories;
-	}
+//	public void setSubcategories(List<Subcategory> subcategories) {
+//		this.subcategories = subcategories;
+//	}
 	
 	public String deleteSubcategory() {
 		try {
@@ -100,7 +95,7 @@ public class SubcategoryAction extends ActionSupport {
 		return category;
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+//	public void setCategories(List<Category> categories) {
+//		this.categories = categories;
+//	}
 }

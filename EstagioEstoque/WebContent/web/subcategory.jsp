@@ -32,12 +32,6 @@
 		</fieldset>	
 	</form>
 
-<%-- 	<s:form action="addsubcategory"> --%>
-<%-- 			<s:radio label="Selecione uma categoria" label="Categoria" name="subcategory.category" list="categories"/> --%>
-<%-- 			<s:textfield label="Subcategoria" name="subcategory.name" style="display: block;"/>  --%>
-<%-- 			<s:submit id="btn" value="Add" /> --%>
-<%-- 	</s:form> --%>
-	----------------------------------
 		<ul>
 		<c:forEach items="${categories}" var="category">
 			<li>${category.name}</li>
