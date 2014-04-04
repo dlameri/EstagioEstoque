@@ -31,11 +31,10 @@ public class ProductAction extends ActionSupport {
 	
 	
 	public String addProduct() {
-		System.out.println("\n\n\n\n\nCategory id: " + category.getId() + "\n\n\n\n");
+		System.out.println("\n\n\n\n\nCategory id: " + category.getId() + subcategory.getId() + "\n\n\n\n");
 		product.setDimensions(dimensions);
-		product.setCategory(category);
-		product.setSubcategory(subcategory);
-		product.getSubcategory().setCategory(category);
+		product.setCategory(categoryDao.findById(category.getId()));
+		product.setSubcategory(subcategoryDao.findById(subcategory.getId()));
 		productDao.create(product);
 		
 		return SUCCESS;

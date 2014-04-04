@@ -38,9 +38,9 @@ public class ProductDao {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			Long id = (Long) session().save(product);
+			Product savedProduct = (Product) session().merge(product);
 	        tx.commit();
-	        return id;
+	        return savedProduct.getId();
 		} catch (Exception e) {
 			if( tx != null ) {
 				tx.rollback();
@@ -74,7 +74,8 @@ public class ProductDao {
 			// TODO fazer o catch
 		}
 		
-		List<Product> products = criteria.list();
+		criteria.add(Restrictions.isNotEmpty("items"));
+		List<Product> products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		
 		tx.commit();
 		session().close();
