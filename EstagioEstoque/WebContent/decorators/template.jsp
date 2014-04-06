@@ -29,6 +29,7 @@
 	<div id="wrapper" class="container">
 		<div id="menu" class="container">
 			<ul>
+				<li><a href="/EstagioEstoque/web/">Home</a></li>
 				<li><a href="categorias">Categorias</a></li>
 				<li><a href="subcategorias">Subcategorias</a></li>
 				<li><a href="produtos">Produtos</a></li>
