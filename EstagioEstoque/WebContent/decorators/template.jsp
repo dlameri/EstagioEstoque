@@ -34,8 +34,9 @@
 				<li><a href="produtos">Produtos</a></li>
 				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
-		</div>
+		</div>	
     <decorator:body />
+   </div>	
    <footer id="copyright">
 		<p>Copyright (c) 2014 Stock Team Enterprise All rights reserved. Design by Stock Team Enterprises.</p>
 	</footer>

@@ -6,39 +6,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
-	
-		<div id="three-column" class="container">
-			<div id="tbox2">
-				<span class="icon icon-wrench"></span>
-				<c:choose>
-					<c:when test="${ product.id == null }">
-						<div class="title">
-							<h2>Cadastro de Produtos</h2>
-						</div>
-						<p>Pagina criada para administrar o cadastro de produtos. Aqui
-							será possí­vel cadastrar os produtos em nosso sistema de
-							administração e controle de estoque.</p>
-					</c:when>
-					<c:otherwise>
-						<div class="title">
-							<h2>Edição de Produtos</h2>
-						</div>
-						<p>Pagina criada para administrar a edição de produtos. Aqui
-							será possíÂ­vel alterar os produtos em nosso sistema de
-							administração e controle de estoque.</p>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div id="tbox3">
 
-				<s:form action="addcategory">
-					<s:label value="Categoria " />
-					<s:textfield name="category.name" />
-					<s:submit value="Cadastrar Categoria" />
-				</s:form>
-				
+	<div id="three-column" class="container">
+		<div id="icon">
+			<span class="icon icon-wrench"></span>
+			<div class="title">
+				<h1>Bem-Vindo ao Sistema de Estoque</h1>
+			</div>
+			<div id="texto">
+				<p><b>No Sistema de Controle e Administração de Estoque da Ideais
+					Electronics é possível realizar todas as ações necessárias
+					referentes à homologação de produtos. O nosso site disponibiliza
+					através do menu superior as opções de cadastrar categoria,
+					subcategoria, produto e item respectivamente. Há também a
+					possibilidade de analisar os produtos cadastrados com suas
+					características com a opção de listagem dos mesmos. Utilize esse
+					sistema com prudência, todas as informações estarão contidas em
+					nossa base de dados e disponíveis para futuras consultas. Tenha um
+					bom trabalho.</b></p>
+				<p><b>Atenciosamente, Stock Team.</b></p>	
 			</div>
 		</div>
-	
+	</div>
 </body>
 </html>

@@ -29,21 +29,19 @@
 <body>
 	<div id="logo" class="container">
 		<h1>
-			<img src="./images/logobolinha.png"> <a href="#"><span>Ideais
-					Electronics</span></a>
+			<img src="./images/logobolinha.png"> <a href=""><span><b>Ideais
+						Electronics</b></span></a>
 		</h1>
 		<p>Sistema de Controle e Administração de Estoque</p>
 	</div>
 	<div class="container">
 		<form action="LoginServlet" method="post" class="form-signin">
-			<h3 class="form-signin-heading">
-				Área de Acesso Restrito
-				</h3>
-				<input type="text" class="form-control" placeholder="Login"
-					name="email" value="admin@teste.com" required autofocus> <input
-					type="password" class="form-control" placeholder="Senha" name="pwd"
-					value="123" required>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+			<h3 class="form-signin-heading">Área de Acesso Restrito</h3>
+			<input type="text" class="form-control" placeholder="Login"
+				name="email" value="admin@teste.com" required autofocus> <input
+				type="password" class="form-control" placeholder="Senha" name="pwd"
+				value="123" required>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 		</form>
 	</div>
 	<!-- /container -->
