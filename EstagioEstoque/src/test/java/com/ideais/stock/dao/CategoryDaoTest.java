@@ -46,14 +46,14 @@ public class CategoryDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Category category2 = categoryDao.findById(2L);
+		Category category2 = categoryDao.findById(1L);
 		System.out.println(category2.getName());
 		for (int i = 0; i < 10; i++) {
-			category2 = categoryDao.findById(2L);
+			category2 = categoryDao.findById(1L);
 			System.out.println(category2.getName());
 		}
 		
-		assertEquals(new Long(2), category2.getId());
+		assertEquals(new Long(1), category2.getId());
 	}
 	
 	@Test
