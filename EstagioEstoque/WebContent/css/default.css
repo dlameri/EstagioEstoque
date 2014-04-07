@@ -47,6 +47,21 @@ a:hover {
 .container {
 	margin: 0px auto;
 	width: 1200px;
+	text-align: left;
+}
+
+#texto {
+	font-family: Georgia, Garamond, "Lucida Sans", Verdana;
+	font-size: 1.4em;
+	color: "black";
+	margin-top: 20px;
+	margin-left: 80px;
+	margin-right: 80px;
+	magin-bottom: -80px;
+}
+
+#icon{
+	margin-top: 20px;
 }
 
 .containerlog {
@@ -75,11 +90,12 @@ table {
 	height: 200px;
 	text-align: center;
 }
-#table h3 
 
-/*********************************************************************************/
-/* Image Style                                                                   */
-/*********************************************************************************/
+#table h3
+	/*********************************************************************************/
+	/* Image Style                                                                   */
+	/*********************************************************************************/
+	
 .image {
 	display: inline-block;
 }
@@ -388,7 +404,7 @@ ul.contact li a.icon-rss:before {
 }
 
 .hidden {
-	display:none;
+	display: none;
 }
 
 /*********************************************************************************/
@@ -580,7 +596,7 @@ ul.contact li a.icon-rss:before {
 	text-transform: uppercase;
 }
 
-#three-column .title h2 {
+#three-column .title h1 {
 	font-size: 1.60em;
 	font-weight: 900;
 	font-family: 'Open Sans', sans-serif;
