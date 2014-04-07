@@ -50,7 +50,7 @@ public class SubcategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Subcategory> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).setCacheable(true).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		session().close();
 		return subcategory;
@@ -83,7 +83,7 @@ public class SubcategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Subcategory> findByCategoryId(Category category) {
 		Transaction tx = session().beginTransaction();
-		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).add(Restrictions.like("CD_CATEGORIA", category)).list();
+		List<Subcategory> subcategory = session().createCriteria(Subcategory.class).setCacheable(true).add(Restrictions.like("category", category)).list();
 		tx.commit();
 		session().close();
 		return subcategory;

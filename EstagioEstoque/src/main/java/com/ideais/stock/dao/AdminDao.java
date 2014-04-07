@@ -47,7 +47,7 @@ public class AdminDao {
 	@SuppressWarnings("unchecked")
 	public List<Admin> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Admin> category = session().createCriteria(Admin.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Admin> category = session().createCriteria(Admin.class).setCacheable(true).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		session().close();
 		return category;
@@ -105,7 +105,7 @@ public class AdminDao {
 		Admin admin = new Admin();
 		admin.setPassword(password);
 		@SuppressWarnings("unchecked")
-		List<Admin> admins = session().createCriteria(Admin.class).add(Restrictions.like("email", email)).add(Restrictions.like("password", admin.getPassword())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Admin> admins = session().createCriteria(Admin.class).setCacheable(true).add(Restrictions.like("email", email)).add(Restrictions.like("password", admin.getPassword())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		
 		if (admins.size() == 1){

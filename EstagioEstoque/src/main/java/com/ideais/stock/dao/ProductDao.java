@@ -38,9 +38,9 @@ public class ProductDao {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			Product savedProduct = (Product) session().merge(product);
+			Long id = (Long) session().save(product);
 	        tx.commit();
-	        return savedProduct.getId();
+	        return id;
 		} catch (Exception e) {
 			if( tx != null ) {
 				tx.rollback();

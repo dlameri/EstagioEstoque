@@ -7,14 +7,15 @@
 		<!-- Configuracao do Hibernate -->
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
-
-
+		<property name="hibernate.hbm2ddl.auto">none</property>
+		
+        <property name="hibernate.generate_statistics">true</property>
+        
 		<!-- MySQL -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">5axpu2sr</property>
+		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- configuration pool via c3p0-->   
@@ -24,6 +25,15 @@
 		<property name="c3p0.max_statements">20</property>   
 		<property name="c3p0.min_size">1</property>   
 		<property name="c3p0.timeout">100</property>
+		
+		
+		<!-- EhCache Config -->
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+		<property name="hibernate.cache.default_cache_concurrency_strategy">read-write</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		
+
 
 		<!-- H2 -->
 <!-- 		<property name="hibernate.connection.driver_class">org.h2.Driver</property> -->

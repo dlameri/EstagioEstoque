@@ -12,11 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="CATEGORIA")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Category {
 	@Id
 	@SequenceGenerator(name="category_id", sequenceName="category_id")
@@ -27,6 +30,7 @@ public class Category {
 	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 	
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="category", fetch = FetchType.EAGER, orphanRemoval=true)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;

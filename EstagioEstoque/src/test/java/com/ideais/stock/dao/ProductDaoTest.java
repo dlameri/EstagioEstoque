@@ -47,12 +47,16 @@ public class ProductDaoTest {
 		product.setBrand("Paco Ideais");
 		product.setModel("XTVZB-4435");
 		
-		subcategory.setName("Luvas");
+//		subcategory.setName("Luvas");
 		
-		category.setName("Esportes");
+//		category.setName("Esportes");
 		
-		subcategory.setCategory(category);
-		product.setCategory(category);
+		SubcategoryDao subcategoryDao = new SubcategoryDao();
+		
+		subcategory = subcategoryDao.findById(1L);
+		
+//		subcategory.setCategory(category);
+		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
 	}
 	
@@ -88,5 +92,16 @@ public class ProductDaoTest {
 		productDao.delete(product);
 
 		assertEquals( 0, productDao.findAll().size() );
+	}
+	
+	@Test
+	public void find_by_id() {
+		Product product = productDao.findById(1L);
+		System.out.println(product);
+		
+		for (int i = 0; i < 10; i++) {
+			product = productDao.findById(1L);
+			System.out.println(product);
+		}
 	}
 }

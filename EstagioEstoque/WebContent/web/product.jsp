@@ -21,19 +21,21 @@
 				</c:forEach>
 			</select>	
 			
-			<c:forEach items="${categories}" var="category">
-			<select name="subcategory.id" id="categoryList" class="subcategoryList hidden" data-categoryid="${category.id}">
-				<c:forEach items="${category.subcategories}" var="subcategory">
+			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
+				<c:forEach items="${subcategories}" var="subcategory">
 					<option value="${subcategory.id}">${subcategory.name}</option>
 				</c:forEach>
 			</select>
-			</c:forEach>
+			
+			<div id="teste">
+			</div>
+
 			<label>Nome produto:</label>
 			<input type="text" name="product.name" /><br/>
 			<label>Descrição curta:</label>
 			<input type="text" name="product.shortDescription" /><br/>
 			<label>Descrição longa:</label>
-			<TextArea type="text" name="product.longDescription"></TextArea><br/>
+			<TextArea name="product.longDescription"></TextArea><br/>
 			<label>Peso:</label>
 			<input type="text" name="product.weight" /><br/>
 			<label>Garantia:</label>
@@ -50,6 +52,12 @@
 		</fieldset>	
 	</form>
 
-
+	<ul>
+		<c:forEach items="${products}" var="product">
+			<li>
+				${product.name} - ${product.longDescription}
+			</li>
+		</c:forEach>
+	</ul>
 </body>
 </html>
