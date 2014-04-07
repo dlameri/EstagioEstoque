@@ -15,7 +15,7 @@ public class AbstractDaoTest {
 	
 	public void setUp(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-		prepareDatabase();
+//		prepareDatabase();
 	}
 	
 	private Session session() {
@@ -30,10 +30,10 @@ public class AbstractDaoTest {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
-			session().createSQLQuery("DELETE FROM PRODUTO").executeUpdate();
-			session().createSQLQuery("DELETE FROM ITEM").executeUpdate();
-			session().createSQLQuery("DELETE FROM IMAGENS").executeUpdate();
 			session().createSQLQuery("DELETE FROM DIMENSOES").executeUpdate();
+			session().createSQLQuery("DELETE FROM IMAGENS").executeUpdate();
+			session().createSQLQuery("DELETE FROM ITEM").executeUpdate();
+			session().createSQLQuery("DELETE FROM PRODUTO").executeUpdate();
 			session().createSQLQuery("DELETE FROM SUBCATEGORIA").executeUpdate();
 			session().createSQLQuery("DELETE FROM CATEGORIA").executeUpdate();
 			session().createSQLQuery("INSERT INTO CATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'Historia')").executeUpdate();

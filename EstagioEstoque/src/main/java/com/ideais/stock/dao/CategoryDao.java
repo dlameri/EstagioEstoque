@@ -49,7 +49,7 @@ public class CategoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Transaction tx = session().beginTransaction();
-		List<Category> category = session().createCriteria(Category.class).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Category> category = session().createCriteria(Category.class).setCacheable(true).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		session().close();
 		return category;

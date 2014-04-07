@@ -31,11 +31,22 @@ public class ProductAction extends ActionSupport {
 	
 	
 	public String addProduct() {
-		System.out.println("\n\n\n\n\nCategory id: " + category.getId() + subcategory.getId() + "\n\n\n\n");
+		subcategory = subcategoryDao.findById(subcategory.getId());
 		product.setDimensions(dimensions);
-		product.setCategory(categoryDao.findById(category.getId()));
-		product.setSubcategory(subcategoryDao.findById(subcategory.getId()));
+		product.setCategory(subcategory.getCategory());
+		product.setSubcategory(subcategory);
 		productDao.create(product);
+		
+		return SUCCESS;
+	}
+	
+	public String execute() {
+		try {
+			category = categoryDao.findById(Long.valueOf(id));
+			subcategories = subcategoryDao.findByCategoryId(category);
+		} catch (Exception e) {
+			return ERROR;
+		}
 		
 		return SUCCESS;
 	}
@@ -81,7 +92,7 @@ public class ProductAction extends ActionSupport {
 	}
 
 	public List<Subcategory> getSubcategories() {
-		return subcategoryDao.findAll();
+		return subcategories;
 	}
 
 	public void setSubcategories(List<Subcategory> subcategories) {
@@ -108,3 +119,14 @@ public class ProductAction extends ActionSupport {
 		return id;
 	}
 }
+
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//
+//-----------------------------------------------------
+//
+//<prop key="javax.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>
+//		<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
+//		<prop key="hibernate.cache.default_cache_concurrency_strategy">read-write</prop>
+//		<prop key="hibernate.cache.use_second_level_cache">true</prop>
+//		<prop key="hibernate.cache.use_query_cache">true</prop>

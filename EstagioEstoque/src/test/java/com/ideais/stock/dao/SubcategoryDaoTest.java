@@ -55,9 +55,13 @@ public class SubcategoryDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Long id = subcategoryDao.create(subcategory);
-		Subcategory subcategory2 = subcategoryDao.findById(id);
-		
+//		Long id = subcategoryDao.create(subcategory);
+		Subcategory subcategory2 = subcategoryDao.findById(1L);
+		System.out.println(subcategory2);
+		for (int i = 0; i < 10; i++) {
+			subcategory2 = subcategoryDao.findById(1L);
+			System.out.println(subcategory2);
+		}		
 		assertEquals(new Long(1), subcategory2.getId());
 	}
 	

@@ -9,5 +9,4 @@
 .classpath
 *.db
 .settings/
-
-hibernate.cfg.xml
+bin/

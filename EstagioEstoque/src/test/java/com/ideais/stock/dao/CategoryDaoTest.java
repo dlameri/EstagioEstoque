@@ -2,12 +2,13 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
 
 
@@ -33,14 +34,26 @@ public class CategoryDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(1, categoryDao.findAll().size());
+		List<Category> categories = categoryDao.findAll();
+		System.out.println("Tamanho:" + categories.size());
+		for (int i = 0; i < 10; i++) {
+			categories = categoryDao.findAll();
+			System.out.println("Tamanho:" + categories.size());
+		}
+		
+		assertEquals(2, categoryDao.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-		Category category2 = categoryDao.findById(1L);
+		Category category2 = categoryDao.findById(2L);
+		System.out.println(category2.getName());
+		for (int i = 0; i < 10; i++) {
+			category2 = categoryDao.findById(2L);
+			System.out.println(category2.getName());
+		}
 		
-		assertEquals(new Long(1), category2.getId());
+		assertEquals(new Long(2), category2.getId());
 	}
 	
 	@Test

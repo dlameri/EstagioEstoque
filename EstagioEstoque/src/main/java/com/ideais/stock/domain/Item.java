@@ -21,9 +21,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name="ITEM")
 public class Item {
@@ -63,6 +66,7 @@ public class Item {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Product product;
 	
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;

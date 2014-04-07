@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -23,6 +25,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "PRODUTO")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Product {
 	@Id
 	@SequenceGenerator(name = "product_id", sequenceName = "product_id")
@@ -67,6 +70,7 @@ public class Product {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 	
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="product", fetch = FetchType.EAGER)
 	@Cascade(CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)

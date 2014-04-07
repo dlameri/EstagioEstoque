@@ -1,7 +1,27 @@
 $(function() {
-	$("#categoryList").change(function(){
+
+	$("#categoryList").change(function() {
 		var categoryId = $(this).val();
-		$(".subcategoryList").addClass("hidden");
-		$(".subcategoryList[data-categoryid="+categoryId+"]").removeClass("hidden");
+		
+		$.ajax({
+			type : "GET",
+			url : "selectSubcategories?id=" + categoryId,
+			dataType: 'json',
+//			statusCode : {
+//				500 : function() {
+//					alert("deu ruim");
+//				},
+//				200 : function() {
+//					$(".subcategoryList").get(0).options[0] = new Option("--SELECIONE A SUBCATEGORIA--", "-1");
+//					alert("deu certo");
+//				}
+//			}
+			success: function(data) {
+				$.each(data, function(index){
+					alert(data[index].name);
+				});
+			}
+		});
+
 	}).change();
 });

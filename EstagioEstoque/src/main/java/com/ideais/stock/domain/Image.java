@@ -11,10 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name="IMAGENS")
 public class Image {
