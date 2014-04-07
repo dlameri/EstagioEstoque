@@ -60,7 +60,7 @@ a:hover {
 	magin-bottom: -80px;
 }
 
-#icon{
+#icon {
 	margin-top: 20px;
 }
 
@@ -95,6 +95,7 @@ table {
 	/*********************************************************************************/
 	/* Image Style                                                                   */
 	/*********************************************************************************/
+	
 	
 .image {
 	display: inline-block;
@@ -432,6 +433,7 @@ ul.contact li a.icon-rss:before {
 	text-transform: uppercase;
 	text-shadow: 1px 1px 1px #FFF;
 	color: #6A6A6A;
+	margin-top: 0px;
 }
 
 #copyright a {

@@ -8,9 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Estoque</title>
+<title>Ideais Stock</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<link href="../css/bootstrap.css" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
 <link href="../css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all" />
@@ -30,9 +31,10 @@
 		<div id="menu" class="container">
 			<ul>
 				<li><a href="/EstagioEstoque/web/">Home</a></li>
-				<li><a href="categorias">Categorias</a></li>
-				<li><a href="subcategorias">Subcategorias</a></li>
-				<li><a href="produtos">Produtos</a></li>
+				<li><a href="categorias">Categoria</a></li>
+				<li><a href="subcategorias">Subcategoria</a></li>
+				<li><a href="produtos">Produto</a></li>
+				<li><a href="#">Item</a></li>
 				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
 		</div>	
