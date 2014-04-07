@@ -119,14 +119,3 @@ public class ProductAction extends ActionSupport {
 		return id;
 	}
 }
-
-//@Cacheable
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//
-//-----------------------------------------------------
-//
-//<prop key="javax.persistence.sharedCache.mode">ENABLE_SELECTIVE</prop>
-//		<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
-//		<prop key="hibernate.cache.default_cache_concurrency_strategy">read-write</prop>
-//		<prop key="hibernate.cache.use_second_level_cache">true</prop>
-//		<prop key="hibernate.cache.use_query_cache">true</prop>

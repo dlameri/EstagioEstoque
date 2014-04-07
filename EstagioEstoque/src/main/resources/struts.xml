@@ -2,7 +2,16 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<package name="basicstruts2" extends="struts-default">
+<!-- 	<package name="basicstruts2" extends="struts-default"> -->
+	<package name="basicstruts2" extends="json-default">
+
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		<interceptors>
+			<interceptor name="json"
+				class="org.apache.struts2.json.JSONInterceptor" />
+		</interceptors>
 
 		<action name="home" class="com.ideais.stock.action.CategoryAction"
 			method="execute">
@@ -33,7 +42,7 @@
 				<param name="location">web/categorias?error=true</param>
 			</result>
 		</action>
-		
+
 		<action name="subcategorias" class="com.ideais.stock.action.SubcategoryAction"
 			method="listSubcategories">
 			<result name="success">subcategory.jsp</result>
@@ -58,8 +67,8 @@
 				<param name="location">web/subcategorias?error=true</param>
 			</result>
 		</action>
-		
-		
+
+
 		<action name="addproduct" class="com.ideais.stock.action.ProductAction"
 			method="addProduct">
 			<result name="success" type="redirect">
@@ -69,28 +78,26 @@
 				<param name="location">web/produtos?error=true</param>
 			</result>
 		</action>
-		
+
 		<action name="produtos" class="com.ideais.stock.action.ProductAction"
 			method="listProducts">
 			<result name="success">product.jsp</result>
 		</action>
-		
+
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"
 			method="execute">
-			<result name="success" type="httpheader">
-                <param name="status" >200</param>
-	        </result>
-	        <result name="error" type="httpheader">
-                <param name="status" >500</param>
-	        </result>
-<!-- 			<result type="json" > -->
-<!-- 	            <param name="root"> -->
-<!-- 	                subcategories -->
-<!-- 	            </param> -->
-<!-- 	        </result> -->
+			<!-- <result name="success" type="httpheader"> -->
+			<!-- <param name="status" >200</param> -->
+			<!-- </result> -->
+			<!-- <result name="error" type="httpheader"> -->
+			<!-- <param name="status" >500</param> -->
+			<!-- </result> -->
+			<result type="json">
+				<param name="root">
+					subcategories
+				</param>
+			</result>
 		</action>
-		
-		
 
 	</package>
 </struts>
