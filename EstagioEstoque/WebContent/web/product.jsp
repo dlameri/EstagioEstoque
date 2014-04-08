@@ -22,9 +22,6 @@
 			</select>	
 			
 			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
-				<c:forEach items="${subcategories}" var="subcategory">
-					<option value="${subcategory.id}">${subcategory.name}</option>
-				</c:forEach>
 			</select>
 			
 			<div id="teste">

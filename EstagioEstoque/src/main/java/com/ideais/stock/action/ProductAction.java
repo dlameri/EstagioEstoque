@@ -18,7 +18,6 @@ public class ProductAction extends ActionSupport {
 
 	private String id;
 
-	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
@@ -40,9 +39,21 @@ public class ProductAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String deleteProduct() {
+		product = productDao.findById(Long.valueOf(id));
+		product.setActive(false);		
+		productDao.update(product);
+		
+		return SUCCESS;
+	}
+
+	public String listProducts() {
+		return SUCCESS;
+	}
+	
 	public String execute() {
 		try {
-			category = categoryDao.findById(Long.valueOf(id));
+			Category category = categoryDao.findById(Long.valueOf(id));
 			subcategories = subcategoryDao.findByCategoryId(category);
 		} catch (Exception e) {
 			return ERROR;
@@ -51,16 +62,28 @@ public class ProductAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String listProducts() {
-		return SUCCESS;
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	public void setDimensions(Dimensions dimensions) {
+		this.dimensions = dimensions;
+	}
+
+	public Dimensions getDimensions() {
+		return dimensions;
 	}
 
 	public Subcategory getSubcategory() {
@@ -79,10 +102,14 @@ public class ProductAction extends ActionSupport {
 		this.categories = categories;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public List<Subcategory> getSubcategories() {
+		return subcategories;
 	}
 
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+	
 	public List<Product> getProducts() {
 		return productDao.findAll();
 	}
@@ -91,31 +118,4 @@ public class ProductAction extends ActionSupport {
 		this.products = products;
 	}
 
-	public List<Subcategory> getSubcategories() {
-		return subcategories;
-	}
-
-	public void setSubcategories(List<Subcategory> subcategories) {
-		this.subcategories = subcategories;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public void setDimensions(Dimensions dimensions) {
-		this.dimensions = dimensions;
-	}
-
-	public Dimensions getDimensions() {
-		return dimensions;
-	}
-
-	public String getId() {
-		return id;
-	}
 }

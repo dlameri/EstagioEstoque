@@ -15,6 +15,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Product;
 
 
 public class CategoryDao {
@@ -93,6 +94,15 @@ public class CategoryDao {
 		Transaction tx = null;
 		try {
 			tx = session().beginTransaction();
+			
+			ProductDao productDao = new ProductDao();
+			
+			List<Product> products = productDao.findByCategoryId(category);
+			
+			for (Product product : products) {
+				product.softDelete();
+			}
+						
 			session().delete( session().merge(category) );
 			tx.commit();
 		} catch (HibernateException e) {

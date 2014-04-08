@@ -81,6 +81,10 @@ public class Product {
 	@Cascade(CascadeType.ALL)
 	private Dimensions dimensions;
 	
+	public void softDelete() {
+		active = false;
+	}
+	
 	public Integer getRank() {
 		return rank;
 	}
