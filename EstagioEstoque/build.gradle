@@ -15,52 +15,63 @@ repositories {
 }
 
 dependencies {
+	//Spring
     compile group: 'org.springframework', name: 'spring-core', version: '3.1.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-context', version: '3.1.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '3.1.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '3.1.3.RELEASE'
     compile group: 'org.springframework', name: 'spring-web', version: '3.1.3.RELEASE'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '3.1.3.RELEASE'
+	compile 'org.springframework:spring-test:3.1.3.RELEASE'
 	
+	// Struts
+	compile 'org.apache.struts:struts2-core:2.3.16'
+	compile 'org.apache.struts:struts2-json-plugin:2.3.16'
+	compile 'org.apache.struts:struts2-spring-plugin:2.3.16'
+	
+	
+	// Log
 	compile 'commons-logging:commons-logging:1.1'
 	compile 'log4j:log4j:1.2.17'
 	compile 'org.slf4j:slf4j-api:1.7.6'
 	compile 'org.slf4j:slf4j-log4j12:1.7.6'
 
+	
+	// JSTL
     compile 'javax.servlet:jstl:1.2'
     compile 'javax.servlet:servlet-api:2.5'
 
+	// Hibernate
 	compile 'org.hibernate:hibernate-core:4.1.6.Final'
-	
 	compile 'org.hibernate:hibernate-entitymanager:4.1.6.Final'
 	compile 'org.hibernate:hibernate-c3p0:4.0.1.Final'
+	// EhCache
 	compile('org.hibernate:hibernate-ehcache:4.1.6.Final') {
         exclude group: 'net.sf.ehcache', module: 'ehcache-core'
     }
 	compile 'net.sf.ehcache:ehcache:2.8.1'
 	
+	
+	// Sitemesh
     compile 'commons-dbcp:commons-dbcp:1.4'
 	compile 'junit:junit:4.10'
-	compile 'org.apache.struts:struts2-core:2.3.16'
-	compile 'org.apache.struts:struts2-json-plugin:2.3.16'
 	compile 'opensymphony:sitemesh:2.4.2'
 	
+	
+	// SQL Drivers
 	compile 'mysql:mysql-connector-java:5.1.28'
 	compile 'com.h2database:h2:1.3.161'
 	
+	
+	// REST
 	compile 'com.sun.jersey:jersey-core:1.18'
 	compile 'com.sun.jersey:jersey-client:1.18'
 	compile 'com.sun.jersey:jersey-json:1.18'
 	compile 'com.sun.jersey:jersey-server:1.18'
 	compile 'com.sun.jersey:jersey-servlet:1.18'
 	
+	// Utils
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
-}
-
-
-task copyToLib(type: Copy) {
-    into "lib"
-    from configurations.runtime
+	compile 'cglib:cglib:2.2.2'
 }
 
 task copyToWebLib(type: Copy) {

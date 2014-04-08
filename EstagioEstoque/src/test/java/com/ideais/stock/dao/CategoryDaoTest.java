@@ -4,44 +4,32 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
 
 
-@RunWith(JUnit4.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class CategoryDaoTest extends AbstractDaoTest {
 
+	@Autowired
 	private CategoryDao categoryDao;
 
-	@Before
-	public void setUp() {
-		this.categoryDao = new CategoryDao();
-		super.setUp(categoryDao.getSessionFactory());
-	}
-	
 	@Test
 	public void test_create() {
 		Category category = new Category();
 		category.setName("Esportes");
 		
-		Long id = categoryDao.create(category);
-		assertEquals( id, category.getId() );
+		Category category2 = categoryDao.create(category);
+		assertEquals( category2.getId(), category.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		List<Category> categories = categoryDao.findAll();
-		System.out.println("Tamanho:" + categories.size());
-		for (int i = 0; i < 10; i++) {
-			categories = categoryDao.findAll();
-			System.out.println("Tamanho:" + categories.size());
-		}
-		
-		assertEquals(2, categoryDao.findAll().size());
+		assertEquals(1, categoryDao.findAll().size());
 	}
 	
 	@Test

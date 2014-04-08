@@ -2,60 +2,27 @@ package com.ideais.stock.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionException;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 
 
-public class CategoryDao {
+public class CategoryDao extends AbstractDao<Category>{
 
-	private SessionFactory sessionFactory;
-
-	public CategoryDao() {
-		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() ).buildServiceRegistry();
-		sessionFactory = configure.buildSessionFactory(serviceRegistry);
-		
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Category create(Category category) {
+		return super.create(category);
 	}
 	
-	public Long create(Category category) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			Long id = (Long) session().save(category);
-	        tx.commit();
-	        return id;
-		} catch (Exception e) {
-			if( tx != null ) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			return null;
-		} finally {
-			session().close();
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
-		Transaction tx = session().beginTransaction();
-		List<Category> category = session().createCriteria(Category.class).setCacheable(true).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		tx.commit();
-		session().close();
-		return category;
+		return super.findAll(Category.class, Order.asc("name"));
 	}
-
 	
 	public void update(Category category) {
 		Transaction tx = null;
@@ -111,17 +78,5 @@ public class CategoryDao {
 			}
 		}
 		session().close();
-	}
-	
-	private Session session() {
-		Session session = sessionFactory.getCurrentSession();
-		if( session == null ) {
-			throw new SessionException("Sessão está nula");
-		}
-		return session;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
 	}
 }

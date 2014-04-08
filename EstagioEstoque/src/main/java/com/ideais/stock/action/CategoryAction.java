@@ -3,6 +3,8 @@ package com.ideais.stock.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.util.Validade;
@@ -15,7 +17,8 @@ public class CategoryAction extends ActionSupport {
 	private String id;
 
 	private Category category = new Category();
-	private CategoryDao categoryDao = new CategoryDao();
+	@Autowired
+	private CategoryDao categoryDao;
 	private List<Category> categories = new ArrayList<Category>();
 
 	public String saveCategory() {
