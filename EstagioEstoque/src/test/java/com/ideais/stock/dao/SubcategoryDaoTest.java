@@ -8,54 +8,50 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
 
-@RunWith(JUnit4.class)
-public class SubcategoryDaoTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class SubcategoryDaoTest extends AbstractDaoTest {
 
+	@Autowired
 	private SubcategoryDao subcategoryDao;
+	@Autowired
 	private CategoryDao categoryDao;
-	private Category category;
-	private Subcategory subcategory;
-	private List<Subcategory> subcategories;
 	
-	@Before
-	public void setUp() {
-		this.subcategoryDao = new SubcategoryDao();
-		this.categoryDao = new CategoryDao();
-		
-		category = new Category();
-		subcategory = new Subcategory();
-		subcategories = new ArrayList<Subcategory>();
-		
+	private Category category = new Category();
+	private Subcategory subcategory = new Subcategory();
+	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
+	
+	@Test
+	public void test_create() {
+		Category category  = new Category();
 		category.setName("Esportes");
-		
 		subcategory.setCategory(category);
 		subcategory.setName("Tenis");
 		subcategories.add(subcategory);
 		category.setSubcategories(subcategories);
 		
-	}
-	
-	@Test
-	public void test_create() {
-		Long id = subcategoryDao.create(subcategory);
+		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
 
-		assertEquals(id, subcategory.getId());
+		assertEquals(savedSubcategory.getId(), subcategory.getId());
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, subcategoryDao.findAll().size());
+//		for (int i = 0; i < 10; i++) {
+//			subcategoryDao.findAll();
+//			System.out.println("hehe");
+//		}
+		assertEquals(1, subcategoryDao.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-//		Long id = subcategoryDao.create(subcategory);
 		Subcategory subcategory2 = subcategoryDao.findById(1L);
 		System.out.println(subcategory2);
 		for (int i = 0; i < 10; i++) {
@@ -67,19 +63,21 @@ public class SubcategoryDaoTest {
 	
 	@Test
 	public void test_update() {
-		Long id = subcategoryDao.create(subcategory);
+		Subcategory savedSubcategory = subcategoryDao.findById(1L);
+		String name = "Suspense";
 		
-		subcategory.setName("Camisas");
-		subcategoryDao.update(subcategory);
+		savedSubcategory.setName(name);
+		subcategoryDao.save(savedSubcategory);
 		
-		Subcategory savedSubcategory = subcategoryDao.findById(id);
+		Subcategory updatedSubcategory = subcategoryDao.findById(savedSubcategory.getId());
 		
-		assertEquals("Camisas", savedSubcategory.getName());
+		assertEquals(name, updatedSubcategory.getName());
 	}
 	
 	@Test
 	public void test_delete() {
-		subcategoryDao.create(subcategory);
+		subcategory = subcategoryDao.findById(1L);
+		subcategory.getCategory().getSubcategories().remove(subcategory);
 		
 		subcategoryDao.delete(subcategory);
 		
@@ -88,7 +86,7 @@ public class SubcategoryDaoTest {
 	
 	@Test
 	public void create_with_existing_category() {
-		category = categoryDao.findByName("asfasf");
+		category = categoryDao.findById(1L);
 		
 		if (category != null) {
 			subcategory.setCategory(category);
@@ -97,9 +95,9 @@ public class SubcategoryDaoTest {
 			category.setSubcategories(category.getSubcategories());
 		}
 		
-		Long id = subcategoryDao.create(subcategory);
+		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
 		
-		assertEquals(subcategory.getId(), id);
+		assertEquals(subcategory.getId(), savedSubcategory.getId());
 		
 	}
 	

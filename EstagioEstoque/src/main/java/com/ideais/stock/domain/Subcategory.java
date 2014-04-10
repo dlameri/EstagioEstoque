@@ -1,5 +1,6 @@
 package com.ideais.stock.domain;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="SUBCATEGORIA")
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Subcategory {
 	@Id

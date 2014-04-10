@@ -1,5 +1,6 @@
 package com.ideais.stock.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,7 +21,10 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name="CATEGORIA")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Category {
+public class Category implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@SequenceGenerator(name="category_id", sequenceName="category_id")
 	@GeneratedValue(generator="category_id", strategy=GenerationType.AUTO)

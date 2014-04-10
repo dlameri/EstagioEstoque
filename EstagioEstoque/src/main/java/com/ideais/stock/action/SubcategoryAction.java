@@ -1,9 +1,9 @@
 package com.ideais.stock.action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.dao.SubcategoryDao;
@@ -18,10 +18,14 @@ public class SubcategoryAction extends ActionSupport {
 	
 	private String id;
 
+	@Autowired
+	private CategoryDao categoryDao;
+	@Autowired
+	private SubcategoryDao subcategoryDao;
+	
 	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
-	private SubcategoryDao subcategoryDao = new SubcategoryDao();
-	private CategoryDao categoryDao = new CategoryDao();
+	
 	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 	private List<Category> categories = new ArrayList<Category>();
 
@@ -29,7 +33,7 @@ public class SubcategoryAction extends ActionSupport {
 	public String addSubcategory() {
 		Category categoryAux;
 		
-		if ( (categoryAux = categoryDao.findByName(category.getName())) != null) {
+		if ( (categoryAux = categoryDao.findById(category.getId())) != null) {
 			subcategory.setCategory(categoryAux);
 			categoryAux.getSubcategories().add(subcategory);
 			categoryAux.setSubcategories(categoryAux.getSubcategories());
@@ -40,7 +44,7 @@ public class SubcategoryAction extends ActionSupport {
 			category.setSubcategories(subcategories);
 			
 		}
-		subcategoryDao.create(subcategory);
+		subcategoryDao.save(subcategory);
 		return SUCCESS;
 	}
 

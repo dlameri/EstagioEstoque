@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Ignore
-@ContextConfiguration({"classpath:spring/applicationContext.xml", "classpath:spring/dataSource.xml"})
+@ContextConfiguration({"classpath:spring/integrationTestContext.xml", "classpath:spring/dataSource.xml"})
 @TransactionConfiguration(defaultRollback=false)
 @Transactional(propagation=Propagation.REQUIRED)
 public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTests {
@@ -42,7 +42,7 @@ public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 			session().createSQLQuery("DELETE FROM SUBCATEGORIA").executeUpdate();
 			session().createSQLQuery("DELETE FROM CATEGORIA").executeUpdate();
 			session().createSQLQuery("DELETE FROM DIMENSOES").executeUpdate();
-			session().createSQLQuery("INSERT INTO CATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'Historia')").executeUpdate();
-//			session().createSQLQuery("INSERT INTO SUBCATEGORIA(CD_CATEGORIA, NM_NOME) VALUE(1,'HISTORIA')").executeUpdate();
+			session().createSQLQuery("INSERT INTO CATEGORIA VALUES(1,'Livros')").executeUpdate();
+			session().createSQLQuery("INSERT INTO SUBCATEGORIA VALUES(1,'Historia',1)").executeUpdate();
 	}
 }

@@ -68,13 +68,14 @@ dependencies {
 	compile 'com.sun.jersey:jersey-json:1.18'
 	compile 'com.sun.jersey:jersey-server:1.18'
 	compile 'com.sun.jersey:jersey-servlet:1.18'
+	compile 'com.sun.jersey.contribs:jersey-spring:1.8'
 	
 	// Utils
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	compile 'cglib:cglib:2.2.2'
 }
 
-task copyToWebLib(type: Copy) {
+task copyDependencies(type: Copy) {
 	into "WebContent/WEB-INF/lib"
 	from configurations.runtime
 }

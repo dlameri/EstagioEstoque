@@ -3,7 +3,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-
+	
 	<!-- Actions -->
 	<bean id="categoryAction" class="com.ideais.stock.action.CategoryAction" scope="prototype" autowire="byType" />
 	<bean id="subcategoryAction" class="com.ideais.stock.action.SubcategoryAction" scope="prototype" autowire="byType" />
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="locations">
 			<list>
 				<value>
-					classpath:properties/stock.properties</value>
+					classpath:properties/stockTest.properties</value>
 			</list>
 		</property>
 	</bean>

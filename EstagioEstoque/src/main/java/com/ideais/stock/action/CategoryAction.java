@@ -17,6 +17,7 @@ public class CategoryAction extends ActionSupport {
 	private String id;
 
 	private Category category = new Category();
+	
 	@Autowired
 	private CategoryDao categoryDao;
 	private List<Category> categories = new ArrayList<Category>();
@@ -27,7 +28,7 @@ public class CategoryAction extends ActionSupport {
 				categoryDao.update(category);
 				return SUCCESS;
 			}
-			categoryDao.create(category);
+			categoryDao.save(category);
 			return SUCCESS;
 			
 		} catch (Exception e) {
