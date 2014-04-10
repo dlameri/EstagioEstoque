@@ -9,6 +9,8 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ideais.stock.domain.Product;
+
 public abstract class AbstractDao<T> {
 
 	@Autowired
@@ -38,16 +40,25 @@ public abstract class AbstractDao<T> {
 		for( Criterion restriction : restrictions ) {
 			criteria.add( restriction );  
 		}
-		return criteria.list();
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected List<T> findAll( Class<? extends Object> persistenceClass ) {
-		return session().createCriteria( persistenceClass ).list();
+	protected List<T> findAll( Class<T> persistenceClass ) {
+		return session().createCriteria( persistenceClass ).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected List<T> findAll(Class<T> persistenceClass, Order orderBy) {
-		return session().createCriteria( persistenceClass ).addOrder(orderBy).list();
+		return session().createCriteria( persistenceClass ).addOrder(orderBy).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<T> findAll(Class<T> persistenceClass, Order orderBy, List<Criterion> restrictions) {
+		Criteria criteria = session().createCriteria(persistenceClass);
+		for( Criterion restriction : restrictions ) {
+			criteria.add( restriction );  
+		}
+		return criteria.addOrder(orderBy).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 }

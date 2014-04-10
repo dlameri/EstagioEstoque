@@ -6,7 +6,7 @@ $(function() {
 		
 		subcategories.empty();
 		subcategories.get(0).options[0] = new Option("--SELECIONE A SUBCATEGORIA--", "-1");		
-		
+		alert("yay");
 		$.ajax({
 			type : "GET",
 			url : "selectSubcategories?id=" + categoryId,

@@ -86,12 +86,6 @@
 
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"
 			method="execute">
-			<!-- <result name="success" type="httpheader"> -->
-			<!-- <param name="status" >200</param> -->
-			<!-- </result> -->
-			<!-- <result name="error" type="httpheader"> -->
-			<!-- <param name="status" >500</param> -->
-			<!-- </result> -->
 			<result type="json">
 				<param name="root">
 					subcategories

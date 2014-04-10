@@ -13,18 +13,18 @@
         
 		<!-- MySQL -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/stock</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password"></property>
+		<property name="hibernate.connection.password">senha</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- configuration pool via c3p0-->   
-		<property name="c3p0.acquire_increment">1</property>   
-		<property name="c3p0.idle_test_period">100</property>
-		<property name="c3p0.max_size">200</property>   
-		<property name="c3p0.max_statements">20</property>   
-		<property name="c3p0.min_size">1</property>   
-		<property name="c3p0.timeout">100</property>
+<!-- 		<property name="c3p0.acquire_increment">1</property>    -->
+<!-- 		<property name="c3p0.idle_test_period">100</property> -->
+<!-- 		<property name="c3p0.max_size">200</property>    -->
+<!-- 		<property name="c3p0.max_statements">20</property>    -->
+<!-- 		<property name="c3p0.min_size">1</property>    -->
+<!-- 		<property name="c3p0.timeout">100</property> -->
 		
 		
 		<!-- EhCache Config -->

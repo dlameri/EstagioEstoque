@@ -35,7 +35,7 @@ public class Category implements Serializable {
 	private String name;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy="category", fetch = FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(mappedBy="category", orphanRemoval=true)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
 

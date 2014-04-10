@@ -12,10 +12,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- DAOs -->
 	<bean id="categoryDao" class="com.ideais.stock.dao.CategoryDao" autowire="byType" />
 	<bean id="subcategoryDao" class="com.ideais.stock.dao.SubcategoryDao" autowire="byType" />
+	<bean id="productDao" class="com.ideais.stock.dao.ProductDao" autowire="byType" />
 	
 	<!-- Webservices -->
 	<bean id="categoryWS" class="com.ideais.stock.webservice.CategoryWS" autowire="byType" />
 	<bean id="subcategoryWS" class="com.ideais.stock.webservice.SubcategoryWS" autowire="byType" />
+	<bean id="productWS" class="com.ideais.stock.webservice.ProductWS" autowire="byType" />
 	
 	<!-- Config -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

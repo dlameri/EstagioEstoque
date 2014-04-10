@@ -3,6 +3,8 @@ package com.ideais.stock.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.dao.SubcategoryDao;
@@ -18,12 +20,16 @@ public class ProductAction extends ActionSupport {
 
 	private String id;
 
+	@Autowired
+	private CategoryDao categoryDao;
+	@Autowired
+	private SubcategoryDao subcategoryDao;
+	@Autowired
+	private ProductDao productDao;
+	
 	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
-	private SubcategoryDao subcategoryDao = new SubcategoryDao();
-	private CategoryDao categoryDao = new CategoryDao();
-	private ProductDao productDao = new ProductDao();
 	private List<Category> categories = new ArrayList<Category>();
 	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 	private List<Product> products = new ArrayList<Product>();
@@ -34,15 +40,15 @@ public class ProductAction extends ActionSupport {
 		product.setDimensions(dimensions);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
-		productDao.create(product);
+		productDao.save(product);
 		
 		return SUCCESS;
 	}
 	
 	public String deleteProduct() {
 		product = productDao.findById(Long.valueOf(id));
-		product.setActive(false);		
-		productDao.update(product);
+		product.softDelete();
+		productDao.save(product);
 		
 		return SUCCESS;
 	}

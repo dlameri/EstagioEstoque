@@ -7,28 +7,27 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+public class ProductDaoTest extends AbstractDaoTest {
 
-@RunWith(JUnit4.class)
-public class ProductDaoTest {
-
+	@Autowired
 	private ProductDao productDao;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
 	private Product product;
+	
 	@Before
 	public void setUp() {
-		this.productDao = new ProductDao();
-		
 		product = new Product();
 		subcategory = new Subcategory();
 		category = new Category();
@@ -47,28 +46,24 @@ public class ProductDaoTest {
 		product.setBrand("Paco Ideais");
 		product.setModel("XTVZB-4435");
 		
-//		subcategory.setName("Luvas");
+		subcategory.setName("Luvas");
 		
-//		category.setName("Esportes");
+		category.setName("Esportes");
 		
-		SubcategoryDao subcategoryDao = new SubcategoryDao();
-		
-		subcategory = subcategoryDao.findById(1L);
-		
-//		subcategory.setCategory(category);
+		subcategory.setCategory(category);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
 	}
 	
 	@Test
 	public void test_create() {
-		Long id = productDao.create(product);
+		Product savedProduct = productDao.save(product);
 
-		assertEquals( id, product.getId() );
+		assertEquals( savedProduct.getId(), product.getId() );
 	}
 	
 	@Test
-	public void test_create_with_product() {
+	public void test_create_with_item() {
 		Item item = new Item();
 
 		item.setSku(01L);
@@ -79,15 +74,15 @@ public class ProductDaoTest {
 		item.setStock(9999);
 		item.setProduct(product);
 
-		Long id = productDao.create(product);
+		Product savedProduct = productDao.save(product);
 
-		assertEquals( id, product.getId() );
+		assertEquals( savedProduct.getId(), product.getId() );
 	}
 	
 	
 	@Test
 	public void test_delete() {
-		productDao.create(product);
+		productDao.save(product);
 		
 		productDao.delete(product);
 
