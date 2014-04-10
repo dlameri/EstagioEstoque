@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.AdminDao;
 import com.ideais.stock.domain.Admin;
@@ -22,12 +23,15 @@ import com.ideais.stock.domain.Admin;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/LoginFilter")
+
 public class LoginFilter implements Filter {
 	
 	private static final Logger LOG = Logger.getLogger(LoginFilter.class.getName()); 
 
-    /**
+	@Autowired
+	private AdminDao adminDao;
+    
+	/**
      * Default constructor. 
      */
     public LoginFilter() {
@@ -50,7 +54,6 @@ public class LoginFilter implements Filter {
 		
 		Cookie[] cookies = httpRequest.getCookies();
 		
-		AdminDao adminDao = new AdminDao();
 		List<Admin> admins = adminDao.findAll();
 		
 		Boolean validator = false;

@@ -9,8 +9,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.domain.Product;
-
 public abstract class AbstractDao<T> {
 
 	@Autowired

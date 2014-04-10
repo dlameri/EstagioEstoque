@@ -28,79 +28,79 @@ public class Cadastration {
 			admin.setPassword("123");
 			adminDao.save(admin);
 			
-			ImageDao imageDao = new ImageDao();
-			CategoryDao categoryDao = new CategoryDao();
-			SubcategoryDao subcategoryDao = new SubcategoryDao();
-			ProductDao productDao = new ProductDao();
-			ItemDao itemDao = new ItemDao();
-			Image image = new Image();
-			Item item = new Item();
-			Product product = new Product();
-			Subcategory subcategory = new Subcategory();
-			Category category = new Category();
-			Dimensions dimensions = new Dimensions();
-			
-			for (int i = 0; i < 10; i++) {
-				
-				category.setName("Esportes " + i);
-				categoryDao.save(category);
-				
-				for (int j = 0; j < 3; j++) {
-					
-					subcategory.setName("Luvas " + j);
-					subcategory.setCategory(category);
-					subcategoryDao.save(subcategory);
-					
-					for (int j2 = 0; j2 < 60; j2++) {
-						
-						product.setCategory(category);
-						product.setSubcategory(subcategory);
-						dimensions.setDepth(10.);
-						dimensions.setHeight(20.);
-						dimensions.setWidth(30.);
-						
-						product.setName("Luva de boxe " + j2);
-						product.setActive(true);
-						product.setLongDescription("Uma descrição longa. " + j2);
-						product.setShortDescription("Uma descrição curta. " + j2);
-						product.setDimensions(dimensions);
-						product.setWeight(500 + j2);
-						product.setWarranty(36);
-						product.setBrand("Paco Ideais " + j2);
-						product.setModel("XTVZB-4435 " + j2);
-						
-						productDao.save(product);
-						
-						for (int k = 0; k < 3; k++) {
-							
-							item.setSku(01L +k);
-							item.setActive(true);
-							item.setOptionName("Cor");
-							item.setOptionValue("Branca");
-							item.setPriceFrom(new BigDecimal (25.90+k));
-							item.setPriceFor(new BigDecimal (19.90+k));
-							item.setStock(5+k);
-							item.setRank(0+k-j2);
-							item.setProduct(product);
-							
-							itemDao.save(item);
-							
-							for (int k2 = 0; k2 < 2; k2++) {
-								
-								image.setMain(true);
-								image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setAndroidShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setItem(item);
-								
-								imageDao.save(image);
-							}
-						}	
-					}	
-				}
-			}
+//			ImageDao imageDao = new ImageDao();
+//			CategoryDao categoryDao = new CategoryDao();
+//			SubcategoryDao subcategoryDao = new SubcategoryDao();
+//			ProductDao productDao = new ProductDao();
+//			ItemDao itemDao = new ItemDao();
+//			Image image = new Image();
+//			Item item = new Item();
+//			Product product = new Product();
+//			Subcategory subcategory = new Subcategory();
+//			Category category = new Category();
+//			Dimensions dimensions = new Dimensions();
+//			
+//			for (int i = 0; i < 10; i++) {
+//				
+//				category.setName("Esportes " + i);
+//				categoryDao.save(category);
+//				
+//				for (int j = 0; j < 3; j++) {
+//					
+//					subcategory.setName("Luvas " + j);
+//					subcategory.setCategory(category);
+//					subcategoryDao.save(subcategory);
+//					
+//					for (int j2 = 0; j2 < 60; j2++) {
+//						
+//						product.setCategory(category);
+//						product.setSubcategory(subcategory);
+//						dimensions.setDepth(10.);
+//						dimensions.setHeight(20.);
+//						dimensions.setWidth(30.);
+//						
+//						product.setName("Luva de boxe " + j2);
+//						product.setActive(true);
+//						product.setLongDescription("Uma descrição longa. " + j2);
+//						product.setShortDescription("Uma descrição curta. " + j2);
+//						product.setDimensions(dimensions);
+//						product.setWeight(500 + j2);
+//						product.setWarranty(36);
+//						product.setBrand("Paco Ideais " + j2);
+//						product.setModel("XTVZB-4435 " + j2);
+//						
+//						productDao.save(product);
+//						
+//						for (int k = 0; k < 3; k++) {
+//							
+//							item.setSku(01L +k);
+//							item.setActive(true);
+//							item.setOptionName("Cor");
+//							item.setOptionValue("Branca");
+//							item.setPriceFrom(new BigDecimal (25.90+k));
+//							item.setPriceFor(new BigDecimal (19.90+k));
+//							item.setStock(5+k);
+//							item.setRank(0+k-j2);
+//							item.setProduct(product);
+//							
+//							itemDao.save(item);
+//							
+//							for (int k2 = 0; k2 < 2; k2++) {
+//								
+//								image.setMain(true);
+//								image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setAndroidShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+//								image.setItem(item);
+//								
+//								imageDao.save(image);
+//							}
+//						}	
+//					}	
+//				}
+//			}
 	}
 }

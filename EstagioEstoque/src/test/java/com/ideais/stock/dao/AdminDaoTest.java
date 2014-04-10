@@ -5,21 +5,21 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Admin;
 
 
-@RunWith(JUnit4.class)
-public class AdminDaoTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class AdminDaoTest extends AbstractDaoTest {
 
 	private Admin admin;
+	@Autowired
 	private AdminDao adminDao;
 	
 	@Before
 	public void setUp() {
-		this.adminDao = new AdminDao();
-		
 		admin = new Admin();
 		admin.setName("Admin");
 		admin.setEmail("admin@teste.com");
