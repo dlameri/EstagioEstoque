@@ -55,14 +55,14 @@ public class Item {
 	private Integer stock;
 	
 	@Column(name="NM_RANK", nullable = false)
-	private Integer rank;
+	private Integer rank = 0;
 
 	@Column(name="BO_ATIVO", nullable=false)
 	private Boolean active;
 	
 	@JsonBackReference 
 	@ManyToOne
-	@JoinColumn(name="CD_PRODUCT", referencedColumnName="CD_PRODUCT", nullable=false)
+	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Product product;
 	

@@ -68,7 +68,7 @@ public class ItemWS {
 			item.setStock(newItemStock);
 			item.setRank(item.getRank() + itemWS.getQuantity());
 			item.getProduct().setRank(item.getProduct().getRank() + itemWS.getQuantity());
-			itemDao.update(item);
+			itemDao.save(item);
 		}
 		return Response.status(201).entity(output).build();
 		// TODO criar classe de constante

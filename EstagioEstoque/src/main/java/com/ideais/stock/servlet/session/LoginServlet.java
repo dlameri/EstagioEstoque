@@ -2,7 +2,6 @@ package com.ideais.stock.servlet.session;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -11,13 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ideais.stock.dao.AdminDao;
  
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private AdminDao adminDao = new AdminDao();
+    @Autowired
+    private AdminDao adminDao;
  
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {

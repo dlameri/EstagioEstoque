@@ -30,7 +30,7 @@ public class Product {
 	@Id
 	@SequenceGenerator(name = "product_id", sequenceName = "product_id")
 	@GeneratedValue(generator = "product_id", strategy = GenerationType.AUTO)
-	@Column(name = "CD_PRODUCT")
+	@Column(name = "CD_PRODUTO")
 	private Long id;
 
 	@Column(name = "NM_NOME", nullable = false)

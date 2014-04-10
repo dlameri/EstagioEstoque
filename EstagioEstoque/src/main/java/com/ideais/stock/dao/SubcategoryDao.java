@@ -43,6 +43,6 @@ public class SubcategoryDao extends AbstractDao<Subcategory> {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("category", category) );
 		
-		return findByRestrictions( Category.class, restrictions );
+		return super.findByRestrictions( Subcategory.class, restrictions );
 	}
 }

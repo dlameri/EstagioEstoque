@@ -83,9 +83,9 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_create() {
-		Long id = imageDao.create(image);
+		Image savedImage = imageDao.save(image);
 		
-		assertEquals( id, image.getId() );
+		assertEquals( image.getId(), image.getId() );
 	}
 	
 	@Test
@@ -95,21 +95,21 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-	    	Long id = imageDao.create(image);
+	    	Image savedImage = imageDao.save(image);
 	    
-		assertEquals(id, imageDao.findById(id).getId());
+		assertEquals(savedImage.getId(), imageDao.findById(savedImage.getId()).getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Long id = imageDao.create(image);
+		Image savedImage = imageDao.save(image);
 		
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
-		imageDao.update(image);
+		imageDao.save(image);
 		
-		Image savedImage = imageDao.findById(id);
+		Image updatedImage = imageDao.findById(savedImage.getId());
 		
-		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", savedImage.getProductUrl());
+		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", updatedImage.getProductUrl());
 	}
 
 }

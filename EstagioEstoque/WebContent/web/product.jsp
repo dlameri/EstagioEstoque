@@ -52,7 +52,8 @@
 	<ul>
 		<c:forEach items="${products}" var="product">
 			<li>
-				${product.name} - ${product.longDescription}
+				${product.category} - ${product.subcategory}<br/>
+				${product.name}
 			</li>
 		</c:forEach>
 	</ul>

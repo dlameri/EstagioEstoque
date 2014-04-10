@@ -1,96 +1,36 @@
 package com.ideais.stock.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionException;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Admin;
 
 
-public class AdminDao {
+public class AdminDao extends AbstractDao<Admin>{
 
-	private SessionFactory sessionFactory;
-
-	public AdminDao() {
-		Configuration configure = new Configuration().configure("hibernate.cfg.xml");
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings( configure.getProperties() ).buildServiceRegistry();
-		sessionFactory = configure.buildSessionFactory(serviceRegistry);	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public Admin save(Admin admin) {
+		return super.save(admin);
 	}
 	
-	public Long create(Admin admin) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			Long id = (Long) session().save(admin);
-	        tx.commit();
-	        return id;
-		} catch (Exception e) {
-			if( tx != null ) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			return null;
-		} finally {
-			session().close();
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Admin> findAll() {
-		Transaction tx = session().beginTransaction();
-		List<Admin> category = session().createCriteria(Admin.class).setCacheable(true).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		tx.commit();
-		session().close();
-		return category;
-	}
-
-	
-	public void update(Admin admin) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			session().update(admin);
-	        tx.commit();
-		} catch (Exception e) {
-			if( tx != null ) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			session().close();
-		}
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void delete(Admin admin) {
+		super.delete(admin);
 	}
 	
 	public Admin findById(Long id) {
-		Transaction tx = session().beginTransaction();
-		Admin admin = (Admin) session().get(Admin.class, id);
-		tx.commit();
-		session().close();
-		return admin;
+		return super.findById(Admin.class, id);
 	}
 	
-	public void delete(Admin admin) {
-		Transaction tx = null;
-		try {
-			tx = session().beginTransaction();
-			session().delete( session().merge(admin) );
-			tx.commit();
-		} catch (HibernateException e) {
-			if( tx != null ) {
-				tx.rollback();
-			}
-		}
-		session().close();
+	public List<Admin> findAll() {
+		return super.findAll(Admin.class);
 	}
+	
 	
 	public Boolean authorized(String email, String password) {
 		if (email == null || email.isEmpty()) {
@@ -101,24 +41,17 @@ public class AdminDao {
 			return false;
 		}
 		
-		Transaction tx = session().beginTransaction();
 		Admin admin = new Admin();
 		admin.setPassword(password);
-		@SuppressWarnings("unchecked")
-		List<Admin> admins = session().createCriteria(Admin.class).setCacheable(true).add(Restrictions.like("email", email)).add(Restrictions.like("password", admin.getPassword())).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		tx.commit();
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add( Restrictions.like("email", email) );
+		
+		List<Admin> admins  = super.findByRestrictions(Admin.class, restrictions);
 		
 		if (admins.size() == 1){
 			return true;
 		}
+		
 		return false;
-	}
-	
-	private Session session() {
-		Session session = sessionFactory.getCurrentSession();
-		if( session == null ) {
-			throw new SessionException("Sessão está nula");
-		}
-		return session;
 	}
 }

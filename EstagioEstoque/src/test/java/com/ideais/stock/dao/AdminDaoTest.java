@@ -28,9 +28,9 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_create() {
-		Long id = adminDao.create(admin);
+		Admin savedAdmin = adminDao.save(admin);
 		
-		assertEquals( id, admin.getId() );
+		assertEquals( savedAdmin.getId(), admin.getId() );
 	}
 	
 	@Test
@@ -40,26 +40,26 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_find_by_id() {
-		Admin adminId = adminDao.findById(adminDao.create(admin));
+		Admin admin = adminDao.findById(1L); 
 		
-		assertEquals(new Long(1), adminId.getId());
+		assertEquals(new Long(1), admin.getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Long id = adminDao.create(admin);
+		Admin savedAdmin = adminDao.save(admin);
 		
 		admin.setName("adminAlterado");
-		adminDao.update(admin);
+		adminDao.save(admin);
 		
-		Admin savedAdmin = adminDao.findById(id);
+		Admin updatedAdmin = adminDao.findById(savedAdmin.getId());
 		
-		assertEquals("adminAlterado", savedAdmin.getName());
+		assertEquals("adminAlterado", updatedAdmin.getName());
 	}
 	
 	@Test
 	public void test_delete() {
-		adminDao.create(admin);
+		adminDao.save(admin);
 		adminDao.delete(admin);
 		
 		assertEquals( 0, adminDao.findAll().size() );
@@ -67,7 +67,7 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_autorized_se_email_invalido() {
-		adminDao.create(admin);
+		adminDao.save(admin);
 		String email = "";
 		String password = "123";
 		
@@ -76,7 +76,7 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_autorized_se_password_invalido() {
-		adminDao.create(admin);
+		adminDao.save(admin);
 		String email = "admin@teste.com";
 		String password = "";
 		
@@ -85,7 +85,7 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_autorized_se_nao_encontrado() {
-		adminDao.create(admin);
+		adminDao.save(admin);
 		String email = "admin@teste.com";
 		String password = "321";
 		
@@ -94,7 +94,7 @@ public class AdminDaoTest {
 	
 	@Test
 	public void test_autorized_se_ok() {
-		adminDao.create(admin);
+		adminDao.save(admin);
 		String email = "admin@teste.com";
 		String password = "123";
 		

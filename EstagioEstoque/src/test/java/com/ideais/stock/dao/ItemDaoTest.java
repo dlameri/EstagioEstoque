@@ -92,9 +92,9 @@ public class ItemDaoTest {
 	
 	@Test
 	public void test_create() {
-		Long id = itemDao.create(item);
-		
-		assertEquals( id, item.getId() );
+		Item savedItem = itemDao.save(item);
+
+		assertEquals( savedItem.getId(), item.getId() );
 	}
 	
 	@Test

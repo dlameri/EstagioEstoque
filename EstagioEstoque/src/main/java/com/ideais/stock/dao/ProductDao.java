@@ -34,7 +34,7 @@ public class ProductDao extends AbstractDao<Product>{
 	}
 
 	public List<Product> findAll() {
-		return super.findAll(Product.class, Order.asc("nome"));
+		return super.findAll(Product.class, Order.asc("name"));
 	}
 	
 	public List<Product> findAllOrderByRank() {
