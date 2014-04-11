@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,21 +42,29 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_find_all() {
-//		for (int i = 0; i < 10; i++) {
-//			subcategoryDao.findAll();
-//			System.out.println("hehe");
-//		}
+		Category category  = new Category();
+		category.setName("Esportes");
+		subcategory.setCategory(category);
+		subcategory.setName("Tenis");
+		subcategories.add(subcategory);
+		category.setSubcategories(subcategories);
+		
+		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
+		
+		System.err.println(subcategoryDao.findAll());
+		
+		subcategory.getCategory().getSubcategories().remove(subcategory);
+		subcategoryDao.delete(savedSubcategory);
+		
+		System.err.println(subcategoryDao.findAll());
+		
 		assertEquals(1, subcategoryDao.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
 		Subcategory subcategory2 = subcategoryDao.findById(1L);
-		System.out.println(subcategory2);
-		for (int i = 0; i < 10; i++) {
-			subcategory2 = subcategoryDao.findById(1L);
-			System.out.println(subcategory2);
-		}		
+
 		assertEquals(new Long(1), subcategory2.getId());
 	}
 	

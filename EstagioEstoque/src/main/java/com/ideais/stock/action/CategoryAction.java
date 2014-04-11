@@ -10,18 +10,19 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 
+
 public class CategoryAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-
+	
 	private Category category = new Category();
 	
 	@Autowired
 	private CategoryDao categoryDao;
 	private List<Category> categories = new ArrayList<Category>();
-
+	
 	public String saveCategory() {
 		try {
 			if (category.getId() != null) {

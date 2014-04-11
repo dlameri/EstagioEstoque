@@ -36,11 +36,13 @@
 		<c:forEach items="${categories}" var="category">
 			<li>${category.name}</li>
 			<ul>
+			<c:if test="${category.subcategories != null }">
 			<c:forEach items="${category.subcategories}" var="subcategory">
 				<li>
 					${subcategory.name} - editar - <a href="deletesubcategory?id=${subcategory.id}">deletar</a>
 				</li>
 			</c:forEach>
+			</c:if>
 			</ul>
 		</c:forEach>
 	</ul>

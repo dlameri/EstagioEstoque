@@ -22,11 +22,6 @@ public class SubcategoryDao extends AbstractDao<Subcategory> {
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void update(Subcategory subcategory) {
-		save(subcategory);
-	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Subcategory subcategory) {
 		super.delete(subcategory);
 	}

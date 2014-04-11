@@ -85,7 +85,7 @@ public class ImageDaoTest {
 	public void test_create() {
 		Image savedImage = imageDao.save(image);
 		
-		assertEquals( image.getId(), image.getId() );
+		assertEquals( savedImage.getId(), image.getId() );
 	}
 	
 	@Test

@@ -2,8 +2,6 @@ package com.ideais.stock.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.SQLException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +25,8 @@ public class CategoryDaoTest extends AbstractDaoTest {
 		Category category = new Category();
 		category.setName("Esportes");
 		
-		Category category2 = null;
-		try {
-			category2 = categoryService.save(category);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Category category2 = categoryService.save(category);
+
 		assertEquals( category2.getId(), category.getId() );
 	}
 	
@@ -54,14 +47,9 @@ public class CategoryDaoTest extends AbstractDaoTest {
 		Category category = categoryService.findById(1L);
 		
 		category.setName("Celulares");
-		try {
-			categoryService.save(category);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		categoryService.save(category);
 		Category savedCategory = categoryService.findById(1L);
+
 		assertEquals("Celulares", savedCategory.getName());
 	}
 	
