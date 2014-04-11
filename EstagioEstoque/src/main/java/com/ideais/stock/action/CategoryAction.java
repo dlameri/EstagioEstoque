@@ -25,7 +25,7 @@ public class CategoryAction extends ActionSupport {
 	public String saveCategory() {
 		try {
 			if (category.getId() != null) {
-				categoryDao.update(category);
+				categoryDao.save(category);
 				return SUCCESS;
 			}
 			categoryDao.save(category);

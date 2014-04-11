@@ -67,6 +67,7 @@ public class Product {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Subcategory subcategory;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "CD_CATEGORIA", referencedColumnName = "CD_CATEGORIA", nullable = false)
 	@Cascade(CascadeType.SAVE_UPDATE)

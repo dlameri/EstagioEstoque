@@ -75,7 +75,7 @@ dependencies {
 	compile 'cglib:cglib:2.2.2'
 }
 
-task copyDependencies(type: Copy) {
+task copyToWebLib(type: Copy) {
 	into "WebContent/WEB-INF/lib"
 	from configurations.runtime
 }

@@ -19,11 +19,6 @@ public class CategoryDao extends AbstractDao<Category>{
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void update(Category category) {
-		save(category);
-	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Category category) {
 		super.delete(category);
 	}

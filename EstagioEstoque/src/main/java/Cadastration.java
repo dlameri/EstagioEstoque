@@ -1,7 +1,10 @@
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.AdminDao;
 import com.ideais.stock.domain.Admin;
+import com.ideais.stock.domain.Category;
 
 public class Cadastration {
 
@@ -10,7 +13,6 @@ public class Cadastration {
 	
 	public static void main(String[] args) {
 
-		
 			Admin admin = new Admin();
 			
 			admin.setEmail("admin@teste.com");
