@@ -13,6 +13,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
@@ -21,7 +23,9 @@ import com.ideais.stock.webservice.domain.CartWS;
 
 @Path("/item")
 public class ItemWS {
-	ItemDao itemDao = new ItemDao();
+	
+	@Autowired
+	ItemDao itemDao;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })

@@ -21,9 +21,10 @@ public class AdminDaoTest extends AbstractDaoTest {
 	@Before
 	public void setUp() {
 		admin = new Admin();
-		admin.setName("Admin");
-		admin.setEmail("admin@teste.com");
+		admin.setName("Admin2");
+		admin.setEmail("admin2@teste.com");
 		admin.setPassword("123");
+		super.setUp();
 	}
 	
 	@Test
@@ -35,7 +36,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, adminDao.findAll().size());
+		assertEquals(1, adminDao.findAll().size());
 	}
 	
 	@Test
@@ -47,10 +48,10 @@ public class AdminDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_update() {
-		Admin savedAdmin = adminDao.save(admin);
+		Admin savedAdmin = adminDao.findById(1L);
 		
-		admin.setName("adminAlterado");
-		adminDao.save(admin);
+		savedAdmin.setName("adminAlterado");
+		adminDao.save(savedAdmin);
 		
 		Admin updatedAdmin = adminDao.findById(savedAdmin.getId());
 		
@@ -59,46 +60,46 @@ public class AdminDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_delete() {
-		adminDao.save(admin);
+		admin = adminDao.findById(1L);
 		adminDao.delete(admin);
 		
 		assertEquals( 0, adminDao.findAll().size() );
 	}
 	
 	@Test
-	public void test_autorized_se_email_invalido() {
-		adminDao.save(admin);
-		String email = "";
-		String password = "123";
+	public void test_authorize_invalid_email() {
+		Admin admin = new Admin();
+		admin.setEmail("");
+		admin.setPassword("123");
 		
-		assertEquals(false, adminDao.authorized(email, password));
+		assertEquals(false, adminDao.authorize(admin));
 	}
 	
 	@Test
-	public void test_autorized_se_password_invalido() {
-		adminDao.save(admin);
-		String email = "admin@teste.com";
-		String password = "";
+	public void test_authorize_invalid_password() {
+		Admin admin = new Admin();
+		admin.setEmail("admin@teste.com");
+		admin.setPassword("");
 		
-		assertEquals(false, adminDao.authorized(email, password));
+		assertEquals(false, adminDao.authorize(admin));
 	}
 	
 	@Test
-	public void test_autorized_se_nao_encontrado() {
-		adminDao.save(admin);
-		String email = "admin@teste.com";
-		String password = "321";
+	public void test_authorize_invalid_email_and_password() {
+		Admin admin = new Admin();
+		admin.setEmail("admin@teste.com");
+		admin.setPassword("321");
 		
-		assertEquals(false, adminDao.authorized(email, password));
+		assertEquals(false, adminDao.authorize(admin));
 	}
 	
 	@Test
-	public void test_autorized_se_ok() {
-		adminDao.save(admin);
-		String email = "admin@teste.com";
-		String password = "123";
+	public void test_autorized_success() {
+		Admin admin = new Admin();
+		admin.setEmail("admin@teste.com");
+		admin.setPassword("123");
 		
-		assertEquals(true, adminDao.authorized(email, password));
+		assertEquals(true, adminDao.authorize(admin));
 	}
 	
 }

@@ -28,7 +28,7 @@ public class Admin {
 	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 	
-	@Column(name="NM_PASSWORD", nullable=false, unique=true)
+	@Column(name="NM_PASSWORD", nullable=false)
 	private String password;
 	
 	@Column(name="NM_EMAIL", nullable=false, unique=true)

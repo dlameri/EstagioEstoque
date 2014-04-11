@@ -53,6 +53,8 @@ public class ProductDaoTest extends AbstractDaoTest {
 		subcategory.setCategory(category);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
+		
+		super.setUp();
 	}
 	
 	@Test
@@ -82,7 +84,7 @@ public class ProductDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_delete() {
-		productDao.save(product);
+		product = productDao.findById(1L);
 		
 		productDao.delete(product);
 
@@ -92,11 +94,7 @@ public class ProductDaoTest extends AbstractDaoTest {
 	@Test
 	public void find_by_id() {
 		Product product = productDao.findById(1L);
-		System.out.println(product);
 		
-		for (int i = 0; i < 10; i++) {
-			product = productDao.findById(1L);
-			System.out.println(product);
-		}
+		assertEquals(new Long(1), product.getId());
 	}
 }

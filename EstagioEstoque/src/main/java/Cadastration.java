@@ -1,26 +1,16 @@
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.AdminDao;
-import com.ideais.stock.dao.CategoryDao;
-import com.ideais.stock.dao.ImageDao;
-import com.ideais.stock.dao.ItemDao;
-import com.ideais.stock.dao.ProductDao;
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Admin;
-import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Dimensions;
-import com.ideais.stock.domain.Image;
-import com.ideais.stock.domain.Item;
-import com.ideais.stock.domain.Product;
-import com.ideais.stock.domain.Subcategory;
 
 public class Cadastration {
 
+	@Autowired
+	static AdminDao adminDao;
+	
 	public static void main(String[] args) {
+
 		
-			AdminDao adminDao = new AdminDao();
 			Admin admin = new Admin();
 			
 			admin.setEmail("admin@teste.com");

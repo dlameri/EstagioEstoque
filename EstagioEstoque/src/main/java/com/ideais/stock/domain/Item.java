@@ -58,7 +58,7 @@ public class Item {
 	private Integer rank = 0;
 
 	@Column(name="BO_ATIVO", nullable=false)
-	private Boolean active;
+	private Boolean active = true;
 	
 	@JsonBackReference 
 	@ManyToOne
@@ -87,6 +87,10 @@ public class Item {
 	    Locale Local = new Locale("pt", "BR");
 	    DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Local));
 	    return "R$ " + df.format(value);
+	}
+	
+	public void softDelete() {
+		active = false;
 	}
 	
 	public void setRank(Integer rank) {

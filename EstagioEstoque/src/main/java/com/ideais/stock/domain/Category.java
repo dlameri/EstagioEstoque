@@ -33,10 +33,17 @@ public class Category implements Serializable {
 	@Column(name="NM_NOME", nullable=false, unique=true)
 	private String name;
 	
+	@Column(name="BO_ATIVO", nullable=false)
+	private Boolean active = true;
+	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="category", orphanRemoval=true)
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
+	
+	public void softDelete() {
+		active = false;
+	}
 
 	public List<Subcategory> getSubcategories() {
 		return subcategories;
@@ -60,6 +67,14 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override

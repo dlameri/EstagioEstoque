@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -60,6 +61,7 @@ public class Product {
 	@Column(name = "NR_RANK", nullable = false)
 	private Integer rank = 0;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "CD_SUBCATEGORIA", referencedColumnName = "CD_SUBCATEGORIA", nullable = false)
 	@Cascade(CascadeType.SAVE_UPDATE)

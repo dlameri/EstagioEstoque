@@ -1,5 +1,7 @@
 package com.ideais.stock.domain;
 
+import java.util.List;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,11 +34,22 @@ public class Subcategory {
 	@Column(name="NM_NOME", nullable=false)
 	private String name;
 	
+	@Column(name="BO_ATIVO", nullable=false)
+	private Boolean active = true;
+	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="CD_CATEGORIA", referencedColumnName="CD_CATEGORIA", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
+	
+	@OneToMany(mappedBy="subcategory", orphanRemoval=true)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
+	private List<Product> products;
+	
+	public void softDelete() {
+		active = false;
+	}
 
 	public Long getId() {
 		return id;
@@ -61,6 +75,14 @@ public class Subcategory {
 		this.category = category;
 	}
 	
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		return name;

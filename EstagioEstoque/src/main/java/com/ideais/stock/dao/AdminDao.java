@@ -32,19 +32,18 @@ public class AdminDao extends AbstractDao<Admin>{
 	}
 	
 	
-	public Boolean authorized(String email, String password) {
-		if (email == null || email.isEmpty()) {
+	public Boolean authorize(Admin admin) {
+		if (admin.getEmail() == null || admin.getEmail().isEmpty()) {
 			return false;
 		}
 		
-		if (password == null || password.isEmpty()) {
+		if (admin.getPassword() == null || admin.getPassword().isEmpty()) {
 			return false;
 		}
 		
-		Admin admin = new Admin();
-		admin.setPassword(password);
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add( Restrictions.like("email", email) );
+		restrictions.add( Restrictions.like("email", admin.getEmail()) );
+		restrictions.add( Restrictions.like("password", admin.getPassword()) );
 		
 		List<Admin> admins  = super.findByRestrictions(Admin.class, restrictions);
 		
