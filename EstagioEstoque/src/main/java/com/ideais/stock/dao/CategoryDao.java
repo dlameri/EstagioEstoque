@@ -28,7 +28,10 @@ public class CategoryDao extends AbstractDao<Category>{
 	}
 	
 	public List<Category> findAll() {
-		return super.findAll(Category.class, Order.asc("name"));
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add(Restrictions.like("active", true));
+		
+		return super.findAll(Category.class, Order.asc("name"), restrictions);
 	}
 	
 	public List<Category> findByName(String name) {

@@ -33,7 +33,10 @@ public class ProductDao extends AbstractDao<Product>{
 	}
 
 	public List<Product> findAll() {
-		return super.findAll(Product.class, Order.asc("name"));
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add(Restrictions.like("active", true));
+		
+		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
 	
 	public List<Product> findAllOrderByRank() {
