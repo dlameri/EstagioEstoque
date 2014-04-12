@@ -35,7 +35,7 @@ public class Subcategory {
 	private String name;
 	
 	@Column(name="BO_ATIVO", nullable=false)
-	private Boolean active = true;
+	private Boolean active;
 	
 	@JsonBackReference
 	@ManyToOne

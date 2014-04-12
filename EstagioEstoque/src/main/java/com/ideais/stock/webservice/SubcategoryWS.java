@@ -10,37 +10,37 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.CategoryDao;
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.SubcategoryService;
 
 @Path("/subcategory")
 public class SubcategoryWS {
 	
 	@Autowired
-	CategoryDao categoryDao;
+	CategoryService categoryService;
 	@Autowired
-	SubcategoryDao subcategoryDao;
+	SubcategoryService subcategoryService;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Subcategory> getSubategories() {
-		return subcategoryDao.findAll();
+		return subcategoryService.findAll();
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Subcategory getSubcategoriesById(@PathParam("id") Long id) {
-		return subcategoryDao.findById(id);
+		return subcategoryService.findById(id);
 	}
 	
 	@Path("/category/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Subcategory> getSubcategoriesByCategoryId(@PathParam("id") Long id) {
-		Category category = categoryDao.findById(id);
-		return subcategoryDao.findByCategoryId(category);
+		Category category = categoryService.findById(id);
+		return subcategoryService.findByCategoryId(category);
 	}
 }

@@ -34,7 +34,7 @@ public class Category implements Serializable {
 	private String name;
 	
 	@Column(name="BO_ATIVO", nullable=false)
-	private Boolean active = true;
+	private Boolean active;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="category", orphanRemoval=true)

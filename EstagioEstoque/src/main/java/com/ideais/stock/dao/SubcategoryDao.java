@@ -14,8 +14,6 @@ import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryDao extends AbstractDao<Subcategory> {
 
-//	List<Subcategory> subcategory = session().createCriteria(Subcategory.class).setCacheable(true).addOrder(Property.forName("name").asc()).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Subcategory save(Subcategory subcategory) {
 		return super.save(subcategory);

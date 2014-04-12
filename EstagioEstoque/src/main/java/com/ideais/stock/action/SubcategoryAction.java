@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.CategoryDao;
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -19,9 +19,9 @@ public class SubcategoryAction extends ActionSupport {
 	private String id;
 
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryService categoryService;
 	@Autowired
-	private SubcategoryDao subcategoryDao;
+	private SubcategoryService subcategoryService;
 	
 	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
@@ -33,7 +33,7 @@ public class SubcategoryAction extends ActionSupport {
 	public String addSubcategory() {
 		Category categoryAux;
 		
-		if ( (categoryAux = categoryDao.findById(category.getId())) != null) {
+		if ( (categoryAux = categoryService.findById(category.getId())) != null) {
 			subcategory.setCategory(categoryAux);
 			categoryAux.getSubcategories().add(subcategory);
 			categoryAux.setSubcategories(categoryAux.getSubcategories());
@@ -44,12 +44,12 @@ public class SubcategoryAction extends ActionSupport {
 			category.setSubcategories(subcategories);
 			
 		}
-		subcategoryDao.save(subcategory);
+		subcategoryService.save(subcategory);
 		return SUCCESS;
 	}
 
 	public List<Subcategory> getSubcategories() {
-		return subcategoryDao.findAll();
+		return subcategoryService.findAll();
 	}
 	
 	public List<Category> getCategories() {
@@ -57,7 +57,7 @@ public class SubcategoryAction extends ActionSupport {
 	}
 
 	public String listSubcategories() {
-		categories = categoryDao.findAll();
+		categories = categoryService.findAll();
 		
 		return SUCCESS;
 	}
@@ -77,7 +77,7 @@ public class SubcategoryAction extends ActionSupport {
 	public String deleteSubcategory() {
 		try {
 			if (Validade.isValid(id)) {
-				subcategoryDao.delete(subcategoryDao.findById(Long.valueOf(id)));
+				subcategoryService.delete(subcategoryService.findById(Long.valueOf(id)));
 				return SUCCESS;
 			} else {
 				return ERROR;

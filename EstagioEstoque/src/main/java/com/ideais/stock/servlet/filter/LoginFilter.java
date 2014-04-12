@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.AdminDao;
+import com.ideais.stock.service.AdminService;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -25,7 +25,7 @@ public class LoginFilter implements Filter {
 	private static final Logger LOG = Logger.getLogger(LoginFilter.class.getName()); 
 
 	@Autowired
-	private AdminDao adminDao;
+	private AdminService adminService;
     
     public LoginFilter() {
         // TODO Auto-generated constructor stub

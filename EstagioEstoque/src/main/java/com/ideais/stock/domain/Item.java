@@ -55,10 +55,10 @@ public class Item {
 	private Integer stock;
 	
 	@Column(name="NM_RANK", nullable = false)
-	private Integer rank = 0;
+	private Integer rank;
 
 	@Column(name="BO_ATIVO", nullable=false)
-	private Boolean active = true;
+	private Boolean active;
 	
 	@JsonBackReference 
 	@ManyToOne

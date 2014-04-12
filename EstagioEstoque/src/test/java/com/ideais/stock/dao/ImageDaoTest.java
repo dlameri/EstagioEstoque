@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -15,11 +16,13 @@ import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.ImageService;
 
 @RunWith(JUnit4.class)
 public class ImageDaoTest {
 	
-	private ImageDao imageDao;
+	@Autowired
+	private ImageService imageService;
 	private Image image;
 	private Item item;
 	private Subcategory subcategory;
@@ -29,8 +32,6 @@ public class ImageDaoTest {
 	
 	@Before
 	public void setUp() {
-		this.imageDao = new ImageDao();
-		
 		image = new Image();
 		item = new Item();
 		product = new Product();
@@ -71,7 +72,6 @@ public class ImageDaoTest {
 		product.setSubcategory(subcategory);
 		item.setProduct(product);
 	
-		image.setMain(true);
 		image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
@@ -83,31 +83,31 @@ public class ImageDaoTest {
 	
 	@Test
 	public void test_create() {
-		Image savedImage = imageDao.save(image);
+		Image savedImage = imageService.save(image, true);
 		
 		assertEquals( savedImage.getId(), image.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, imageDao.findAll().size());
+		assertEquals(0, imageService.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-	    	Image savedImage = imageDao.save(image);
+	    Image savedImage = imageService.save(image, true);
 	    
-		assertEquals(savedImage.getId(), imageDao.findById(savedImage.getId()).getId());
+		assertEquals(savedImage.getId(), imageService.findById(savedImage.getId()).getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Image savedImage = imageDao.save(image);
+		Image savedImage = imageService.save(image, true);
 		
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
-		imageDao.save(image);
+		imageService.save(image, true);
 		
-		Image updatedImage = imageDao.findById(savedImage.getId());
+		Image updatedImage = imageService.findById(savedImage.getId());
 		
 		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", updatedImage.getProductUrl());
 	}

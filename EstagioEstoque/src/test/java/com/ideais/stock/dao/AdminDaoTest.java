@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Admin;
+import com.ideais.stock.service.AdminService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,7 +17,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 
 	private Admin admin;
 	@Autowired
-	private AdminDao adminDao;
+	private AdminService adminService;
 	
 	@Before
 	public void setUp() {
@@ -29,41 +30,41 @@ public class AdminDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_create() {
-		Admin savedAdmin = adminDao.save(admin);
+		Admin savedAdmin = adminService.save(admin);
 		
 		assertEquals( savedAdmin.getId(), admin.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(1, adminDao.findAll().size());
+		assertEquals(1, adminService.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-		Admin admin = adminDao.findById(1L); 
+		Admin admin = adminService.findById(1L); 
 		
 		assertEquals(new Long(1), admin.getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Admin savedAdmin = adminDao.findById(1L);
+		Admin savedAdmin = adminService.findById(1L);
 		
 		savedAdmin.setName("adminAlterado");
-		adminDao.save(savedAdmin);
+		adminService.save(savedAdmin);
 		
-		Admin updatedAdmin = adminDao.findById(savedAdmin.getId());
+		Admin updatedAdmin = adminService.findById(savedAdmin.getId());
 		
 		assertEquals("adminAlterado", updatedAdmin.getName());
 	}
 	
 	@Test
 	public void test_delete() {
-		admin = adminDao.findById(1L);
-		adminDao.delete(admin);
+		admin = adminService.findById(1L);
+		adminService.delete(admin);
 		
-		assertEquals( 0, adminDao.findAll().size() );
+		assertEquals( 0, adminService.findAll().size() );
 	}
 	
 	@Test
@@ -72,7 +73,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 		admin.setEmail("");
 		admin.setPassword("123");
 		
-		assertEquals(false, adminDao.authorize(admin));
+		assertEquals(false, adminService.authorize(admin));
 	}
 	
 	@Test
@@ -81,7 +82,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 		admin.setEmail("admin@teste.com");
 		admin.setPassword("");
 		
-		assertEquals(false, adminDao.authorize(admin));
+		assertEquals(false, adminService.authorize(admin));
 	}
 	
 	@Test
@@ -90,7 +91,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 		admin.setEmail("admin@teste.com");
 		admin.setPassword("321");
 		
-		assertEquals(false, adminDao.authorize(admin));
+		assertEquals(false, adminService.authorize(admin));
 	}
 	
 	@Test
@@ -99,7 +100,7 @@ public class AdminDaoTest extends AbstractDaoTest {
 		admin.setEmail("admin@teste.com");
 		admin.setPassword("123");
 		
-		assertEquals(true, adminDao.authorize(admin));
+		assertEquals(true, adminService.authorize(admin));
 	}
 	
 }

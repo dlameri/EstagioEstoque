@@ -8,21 +8,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Item;
-import com.ideais.stock.domain.Product;
-import com.ideais.stock.domain.Subcategory;
 
-public class CategoryService implements BaseService<Category> {
+public class CategoryService {
 
 	@Autowired
-	CategoryDao categoryDao = new CategoryDao();
+	CategoryDao categoryDao;
+	@Autowired
+	SubcategoryService subcategoryService;
 
 	public Category save(Category category) {
+		category.setActive(true);
 		return categoryDao.save(category);
 	}
 
 	public Category findById(Long id) {
 		return categoryDao.findById(id);
+	}
+	
+	public List<Category> findByName(String name) {
+		return categoryDao.findByName(name);
 	}
 
 	public List<Category> findAll() {
@@ -31,27 +35,7 @@ public class CategoryService implements BaseService<Category> {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Category category) {
-		List<Subcategory> subcategories = category.getSubcategories();
-		List<Product> products;
-		List<Item> items;
-
-		if (subcategories != null) {
-			for (Subcategory subcategory : subcategories) {
-				subcategory.softDelete();
-				products = subcategory.getProducts();
-				if (products != null) {
-					for (Product product : products) {
-						product.softDelete();
-						items = product.getItems();
-						if (items != null) {
-							for (Item item : items) {
-								item.softDelete();
-							}
-						}
-					}
-				}
-			}
-		}
+		subcategoryService.delete(category);
 		
 		category.softDelete();
 		categoryDao.save(category);

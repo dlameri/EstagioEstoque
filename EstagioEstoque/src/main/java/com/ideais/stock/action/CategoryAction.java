@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -20,16 +20,16 @@ public class CategoryAction extends ActionSupport {
 	private Category category = new Category();
 	
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryService categoryService;
 	private List<Category> categories = new ArrayList<Category>();
 	
 	public String saveCategory() {
 		try {
 			if (category.getId() != null) {
-				categoryDao.save(category);
+				categoryService.save(category);
 				return SUCCESS;
 			}
-			categoryDao.save(category);
+			categoryService.save(category);
 			return SUCCESS;
 			
 		} catch (Exception e) {
@@ -38,15 +38,15 @@ public class CategoryAction extends ActionSupport {
 	}
 
 	public List<Category> getCategories() {
-		return categoryDao.findAll();
+		return categoryService.findAll();
 	}
 
 	public String listCategories() {
 		if (Validade.isValid(id)) {
-			category = categoryDao.findById(Long.valueOf(id));
+			category = categoryService.findById(Long.valueOf(id));
 			return SUCCESS;
 		}
-		categories = categoryDao.findAll();
+		categories = categoryService.findAll();
 		return SUCCESS;
 	}
 
@@ -63,7 +63,7 @@ public class CategoryAction extends ActionSupport {
 	}
 	
 	public String deleteCategory() {
-		categoryDao.delete(categoryDao.findById(Long.valueOf(id)));
+		categoryService.delete(categoryService.findById(Long.valueOf(id)));
 		return SUCCESS;
 	}
 

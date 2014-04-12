@@ -12,35 +12,35 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.ProductService;
 
 @Path("/product")
 public class ProductWS {
 	
 	@Autowired
-	ProductDao productDao;
+	ProductService productService;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Product> getProducts(@QueryParam("orderColum") @DefaultValue("rank") String orderColum, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
-		return productDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
+		return productService.personalizedQuery(orderColum, order, active, firstResult, maxResults);
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Product getProductById(@PathParam("id") Long id) {
-		return productDao.findById(id);
+		return productService.findById(id);
 	}
 
 	@Path("/search/{textToSearch}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Product> searchProducts(@PathParam("textToSearch") String textToSearch) {
-		return productDao.search(textToSearch);
+		return productService.search(textToSearch);
 	}
 	
 	@Path("/bycategoryid/{id}")
@@ -49,7 +49,7 @@ public class ProductWS {
 	public List<Product> searchProductsByCategyId(@PathParam("id") Long id) {
 		Category category = new Category();
 	    	category.setId(id);
-		return productDao.findByCategoryId(category);
+		return productService.findByCategoryId(category);
 	}
 	
 	@Path("/bysubcategoryid/{id}")
@@ -58,14 +58,14 @@ public class ProductWS {
 	public List<Product> searchProductsBySubcategoryId(@PathParam("id") Long id) {
 	    	Subcategory subcategory = new Subcategory();
 	    	subcategory.setId(id);
-		return productDao.findBySubcategoryId(subcategory);
+		return productService.findBySubcategoryId(subcategory);
 	}
 	
 	@Path("/orderbyrank")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Product> getProductsOrderByRank() {
-		return productDao.findAllOrderByRank();
+		return productService.findAllOrderByRank();
 	}
 
 }

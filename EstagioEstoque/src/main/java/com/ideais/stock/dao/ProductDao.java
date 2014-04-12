@@ -24,7 +24,6 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.save(product);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Product product) {
 		super.delete(product);
 	}

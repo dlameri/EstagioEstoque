@@ -15,6 +15,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="productService" class="com.ideais.stock.service.ProductService" autowire="byType" />
 	<bean id="itemService" class="com.ideais.stock.service.ItemService" autowire="byType" />
 	<bean id="imageService" class="com.ideais.stock.service.ImageService" autowire="byType" />
+	<bean id="adminService" class="com.ideais.stock.service.AdminService" autowire="byType" />
 	
 	<!-- DAOs -->
 	<bean id="categoryDao" class="com.ideais.stock.dao.CategoryDao" autowire="byType" />

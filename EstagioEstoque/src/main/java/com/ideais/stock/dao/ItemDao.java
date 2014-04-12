@@ -47,6 +47,13 @@ public class ItemDao extends AbstractDao<Item>{
 		
 		return super.findByRestrictions(Item.class, restrictions);
 	}
+	
+	public List<Item> findByProductId(Product product) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add( Restrictions.like("product", product) );
+		
+		return super.findByRestrictions(Item.class, restrictions);
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Item> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {

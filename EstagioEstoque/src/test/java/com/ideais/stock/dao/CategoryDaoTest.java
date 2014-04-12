@@ -8,17 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.service.BaseService;
+import com.ideais.stock.service.CategoryService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CategoryDaoTest extends AbstractDaoTest {
 
 	@Autowired
-	private BaseService<Category> categoryService;
-	@Autowired
-	private BaseService<Subcategory> subcategoryService;
+	private CategoryService categoryService;
 
 	@Test
 	public void test_create() {
@@ -57,6 +54,8 @@ public class CategoryDaoTest extends AbstractDaoTest {
 	public void test_delete() {
 		Category category = categoryService.findById(1L);
 		categoryService.delete(category);
+
+		category = categoryService.findById(1L);
 		
 		assertEquals( false, category.getActive() );
 	}

@@ -15,12 +15,13 @@ import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ProductDaoTest extends AbstractDaoTest {
 
 	@Autowired
-	private ProductDao productDao;
+	private ProductService productService;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
@@ -59,7 +60,7 @@ public class ProductDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_create() {
-		Product savedProduct = productDao.save(product);
+		Product savedProduct = productService.save(product);
 
 		assertEquals( savedProduct.getId(), product.getId() );
 	}
@@ -76,7 +77,7 @@ public class ProductDaoTest extends AbstractDaoTest {
 		item.setStock(9999);
 		item.setProduct(product);
 
-		Product savedProduct = productDao.save(product);
+		Product savedProduct = productService.save(product);
 
 		assertEquals( savedProduct.getId(), product.getId() );
 	}
@@ -84,16 +85,16 @@ public class ProductDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_delete() {
-		product = productDao.findById(1L);
+		product = productService.findById(1L);
 		
-		productDao.delete(product);
+		productService.delete(product);
 
-		assertEquals( 0, productDao.findAll().size() );
+		assertEquals( 0, productService.findAll().size() );
 	}
 	
 	@Test
 	public void find_by_id() {
-		Product product = productDao.findById(1L);
+		Product product = productService.findById(1L);
 		
 		assertEquals(new Long(1), product.getId());
 	}

@@ -56,10 +56,10 @@ public class Product {
 	private String model;
 	
 	@Column(name = "BO_ATIVO", nullable = false)
-	private Boolean active = true;
+	private Boolean active;
 
 	@Column(name = "NR_RANK", nullable = false)
-	private Integer rank = 0;
+	private Integer rank;
 
 	@JsonBackReference
 	@ManyToOne

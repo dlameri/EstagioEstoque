@@ -11,14 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.HttpRequestHandler;
 
-import com.ideais.stock.dao.AdminDao;
 import com.ideais.stock.domain.Admin;
+import com.ideais.stock.service.AdminService;
 
 public class LoginServlet extends HttpServlet implements HttpRequestHandler {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private AdminDao adminDao;
+	private AdminService adminService;
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet implements HttpRequestHandler {
 		admin.setEmail(request.getParameter("email"));
 		admin.setPassword(request.getParameter("pwd"));
 
-		if (adminDao.authorize(admin)) {
+		if (adminService.authorize(admin)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", admin);
 			session.setMaxInactiveInterval(30 * 60); // setting session to

@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.CategoryDao;
-import com.ideais.stock.dao.ProductDao;
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.ProductService;
+import com.ideais.stock.service.SubcategoryService;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ProductAction extends ActionSupport {
@@ -21,11 +21,11 @@ public class ProductAction extends ActionSupport {
 	private String id;
 
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryService categoryService;
 	@Autowired
-	private SubcategoryDao subcategoryDao;
+	private SubcategoryService subcategoryService;
 	@Autowired
-	private ProductDao productDao;
+	private ProductService productService;
 	
 	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
@@ -36,19 +36,19 @@ public class ProductAction extends ActionSupport {
 	
 	
 	public String addProduct() {
-		subcategory = subcategoryDao.findById(subcategory.getId());
+		subcategory = subcategoryService.findById(subcategory.getId());
 		product.setDimensions(dimensions);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
-		productDao.save(product);
+		productService.save(product);
 		
 		return SUCCESS;
 	}
 	
 	public String deleteProduct() {
-		product = productDao.findById(Long.valueOf(id));
+		product = productService.findById(Long.valueOf(id));
 		product.softDelete();
-		productDao.save(product);
+		productService.save(product);
 		
 		return SUCCESS;
 	}
@@ -59,8 +59,8 @@ public class ProductAction extends ActionSupport {
 	
 	public String execute() {
 		try {
-			Category category = categoryDao.findById(Long.valueOf(id));
-			subcategories = subcategoryDao.findByCategoryId(category);
+			Category category = categoryService.findById(Long.valueOf(id));
+			subcategories = subcategoryService.findByCategoryId(category);
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -101,7 +101,7 @@ public class ProductAction extends ActionSupport {
 	}
 
 	public List<Category> getCategories() {
-		return categoryDao.findAll();
+		return categoryService.findAll();
 	}
 
 	public void setCategories(List<Category> categories) {
@@ -117,7 +117,7 @@ public class ProductAction extends ActionSupport {
 	}
 	
 	public List<Product> getProducts() {
-		return productDao.findAll();
+		return productService.findAll();
 	}
 
 	public void setProducts(List<Product> products) {

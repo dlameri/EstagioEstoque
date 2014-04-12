@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -17,13 +18,15 @@ import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.ItemService;
 
 
 
 @RunWith(JUnit4.class)
 public class ItemDaoTest {
 	
-	private ItemDao itemDao;
+	@Autowired
+	private ItemService itemService;
 	private Product product;
 	private Item item;
 	private Subcategory subcategory;
@@ -34,8 +37,6 @@ public class ItemDaoTest {
 	
 	@Before
 	public void setUp() {
-		this.itemDao = new ItemDao();
-		
 		items = new ArrayList<Item>();
 		product = new Product();
 		item = new Item();
@@ -92,14 +93,14 @@ public class ItemDaoTest {
 	
 	@Test
 	public void test_create() {
-		Item savedItem = itemDao.save(item);
+		Item savedItem = itemService.save(item);
 
 		assertEquals( savedItem.getId(), item.getId() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, itemDao.findAll().size());
+		assertEquals(0, itemService.findAll().size());
 	}
 	
 }

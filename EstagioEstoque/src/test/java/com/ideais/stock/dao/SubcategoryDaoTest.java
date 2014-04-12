@@ -12,15 +12,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.SubcategoryService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SubcategoryDaoTest extends AbstractDaoTest {
 
 	@Autowired
-	private SubcategoryDao subcategoryDao;
+	private SubcategoryService subcategoryService;
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryService categoryService;
 	
 	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
@@ -35,7 +37,7 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 		subcategories.add(subcategory);
 		category.setSubcategories(subcategories);
 		
-		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
+		Subcategory savedSubcategory = subcategoryService.save(subcategory);
 
 		assertEquals(savedSubcategory.getId(), subcategory.getId());
 	}
@@ -49,51 +51,51 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 		subcategories.add(subcategory);
 		category.setSubcategories(subcategories);
 		
-		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
+		Subcategory savedSubcategory = subcategoryService.save(subcategory);
 		
-		System.err.println(subcategoryDao.findAll());
+		System.err.println(subcategoryService.findAll());
 		
 		subcategory.getCategory().getSubcategories().remove(subcategory);
-		subcategoryDao.delete(savedSubcategory);
+		subcategoryService.delete(savedSubcategory);
 		
-		System.err.println(subcategoryDao.findAll());
+		System.err.println(subcategoryService.findAll());
 		
-		assertEquals(1, subcategoryDao.findAll().size());
+		assertEquals(1, subcategoryService.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-		Subcategory subcategory2 = subcategoryDao.findById(1L);
+		Subcategory subcategory2 = subcategoryService.findById(1L);
 
 		assertEquals(new Long(1), subcategory2.getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Subcategory savedSubcategory = subcategoryDao.findById(1L);
+		Subcategory savedSubcategory = subcategoryService.findById(1L);
 		String name = "Suspense";
 		
 		savedSubcategory.setName(name);
-		subcategoryDao.save(savedSubcategory);
+		subcategoryService.save(savedSubcategory);
 		
-		Subcategory updatedSubcategory = subcategoryDao.findById(savedSubcategory.getId());
+		Subcategory updatedSubcategory = subcategoryService.findById(savedSubcategory.getId());
 		
 		assertEquals(name, updatedSubcategory.getName());
 	}
 	
 	@Test
 	public void test_delete() {
-		subcategory = subcategoryDao.findById(1L);
+		subcategory = subcategoryService.findById(1L);
 		subcategory.getCategory().getSubcategories().remove(subcategory);
 		
-		subcategoryDao.delete(subcategory);
+		subcategoryService.delete(subcategory);
 		
-		assertEquals(0, subcategoryDao.findAll().size());
+		assertEquals(0, subcategoryService.findAll().size());
 	}
 	
 	@Test
 	public void create_with_existing_category() {
-		category = categoryDao.findById(1L);
+		category = categoryService.findById(1L);
 		
 		if (category != null) {
 			subcategory.setCategory(category);
@@ -102,7 +104,7 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 			category.setSubcategories(category.getSubcategories());
 		}
 		
-		Subcategory savedSubcategory = subcategoryDao.save(subcategory);
+		Subcategory savedSubcategory = subcategoryService.save(subcategory);
 		
 		assertEquals(subcategory.getId(), savedSubcategory.getId());
 		

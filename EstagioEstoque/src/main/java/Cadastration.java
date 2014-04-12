@@ -1,15 +1,12 @@
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.AdminDao;
 import com.ideais.stock.domain.Admin;
-import com.ideais.stock.domain.Category;
+import com.ideais.stock.service.AdminService;
 
 public class Cadastration {
 
 	@Autowired
-	static AdminDao adminDao;
+	static AdminService adminService;
 	
 	public static void main(String[] args) {
 
@@ -18,7 +15,7 @@ public class Cadastration {
 			admin.setEmail("admin@teste.com");
 			admin.setName("Admin Teste");
 			admin.setPassword("123");
-			adminDao.save(admin);
+			adminService.save(admin);
 			
 //			ImageDao imageDao = new ImageDao();
 //			CategoryDao categoryDao = new CategoryDao();

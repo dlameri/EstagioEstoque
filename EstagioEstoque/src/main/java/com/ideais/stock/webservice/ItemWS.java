@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.service.ItemService;
 import com.ideais.stock.webservice.domain.CartItemWS;
 import com.ideais.stock.webservice.domain.CartWS;
 
@@ -25,26 +25,26 @@ import com.ideais.stock.webservice.domain.CartWS;
 public class ItemWS {
 	
 	@Autowired
-	ItemDao itemDao;
+	ItemService itemService;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Item> getItems(@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
-		return itemDao.personalizedQuery(orderColumn, order, active, firstResult, maxResults);
+		return itemService.personalizedQuery(orderColumn, order, active, firstResult, maxResults);
 	}
 	
 	@Path("/orderbyrank")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Item> getItemsOrderByRank() {
-		return itemDao.findAllOrderByRank();
+		return itemService.findAllOrderByRank();
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Item getItemById(@PathParam("id") Long id) {
-		return itemDao.findById(id);
+		return itemService.findById(id);
 	}
 	
 	@Path("/byproductid/{id}")
@@ -53,7 +53,7 @@ public class ItemWS {
 	public List<Item> searchItemsByCategoryId(@PathParam("id") Long id, @QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
 		Product product = new Product();
 		product.setId(id);
-		return itemDao.findByProductId(product, orderColumn, order, active, firstResult, maxResults);
+		return itemService.findByProductId(product, orderColumn, order, active, firstResult, maxResults);
 	}
 	
 	@Path("/updatestock")
@@ -64,7 +64,7 @@ public class ItemWS {
 		
 		for (int i = 0; i < cart.getCartItems().size(); i++) {
 			CartItemWS itemWS = cart.getCartItems().get(i);
-			Item item = itemDao.findById(itemWS.getCartItemId());
+			Item item = itemService.findById(itemWS.getCartItemId());
 			Integer newItemStock = item.getStock() - itemWS.getQuantity();
 			if (newItemStock < 0 || itemWS.getQuantity() <= 0){
 				return Response.status(400).entity(output).build();
@@ -72,7 +72,7 @@ public class ItemWS {
 			item.setStock(newItemStock);
 			item.setRank(item.getRank() + itemWS.getQuantity());
 			item.getProduct().setRank(item.getProduct().getRank() + itemWS.getQuantity());
-			itemDao.save(item);
+			itemService.save(item);
 		}
 		return Response.status(201).entity(output).build();
 		// TODO criar classe de constante

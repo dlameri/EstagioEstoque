@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ideais.stock.dao.ImageDao;
 import com.ideais.stock.domain.Image;
 
-public class ImageService implements BaseService<Image> {
+public class ImageService {
 
 	@Autowired
-	ImageDao imageDao = new ImageDao();
+	ImageDao imageDao;
 
-	public Image save(Image image) {
+	public Image save(Image image, Boolean main) {
+		image.setMain(main);
 		return imageDao.save(image);
 	}
 
