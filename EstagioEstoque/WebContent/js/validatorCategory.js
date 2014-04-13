@@ -1,7 +1,7 @@
 $(function() {
 	
 	var categoryName = $(".categoryName");
-	var nameError = $(".categoryNameError");
+	var nameError = $(".nameError");
 	
 	categoryName.click(function(){
 		categoryName.removeClass("wrongField");

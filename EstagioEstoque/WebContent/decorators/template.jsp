@@ -15,8 +15,9 @@
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
 <link href="../css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="./js/catalogo.js"></script>
 <script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mask.min.js"></script>
 <decorator:head />
 </head>
 <body>

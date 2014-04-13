@@ -1,5 +1,5 @@
 $(function() {
-
+	
 	$("#categoryList").change(function() {
 		var categoryId = $(this).val();
 		var subcategories = $(".subcategoryList");
@@ -11,7 +11,7 @@ $(function() {
 		}
 		
 		subcategories.empty();
-		subcategories.get(0).options[0] = new Option("SELECIONE A SUBCATEGORIA", "-1");		
+		subcategories.append('<option value=\"-1\">SELECIONE A SUBCATEGORIA</option>');		
 		subcategories.prop("disabled", false);
 		
 		$.ajax({
@@ -29,3 +29,5 @@ $(function() {
 
 	});
 });
+
+

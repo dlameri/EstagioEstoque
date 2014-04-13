@@ -120,5 +120,17 @@
 			</result>
 		</action>
 
+<!-- 		<action name="pageNotFound"> -->
+<!-- 		    <result type="redirect"> -->
+<!-- 		    	<param name="location">/web/404.jsp</param> -->
+<!-- 		    </result> -->
+<!-- 		</action> -->
+		
+<!-- 		<action name="*"> -->
+<!-- 		    <result type="redirectAction"> -->
+<!-- 		        <param name="actionName">/web/pageNotFound</param> -->
+<!-- 		    </result> -->
+<!-- 		</action> -->
+
 	</package>
 </struts>

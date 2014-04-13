@@ -16,8 +16,6 @@
 	
 		<form action="addsubcategory" method="get">
 		
-		<p class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</p>
-
 		<fieldset>
 			<label>Selecione uma categoria:</label>
 			<select name="category.id" id="categoryList" style="display: block;">
@@ -26,8 +24,9 @@
 				</c:forEach>
 			</select>
 
-			<label class="btn-submit">Nome subcategria:</label>
-			<input type="text" name="subcategory.name" class="subcategoryName" style="display: block;"/> 
+			<label>Nome subcategria:</label><br/>
+			<input type="text" name="subcategory.name" class="subcategoryName"/> 
+			<span class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</span><br/><br/>
 			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	
 	</form>
