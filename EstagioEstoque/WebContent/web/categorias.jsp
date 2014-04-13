@@ -8,18 +8,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Categoria</title>
+<script type="text/javascript" src="../js/validatorCategory.js"></script>
+<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
 	<div id="three-column" class="container">
 		<div id="tbox2">
 			<h3>Nova Categoria</h3>
-			<s:form action="web/saveCategory">
-				<s:hidden name="category.id" value="%{category.id}" />
-				<s:textfield label="Nome" id="form-control" placeholder="Categoria"
-					name="category.name" value="%{category.name}" />
-				<s:submit class="btn btn-primary" value="Salvar" />
-			</s:form>
+			<form action="addcategory">
+				<input type="hidden" name="category.id" value="${category.id}" />
+				<input type="text" id="form-control" placeholder="Categoria"
+					name="category.name" value="${category.name}" class="categoryName" maxlength="15" />
+				<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
+			</form>
+			<p class="error_message hidden nameError">O nome da categoria deve ter pelo menos 3 caracteres.</p>
+			
 		</div>
 		<div id="tbox3">
 			<h3>Categorias Cadastradas</h3>

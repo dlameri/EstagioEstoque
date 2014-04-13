@@ -5,18 +5,19 @@ import com.ideais.stock.service.AdminService;
 
 public class Cadastration {
 
-	@Autowired
-	static AdminService adminService;
+//	@Autowired
+//	static AdminServiceo adminService;
 	
 	public static void main(String[] args) {
 
-			Admin admin = new Admin();
-			
-			admin.setEmail("admin@teste.com");
-			admin.setName("Admin Teste");
-			admin.setPassword("123");
-			adminService.save(admin);
-			
+//			Admin admin = new Admin();
+//			
+//			admin.setEmail("admin@teste.com");
+//			admin.setName("Admin Teste");
+//			admin.setPassword("123");
+//			adminService.save(admin);
+		
+		
 //			ImageDao imageDao = new ImageDao();
 //			CategoryDao categoryDao = new CategoryDao();
 //			SubcategoryDao subcategoryDao = new SubcategoryDao();

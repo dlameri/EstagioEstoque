@@ -4,24 +4,57 @@
 	<constant name="struts.devMode" value="true" />
 	<package name="basicstruts2" extends="json-default">
 
+		<interceptors>
+			<interceptor-stack name="content">
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params">
+                  <param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+  	            <param name="validateAnnotatedMethodOnly">true</param>                
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+			</interceptor-stack>
+	    </interceptors>
+
 		<action name="home" class="com.ideais.stock.action.CategoryAction"
 			method="execute">
 			<result name="success">index.jsp</result>
 		</action>
 
-		<action name="saveCategory" class="com.ideais.stock.action.CategoryAction"
+		<action name="addcategory" class="com.ideais.stock.action.CategoryAction"
 			method="saveCategory">
 			<result name="success" type="redirect">
-				<param name="location">web/categorias</param>
+				<param name="location">/web/categorias</param>
 			</result>
 			<result name="error" type="redirect">
-				<param name="location">web/categorias?error=true</param>
+				<param name="location">/web/categorias?error=true</param>
+			</result>
+			<result name="input" type="redirect">
+				<param name="location">/web/categorias?yay</param>
 			</result>
 		</action>
 
 		<action name="categorias" class="com.ideais.stock.action.CategoryAction"
 			method="listCategories">
 			<result name="success">categorias.jsp</result>
+			<result name="input">categorias.jsp</result>
 		</action>
 
 		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
@@ -46,6 +79,9 @@
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">web/subcategorias?error=true</param>
+			</result>
+			<result name="input" type="redirect">
+				<param name="location">web/subcategorias?yay</param>
 			</result>
 		</action>
 

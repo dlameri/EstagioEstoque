@@ -16,12 +16,14 @@
 		<fieldset>
 			<label>Selecione uma subcategoria:</label>
 			<select name="category.id" id="categoryList" style="display: block;">
+				<option value="-1">SELECIONE UMA CATEGORIA</option>
 				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>
 				</c:forEach>
 			</select>	
 			
-			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
+			<select name="subcategory.id" id="categoryList" class="subcategoryList" disabled="disabled" style="display: block;">
+				<option value="-1">SELECIONE UMA CATEGORIA</option>
 			</select>
 			
 			<div id="teste">

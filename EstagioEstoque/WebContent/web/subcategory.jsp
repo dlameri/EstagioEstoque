@@ -7,28 +7,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../js/selector.js"></script>
+<script type="text/javascript" src="../js/validatorSubcategory.js"></script>
+<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
 <title>Subcategoria</title>
 </head>
 <body>
 	<h1>Subcategoria</h1>
 	
 		<form action="addsubcategory" method="get">
+		
+		<p class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</p>
+
 		<fieldset>
-			<input type="radio" name="selector" checked="true"/>
 			<label>Selecione uma categoria:</label>
 			<select name="category.id" id="categoryList" style="display: block;">
-				<c:forEach items="${categories}" var="category">	
+				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>
 				</c:forEach>
 			</select>
 
-			<input type="radio" name="selector" />
-			<label>Crie uma nova categria:</label>
-			<input type="text" name="category.name" id="newCategory" disabled="disabled" style="display: block;"/>
-			<label>Nome subcategria:</label>
-			<input type="text" name="subcategory.name" style="display: block;"/> 
-			<input type="submit" id="btn" value="Add" />
+			<label class="btn-submit">Nome subcategria:</label>
+			<input type="text" name="subcategory.name" class="subcategoryName" style="display: block;"/> 
+			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	
 	</form>
 
