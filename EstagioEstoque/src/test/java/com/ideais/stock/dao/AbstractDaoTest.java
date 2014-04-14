@@ -24,6 +24,7 @@ public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 	@Before
 	public void setUp() {
 		prepareDatabase();
+//		executeSqlScript("sql/prepare", false);
 	}
 	
 	private Session session() {

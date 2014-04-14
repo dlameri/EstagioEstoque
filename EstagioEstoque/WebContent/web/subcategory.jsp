@@ -18,7 +18,7 @@
 		
 		<fieldset>
 			<label>Selecione uma categoria:</label>
-			<select id="categoryList" style="display: block;">
+			<select name="category.id" id="categoryList" style="display: block;">
 				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>
 				</c:forEach>

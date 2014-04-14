@@ -14,6 +14,7 @@ import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -59,6 +60,9 @@ public class ProductAction extends ActionSupport {
 				@RequiredFieldValidator(fieldName="dimensions.width", type= ValidatorType.FIELD, message="Largura não pode ser nulo."),
 				@RequiredFieldValidator(fieldName="dimensions.depth", type= ValidatorType.FIELD, message="Profundidade não pode ser nulo."),
 				@RequiredFieldValidator(fieldName="subcategory.id", type= ValidatorType.FIELD, message="Selecione uma subcategoria.")
+			},
+			fieldExpressions={
+					@FieldExpressionValidator(fieldName="subcategory.id", expression="subcategory.id > 0", message="Selecione uma subcategoria.")
 			}
 		)
 	public String addProduct() {

@@ -49,25 +49,15 @@ public class SubcategoryAction extends ActionSupport {
 	    }
 	)
 	public String addSubcategory() {
-		Category categoryAux;
-		
-		if ( (categoryAux = categoryService.findById(category.getId())) != null) {
-			subcategory.setCategory(categoryAux);
-			categoryAux.getSubcategories().add(subcategory);
-			categoryAux.setSubcategories(categoryAux.getSubcategories());
-		}
-		else {
-			subcategory.setCategory(category);
-			subcategories.add(subcategory);
-			category.setSubcategories(subcategories);
-			
-		}
+		category = categoryService.findById(category.getId());
+		subcategory.setCategory(category);
 		subcategoryService.save(subcategory);
 		return SUCCESS;
 	}
 
 	public List<Subcategory> getSubcategories() {
-		return subcategoryService.findAll();
+		subcategories = subcategoryService.findAll();
+		return subcategories;
 	}
 	
 	public List<Category> getCategories() {

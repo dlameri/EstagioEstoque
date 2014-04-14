@@ -42,7 +42,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="locations">
 			<list>
 				<value>
-					classpath:properties/stock.properties</value>
+					classpath:properties/stock.properties
+				</value>
 			</list>
 		</property>
 	</bean>
