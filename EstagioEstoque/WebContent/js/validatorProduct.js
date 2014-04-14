@@ -3,6 +3,7 @@ $(function() {
 
 	var form = $(".form");
 
+	var subcategoryList = $(".subcategoryList");
 	var productName = $(".productName");
 	var shortDesc = $(".shortDesc");
 	var longDesc = $(".longDesc");
@@ -32,14 +33,17 @@ $(function() {
 			form.submit();
 		},
 		rules : {
+			"subcategory.id" : {
+				required : true
+			},
 			"product.name" : {
 				required : true,
 				minlength : 3
 			},
-			"product.shortDesc" : {
+			"product.shortDescription" : {
 				required : true
 			}, 
-			"product.longDesc" : {
+			"product.longDescription" : {
 				required : true
 			},
 			"product.weight" : {
@@ -56,29 +60,32 @@ $(function() {
 			"product.model" : {
 				required : true
 			},
-			"product.width" : {
+			"dimensions.width" : {
 				required : true,
 				number: true
 			},
-			"product.height" : {
+			"dimensions.height" : {
 				required : true,
 				number: true
 			},
-			"product.depth" : {
+			"dimensions.depth" : {
 				required : true,
 				number: true
 			}
 		},
 		messages : {
+			"subcategory.id" : {
+				required : "Selecione uma subcategoria."
+			},
 			"product.name" : {
 				required : "Este campo é obrigatório.",
 				minlength : jQuery
 						.format("Deve ter pelo menos {0} caracteres.")
 			},
-			"product.shortDesc"  : {
+			"product.shortDescription"  : {
 				required : "Este campo é obrigatório."
 			}, 
-			"product.longDesc"  : {
+			"product.longDescription"  : {
 				required : "Este campo é obrigatório."
 			},
 			"product.weight"  : {
@@ -95,15 +102,15 @@ $(function() {
 			"product.model"  : {
 				required : "Este campo é obrigatório."
 			},
-			"product.width"  : {
+			"dimensions.width"  : {
 				required : "Este campo é obrigatório.",
 				number: "Deve ser um numero."
 			},
-			"product.height"  : {
+			"dimensions.height"  : {
 				required : "Este campo é obrigatório.",
 				number: "Deve ser um numero."
 			},
-			"product.depth"  : {
+			"dimensions.depth"  : {
 				required : "Este campo é obrigatório.",
 				number: "Deve ser um numero."
 			}

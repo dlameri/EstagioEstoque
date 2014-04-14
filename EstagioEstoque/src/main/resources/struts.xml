@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<package name="basicstruts2" extends="json-default">
+	<package name="basicstruts2" extends="json-default" >
 
 		<interceptors>
 			<interceptor-stack name="content">
@@ -46,15 +46,15 @@
 			<result name="error" type="redirect">
 				<param name="location">/web/categorias?error=true</param>
 			</result>
-			<result name="input" type="redirect">
-				<param name="location">/web/categorias?yay</param>
+			<result name="input" type="dispatcher">
+				<param name="location">/web/category.jsp</param>
 			</result>
 		</action>
 
 		<action name="categorias" class="com.ideais.stock.action.CategoryAction"
 			method="listCategories">
-			<result name="success">categorias.jsp</result>
-			<result name="input">categorias.jsp</result>
+			<result name="success">category.jsp</result>
+			<result name="input">category.jsp</result>
 		</action>
 
 		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
@@ -80,8 +80,8 @@
 			<result name="error" type="redirect">
 				<param name="location">web/subcategorias?error=true</param>
 			</result>
-			<result name="input" type="redirect">
-				<param name="location">web/subcategorias?yay</param>
+			<result name="input" type="dispatcher">
+				<param name="location">/web/subcategory.jsp</param>
 			</result>
 		</action>
 
@@ -104,6 +104,9 @@
 			<result name="error" type="redirect">
 				<param name="location">web/produtos?error=true</param>
 			</result>
+			<result name="input" type="dispatcher">
+				<param name="location">/web/product.jsp</param>
+			</result>
 		</action>
 
 		<action name="produtos" class="com.ideais.stock.action.ProductAction"
@@ -112,12 +115,13 @@
 		</action>
 
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"
-			method="execute">
+			method="getSubcategoryList">
 			<result type="json">
 				<param name="root">
 					subcategories
 				</param>
 			</result>
+			<result name="error"></result>
 		</action>
 
 <!-- 		<action name="pageNotFound"> -->

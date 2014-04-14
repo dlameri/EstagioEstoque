@@ -12,6 +12,7 @@ import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
@@ -42,6 +43,9 @@ public class SubcategoryAction extends ActionSupport {
 	    },
 	    stringLengthFields={
 	    	@StringLengthFieldValidator(fieldName="subcategory.name", type= ValidatorType.FIELD, minLength="3", maxLength="45", message="Nome muito curto.")
+	    },
+	    requiredFields={ 
+	    		@RequiredFieldValidator(fieldName="category.id", type= ValidatorType.FIELD, message="Selecione uma categoria.")
 	    }
 	)
 	public String addSubcategory() {
@@ -67,13 +71,12 @@ public class SubcategoryAction extends ActionSupport {
 	}
 	
 	public List<Category> getCategories() {
+		categories = categoryService.findAll();
 		return categories;
 	}
 
 	@SkipValidation
 	public String listSubcategories() {
-		categories = categoryService.findAll();
-		
 		return SUCCESS;
 	}
 	
@@ -85,9 +88,9 @@ public class SubcategoryAction extends ActionSupport {
 		this.subcategory = subcategory;
 	}
 
-//	public void setSubcategories(List<Subcategory> subcategories) {
-//		this.subcategories = subcategories;
-//	}
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
 	
 	@SkipValidation
 	public String deleteSubcategory() {
@@ -115,7 +118,7 @@ public class SubcategoryAction extends ActionSupport {
 		return category;
 	}
 
-//	public void setCategories(List<Category> categories) {
-//		this.categories = categories;
-//	}
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 }

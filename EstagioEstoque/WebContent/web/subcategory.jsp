@@ -18,14 +18,14 @@
 		
 		<fieldset>
 			<label>Selecione uma categoria:</label>
-			<select name="category.id" id="categoryList" style="display: block;">
+			<select id="categoryList" style="display: block;">
 				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>
 				</c:forEach>
 			</select>
 
 			<label>Nome subcategria:</label><br/>
-			<input type="text" name="subcategory.name" class="subcategoryName"/> 
+			<s:textfield id="form-control" placeholder="Subcategoria" name="subcategory.name" cssClass="subcategoryName" maxlength="15" />
 			<span class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</span><br/><br/>
 			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	
