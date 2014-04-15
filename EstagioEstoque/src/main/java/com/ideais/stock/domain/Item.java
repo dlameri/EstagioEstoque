@@ -4,15 +4,18 @@ package com.ideais.stock.domain;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -63,6 +66,11 @@ public class Item {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Product product;
 	
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
+	private List<Image> images;
+	
 	@Transient
 	private Long productId;
 	
@@ -99,6 +107,14 @@ public class Item {
 
 	public String getProductName() {
 	    return product.getName();
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public Long getId() {

@@ -19,7 +19,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name="ADMINISTRADOR")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Admin {
-	static final Logger log = Logger.getLogger(Admin.class);
+
+	private static final Logger LOG = Logger.getLogger(Admin.class.getName());
 	
 	@Id
 	@SequenceGenerator(name="admin_id", sequenceName="admin_id")
@@ -50,7 +51,7 @@ public class Admin {
             generatedPassword = sb.toString();
         } 
         catch (NoSuchAlgorithmException e) {
-        	log.warn(Admin.class.getClass(), e);
+        	LOG.warn("Erro ao gerar algoritmo", e);
         }
         return generatedPassword;
     }

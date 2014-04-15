@@ -1,5 +1,7 @@
 package com.ideais.stock.domain;
 
+import java.util.List;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,6 +42,10 @@ public class Subcategory {
 	@JoinColumn(name="CD_CATEGORIA", referencedColumnName="CD_CATEGORIA", nullable=false)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
+	
+	@OneToMany(mappedBy="subcategory", orphanRemoval=true)
+	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
+	private List<Product> products;
 	
 	public void softDelete() {
 		active = false;
@@ -76,6 +83,14 @@ public class Subcategory {
 		this.active = active;
 	}
 	
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 	@Override
 	public String toString() {
 		return name;
