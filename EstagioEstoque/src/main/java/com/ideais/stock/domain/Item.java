@@ -66,11 +66,6 @@ public class Item {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Product product;
 	
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
-	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
-	private List<Image> images;
-	
 	@Transient
 	private Long productId;
 	
@@ -107,14 +102,6 @@ public class Item {
 
 	public String getProductName() {
 	    return product.getName();
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
 	}
 
 	public Long getId() {

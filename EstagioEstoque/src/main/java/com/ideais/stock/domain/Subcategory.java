@@ -43,10 +43,6 @@ public class Subcategory {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 	
-	@OneToMany(mappedBy="subcategory", orphanRemoval=true)
-	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
-	private List<Product> products;
-	
 	public void softDelete() {
 		active = false;
 	}
@@ -83,14 +79,6 @@ public class Subcategory {
 		this.active = active;
 	}
 	
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
 	@Override
 	public String toString() {
 		return name;

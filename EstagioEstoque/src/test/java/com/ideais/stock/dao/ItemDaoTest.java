@@ -87,7 +87,6 @@ public class ItemDaoTest {
 		image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setItem(item);
 		images.add(image);
-		item.setImages(images);
 		product.setItems(items);
 	}
 	
