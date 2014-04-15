@@ -6,11 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.dao.AbstractDaoTest;
-import com.ideais.stock.dao.CategoryDao;
-import com.ideais.stock.dao.ImageDao;
-import com.ideais.stock.dao.ItemDao;
-import com.ideais.stock.dao.ProductDao;
-import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Admin;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;

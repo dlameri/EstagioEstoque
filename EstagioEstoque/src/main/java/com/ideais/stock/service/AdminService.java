@@ -27,9 +27,9 @@ public class AdminService {
 	public void delete(Admin admin) {
 		adminDao.delete(admin);
 	}
-	
+
 	public Boolean authorize(Admin admin) {
 		return adminDao.authorize(admin);
 	}
-	
+
 }

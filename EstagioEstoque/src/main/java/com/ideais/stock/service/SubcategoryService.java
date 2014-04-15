@@ -43,7 +43,7 @@ public class SubcategoryService {
 	}
 	
 	public void delete(Category category) {
-		List<Subcategory> subcategories = subcategoryDao.findByCategoryId(category);
+		List<Subcategory> subcategories = category.getSubcategories();
 		
 		if (subcategories != null) {
 			for (Subcategory subcategory : subcategories) {

@@ -75,10 +75,10 @@
 		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction"
 			method="addSubcategory">
 			<result name="success" type="redirect">
-				<param name="location">web/subcategorias</param>
+				<param name="location">/web/subcategorias</param>
 			</result>
 			<result name="error" type="redirect">
-				<param name="location">web/subcategorias?error=true</param>
+				<param name="location">/web/subcategorias?error=true</param>
 			</result>
 			<result name="input" type="dispatcher">
 				<param name="location">/web/subcategory.jsp</param>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,6 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name="ADMINISTRADOR")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Admin {
+	static final Logger log = Logger.getLogger(Admin.class);
 	
 	@Id
 	@SequenceGenerator(name="admin_id", sequenceName="admin_id")
@@ -48,7 +50,7 @@ public class Admin {
             generatedPassword = sb.toString();
         } 
         catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        	log.warn(Admin.class.getClass(), e);
         }
         return generatedPassword;
     }
