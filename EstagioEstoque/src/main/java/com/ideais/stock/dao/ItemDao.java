@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -18,6 +19,8 @@ import com.ideais.stock.factory.QueryFactory;
 
 
 public class ItemDao extends AbstractDao<Item>{
+	
+	static final Logger log = Logger.getLogger(ItemDao.class);
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Item save(Item item) {
@@ -66,7 +69,7 @@ public class ItemDao extends AbstractDao<Item>{
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 		} catch (SQLException e) {
-			// TODO fazer o catch
+			log.error("Parametros passados: orderColumn: " + orderColumn + " order: " + order + " active: " + active + " firstResult: " + firstResult + " maxResults: " +  maxResults, e);
 		}
 		
 		List<Item> items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();

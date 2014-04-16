@@ -75,7 +75,6 @@ public class ItemWS {
 			itemService.save(item);
 		}
 		return Response.status(201).entity(output).build();
-		// TODO criar classe de constante
 	}
 	
 }

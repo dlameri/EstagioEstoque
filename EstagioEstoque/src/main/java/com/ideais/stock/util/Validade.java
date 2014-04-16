@@ -8,15 +8,19 @@ public final class Validade {
     public static Boolean isValid (String s) {
 		@SuppressWarnings("unused")
 		Integer intToTest = null;
-		if (s == null || s.isEmpty()) {
-			log.warn(Validade.class.getClass() + "Passado valor vazio");
+		if (s == null) {
+		    return false;
+		}
+		
+		if (s.isEmpty()) {
+			log.warn("Passado valor vazio");
 		    return false;
 		}
 		
 		try {
 		    intToTest = Integer.parseInt(s);
 		} catch (NumberFormatException e) {
-			log.warn(Validade.class.getClass() + "Passado valor não numérico", e);
+			log.warn("Passado valor não numérico ("+s+")");
 		    return false;
 		}
 
