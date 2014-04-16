@@ -17,6 +17,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.ideais.stock.json.CategoryJSON;
+
 @Entity
 @Table(name="CATEGORIA")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -37,7 +39,7 @@ public class Category implements Serializable {
 	private Boolean active;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy="category", orphanRemoval=true)
+	@OneToMany(mappedBy="category")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
 	
@@ -80,5 +82,9 @@ public class Category implements Serializable {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public CategoryJSON toJSON() {
+		return new CategoryJSON(this);
 	}
 }

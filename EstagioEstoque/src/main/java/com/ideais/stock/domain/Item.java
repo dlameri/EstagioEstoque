@@ -26,6 +26,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.ideais.stock.json.ItemJSON;
+
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name="ITEM")
@@ -67,7 +69,7 @@ public class Item {
 	private Product product;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy="item", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="item")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
 	
@@ -195,5 +197,9 @@ public class Item {
 
 	public String getFormatedPriceFor() {
 		return valueFormater(priceFor);
+	}
+
+	public ItemJSON toJSON() {
+		return new ItemJSON(this);
 	}
 }

@@ -22,7 +22,7 @@ import com.ideais.stock.service.AdminService;
 
 public class LoginFilter implements Filter {
 	
-	private static final Logger LOG = Logger.getLogger(LoginFilter.class.getName()); 
+	private static final Logger LOG = Logger.getLogger(LoginFilter.class); 
 
 	@Autowired
 	private AdminService adminService;

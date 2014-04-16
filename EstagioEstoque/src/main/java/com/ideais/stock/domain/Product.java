@@ -24,6 +24,8 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.ideais.stock.json.ProductJSON;
+
 @Entity
 @Table(name = "PRODUTO")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -74,9 +76,8 @@ public class Product {
 	private Category category;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy="product", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="product")
 	@Cascade(CascadeType.ALL)
-	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Item> items;
 
 	@OneToOne
@@ -198,5 +199,9 @@ public class Product {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public ProductJSON toJSON() {
+		return new ProductJSON(this);
 	}
 }

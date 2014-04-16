@@ -20,6 +20,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.ideais.stock.json.SubcategoryJSON;
+
 @Entity
 @Table(name="SUBCATEGORIA")
 @Cacheable
@@ -43,7 +45,7 @@ public class Subcategory {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 	
-	@OneToMany(mappedBy="subcategory", orphanRemoval=true)
+	@OneToMany(mappedBy="subcategory")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Product> products;
 	
@@ -94,5 +96,9 @@ public class Subcategory {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public SubcategoryJSON toJSON() {
+		return new SubcategoryJSON(this);
 	}
 }
