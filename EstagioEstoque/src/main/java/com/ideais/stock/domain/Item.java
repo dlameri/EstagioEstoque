@@ -197,8 +197,4 @@ public class Item {
 	public String getFormatedPriceFor() {
 		return valueFormater(priceFor);
 	}
-
-	public ItemJSON toJSON() {
-		return new ItemJSON(this);
-	}
 }

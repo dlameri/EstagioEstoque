@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Subcategory;
 
 public class CategoryJSON {
 
@@ -17,7 +16,7 @@ public class CategoryJSON {
 		this.id = category.getId();
 		this.name = category.getName();
 		this.active = category.getActive();
-		subcategories.add(new Link("category/"+this.id+"/subcategory",""));
+		subcategories.add(new Link("category/"+this.id+"/subcategory","subcategory"));
 	}
 
 	public Long getId() {

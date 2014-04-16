@@ -197,8 +197,4 @@ public class Product {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-
-	public ProductJSON toJSON() {
-		return new ProductJSON(this);
-	}
 }

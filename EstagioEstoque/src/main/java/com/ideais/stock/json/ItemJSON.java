@@ -1,6 +1,7 @@
 package com.ideais.stock.json;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ideais.stock.domain.Item;
@@ -16,8 +17,7 @@ public class ItemJSON {
 	private Integer stock;
 	private Integer rank;
 	private Boolean active;
-	private ProductJSON productJSON;
-	private List<ImageJSON> imageJSON;
+	private List<Link> imageJSON = new ArrayList<Link>();
 	
 	public ItemJSON(Item item) {
 		this.id = item.getId();
@@ -29,7 +29,7 @@ public class ItemJSON {
 		this.stock = item.getStock();
 		this.rank = item.getRank();
 		this.active = item.getActive();
-		this.productJSON = item.getProduct().toJSON();
+		imageJSON.add(new Link("item/"+id+"/image", "image"));
 	}
 
 	public Long getId() {
@@ -104,19 +104,12 @@ public class ItemJSON {
 		this.active = active;
 	}
 
-	public ProductJSON getProductJSON() {
-		return productJSON;
-	}
-
-	public void setProductJSON(ProductJSON productJSON) {
-		this.productJSON = productJSON;
-	}
-
-	public List<ImageJSON> getImageJSON() {
+	public List<Link> getImageJSON() {
 		return imageJSON;
 	}
 
-	public void setImageJSON(List<ImageJSON> imageJSON) {
+	public void setImageJSON(List<Link> imageJSON) {
 		this.imageJSON = imageJSON;
 	}
+	
 }
