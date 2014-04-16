@@ -13,7 +13,6 @@ public class ImageJSON {
 	private String androidShowcaseUrl;
 	private String androidProductUrl;
 	private Boolean main;
-	private ItemJSON itemJSON;
 	
 	public ImageJSON(Image image) {
 		this.id = image.getId();
@@ -24,7 +23,6 @@ public class ImageJSON {
 		this.androidShowcaseUrl = image.getAndroidShowcaseUrl();
 		this.androidProductUrl = image.getAndroidProductUrl();
 		this.main = image.getMain();
-		this.itemJSON = image.getItem().toJSON();
 	}
 	
 	public Long getId() {
@@ -74,11 +72,5 @@ public class ImageJSON {
 	}
 	public void setMain(Boolean main) {
 		this.main = main;
-	}
-	public ItemJSON getItemJSON() {
-		return itemJSON;
-	}
-	public void setItemJSON(ItemJSON itemJSON) {
-		this.itemJSON = itemJSON;
 	}
 }

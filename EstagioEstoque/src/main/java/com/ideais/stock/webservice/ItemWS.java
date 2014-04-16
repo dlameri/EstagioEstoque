@@ -1,5 +1,6 @@
 package com.ideais.stock.webservice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,8 +16,11 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.json.ImageJSON;
+import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.webservice.domain.CartItemWS;
 import com.ideais.stock.webservice.domain.CartWS;
@@ -29,31 +33,49 @@ public class ItemWS {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> getItems(@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
-		return itemService.personalizedQuery(orderColumn, order, active, firstResult, maxResults);
+	public List<ItemJSON> getItems(@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
+
+		for (Item item : itemService.personalizedQuery(orderColumn, order, active, firstResult, maxResults)) {
+			itemJSONs.add(new ItemJSON(item));
+		}
+
+		return itemJSONs;
 	}
 	
 	@Path("/orderbyrank")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> getItemsOrderByRank() {
-		return itemService.findAllOrderByRank();
+	public List<ItemJSON> getItemsOrderByRank() {
+		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
+
+		for (Item item : itemService.findAllOrderByRank()) {
+			itemJSONs.add(new ItemJSON(item));
+		}
+
+		return itemJSONs;
 	}
 
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Item getItemById(@PathParam("id") Long id) {
-		return itemService.findById(id);
+	public ItemJSON getItemById(@PathParam("id") Long id) {
+		return new ItemJSON(itemService.findById(id));
 	}
 	
-	@Path("/byproductid/{id}")
+	@Path("/{id}/item")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Item> searchItemsByCategoryId(@PathParam("id") Long id, @QueryParam("orderColumn") @DefaultValue("rank") String orderColumn, @QueryParam("order") @DefaultValue("desc") String order, @QueryParam("active") @DefaultValue("true") String active, @QueryParam("firstResult") @DefaultValue("0") String firstResult, @QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+	public List<ImageJSON> searchImageByItem(@PathParam("id") Long id) {
 		Product product = new Product();
 		product.setId(id);
-		return itemService.findByProductId(product, orderColumn, order, active, firstResult, maxResults);
+		List<ImageJSON> imageJSONs = new ArrayList<ImageJSON>();
+		
+		for (Image image : itemService.findById(id).getImages()) {
+			imageJSONs.add(new ImageJSON(image));
+		}
+
+		return imageJSONs;
 	}
 	
 	@Path("/updatestock")
@@ -66,15 +88,17 @@ public class ItemWS {
 			CartItemWS itemWS = cart.getCartItems().get(i);
 			Item item = itemService.findById(itemWS.getCartItemId());
 			Integer newItemStock = item.getStock() - itemWS.getQuantity();
+			
 			if (newItemStock < 0 || itemWS.getQuantity() <= 0){
 				return Response.status(400).entity(output).build();
 			}
+
 			item.setStock(newItemStock);
 			item.setRank(item.getRank() + itemWS.getQuantity());
 			item.getProduct().setRank(item.getProduct().getRank() + itemWS.getQuantity());
 			itemService.save(item);
 		}
+		
 		return Response.status(201).entity(output).build();
 	}
-	
 }

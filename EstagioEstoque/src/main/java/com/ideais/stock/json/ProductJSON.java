@@ -1,5 +1,6 @@
 package com.ideais.stock.json;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ideais.stock.domain.Product;
@@ -16,9 +17,7 @@ public class ProductJSON {
 	private String model;
 	private Boolean active;
 	private Integer rank;
-	private CategoryJSON categoryJSON;
-	private SubcategoryJSON subcategoryJSON;
-	private List<ItemJSON> itemJSON;
+	private List<Link> itemJSON = new ArrayList<Link>();
 	
 	public ProductJSON(Product product) {
 		this.id = product.getId();
@@ -31,8 +30,7 @@ public class ProductJSON {
 		this.model = product.getModel();
 		this.active = product.getActive();
 		this.rank = product.getRank();
-		this.categoryJSON = product.getCategory().toJSON();
-		this.subcategoryJSON = product.getSubcategory().toJSON();
+		itemJSON.add(new Link("product/"+id+"/item","item"));
 	}
 
 	public Long getId() {
@@ -115,27 +113,11 @@ public class ProductJSON {
 		this.rank = rank;
 	}
 
-	public CategoryJSON getCategoryJSON() {
-		return categoryJSON;
-	}
-
-	public void setCategoryJSON(CategoryJSON categoryJSON) {
-		this.categoryJSON = categoryJSON;
-	}
-
-	public SubcategoryJSON getSubcategoryJSON() {
-		return subcategoryJSON;
-	}
-
-	public void setSubcategoryJSON(SubcategoryJSON subcategoryJSON) {
-		this.subcategoryJSON = subcategoryJSON;
-	}
-
-	public List<ItemJSON> getItemJSON() {
+	public List<Link> getItemJSON() {
 		return itemJSON;
 	}
 
-	public void setItemJSON(List<ItemJSON> itemJSON) {
+	public void setItemJSON(List<Link> itemJSON) {
 		this.itemJSON = itemJSON;
 	}
 

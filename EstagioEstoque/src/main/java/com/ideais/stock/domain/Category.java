@@ -83,8 +83,4 @@ public class Category implements Serializable {
 	public String toString() {
 		return name;
 	}
-
-	public CategoryJSON toJSON() {
-		return new CategoryJSON(this);
-	}
 }

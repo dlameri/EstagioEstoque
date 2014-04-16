@@ -3,11 +3,11 @@ package com.ideais.stock.json;
 public class Link {
 
 	private String href;
-	private String a;
+	private String name;
 	
-	public Link(String href, String a) {
+	public Link(String href, String name) {
 		this.href = href;
-		this.a = a;
+		this.name = name;
 	}
 	public String getHref() {
 		return href;
@@ -15,10 +15,11 @@ public class Link {
 	public void setHref(String href) {
 		this.href = href;
 	}
-	public String getA() {
-		return a;
+	
+	public String getName() {
+		return name;
 	}
-	public void setA(String a) {
-		this.a = a;
+	public void setName(String name) {
+		this.name = name;
 	}
 }

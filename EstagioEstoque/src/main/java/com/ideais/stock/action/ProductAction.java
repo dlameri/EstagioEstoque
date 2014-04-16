@@ -10,6 +10,7 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
@@ -38,7 +39,7 @@ public class ProductAction extends ActionSupport {
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
 	private List<Category> categories = new ArrayList<Category>();
-	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
+	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
 	private List<Product> products = new ArrayList<Product>();
 	
 	@Validations(
@@ -93,7 +94,10 @@ public class ProductAction extends ActionSupport {
 	public String getSubcategoryList() {
 		try {
 			Category category = categoryService.findById(Long.valueOf(id));
-			subcategories = subcategoryService.findByCategoryId(category);
+			
+			for (Subcategory subcategory : subcategoryService.findByCategoryId(category)) {
+				subcategories.add( new SubcategoryJSON(subcategory) ); 
+			}
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -142,11 +146,11 @@ public class ProductAction extends ActionSupport {
 		this.categories = categories;
 	}
 
-	public List<Subcategory> getSubcategories() {
+	public List<SubcategoryJSON> getSubcategories() {
 		return subcategories;
 	}
 
-	public void setSubcategories(List<Subcategory> subcategories) {
+	public void setSubcategories(List<SubcategoryJSON> subcategories) {
 		this.subcategories = subcategories;
 	}
 	

@@ -97,8 +97,4 @@ public class Subcategory {
 	public String toString() {
 		return name;
 	}
-
-	public SubcategoryJSON toJSON() {
-		return new SubcategoryJSON(this);
-	}
 }
