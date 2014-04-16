@@ -42,19 +42,6 @@ public class ItemWS {
 
 		return itemJSONs;
 	}
-	
-	@Path("/orderbyrank")
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ItemJSON> getItemsOrderByRank() {
-		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
-
-		for (Item item : itemService.findAllOrderByRank()) {
-			itemJSONs.add(new ItemJSON(item));
-		}
-
-		return itemJSONs;
-	}
 
 	@Path("/{id}")
 	@GET

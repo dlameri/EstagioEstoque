@@ -3,6 +3,7 @@ package com.ideais.stock.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
@@ -18,6 +19,8 @@ import com.ideais.stock.factory.QueryFactory;
 
 
 public class ProductDao extends AbstractDao<Product>{
+	
+	static final Logger LOG = Logger.getLogger(ProductDao.class);
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Product save(Product product) {
