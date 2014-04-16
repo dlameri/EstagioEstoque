@@ -1,11 +1,11 @@
 package com.ideais.stock.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
@@ -20,7 +20,7 @@ import com.ideais.stock.factory.QueryFactory;
 
 public class ItemDao extends AbstractDao<Item>{
 	
-	static final Logger log = Logger.getLogger(ItemDao.class);
+	static final Logger LOG = Logger.getLogger(ItemDao.class);
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Item save(Item item) {
@@ -64,15 +64,16 @@ public class ItemDao extends AbstractDao<Item>{
 	@SuppressWarnings("unchecked")
 	public List<Item> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
 		Transaction tx = session().beginTransaction();
+		List<Item> items = new ArrayList<Item>();
 		Criteria criteria = session().createCriteria(Item.class);
 		
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
-		} catch (SQLException e) {
-			log.error("Parametros passados: orderColumn: " + orderColumn + " order: " + order + " active: " + active + " firstResult: " + firstResult + " maxResults: " +  maxResults, e);
+			items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		} catch (HibernateException e) {
+			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 		}
 		
-		List<Item> items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		tx.commit();
 		session().close();
 		return items;
@@ -80,18 +81,19 @@ public class ItemDao extends AbstractDao<Item>{
 	
 	@SuppressWarnings("unchecked")
 	public List<Item> findByProductId(Product product, String orderColumn, String order, String active, String firstResult, String maxResults) {
-		Transaction tx = session().beginTransaction();		
+		Transaction tx = session().beginTransaction();
+		List<Item> items = new ArrayList<Item>();
 		Criteria criteria = session().createCriteria(Item.class).add(Restrictions.like("product", product));
 		
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
-		} catch (SQLException e) {
-			// TODO fazer o catch
+			items = criteria.list();
+		} catch (HibernateException e) {
+			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 		}
 		
-		List<Item> itens = criteria.list();
 		tx.commit();
 		session().close();
-		return itens;
+		return items;
 	}
 }

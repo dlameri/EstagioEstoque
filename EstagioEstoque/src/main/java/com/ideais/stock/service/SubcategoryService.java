@@ -2,6 +2,8 @@ package com.ideais.stock.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,8 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryService {
+	
+	static final Logger LOG = Logger.getLogger(Subcategory.class);
 
 	@Autowired
 	SubcategoryDao subcategoryDao;
@@ -19,37 +23,65 @@ public class SubcategoryService {
 
 	public Subcategory save(Subcategory subcategory) {
 		subcategory.setActive(true);
-		return subcategoryDao.save(subcategory);
+		try {
+			return subcategoryDao.save(subcategory);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar a subcategoria ", e);
+			return null;
+		}
 	}
 
 	public Subcategory findById(Long id) {
-		return subcategoryDao.findById(id);
+		try {
+			return subcategoryDao.findById(id);
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar a subcategoria ("+id+")", e);
+			return null;
+		}
 	}
 	
 	public List<Subcategory> findByCategoryId(Category category) {
-		return subcategoryDao.findByCategoryId(category);
+		try {
+			return subcategoryDao.findByCategoryId(category);
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar a subcategoria pela categoria ", e);
+			return null;
+		}
 	}
 
 	public List<Subcategory> findAll() {
-		return subcategoryDao.findAll();
+		try {
+			return subcategoryDao.findAll();
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar todas as subcategorias ", e);
+			return null;
+		}
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Subcategory subcategory) {
-		productService.delete(subcategory);
-		
-		subcategory.softDelete();
-		subcategoryDao.save(subcategory);
+		try {
+			productService.delete(subcategory);
+			
+			subcategory.softDelete();
+			subcategoryDao.save(subcategory);
+		} catch (HibernateException e) {
+			LOG.error("Error ao deletar a subcategoria ", e);
+		}
 	}
 	
 	public void delete(Category category) {
 		List<Subcategory> subcategories = category.getSubcategories();
 		
-		if (subcategories != null) {
-			for (Subcategory subcategory : subcategories) {
-				productService.delete(subcategory);
-				subcategory.softDelete();	
+		try {
+			if (subcategories != null) {
+				for (Subcategory subcategory : subcategories) {
+					productService.delete(subcategory);
+					subcategory.softDelete();	
+				}
 			}
+		} catch (HibernateException e) {
+			LOG.error("Error ao deletar as subcategorias ", e);
 		}
 	}
 

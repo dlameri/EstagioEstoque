@@ -2,6 +2,8 @@ package com.ideais.stock.service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.ProductDao;
@@ -10,6 +12,8 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 public class ProductService {
+	
+	static final Logger LOG = Logger.getLogger(ProductService.class);
 
 	@Autowired
 	ProductDao productDao;
@@ -19,52 +23,90 @@ public class ProductService {
 	public Product save(Product product) {
 		product.setRank(0);
 		product.setActive(true);
-		return productDao.save(product);
+		try {
+			return productDao.save(product);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar o produto ", e);
+			return null;
+		}
 	}
 
 	public Product findById(Long id) {
-		return productDao.findById(id);
+		try {
+			return productDao.findById(id);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar o produto ", e);
+			return null;
+		}
 	}
 
 	public List<Product> findAll() {
-		return productDao.findAll();
-	}
-	
-	public List<Product> findAllOrderByRank() {
-		return productDao.findAllOrderByRank();
+		try {
+			return productDao.findAll();
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar todos os produtos ", e);
+			return null;
+		}
 	}
 	
 	public List<Product> findByCategoryId(Category category) {
-		return productDao.findByCategoryId(category);
+		try {
+			return productDao.findByCategoryId(category);
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar o produto pela categoria ", e);
+			return null;
+		}
 	}
 	
 	public List<Product> findBySubcategoryId(Subcategory subcategory) {
-		return productDao.findBySubcategoryId(subcategory);
+		try {
+			return productDao.findBySubcategoryId(subcategory);
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar o produto pela subcategoria ", e);
+			return null;
+		}
 	}
 	
 	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
-		return productDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
+		try {
+			return productDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
+		} catch (HibernateException e) {
+			LOG.error("Error ao pegar o produto. Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+			return null;
+		}
 	}
 	
 	public List<Product> search(String textToSearch) {
-		return productDao.search(textToSearch);
+		try {
+			return productDao.search(textToSearch);
+		} catch (HibernateException e) {
+			LOG.error("Error ao fazer a busca. Parametro passado: " + textToSearch, e);
+			return null;
+		}
 	}
 
 	public void delete(Product product) {
 		itemService.delete(product);
-		
 		product.softDelete();
-		productDao.save(product);
+		try {
+			productDao.save(product);
+		} catch (HibernateException e) {
+			LOG.error("Error ao deletar o produto ", e);
+		}
 	}
 	
 	public void delete(Subcategory subcategory) {
-		List<Product> products = productDao.findBySubcategoryId(subcategory);
-		
-		if (products != null) {
-			for (Product product : products) {
-				itemService.delete(product);
-				product.softDelete();	
+		try {
+			List<Product> products = productDao.findBySubcategoryId(subcategory);
+			
+			if (products != null) {
+				for (Product product : products) {
+					itemService.delete(product);
+					product.softDelete();	
+				}
 			}
+		} catch (HibernateException e) {
+			LOG.error("Error ao deletar os produtos ", e);
 		}
 	}
 

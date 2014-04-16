@@ -1,10 +1,10 @@
 package com.ideais.stock.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -18,7 +18,7 @@ import com.ideais.stock.factory.QueryFactory;
 
 
 public class ProductDao extends AbstractDao<Product>{
-
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Product save(Product product) {
 		return super.save(product);
@@ -39,13 +39,6 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
 	
-	public List<Product> findAllOrderByRank() {
-		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add( Restrictions.isNotEmpty("items") );
-		
-		return super.findAll(Product.class, Order.desc("rank"), restrictions);
-	}
-	
 	public List<Product> findByCategoryId(Category category) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("category", category) );
@@ -63,15 +56,15 @@ public class ProductDao extends AbstractDao<Product>{
 	@SuppressWarnings("unchecked")
 	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
 		Criteria criteria = session().createCriteria(Product.class);
+		List<Product> products = new ArrayList<Product>();
 		
 		try {
 			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
-		} catch (SQLException e) {
-			// TODO fazer o catch
-		}
-		
-		criteria.add(Restrictions.isNotEmpty("items"));
-		List<Product> products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			criteria.add(Restrictions.isNotEmpty("items"));
+			products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		} catch (HibernateException e) {
+			LOG.error("Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+		} 
 		
 		return products;
 	}

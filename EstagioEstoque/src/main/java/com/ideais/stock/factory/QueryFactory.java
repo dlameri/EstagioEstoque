@@ -1,8 +1,7 @@
 package com.ideais.stock.factory;
 
-import java.sql.SQLException;
-
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
@@ -12,7 +11,7 @@ public final class QueryFactory {
 	private static final int DEFAULT_MAX_RESULTS_VALUE = 20;
 	private static final int MAXIMUM_MAX_RESULTS_VALUE = 50;
 
-	public static Criteria factory (Criteria criteria, String orderColum, String order, String active, String firstResult, String maxResults) throws SQLException {
+	public static Criteria factory (Criteria criteria, String orderColum, String order, String active, String firstResult, String maxResults) throws HibernateException {
 		
 		if (orderColum != null) {	
 			if ("asc".equals(order)) {

@@ -12,7 +12,7 @@ import com.ideais.stock.domain.Admin;
 
 
 public class AdminDao extends AbstractDao<Admin>{
-
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Admin save(Admin admin) {
 		return super.save(admin);

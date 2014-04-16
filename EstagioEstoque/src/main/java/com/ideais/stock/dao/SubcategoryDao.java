@@ -13,7 +13,7 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryDao extends AbstractDao<Subcategory> {
-
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Subcategory save(Subcategory subcategory) {
 		return super.save(subcategory);

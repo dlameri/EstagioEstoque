@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ideais.stock.domain.Category;
 
 public class CategoryDao extends AbstractDao<Category>{
-
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Category save(Category category) {
 		return super.save(category);
