@@ -25,8 +25,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.ideais.stock.json.ItemJSON;
-
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name="ITEM")
@@ -61,6 +59,12 @@ public class Item {
 	@Column(name="BO_ATIVO", nullable=false)
 	private Boolean active;
 	
+	@Column(name="BO_PROMO", nullable=false)
+	private Boolean promo;
+	
+	@Transient
+	private Integer count;
+	
 	@JsonBackReference 
 	@ManyToOne
 	@JoinColumn(name="CD_PRODUTO", referencedColumnName="CD_PRODUTO", nullable=false)
@@ -71,18 +75,6 @@ public class Item {
 	@OneToMany(mappedBy="item")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
-	
-	@Transient
-	private Long productId;
-	
-	@Transient
-	private String productName;
-	
-	@Transient
-	private String formattedPriceFrom;
-
-	@Transient
-	private String formattedPriceFor;
 	
 	public String valueFormater(BigDecimal value) {
 	    Locale Local = new Locale("pt", "BR");
@@ -196,5 +188,26 @@ public class Item {
 
 	public String getFormatedPriceFor() {
 		return valueFormater(priceFor);
+	}
+
+	public Boolean getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Boolean promo) {
+		this.promo = promo;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	
+	@Override
+	public String toString() {
+		return id.toString();
 	}
 }

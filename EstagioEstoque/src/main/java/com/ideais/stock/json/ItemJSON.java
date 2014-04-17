@@ -17,7 +17,10 @@ public class ItemJSON {
 	private Integer stock;
 	private Integer rank;
 	private Boolean active;
-	private List<Link> imageJSON = new ArrayList<Link>();
+	private String formattedPriceFrom;
+	private String formattedPriceFor;
+	private List<Link> links = new ArrayList<Link>();
+	private Integer count;
 	
 	public ItemJSON(Item item) {
 		this.id = item.getId();
@@ -29,7 +32,25 @@ public class ItemJSON {
 		this.stock = item.getStock();
 		this.rank = item.getRank();
 		this.active = item.getActive();
-		imageJSON.add(new Link("item/"+id+"/image", "image"));
+		this.count = item.getCount();
+		this.formattedPriceFrom = item.getFormatedPriceFrom();
+		this.formattedPriceFor = item.getFormatedPriceFor();
+		
+		links.add(new Link("item/"+id+"/image", "image"));
+		links.add(new Link("product/"+item.getProductId(),"product"));
+	}
+	
+	public String getURI(String name) {
+		
+		if(name != null) {
+			for (Link link : links) {
+				if (name.equals(link.getName())) {
+					return link.getHref();
+				}
+			}
+		}
+		
+		return null; 
 	}
 
 	public Long getId() {
@@ -104,12 +125,36 @@ public class ItemJSON {
 		this.active = active;
 	}
 
-	public List<Link> getImageJSON() {
-		return imageJSON;
+	public String getFormattedPriceFrom() {
+		return formattedPriceFrom;
 	}
 
-	public void setImageJSON(List<Link> imageJSON) {
-		this.imageJSON = imageJSON;
+	public void setFormattedPriceFrom(String formattedPriceFrom) {
+		this.formattedPriceFrom = formattedPriceFrom;
+	}
+
+	public String getFormattedPriceFor() {
+		return formattedPriceFor;
+	}
+
+	public void setFormattedPriceFor(String formattedPriceFor) {
+		this.formattedPriceFor = formattedPriceFor;
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 }

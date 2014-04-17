@@ -1,5 +1,6 @@
 package com.ideais.stock.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,13 @@ public class ProductDao extends AbstractDao<Product>{
 			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
 			criteria.add(Restrictions.isNotEmpty("items"));
 			products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			
+			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
+			
+			for (Product product : products) {
+				product.setCount(count);
+			}
+			
 		} catch (HibernateException e) {
 			LOG.error("Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 		} 

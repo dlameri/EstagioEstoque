@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Categoria</title>
+<script type="text/javascript" src="../js/category.js"></script>
 <script type="text/javascript" src="../js/validatorCategory.js"></script>
 <link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
 </head>
@@ -29,10 +30,13 @@
 			<c:forEach items="${categories}" var="category">
 				<li>${category.name}&nbsp;<a href="categorias?id=${category.id}">
 				<button	type="button" class="btn btn-xs btn-warning">Editar</button></a>
-				 <a href="deletecategory?id=${category.id}"><button type="button" class="btn btn-xs btn-danger">Deletar</button></a>
+				 <button id="deletecategory?id=${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
 				</li>
 			</c:forEach>
 		</div>
+	</div>
+	
+	<div id="toBeDeleted">
 	</div>
 
 </body>

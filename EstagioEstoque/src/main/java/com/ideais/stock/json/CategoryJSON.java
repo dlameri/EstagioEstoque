@@ -10,15 +10,28 @@ public class CategoryJSON {
 	private Long id;
 	private String name;
 	private Boolean active;
-	private List<Link> subcategories = new ArrayList<Link>();
+	private List<Link> links = new ArrayList<Link>();
 	
 	public CategoryJSON(Category category) {
 		this.id = category.getId();
 		this.name = category.getName();
 		this.active = category.getActive();
-		subcategories.add(new Link("category/"+this.id+"/subcategory","subcategory"));
+		links.add(new Link("category/"+this.id+"/subcategory","subcategory"));
 	}
 
+	public String getURI(String name) {
+		
+		if(name != null) {
+			for (Link link : links) {
+				if (name.equals(link.getName())) {
+					return link.getHref();
+				}
+			}
+		}
+		
+		return null; 
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -43,12 +56,11 @@ public class CategoryJSON {
 		this.active = active;
 	}
 
-	public List<Link> getSubcategories() {
-		return subcategories;
+	public List<Link> getLinks() {
+		return links;
 	}
 
-	public void setSubcategories(List<Link> subcategories) {
-		this.subcategories = subcategories;
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
-	
 }

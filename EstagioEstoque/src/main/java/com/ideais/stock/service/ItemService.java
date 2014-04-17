@@ -20,6 +20,7 @@ public class ItemService {
 	public Item save(Item item) {
 		item.setRank(0);
 		item.setActive(true);
+		item.setPromo(false);
 		try {
 			return itemDao.save(item);
 		} catch (HibernateException e) {

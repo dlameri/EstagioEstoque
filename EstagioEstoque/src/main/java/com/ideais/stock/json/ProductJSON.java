@@ -6,7 +6,7 @@ import java.util.List;
 import com.ideais.stock.domain.Product;
 
 public class ProductJSON {
-	
+
 	private Long id;
 	private String name;
 	private String shortDescription;
@@ -17,8 +17,9 @@ public class ProductJSON {
 	private String model;
 	private Boolean active;
 	private Integer rank;
-	private List<Link> itemJSON = new ArrayList<Link>();
-	
+	private List<Link> links = new ArrayList<Link>();
+	private Integer count;
+
 	public ProductJSON(Product product) {
 		this.id = product.getId();
 		this.name = product.getName();
@@ -30,7 +31,22 @@ public class ProductJSON {
 		this.model = product.getModel();
 		this.active = product.getActive();
 		this.rank = product.getRank();
-		itemJSON.add(new Link("product/"+id+"/item","item"));
+		this.count = product.getCount();
+		links.add(new Link("product/" + id + "/item", "item"));
+		links.add(new Link("product/" + id + "/dimensions", "dimensions"));
+	}
+
+	public String getURI(String name) {
+
+		if (name != null) {
+			for (Link link : links) {
+				if (name.equals(link.getName())) {
+					return link.getHref();
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public Long getId() {
@@ -113,12 +129,20 @@ public class ProductJSON {
 		this.rank = rank;
 	}
 
-	public List<Link> getItemJSON() {
-		return itemJSON;
+	public List<Link> getLinks() {
+		return links;
 	}
 
-	public void setItemJSON(List<Link> itemJSON) {
-		this.itemJSON = itemJSON;
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 }

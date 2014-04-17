@@ -14,14 +14,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-
-import com.ideais.stock.json.ProductJSON;
 
 @Entity
 @Table(name = "PRODUTO")
@@ -59,6 +58,9 @@ public class Product {
 
 	@Column(name = "NR_RANK", nullable = false)
 	private Integer rank;
+	
+	@Transient
+	private Integer count;
 
 	@JsonBackReference
 	@ManyToOne
@@ -196,5 +198,13 @@ public class Product {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 }

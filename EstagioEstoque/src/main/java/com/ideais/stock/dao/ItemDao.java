@@ -1,5 +1,6 @@
 package com.ideais.stock.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +71,17 @@ public class ItemDao extends AbstractDao<Item>{
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 			items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			
+			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
+			
+			for (Item item : items) {
+				item.setCount(count);
+			}
+			
 		} catch (HibernateException e) {
 			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 		}
+		
 		
 		tx.commit();
 		session().close();
@@ -88,6 +97,13 @@ public class ItemDao extends AbstractDao<Item>{
 		try {
 			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
 			items = criteria.list();
+			
+			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
+			
+			for (Item item : items) {
+				item.setCount(count);
+			}
+			
 		} catch (HibernateException e) {
 			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 		}

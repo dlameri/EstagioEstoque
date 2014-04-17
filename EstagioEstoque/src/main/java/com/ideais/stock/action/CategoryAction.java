@@ -1,12 +1,14 @@
 package com.ideais.stock.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
+import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,6 +20,8 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class CategoryAction extends ActionSupport {
 
+	private static final String NOT_DELETABLE = "notDeletable";
+
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
@@ -26,8 +30,8 @@ public class CategoryAction extends ActionSupport {
 	
 	@Autowired
 	private CategoryService categoryService;
-	private List<Category> categories = new ArrayList<Category>();
-	
+	private List<Category> categories;
+	private List<Subcategory> subcategories;
 	
 	@Validations(
 	    requiredStrings={
@@ -36,10 +40,6 @@ public class CategoryAction extends ActionSupport {
 	    stringLengthFields={
 	    	@StringLengthFieldValidator(fieldName="category.name", type= ValidatorType.FIELD, minLength="3", maxLength="45", message="Nome muito curto.")
 	    }
-	//	        fieldExpressions={
-	//	            @FieldExpressionValidator(fieldName="confirmPassword", expression="newPassword==confirmPassword", shortCircuit=true, key="password.match.failed"),
-	//	            @FieldExpressionValidator(fieldName="oldPassword", expression="oldPassword!=newPassword", shortCircuit=true, key="newPassword.oldPassword.same")
-	//			}
 	)
 	public String saveCategory() {
 		try {
@@ -54,10 +54,18 @@ public class CategoryAction extends ActionSupport {
 			return ERROR;
 		}
 	}
-
-	public List<Category> getCategories() {
-		categories = categoryService.findAll();
-		return categories;
+	
+	@SkipValidation
+	public String deleteCategory() {
+		category = categoryService.findById(Long.valueOf(id));
+		subcategories = category.getSubcategories();
+		
+		if (subcategories != null) {
+			return NOT_DELETABLE;
+		}
+		
+		categoryService.delete(category);
+		return SUCCESS;
 	}
 
 	@SkipValidation
@@ -77,15 +85,18 @@ public class CategoryAction extends ActionSupport {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	public List<Category> getCategories() {
+		categories = categoryService.findAll();
+		return categories;
+	}
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-	
-	@SkipValidation
-	public String deleteCategory() {
-		categoryService.delete(categoryService.findById(Long.valueOf(id)));
-		return SUCCESS;
+
+	public String getId() {
+		return id;
 	}
 
 	public void setId(String id) {

@@ -10,13 +10,26 @@ public class SubcategoryJSON {
 	private Long id;
 	private String name;
 	private Boolean active;
-	private List<Link> productsJSON = new ArrayList<Link>();
-	
+	private List<Link> links = new ArrayList<Link>();
+
 	public SubcategoryJSON(Subcategory subcategory) {
 		this.id = subcategory.getId();
 		this.name = subcategory.getName();
 		this.active = subcategory.getActive();
-		productsJSON.add(new Link("subcategory/"+ id +"/product", "product"));
+		links.add(new Link("subcategory/" + id + "/product", "product"));
+	}
+
+	public String getURI(String name) {
+
+		if (name != null) {
+			for (Link link : links) {
+				if (name.equals(link.getName())) {
+					return link.getHref();
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public Long getId() {
@@ -43,11 +56,12 @@ public class SubcategoryJSON {
 		this.active = active;
 	}
 
-	public List<Link> getProductsJSON() {
-		return productsJSON;
+	public List<Link> getLinks() {
+		return links;
 	}
 
-	public void setProductsJSON(List<Link> productsJSON) {
-		this.productsJSON = productsJSON;
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
+
 }

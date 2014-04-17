@@ -65,6 +65,11 @@
 			<result name="error" type="redirect">
 				<param name="location">web/categorias?error=true</param>
 			</result>
+			<result name="notDeletable" type="json">
+				<param name="root">
+					subcategories
+				</param>
+			</result>
 		</action>
 
 		<action name="subcategorias" class="com.ideais.stock.action.SubcategoryAction"

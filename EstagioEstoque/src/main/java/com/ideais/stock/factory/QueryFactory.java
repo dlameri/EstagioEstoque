@@ -22,9 +22,7 @@ public final class QueryFactory {
 			} 
 		}
 		
-		if ( !("all".equals(active)) ){
-			criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
-		}
+		criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
 		
 		criteria.setFirstResult(setFirstResult(firstResult));
 		criteria.setMaxResults(setMaxResult(maxResults));
@@ -32,7 +30,7 @@ public final class QueryFactory {
 		return criteria;
 	}
 	
-	private static Boolean parseStringToBoolean (String string){
+	public static Boolean parseStringToBoolean (String string){
 		if ("true".equals(string)){
 			return true;
 		}

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.json.DimensionsJSON;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.service.ProductService;
@@ -75,5 +76,12 @@ public class ProductWS {
 		}
 
 		return itemJSONs;
+	}
+
+	@Path("/{id}/dimensions")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public DimensionsJSON getDimensions(@PathParam("id") Long id) {
+		return new DimensionsJSON(productService.findById(id).getDimensions());
 	}
 }
