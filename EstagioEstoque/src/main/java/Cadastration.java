@@ -100,6 +100,11 @@ public class Cadastration extends AbstractDaoTest {
 							item.setRank(0+k-j2);
 							item.setProduct(product);
 							
+							if (j2 == 3) {
+								item.setPromo(true);
+							}
+							
+							
 							itemDao.save(item);
 							
 							for (int k2 = 0; k2 < 2; k2++) {
@@ -114,15 +119,17 @@ public class Cadastration extends AbstractDaoTest {
 									image.setAndroidShowcaseUrl("http://www.sporttech.com.br/cache/com_zoo/images/luva_boxe_everlast1_f3b02da1771357e51bf7fffffea463ed.jpg");
 									image.setShowcaseUrl("http://www.sporttech.com.br/cache/com_zoo/images/luva_boxe_everlast1_f3b02da1771357e51bf7fffffea463ed.jpg");
 									image.setSuperzoomUrl("http://www.sporttech.com.br/cache/com_zoo/images/luva_boxe_everlast1_f3b02da1771357e51bf7fffffea463ed.jpg");
+									image.setPromo("http://www.hiperativo.com/wp-content/uploads/2013/06/Gusttavo-Lima-Ao-Vivo-e-S%C3%A3o-Paulo.jpg");
 									main = true;
+								} else {
+									image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setAndroidShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
+									image.setPromo("http://www.hiperativo.com/wp-content/uploads/2013/06/Gusttavo-Lima-Ao-Vivo-e-S%C3%A3o-Paulo.jpg");
 								}
-								
-								image.setShoppingCartUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setAndroidProductUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setAndroidShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
-								image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 								
 								image.setItem(item);
 								imageDao.save(image, main);

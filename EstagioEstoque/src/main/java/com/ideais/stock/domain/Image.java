@@ -44,9 +44,20 @@ public class Image {
 	@Column(name="NM_CAMINHO_ANDROID_PRODUTO")
 	private String androidProductUrl;
 	
+	@Column(name="NM_CAMINHO_PROMO")
+	private String promo;
+	
 	@Column(name="BO_PRINCIPAL")
 	private Boolean main;
 	
+	public String getPromo() {
+		return promo;
+	}
+
+	public void setPromo(String promo) {
+		this.promo = promo;
+	}
+
 	@JsonBackReference 
 	@ManyToOne
 	@JoinColumn(name="CD_ITEM", referencedColumnName="CD_ITEM", nullable=false)
