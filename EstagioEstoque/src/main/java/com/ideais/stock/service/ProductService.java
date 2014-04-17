@@ -49,9 +49,9 @@ public class ProductService {
 		}
 	}
 	
-	public List<Product> findByCategoryId(Category category) {
+	public List<Product> findByCategoryId(Category category, String orderColumn, String order, String active, String firstResult, String maxResults)  {
 		try {
-			return productDao.findByCategoryId(category);
+			return productDao.findByCategoryId(category, orderColumn, order, active, firstResult, maxResults);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar o produto pela categoria ", e);
 			return null;

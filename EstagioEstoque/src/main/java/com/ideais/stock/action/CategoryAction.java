@@ -6,8 +6,6 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Item;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.util.Validade;

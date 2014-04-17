@@ -43,11 +43,27 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
 	
-	public List<Product> findByCategoryId(Category category) {
-		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add( Restrictions.like("category", category) );
+	public List<Product> findByCategoryId(Category category, String orderColum, String order, String active, String firstResult, String maxResults) {
+		Criteria criteria = session().createCriteria(Product.class);
+		List<Product> products = new ArrayList<Product>();
 		
-		return findByRestrictions(Product.class, restrictions);
+		try {
+			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
+			criteria.add(Restrictions.isNotEmpty("items"));
+			criteria.add(Restrictions.like("category", category));
+			products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+			
+			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
+			
+			for (Product product : products) {
+				product.setCount(count);
+			}
+			
+		} catch (HibernateException e) {
+			LOG.error("Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+		} 
+		
+		return products;
 	}
 	
 	public List<Product> findBySubcategoryId(Subcategory subcategory) {
