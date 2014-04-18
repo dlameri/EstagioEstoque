@@ -1,11 +1,14 @@
 package com.ideais.stock.json;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ideais.stock.domain.Subcategory;
 
-public class SubcategoryJSON {
+public class SubcategoryJSON implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String name;

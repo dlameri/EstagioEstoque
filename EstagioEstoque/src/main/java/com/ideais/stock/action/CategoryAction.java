@@ -1,5 +1,6 @@
 package com.ideais.stock.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,6 +32,7 @@ public class CategoryAction extends ActionSupport {
 	private CategoryService categoryService;
 	private List<Category> categories;
 	private List<Subcategory> subcategories;
+	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
 	
 	@Validations(
 	    requiredStrings={
@@ -59,7 +62,10 @@ public class CategoryAction extends ActionSupport {
 		subcategories = category.getSubcategories();
 		
 		if (subcategories != null) {
-			return NOT_DELETABLE;
+			for (Subcategory subcategory : subcategories) {
+				subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+			}
+			return SUCCESS;
 		}
 		
 		categoryService.delete(category);
@@ -99,6 +105,14 @@ public class CategoryAction extends ActionSupport {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public List<SubcategoryJSON> getSubcategoryJSONs() {
+		return subcategoryJSONs;
+	}
+
+	public void setSubcategoryJSONs(List<SubcategoryJSON> subcategoryJSONs) {
+		this.subcategoryJSONs = subcategoryJSONs;
 	}
 	
 }

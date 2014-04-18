@@ -59,15 +59,17 @@
 
 		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
 			method="deleteCategory">
-			<result name="success" type="redirect">
-				<param name="location">web/categorias</param>
+			<result type="json">
+				<param name="root">
+					subcategoryJSONs
+				</param>
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">web/categorias?error=true</param>
 			</result>
 			<result name="notDeletable" type="json">
 				<param name="root">
-					subcategories
+					subcategoryJSONs
 				</param>
 			</result>
 		</action>
