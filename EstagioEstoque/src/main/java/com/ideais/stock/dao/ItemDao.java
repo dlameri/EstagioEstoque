@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -62,54 +59,33 @@ public class ItemDao extends AbstractDao<Item>{
 		return super.findByRestrictions(Item.class, restrictions);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Item> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
-		Transaction tx = session().beginTransaction();
-		List<Item> items = new ArrayList<Item>();
-		Criteria criteria = session().createCriteria(Item.class);
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+
+		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
 		
-		try {
-			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
-			items = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-			
-			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
-			
-			for (Item item : items) {
-				item.setCount(count);
-			}
-			
-		} catch (HibernateException e) {
-			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+		for (Item item: items) {
+			item.setCount(count);
 		}
 		
-		
-		tx.commit();
-		session().close();
 		return items;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Item> findByProductId(Product product, String orderColumn, String order, String active, String firstResult, String maxResults) {
-		Transaction tx = session().beginTransaction();
-		List<Item> items = new ArrayList<Item>();
-		Criteria criteria = session().createCriteria(Item.class).add(Restrictions.like("product", product));
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+
+		restrictions.add(Restrictions.like("product", product));
+
+		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)  + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
 		
-		try {
-			criteria = QueryFactory.factory(criteria, orderColumn, order, active, firstResult, maxResults);
-			items = criteria.list();
-			
-			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
-			
-			for (Item item : items) {
-				item.setCount(count);
-			}
-			
-		} catch (HibernateException e) {
-			LOG.error("Parametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+		for (Item item: items) {
+			item.setCount(count);
 		}
 		
-		tx.commit();
-		session().close();
 		return items;
 	}
 }

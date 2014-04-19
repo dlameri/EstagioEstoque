@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.factory.QueryFactory;
 
 
 public class ProductDao extends AbstractDao<Product>{
@@ -43,25 +40,19 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
 	
-	public List<Product> findByCategoryId(Category category, String orderColum, String order, String active, String firstResult, String maxResults) {
-		Criteria criteria = session().createCriteria(Product.class);
-		List<Product> products = new ArrayList<Product>();
+	public List<Product> findByCategoryId(Category category, String orderColumn, String order, String active, String firstResult, String maxResults) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+
+		restrictions.add(Restrictions.isNotEmpty("items"));
+		restrictions.add(Restrictions.like("category", category));
+
+		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + parseStringToBoolean(active) + " AND CD_CATEGORIA =" + category.getId()).list().get(0)).intValue();
 		
-		try {
-			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
-			criteria.add(Restrictions.isNotEmpty("items"));
-			criteria.add(Restrictions.like("category", category));
-			products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-			
-			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
-			
-			for (Product product : products) {
-				product.setCount(count);
-			}
-			
-		} catch (HibernateException e) {
-			LOG.error("Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
-		} 
+		for (Product product: products) {
+			product.setCount(count);
+		}
 		
 		return products;
 	}
@@ -73,25 +64,18 @@ public class ProductDao extends AbstractDao<Product>{
 		return findByRestrictions(Product.class, restrictions);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
-		Criteria criteria = session().createCriteria(Product.class);
-		List<Product> products = new ArrayList<Product>();
+	public List<Product> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+
+		restrictions.add(Restrictions.isNotEmpty("items"));
 		
-		try {
-			criteria = QueryFactory.factory(criteria, orderColum, order, active, firstResult, maxResults);
-			criteria.add(Restrictions.isNotEmpty("items"));
-			products = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-			
-			Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
-			
-			for (Product product : products) {
-				product.setCount(count);
-			}
-			
-		} catch (HibernateException e) {
-			LOG.error("Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
-		} 
+		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + parseStringToBoolean(active)).list().get(0)).intValue();
+		
+		for (Product product: products) {
+			product.setCount(count);
+		}
 		
 		return products;
 	}

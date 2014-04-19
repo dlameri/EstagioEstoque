@@ -12,7 +12,12 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
+import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class ItemAction extends ActionSupport {
 	
@@ -33,7 +38,25 @@ public class ItemAction extends ActionSupport {
 	private List<Image> images = new ArrayList<Image>();
 	private List<Item> items = new ArrayList<Item>();
 	
-	@Validations()
+	@Validations(
+		requiredStrings={
+	    	@RequiredStringValidator(fieldName="item.optionName", type= ValidatorType.FIELD, message="Nome não pode ser nulo."),
+	    	@RequiredStringValidator(fieldName="item.optionValue", type= ValidatorType.FIELD, message="Descrição longa não pode ser nulo."),
+	    },
+	    stringLengthFields={
+	    	@StringLengthFieldValidator(fieldName="item.optionName", type= ValidatorType.FIELD, minLength="3", maxLength="45", message="Nome muito curto."),
+	    	@StringLengthFieldValidator(fieldName="item.optionValue", type= ValidatorType.FIELD, minLength="3", maxLength="45", message="Nome muito curto.")
+	    },
+	    requiredFields={
+			@RequiredFieldValidator(fieldName="item.sku", type= ValidatorType.FIELD, message="SKU não pode ser nulo."),
+			@RequiredFieldValidator(fieldName="item.priceFrom", type= ValidatorType.FIELD, message="Preço De não pode ser nulo."),
+			@RequiredFieldValidator(fieldName="item.priceFor", type= ValidatorType.FIELD, message="Preço Por não pode ser nulo."),
+			@RequiredFieldValidator(fieldName="item.stock", type= ValidatorType.FIELD, message="Largura não pode ser nulo."),
+		},
+		fieldExpressions={
+				@FieldExpressionValidator(fieldName="item.priceFor", shortCircuit=true, expression="item.priceFrom > item.priceFor", message="Preço Por deve ser maior que Preço De.")
+		}
+	)
 	public String addItem() {
 		product = productService.findById(product.getId());
 		

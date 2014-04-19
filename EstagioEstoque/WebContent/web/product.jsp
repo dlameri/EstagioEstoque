@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
 <script type="text/javascript" src="../js/product.js"></script>
-<script type="text/javascript" src="../js/validatorProduct.js"></script>
-<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="../js/validate.product.js"></script>
 </head>
 <body>
 

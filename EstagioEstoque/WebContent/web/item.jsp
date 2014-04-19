@@ -8,8 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
-<%-- <script type="text/javascript" src="../js/validatorItem.js"></script> --%>
-<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="../js/item.js"></script>
+<script type="text/javascript" src="../js/validate.item.js"></script>
+<link href="../css/item.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 
@@ -30,16 +31,9 @@
 			<s:textfield  placeholder="Valor SKU" name="item.optionValue" cssClass="optionValue"  /><br/>
 			<label>Estoque:</label>
 			<s:textfield  placeholder="Estoque" name="item.stock" cssClass="stock"  /><br/>
-			<label>Imagens Site:</label>
-<!-- 			radioboxes para main  -->
-			<s:textfield  placeholder="URL Vitrine" name="images.showcaseUrl" cssClass="showcaseUrl"  /><br/>
-			<s:textfield  placeholder="URL Superzoom" name="images.superzoomUrl" cssClass="superzoomUrl"  /><br/>
-			<s:textfield  placeholder="URL Carrinho" name="images.shoppingCartUrl" cssClass="shoppingCartUrl"  /><br/>
-			<s:textfield  placeholder="URL Promo" name="images.promo" cssClass="promo"  /><br/>
-			<label>Imagens Android:</label>
-			<s:textfield  placeholder="URL Vitrine" name="images.androidShowcaseUrl" cssClass="androidShowcaseUrl"  /><br/>
-			<s:textfield  placeholder="URL Página Produto" name="images.androidProductUrl" cssClass="androidProductUrl"  /><br/>
-			
+			<span id="imageAddButton">Adicionar Imagens</span>
+			<div class="images">
+			</div>
 			
 			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	
@@ -53,5 +47,19 @@
 			</li>
 		</c:forEach>
 	</ul>
+	
+	<div class="imagesTemplate">
+		<label>Imagens Site:</label><br/>
+			<s:textfield  placeholder="URL Vitrine" name="images.showcaseUrl" cssClass="showcaseUrl"  disabled="disabled" /><br/>
+			<s:textfield  placeholder="URL Superzoom" name="images.superzoomUrl" cssClass="superzoomUrl" disabled="disabled" /><br/>
+			<s:textfield  placeholder="URL Carrinho" name="images.shoppingCartUrl" cssClass="shoppingCartUrl" disabled="disabled" /><br/>
+			<s:textfield  placeholder="URL Promo" name="images.promo" cssClass="promo" disabled="disabled" /><br/>
+		<label>Imagens Android:</label><br/>
+			<s:textfield  placeholder="URL Vitrine" name="images.androidShowcaseUrl" cssClass="androidShowcaseUrl" disabled="disabled" /><br/>
+			<s:textfield  placeholder="URL Página Produto" name="images.androidProductUrl" cssClass="androidProductUrl" disabled="disabled" /><br/>
+		<span>Principal: </span><input type="radio" name="images.main" />	
+		<span class="removeButton">Remover</span>
+	</div>
+	
 </body>
 </html>

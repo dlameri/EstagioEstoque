@@ -56,7 +56,7 @@ public class ProductService {
 			return productDao.findByCategoryId(category, orderColumn, order,
 					active, firstResult, maxResults);
 		} catch (HibernateException e) {
-			LOG.error("Error ao pegar o produto pela categoria ", e);
+			LOG.error("Erro ao pegar produto pela categoria.\nParametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
 			return null;
 		}
 	}
@@ -70,15 +70,15 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> personalizedQuery(String orderColum, String order,
+	public List<Product> personalizedQuery(String orderColumn, String order,
 			String active, String firstResult, String maxResults) {
 		try {
-			return productDao.personalizedQuery(orderColum, order, active,
+			return productDao.personalizedQuery(orderColumn, order, active,
 					firstResult, maxResults);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pegar o produto. Parametros passados: orderColumn: "
-							+ orderColum + "; order: " + order + "; active: "
+							+ orderColumn + "; order: " + order + "; active: "
 							+ active + "; firstResult: " + firstResult
 							+ "; maxResults: " + maxResults, e);
 			return null;

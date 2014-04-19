@@ -29,14 +29,14 @@ public class ProductWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<ProductJSON> getProducts(
-			@QueryParam("orderColum") @DefaultValue("rank") String orderColum,
+			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
 			@QueryParam("active") @DefaultValue("true") String active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
 			@QueryParam("maxResults") @DefaultValue("20") String maxResults) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 
-		for (Product product : productService.personalizedQuery(orderColum,
+		for (Product product : productService.personalizedQuery(orderColumn,
 				order, active, firstResult, maxResults)) {
 			productJSONs.add(new ProductJSON(product));
 		}

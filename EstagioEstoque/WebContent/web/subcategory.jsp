@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="../js/validatorSubcategory.js"></script>
-<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="../js/validate.subcategory.js"></script>
 <title>Subcategoria</title>
 </head>
 <body>

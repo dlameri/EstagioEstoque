@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Categoria</title>
 <script type="text/javascript" src="../js/category.js"></script>
-<script type="text/javascript" src="../js/validatorCategory.js"></script>
-<link href="../css/validator.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="../js/validate.category.js"></script>
 </head>
 <body>
 

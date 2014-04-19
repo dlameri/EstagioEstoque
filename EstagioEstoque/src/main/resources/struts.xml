@@ -140,7 +140,7 @@
 				<param name="location">/web/itens?error=true</param>
 			</result>
 			<result name="input" type="dispatcher">
-				<param name="location">/web/product.jsp</param>
+				<param name="location">/web/item.jsp</param>
 			</result>
 		</action>
 		
