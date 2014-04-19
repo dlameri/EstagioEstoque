@@ -38,31 +38,22 @@
 			<p class="error_message hidden depthError">A profundidade deve ser um número.</p>
 
 			<label for="name">Nome produto:</label>
-<!-- 			<input id="name" type="text" name="product.name" class="productName" /><br/> -->
 			<s:textfield  placeholder="Nome" name="product.name" cssClass="productName"  /><br/>
 			<label>Descrição curta:</label>
-<!-- 			<input type="text" name="product.shortDescription" class="shortDesc" /><br/> -->
 			<s:textfield placeholder="Descrição" name="product.shortDescription" cssClass="shortDesc" /><br/>
 			<label>Descrição longa:</label>
 			<TextArea name="product.longDescription" class="longDesc" ></TextArea><br/>
 			<label>Peso:</label>
-<!-- 			<input type="text" name="product.weight" class="weight" /><br/> -->
 			<s:textfield  placeholder="Peso" name="product.weight" cssClass="weight"  /><br/>
 			<label>Garantia:</label>
-<!-- 			<input type="text" name="product.warranty" class="warranty" /><br/> -->
 			<s:textfield  placeholder="Garantia" name="product.warranty" cssClass="warranty"  /><br/>
 			<label>Marca:</label>
-<!-- 			<input type="text" name="product.brand" class="brand"  /><br/> -->
 			<s:textfield  placeholder="Marca" name="product.brand" cssClass="brand"  /><br/>
 			<label>Modelo:</label>
-<!-- 			<input type="text" name="product.model" class="model" /><br/> -->
 			<s:textfield  placeholder="Modelo" name="product.model" cssClass="model"  /><br/>
 			<label class="btn-submit">Dimensões:</label>
-<!-- 			<input type="text" name="dimensions.width" size="10" class="width" /> -->
 			<s:textfield  placeholder="Largura" name="dimensions.width" cssClass="width"  />
-<!-- 			<input type="text" name="dimensions.height" size="10" class="height"  /> -->
 			<s:textfield  placeholder="Altura" name="dimensions.height" cssClass="height"  />
-<!-- 			<input type="text" name="dimensions.depth" size="10" class="depth"  /><br/> -->
 			<s:textfield  placeholder="Profundidade" name="dimensions.depth" cssClass="depth"  /><br/>
 			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	

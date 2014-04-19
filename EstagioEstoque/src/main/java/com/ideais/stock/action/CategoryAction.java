@@ -17,30 +17,26 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-
 public class CategoryAction extends ActionSupport {
 
-	private static final String NOT_DELETABLE = "notDeletable";
-
 	private static final long serialVersionUID = 1L;
-	
+
 	private String id;
-	
+	private String deleted;
+	private String confirmation;
+
 	private Category category = new Category();
-	
+
 	@Autowired
 	private CategoryService categoryService;
 	private List<Category> categories;
 	private List<Subcategory> subcategories;
 	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
-	
+
 	@Validations(
-	    requiredStrings={
-	    	@RequiredStringValidator(fieldName="category.name", type= ValidatorType.FIELD, message="Category required")
-	    },
-	    stringLengthFields={
-	    	@StringLengthFieldValidator(fieldName="category.name", type= ValidatorType.FIELD, minLength="3", maxLength="45", message="Nome muito curto.")
-	    }
+		requiredStrings = { 
+			@RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
+		}
 	)
 	public String saveCategory() {
 		try {
@@ -50,24 +46,30 @@ public class CategoryAction extends ActionSupport {
 			}
 			categoryService.save(category);
 			return SUCCESS;
-			
+
 		} catch (Exception e) {
 			return ERROR;
 		}
 	}
-	
+
 	@SkipValidation
 	public String deleteCategory() {
 		category = categoryService.findById(Long.valueOf(id));
-		subcategories = category.getSubcategories();
 		
-		if (subcategories != null) {
-			for (Subcategory subcategory : subcategories) {
-				subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+		if (!"ok".equals(confirmation)) {
+			subcategories = category.getSubcategories();
+		
+			if (subcategories != null) {
+				if (subcategories.size() > 0) {
+	//				for (Subcategory subcategory : subcategories) {
+	//					subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+	//				}
+	
+					return SUCCESS;
+				}
 			}
-			return SUCCESS;
 		}
-		
+
 		categoryService.delete(category);
 		return SUCCESS;
 	}
@@ -85,11 +87,11 @@ public class CategoryAction extends ActionSupport {
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 	public List<Category> getCategories() {
 		categories = categoryService.findAll();
 		return categories;
@@ -113,6 +115,30 @@ public class CategoryAction extends ActionSupport {
 
 	public void setSubcategoryJSONs(List<SubcategoryJSON> subcategoryJSONs) {
 		this.subcategoryJSONs = subcategoryJSONs;
+	}
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
+	public List<Subcategory> getSubcategories() {
+		return subcategories;
+	}
+
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+
+	public String getConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(String confirmation) {
+		this.confirmation = confirmation;
 	}
 	
 }

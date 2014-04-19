@@ -15,66 +15,41 @@
 
 <form action="addItem" class="form" method="post">
 		<fieldset>
-			<label>Selecione uma subcategoria:</label>
-			<select id="categoryList" style="display: block;">
-				<c:forEach items="${categories}" var="category">
-					<option value="${category.id}">${category.name}</option>
-				</c:forEach>
-			</select>	
+			<label>Selecione um produto:</label>
+			<s:textfield placeholder="ID do Produto" name="product.id" cssClass="productId" /><br/>
+
+			<label>SKU:</label>
+			<s:textfield placeholder="SKU" name="item.sku" cssClass="sku" /><br/>
+			<label>Preço De:</label>
+			<s:textfield  placeholder="Preço De" name="item.priceFrom" cssClass="priceFrom"  /><br/>
+			<label>Preço por:</label>
+			<s:textfield  placeholder="Preço Por" name="item.priceFor" cssClass="priceFor"  /><br/>
+			<label>Chave SKU:</label>
+			<s:textfield  placeholder="Chave SKU" name="item.optionName" cssClass="optionName"  /><br/>
+			<label>Valor SKU:</label>
+			<s:textfield  placeholder="Valor SKU" name="item.optionValue" cssClass="optionValue"  /><br/>
+			<label>Estoque:</label>
+			<s:textfield  placeholder="Estoque" name="item.stock" cssClass="stock"  /><br/>
+			<label>Imagens Site:</label>
+<!-- 			radioboxes para main  -->
+			<s:textfield  placeholder="URL Vitrine" name="images.showcaseUrl" cssClass="showcaseUrl"  /><br/>
+			<s:textfield  placeholder="URL Superzoom" name="images.superzoomUrl" cssClass="superzoomUrl"  /><br/>
+			<s:textfield  placeholder="URL Carrinho" name="images.shoppingCartUrl" cssClass="shoppingCartUrl"  /><br/>
+			<s:textfield  placeholder="URL Promo" name="images.promo" cssClass="promo"  /><br/>
+			<label>Imagens Android:</label>
+			<s:textfield  placeholder="URL Vitrine" name="images.androidShowcaseUrl" cssClass="androidShowcaseUrl"  /><br/>
+			<s:textfield  placeholder="URL Página Produto" name="images.androidProductUrl" cssClass="androidProductUrl"  /><br/>
 			
-			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
-			</select>
-
-			<p class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden shortDescError">A descrição curta deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden longDescnameError">A descrição longa deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden weightError">O peso deve ser um número.</p>
-			<p class="error_message hidden warrantyError">A garantia deve ser um número.</p>
-			<p class="error_message hidden brandError">A marca deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden modelError">O modelo deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden widthError">A largura deve ser um número.</p>
-			<p class="error_message hidden heightError">A altura deve ser um número.</p>
-			<p class="error_message hidden depthError">A profundidade deve ser um número.</p>
-
-			<label for="name">Nome produto:</label>
-<!-- 			<input id="name" type="text" name="product.name" class="productName" /><br/> -->
-			<s:textfield  placeholder="Nome" name="product.name" cssClass="productName"  /><br/>
-			<label>Descrição curta:</label>
-<!-- 			<input type="text" name="product.shortDescription" class="shortDesc" /><br/> -->
-			<s:textfield placeholder="Descrição" name="product.shortDescription" cssClass="shortDesc" /><br/>
-			<label>Descrição longa:</label>
-			<TextArea name="product.longDescription" class="longDesc" ></TextArea><br/>
-			<label>Peso:</label>
-<!-- 			<input type="text" name="product.weight" class="weight" /><br/> -->
-			<s:textfield  placeholder="Peso" name="product.weight" cssClass="weight"  /><br/>
-			<label>Garantia:</label>
-<!-- 			<input type="text" name="product.warranty" class="warranty" /><br/> -->
-			<s:textfield  placeholder="Garantia" name="product.warranty" cssClass="warranty"  /><br/>
-			<label>Marca:</label>
-<!-- 			<input type="text" name="product.brand" class="brand"  /><br/> -->
-			<s:textfield  placeholder="Marca" name="product.brand" cssClass="brand"  /><br/>
-			<label>Modelo:</label>
-<!-- 			<input type="text" name="product.model" class="model" /><br/> -->
-			<s:textfield  placeholder="Modelo" name="product.model" cssClass="model"  /><br/>
-			<label class="btn-submit">Dimensões:</label>
-<!-- 			<input type="text" name="dimensions.width" size="10" class="width" /> -->
-			<s:textfield  placeholder="Largura" name="dimensions.width" cssClass="width"  />
-<!-- 			<input type="text" name="dimensions.height" size="10" class="height"  /> -->
-			<s:textfield  placeholder="Altura" name="dimensions.height" cssClass="height"  />
-<!-- 			<input type="text" name="dimensions.depth" size="10" class="depth"  /><br/> -->
-			<s:textfield  placeholder="Profundidade" name="dimensions.depth" cssClass="depth"  /><br/>
+			
 			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
 		</fieldset>	
 	</form>
 	
 	<ul>
-		<c:forEach items="${products}" var="product">
+		<c:forEach items="${items}" var="item">
 			<li>
-				${product.category} - ${product.subcategory} <br/>
-				Nome: ${product.name} - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
-				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/>
-				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth }
-				<br/><a href="deleteproduct?id=${product.id}">deletar</a>
+				Nome: ${item.name}
+				<br/><a href="deleteitem?id=${item.id}">deletar</a>
 			</li>
 		</c:forEach>
 	</ul>

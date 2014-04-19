@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
+import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.SubcategoryJSON;
@@ -27,6 +28,8 @@ public class ProductAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
+	private String deleted;
+	private String confirmation;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -38,9 +41,11 @@ public class ProductAction extends ActionSupport {
 	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
+	
 	private List<Category> categories = new ArrayList<Category>();
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
 	private List<Product> products = new ArrayList<Product>();
+	private List<Item> items = new ArrayList<Item>();
 	
 	@Validations(
 			requiredStrings={
@@ -77,11 +82,24 @@ public class ProductAction extends ActionSupport {
 	}
 	
 	@SkipValidation
-	public String deleteProduct() {
+	public String deleteCategory() {
 		product = productService.findById(Long.valueOf(id));
-		product.softDelete();
-		productService.save(product);
 		
+		if (!"ok".equals(confirmation)) {
+			items = product.getItems();
+		
+			if (items != null) {
+				if (items.size() > 0) {
+	//				for (Subcategory subcategory : subcategories) {
+	//					subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+	//				}
+	
+					return SUCCESS;
+				}
+			}
+		}
+
+		productService.delete(product);
 		return SUCCESS;
 	}
 
@@ -162,6 +180,20 @@ public class ProductAction extends ActionSupport {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-	
 
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
+	public String getConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(String confirmation) {
+		this.confirmation = confirmation;
+	}
 }

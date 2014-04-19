@@ -7,6 +7,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.SubcategoryService;
@@ -23,6 +24,8 @@ public class SubcategoryAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
+	private String deleted;
+	private String confirmation;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -34,8 +37,7 @@ public class SubcategoryAction extends ActionSupport {
 	
 	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 	private List<Category> categories = new ArrayList<Category>();
-
-	
+	private List<Product> products = new ArrayList<Product>();
 
 	@Validations(
 	    requiredStrings={
@@ -54,6 +56,41 @@ public class SubcategoryAction extends ActionSupport {
 		subcategoryService.save(subcategory);
 		return SUCCESS;
 	}
+	
+	@SkipValidation
+	public String deleteSubcategory() {
+		try {
+			if (Validade.isValid(id)) {
+				subcategory = subcategoryService.findById(Long.valueOf(id));
+				
+				if (!"ok".equals(confirmation)) {
+					products = subcategory.getProducts();
+				
+					if (products != null) {
+						if (products.size() > 0) {
+			//				for (Subcategory subcategory : subcategories) {
+			//					subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+			//				}
+			
+							return SUCCESS;
+						}
+					}
+				}
+
+				subcategoryService.delete(subcategory);
+				return SUCCESS;
+			} else {
+				return ERROR;
+			}
+		} catch (Exception e) {
+			return ERROR;
+		}
+	}
+	
+	@SkipValidation
+	public String listSubcategories() {
+		return SUCCESS;
+	}
 
 	public List<Subcategory> getSubcategories() {
 		subcategories = subcategoryService.findAll();
@@ -65,10 +102,7 @@ public class SubcategoryAction extends ActionSupport {
 		return categories;
 	}
 
-	@SkipValidation
-	public String listSubcategories() {
-		return SUCCESS;
-	}
+	
 	
 	public Subcategory getSubcategory() {
 		return subcategory;
@@ -80,20 +114,6 @@ public class SubcategoryAction extends ActionSupport {
 
 	public void setSubcategories(List<Subcategory> subcategories) {
 		this.subcategories = subcategories;
-	}
-	
-	@SkipValidation
-	public String deleteSubcategory() {
-		try {
-			if (Validade.isValid(id)) {
-				subcategoryService.delete(subcategoryService.findById(Long.valueOf(id)));
-				return SUCCESS;
-			} else {
-				return ERROR;
-			}
-		} catch (Exception e) {
-			return ERROR;
-		}
 	}
 
 	public void setId(String id) {
@@ -110,5 +130,37 @@ public class SubcategoryAction extends ActionSupport {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
+	public String getConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(String confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setSubcategory(Subcategory subcategory) {
+		this.subcategory = subcategory;
 	}
 }

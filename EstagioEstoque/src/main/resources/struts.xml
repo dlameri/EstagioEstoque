@@ -61,7 +61,7 @@
 			method="deleteCategory">
 			<result type="json">
 				<param name="root">
-					subcategoryJSONs
+					subcategories
 				</param>
 			</result>
 			<result name="error" type="redirect">
@@ -129,6 +129,24 @@
 				</param>
 			</result>
 			<result name="error"></result>
+		</action>
+		
+		<action name="addItem" class="com.ideais.stock.action.ItemAction"
+			method="addItem">
+			<result name="success" type="redirect">
+				<param name="location">/web/itens</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">/web/itens?error=true</param>
+			</result>
+			<result name="input" type="dispatcher">
+				<param name="location">/web/product.jsp</param>
+			</result>
+		</action>
+		
+		<action name="itens" class="com.ideais.stock.action.ItemAction"
+			method="listItems">
+			<result name="success">item.jsp</result>
 		</action>
 
 <!-- 		<action name="pageNotFound"> -->

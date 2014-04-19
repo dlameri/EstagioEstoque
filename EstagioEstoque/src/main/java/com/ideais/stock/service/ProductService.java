@@ -12,7 +12,7 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 public class ProductService {
-	
+
 	static final Logger LOG = Logger.getLogger(ProductService.class);
 
 	@Autowired
@@ -48,16 +48,19 @@ public class ProductService {
 			return null;
 		}
 	}
-	
-	public List<Product> findByCategoryId(Category category, String orderColumn, String order, String active, String firstResult, String maxResults)  {
+
+	public List<Product> findByCategoryId(Category category,
+			String orderColumn, String order, String active,
+			String firstResult, String maxResults) {
 		try {
-			return productDao.findByCategoryId(category, orderColumn, order, active, firstResult, maxResults);
+			return productDao.findByCategoryId(category, orderColumn, order,
+					active, firstResult, maxResults);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar o produto pela categoria ", e);
 			return null;
 		}
 	}
-	
+
 	public List<Product> findBySubcategoryId(Subcategory subcategory) {
 		try {
 			return productDao.findBySubcategoryId(subcategory);
@@ -66,47 +69,51 @@ public class ProductService {
 			return null;
 		}
 	}
-	
-	public List<Product> personalizedQuery(String orderColum, String order, String active, String firstResult, String maxResults) {
+
+	public List<Product> personalizedQuery(String orderColum, String order,
+			String active, String firstResult, String maxResults) {
 		try {
-			return productDao.personalizedQuery(orderColum, order, active, firstResult, maxResults);
+			return productDao.personalizedQuery(orderColum, order, active,
+					firstResult, maxResults);
 		} catch (HibernateException e) {
-			LOG.error("Error ao pegar o produto. Parametros passados: orderColumn: " + orderColum + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+			LOG.error(
+					"Error ao pegar o produto. Parametros passados: orderColumn: "
+							+ orderColum + "; order: " + order + "; active: "
+							+ active + "; firstResult: " + firstResult
+							+ "; maxResults: " + maxResults, e);
 			return null;
 		}
 	}
-	
+
 	public List<Product> search(String textToSearch) {
 		try {
 			return productDao.search(textToSearch);
 		} catch (HibernateException e) {
-			LOG.error("Error ao fazer a busca. Parametro passado: " + textToSearch, e);
+			LOG.error("Error ao fazer a busca. Parametro passado: "
+					+ textToSearch, e);
 			return null;
 		}
 	}
 
 	public void delete(Product product) {
 		itemService.delete(product);
-		product.softDelete();
+		
 		try {
+			product.softDelete();
 			productDao.save(product);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar o produto ", e);
 		}
 	}
-	
+
 	public void delete(Subcategory subcategory) {
-		try {
-			List<Product> products = productDao.findBySubcategoryId(subcategory);
-			
-			if (products != null) {
-				for (Product product : products) {
-					itemService.delete(product);
-					product.softDelete();	
-				}
+		List<Product> products = productDao.findBySubcategoryId(subcategory);
+
+		if (products != null) {
+			for (Product product : products) {
+				itemService.delete(product);
+				product.softDelete();
 			}
-		} catch (HibernateException e) {
-			LOG.error("Error ao deletar os produtos ", e);
 		}
 	}
 

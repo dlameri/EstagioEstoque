@@ -61,9 +61,9 @@ public class CategoryService {
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void delete(Category category) {
+		subcategoryService.delete(category);
+
 		try {
-			subcategoryService.delete(category);
-			
 			category.softDelete();
 			categoryDao.save(category);
 		} catch (HibernateException e) {

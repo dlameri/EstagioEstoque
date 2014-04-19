@@ -13,7 +13,7 @@ import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryService {
-	
+
 	static final Logger LOG = Logger.getLogger(Subcategory.class);
 
 	@Autowired
@@ -35,11 +35,11 @@ public class SubcategoryService {
 		try {
 			return subcategoryDao.findById(id);
 		} catch (HibernateException e) {
-			LOG.error("Error ao pegar a subcategoria ("+id+")", e);
+			LOG.error("Error ao pegar a subcategoria (" + id + ")", e);
 			return null;
 		}
 	}
-	
+
 	public List<Subcategory> findByCategoryId(Category category) {
 		try {
 			return subcategoryDao.findByCategoryId(category);
@@ -58,31 +58,26 @@ public class SubcategoryService {
 		}
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(Subcategory subcategory) {
+		productService.delete(subcategory);
+		
 		try {
-			productService.delete(subcategory);
-			
 			subcategory.softDelete();
 			subcategoryDao.save(subcategory);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar a subcategoria ", e);
 		}
 	}
-	
+
 	public void delete(Category category) {
 		List<Subcategory> subcategories = category.getSubcategories();
-		
-		try {
-			if (subcategories != null) {
-				for (Subcategory subcategory : subcategories) {
-					productService.delete(subcategory);
-					subcategory.softDelete();	
-				}
+
+		if (subcategories != null) {
+			for (Subcategory subcategory : subcategories) {
+				productService.delete(subcategory);
+				subcategory.softDelete();
 			}
-		} catch (HibernateException e) {
-			LOG.error("Error ao deletar as subcategorias ", e);
 		}
 	}
-
 }

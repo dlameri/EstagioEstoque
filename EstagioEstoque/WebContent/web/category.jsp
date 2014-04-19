@@ -30,13 +30,17 @@
 			<c:forEach items="${categories}" var="category">
 				<li>${category.name}&nbsp;<a href="categorias?id=${category.id}">
 				<button	type="button" class="btn btn-xs btn-warning">Editar</button></a>
-				 <button id="deletecategory?id=${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
+				<button id="deletecategory?id=${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
 				</li>
 			</c:forEach>
 		</div>
 	</div>
 	
 	<div id="toBeDeleted">
+		<c:if test="${deleted == \"true\" }">
+<%-- 		<c:if test="${deleted}"> --%>
+			<p> Categoria deletada com sucesso. </p>
+		</c:if>
 	</div>
 
 </body>
