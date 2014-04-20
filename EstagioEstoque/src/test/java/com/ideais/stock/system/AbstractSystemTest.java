@@ -8,14 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Ignore
-@ContextConfiguration({"classpath:spring/systemTestContext.xml", "classpath:spring/dataSource.xml"})
-@TransactionConfiguration(defaultRollback=false)
+@ContextConfiguration({"classpath:spring/applicationContext.xml", "classpath:spring/dataSource.xml"})
 @Transactional(propagation=Propagation.REQUIRED)
 public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContextTests {
 	
@@ -28,7 +26,7 @@ public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContext
 	}
 	
 	private void prepareDatabase() {
-//		executeSqlScript("sql/prepareDatabase.sql", false);
+		executeSqlScript("sql/prepareDatabase.sql", false);
 	}
 
 	protected WebDriver driver() {

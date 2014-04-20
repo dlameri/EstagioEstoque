@@ -73,11 +73,15 @@ public class ItemAction extends ActionSupport {
 	
 	@SkipValidation
 	public String listItems() {
+		items = itemService.findAll();
 		return SUCCESS;
 	}
 	
 	@SkipValidation
 	public String deleteItem() {
+		item = itemService.findById(Long.valueOf(id));
+		itemService.delete(item);
+		
 		return SUCCESS;
 	}
 

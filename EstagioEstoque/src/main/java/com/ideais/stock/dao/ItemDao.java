@@ -51,9 +51,10 @@ public class ItemDao extends AbstractDao<Item>{
 		return super.findByRestrictions(Item.class, restrictions);
 	}
 	
-	public List<Item> findByProductId(Product product) {
+	public List<Item> findByProductId(Product product, Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("product", product) );
+		restrictions.add( Restrictions.eq("active", active) );
 		
 		return super.findByRestrictions(Item.class, restrictions);
 	}

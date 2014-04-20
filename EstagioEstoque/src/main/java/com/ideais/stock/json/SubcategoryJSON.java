@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Transient;
+
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryJSON implements Serializable {
@@ -14,6 +16,9 @@ public class SubcategoryJSON implements Serializable {
 	private String name;
 	private Boolean active;
 	private List<Link> links = new ArrayList<Link>();
+	
+	@Transient
+	private List<ProductJSON> products = new ArrayList<ProductJSON>();
 
 	public SubcategoryJSON(Subcategory subcategory) {
 		this.id = subcategory.getId();
@@ -65,6 +70,14 @@ public class SubcategoryJSON implements Serializable {
 
 	public void setLinks(List<Link> links) {
 		this.links = links;
+	}
+
+	public List<ProductJSON> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductJSON> products) {
+		this.products = products;
 	}
 
 }

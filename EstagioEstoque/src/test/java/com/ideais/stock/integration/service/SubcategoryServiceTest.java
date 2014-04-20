@@ -55,7 +55,7 @@ public class SubcategoryServiceTest extends AbstractServiceTest {
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(10, subcategoryService.findAll().size());
+		assertEquals(10, subcategoryService.findAll(true).size());
 	}
 	
 	@Test

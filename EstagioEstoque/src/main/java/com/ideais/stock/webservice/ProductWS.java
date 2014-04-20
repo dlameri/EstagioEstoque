@@ -55,10 +55,11 @@ public class ProductWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<ProductJSON> searchProducts(
-			@PathParam("textToSearch") String textToSearch) {
+			@PathParam("textToSearch") String textToSearch,
+			@QueryParam("active") @DefaultValue("true") Boolean active) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 
-		for (Product product : productService.search(textToSearch)) {
+		for (Product product : productService.search(textToSearch, active)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 

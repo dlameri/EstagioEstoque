@@ -16,7 +16,7 @@
 	<div id="three-column" class="container">
 		<div id="tbox2">
 			<h3>Nova Categoria</h3>
-			<form action="addcategory">
+			<form action="addcategory" class="form" method="post">
 				<input type="hidden" name="category.id" value="${category.id}" />
 				<s:textfield type="text" id="form-control" placeholder="Categoria" name="category.name" value="%{category.name}" cssClass="categoryName" maxlength="15" />
 				<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
@@ -27,7 +27,7 @@
 		<div id="tbox3">
 			<h3>Categorias Cadastradas</h3>
 			<c:forEach items="${categories}" var="category">
-				<li>${category.name}&nbsp;<a href="categorias?id=${category.id}">
+				<li class="${category.name}">${category.name}&nbsp;<a href="categorias?id=${category.id}">
 				<button	type="button" class="btn btn-xs btn-warning">Editar</button></a>
 				<button id="deletecategory?id=${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
 				</li>

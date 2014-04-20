@@ -33,9 +33,9 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.findById(Product.class, id);
 	}
 
-	public List<Product> findAll() {
+	public List<Product> findAll(Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add(Restrictions.like("active", true));
+		restrictions.add(Restrictions.like("active", active));
 		
 		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
@@ -57,9 +57,10 @@ public class ProductDao extends AbstractDao<Product>{
 		return products;
 	}
 	
-	public List<Product> findBySubcategoryId(Subcategory subcategory) {
+	public List<Product> findBySubcategoryId(Subcategory subcategory, Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("subcategory", subcategory) );
+		restrictions.add( Restrictions.eq("active", active) );
 		
 		return findByRestrictions(Product.class, restrictions);
 	}
@@ -80,9 +81,10 @@ public class ProductDao extends AbstractDao<Product>{
 		return products;
 	}
 
-	public List<Product> search(String textToSearch) {
+	public List<Product> search(String textToSearch, Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
+		restrictions.add( Restrictions.eq("active", active) );
 
 		return findByRestrictions(Product.class, restrictions);
 	}

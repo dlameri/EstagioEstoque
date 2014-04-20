@@ -40,18 +40,18 @@ public class SubcategoryService {
 		}
 	}
 
-	public List<Subcategory> findByCategoryId(Category category) {
+	public List<Subcategory> findByCategoryId(Category category, Boolean active) {
 		try {
-			return subcategoryDao.findByCategoryId(category);
+			return subcategoryDao.findByCategoryId(category, active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar a subcategoria pela categoria ", e);
 			return null;
 		}
 	}
 
-	public List<Subcategory> findAll() {
+	public List<Subcategory> findAll(Boolean active) {
 		try {
-			return subcategoryDao.findAll();
+			return subcategoryDao.findAll(active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar todas as subcategorias ", e);
 			return null;

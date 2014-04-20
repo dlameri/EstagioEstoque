@@ -40,9 +40,9 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> findAll() {
+	public List<Product> findAll(Boolean active) {
 		try {
-			return productDao.findAll();
+			return productDao.findAll(active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar todos os produtos ", e);
 			return null;
@@ -61,9 +61,9 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> findBySubcategoryId(Subcategory subcategory) {
+	public List<Product> findBySubcategoryId(Subcategory subcategory, Boolean active) {
 		try {
-			return productDao.findBySubcategoryId(subcategory);
+			return productDao.findBySubcategoryId(subcategory, active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar o produto pela subcategoria ", e);
 			return null;
@@ -85,9 +85,9 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> search(String textToSearch) {
+	public List<Product> search(String textToSearch, Boolean active) {
 		try {
-			return productDao.search(textToSearch);
+			return productDao.search(textToSearch, active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao fazer a busca. Parametro passado: "
 					+ textToSearch, e);
@@ -107,7 +107,7 @@ public class ProductService {
 	}
 
 	public void delete(Subcategory subcategory) {
-		List<Product> products = productDao.findBySubcategoryId(subcategory);
+		List<Product> products = productDao.findBySubcategoryId(subcategory, true);
 
 		if (products != null) {
 			for (Product product : products) {

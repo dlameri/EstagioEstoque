@@ -1,6 +1,6 @@
 package com.ideais.stock.system;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -22,19 +24,18 @@ public class CategoryActionTest extends AbstractSystemTest {
 	@Before
 	public void setUp() {
 		driver().get("http://localhost:8080/EstagioEstoque/web/");
-		WebElement element = driver().findElement(By.name("email"));
-		element.submit();
-		element = driver().findElement(By.linkText("Categoria"));
-		element.submit();
+		driver().findElement(By.name("email")).submit();
+		WebDriverWait wait = new WebDriverWait(driver(), 10); 
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='categorias']")));
+		driver().findElement(By.xpath("//a[@href='categorias']")).click();
 	}
 	
 	@Test
 	public void create_category_test() {
 	    WebElement element = driver().findElement(By.name("category.name"));
-	    element.sendKeys("Livros");
+	    element.sendKeys("Categoria-S");
 	    element.submit();
-	    System.out.println("Page title is: " + driver().getTitle());
-	    assertEquals("Livros", categoryService.findById(1L).getName());
+	    assertEquals("Categoria-S", driver().findElement(By.cssSelector(".Categoria-S")).getText().split(" ")[0]);
 	}
 
 	@After

@@ -7,9 +7,16 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.json.ItemJSON;
+import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.ItemService;
+import com.ideais.stock.service.ProductService;
+import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -29,15 +36,22 @@ public class CategoryAction extends ActionSupport {
 
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private SubcategoryService subcategoryService;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private ItemService itemService;
+
 	private List<Category> categories;
 	private List<Subcategory> subcategories;
+	private List<Product> products;
+	private List<Item> items;
 	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
+	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
+	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
-	@Validations(
-		requiredStrings = { 
-			@RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
-		}
-	)
+	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") })
 	public String saveCategory() {
 		try {
 			if (category.getId() != null) {
@@ -54,17 +68,44 @@ public class CategoryAction extends ActionSupport {
 
 	@SkipValidation
 	public String deleteCategory() {
+		SubcategoryJSON subcategoryJSON;
+		ProductJSON productJSON;
+		
 		category = categoryService.findById(Long.valueOf(id));
-		
+
 		if (!"ok".equals(confirmation)) {
-			subcategories = category.getSubcategories();
-		
+			subcategories = subcategoryService.findByCategoryId(category, true);
+
 			if (subcategories != null) {
 				if (subcategories.size() > 0) {
-	//				for (Subcategory subcategory : subcategories) {
-	//					subcategoryJSONs.add(new SubcategoryJSON(subcategory));
-	//				}
-	
+					for (Subcategory subcategory : subcategories) {
+						subcategoryJSON = new SubcategoryJSON(subcategory);
+						products = productService.findBySubcategoryId(subcategory, true);
+						productJSONs = new ArrayList<ProductJSON>();
+						
+						if (products != null) {
+							if (products.size() > 0) {
+								for (Product product : products) {
+									productJSON = new ProductJSON(product);
+									items = itemService.findByProductId(product, true);
+									itemJSONs = new ArrayList<ItemJSON>();
+									
+									if (items != null) {
+										if (items.size() > 0) {
+											for (Item item : items) {
+												itemJSONs.add(new ItemJSON(item));
+											}
+										}
+									}
+									productJSON.setItems(itemJSONs);
+									productJSONs.add(productJSON);
+								}
+							}
+						}
+						subcategoryJSON.setProducts(productJSONs);
+						subcategoryJSONs.add(subcategoryJSON);
+					}
+
 					return SUCCESS;
 				}
 			}
@@ -93,7 +134,6 @@ public class CategoryAction extends ActionSupport {
 	}
 
 	public List<Category> getCategories() {
-		categories = categoryService.findAll();
 		return categories;
 	}
 
@@ -140,5 +180,5 @@ public class CategoryAction extends ActionSupport {
 	public void setConfirmation(String confirmation) {
 		this.confirmation = confirmation;
 	}
-	
+
 }

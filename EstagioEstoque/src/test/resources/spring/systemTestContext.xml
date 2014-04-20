@@ -33,6 +33,13 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- WebDrivers -->
 	<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" autowire="byType" />
+<!-- 	<bean id="htmlUnitdriver" class="org.openqa.selenium.htmlunit.HtmlUnitDriver" autowire="byType" /> -->
+	
+	<!-- Servlets -->
+	<bean id="loginServlet" class="com.ideais.stock.servlet.session.LoginServlet" autowire="byType" />
+	
+	<!-- Filters -->
+	<bean id="loginFilter" class="com.ideais.stock.servlet.filter.LoginFilter" autowire="byType" />
 	
 	<!-- Config -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

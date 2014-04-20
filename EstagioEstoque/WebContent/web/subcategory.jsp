@@ -13,7 +13,7 @@
 <body>
 	<h1>Subcategoria</h1>
 	
-		<form action="addsubcategory" method="get">
+		<form action="addsubcategory" class="form" method="post">
 		
 		<fieldset>
 			<label>Selecione uma categoria:</label>

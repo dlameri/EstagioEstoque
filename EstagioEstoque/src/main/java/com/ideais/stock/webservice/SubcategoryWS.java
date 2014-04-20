@@ -28,7 +28,7 @@ public class SubcategoryWS {
 	public List<SubcategoryJSON> getSubcategories() {
 		List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
 		
-		for (Subcategory subcategory : subcategoryService.findAll()) {
+		for (Subcategory subcategory : subcategoryService.findAll(true)) {
 			subcategoryJSONs.add(new SubcategoryJSON(subcategory));
 		}
 		

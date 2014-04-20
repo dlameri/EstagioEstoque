@@ -33,8 +33,8 @@ $(function() {
 							});
 						});
 					});
-					$("#toBeDeleted").append('<button id="'+urlToSend+'&confirmation=ok" type="button" class="removeButton btn btn-xs btn-danger">OK</button>');
-					$("#toBeDeleted").append('<button type="button" class="cancel btn btn-xs btn-warning">Cancelar</button>');
+					$("#toBeDeleted").append('<button id="'+urlToSend+'&confirmation=ok" type="button" class="btn btn-xs btn-danger btn-delete">OK</button>');
+					$("#toBeDeleted").append('<button type="button" class="btn-cancel btn btn-xs btn-warning">Cancelar</button>');
 				}
 				else {
 					window.location.replace("/EstagioEstoque/web/categorias?deleted=true");
@@ -43,7 +43,7 @@ $(function() {
 		});
 	});
 	
-	$(document).on('click', ".removeButton", function() {
+	$(document).on('click', ".btn-delete", function() {
 		var urlToSend = $(this).attr("id");
 		console.log("Url do segundo request: " + urlToSend);
 
@@ -52,11 +52,13 @@ $(function() {
 			url : urlToSend,
 			dataType : 'json',
 			beforeSend : console.log("Enviando dados pro serv"),
-			success : window.location.replace("/EstagioEstoque/web/categorias?deleted=true")
+			success : console.log("Deletou com sucesso.")
+		}).done(function(){ 
+			window.location.replace("/EstagioEstoque/web/categorias?deleted=true");
 		});
 	});
 	
-	$(document).on('click', ".cancel", function() {
+	$(document).on('click', ".btn-cancel", function() {
 		window.location.replace("/EstagioEstoque/web/categorias");
 	});
 	

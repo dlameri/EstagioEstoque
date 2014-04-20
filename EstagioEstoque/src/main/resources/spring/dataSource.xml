@@ -36,10 +36,10 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 	<util:properties id="hibernateProperties">
 		<prop key="hibernate.dialect">${database.dialect}</prop>
 		<prop key="hibernate.show_sql">true</prop>
-		<prop key="hibernate.cache.use_query_cache">true</prop>
-		<prop key="hibernate.cache.use_second_level_cache">true</prop>
-		<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
-		<prop key="hibernate.cache.default_cache_concurrency_strategy">read-write</prop>
+		<prop key="hibernate.cache.use_query_cache">false</prop>
+		<prop key="hibernate.cache.use_second_level_cache">false</prop>
+<!-- 		<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop> -->
+<!-- 		<prop key="hibernate.cache.default_cache_concurrency_strategy">read-write</prop> -->
 		<prop key="hibernate.hbm2ddl.auto">${database.strategy}</prop>
 	</util:properties>	
 	 

@@ -3,7 +3,6 @@ package com.ideais.stock.integration.dao;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +65,7 @@ public class ProductDaoTest extends AbstractDaoTest {
 	@Test
 	public void test_create() {
 		Product savedProduct = productDao.save(product);
-		assertEquals( new Long(11), savedProduct.getId());
+		assertEquals( "Luva de boxe", savedProduct.getName());
 	}
 	
 	@Test
@@ -80,16 +79,10 @@ public class ProductDaoTest extends AbstractDaoTest {
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		item.setProduct(product);
-		List<Product> products = productDao.findAll();
-		for (Product product : products) {
-			System.out.println(product);
-		}
+
 		Product savedProduct = productDao.save(product);
-		products = productDao.findAll();
-		for (Product product : products) {
-			System.out.println(product);
-		}
-		assertEquals( new Long(12), savedProduct.getId());
+
+		assertEquals( "Luva de boxe", savedProduct.getName());
 	}
 		
 	@Test

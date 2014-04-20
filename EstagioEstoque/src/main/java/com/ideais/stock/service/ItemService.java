@@ -40,16 +40,16 @@ public class ItemService {
 
 	public List<Item> findByIds(List<Long> ids) {
 		try {
-			return findByIds(ids);
+			return itemDao.findByIds(ids);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar os itens pelos ids (" + ids + ")", e);
 			return null;
 		}
 	}
 
-	public List<Item> findByProductId(Product product) {
+	public List<Item> findByProductId(Product product, Boolean active) {
 		try {
-			return findByProductId(product);
+			return itemDao.findByProductId(product, active);
 		} catch (HibernateException e) {
 			LOG.error("Error ao pega o item pelo produto ", e);
 			return null;
@@ -59,7 +59,7 @@ public class ItemService {
 	public List<Item> findByProductId(Product product, String orderColumn,
 			String order, String active, String firstResult, String maxResults) {
 		try {
-			return findByProductId(product, orderColumn, order, active,
+			return itemDao.findByProductId(product, orderColumn, order, active,
 					firstResult, maxResults);
 		} catch (HibernateException e) {
 			LOG.error(
@@ -106,7 +106,7 @@ public class ItemService {
 
 	public void delete(Product product) {
 
-		List<Item> items = itemDao.findByProductId(product);
+		List<Item> items = itemDao.findByProductId(product, true);
 
 		if (items != null) {
 			for (Item item : items) {

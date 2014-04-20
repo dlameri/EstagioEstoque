@@ -28,16 +28,17 @@ public class SubcategoryDao extends AbstractDao<Subcategory> {
 		return super.findById(Subcategory.class, id);
 	}
 	
-	public List<Subcategory> findAll() {
+	public List<Subcategory> findAll(Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add(Restrictions.like("active", true));
+		restrictions.add(Restrictions.like("active", active));
 		
 		return super.findAll(Subcategory.class, Order.asc("name"), restrictions);
 	}
 
-	public List<Subcategory> findByCategoryId(Category category) {
+	public List<Subcategory> findByCategoryId(Category category, Boolean active) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("category", category) );
+		restrictions.add( Restrictions.eq("active", active));
 		
 		return super.findByRestrictions( Subcategory.class, restrictions );
 	}

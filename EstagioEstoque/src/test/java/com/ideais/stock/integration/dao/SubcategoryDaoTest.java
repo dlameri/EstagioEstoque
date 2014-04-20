@@ -56,7 +56,7 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(10, subcategoryDao.findAll().size());
+		assertEquals(10, subcategoryDao.findAll(true).size());
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class SubcategoryDaoTest extends AbstractDaoTest {
 		subcategory = subcategoryDao.findById(1L);
 		subcategoryDao.delete(subcategory);
 		
-		assertEquals(9, subcategoryDao.findAll().size());
+		assertEquals(9, subcategoryDao.findAll(true).size());
 	}
 	
 	@Test
