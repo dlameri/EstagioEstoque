@@ -86,7 +86,7 @@ public class CategoryWS {
 	@Path("/{id}/topproducts")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ProductJSON> getTopProductsByCategory(@PathParam("id") Long id,
+	public List<ProductJSON> getTopProductsByCategoryId(@PathParam("id") Long id,
 			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
 			@QueryParam("active") @DefaultValue("true") String active,

@@ -17,8 +17,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.ideais.stock.json.CategoryJSON;
-
 @Entity
 @Table(name="CATEGORIA")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

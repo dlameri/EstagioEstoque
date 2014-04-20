@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
-import com.ideais.stock.factory.QueryFactory;
 
 
 public class ItemDao extends AbstractDao<Item>{
@@ -64,7 +63,7 @@ public class ItemDao extends AbstractDao<Item>{
 
 		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + parseStringToBoolean(active)).list().get(0)).intValue();
 		
 		for (Item item: items) {
 			item.setCount(count);
@@ -80,7 +79,7 @@ public class ItemDao extends AbstractDao<Item>{
 
 		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + QueryFactory.parseStringToBoolean(active)  + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + parseStringToBoolean(active)  + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
 		
 		for (Item item: items) {
 			item.setCount(count);

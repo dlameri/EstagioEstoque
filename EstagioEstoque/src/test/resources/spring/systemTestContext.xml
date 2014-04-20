@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<!-- Actions -->
+	<bean id="categoryAction" class="com.ideais.stock.action.CategoryAction" scope="prototype" autowire="byType" />
+	<bean id="subcategoryAction" class="com.ideais.stock.action.SubcategoryAction" scope="prototype" autowire="byType" />
+	<bean id="productAction" class="com.ideais.stock.action.ProductAction" scope="prototype" autowire="byType" />
+	
+	<!-- Services -->
+	<bean id="categoryService" class="com.ideais.stock.service.CategoryService" autowire="byType" />
+	<bean id="subcategoryService" class="com.ideais.stock.service.SubcategoryService" autowire="byType" />
+	<bean id="productService" class="com.ideais.stock.service.ProductService" autowire="byType" />
+	<bean id="itemService" class="com.ideais.stock.service.ItemService" autowire="byType" />
+	<bean id="imageService" class="com.ideais.stock.service.ImageService" autowire="byType" />
+	<bean id="adminService" class="com.ideais.stock.service.AdminService" autowire="byType" />
+	
+	<!-- DAOs -->
+	<bean id="categoryDao" class="com.ideais.stock.dao.CategoryDao" autowire="byType" />
+	<bean id="subcategoryDao" class="com.ideais.stock.dao.SubcategoryDao" autowire="byType" />
+	<bean id="productDao" class="com.ideais.stock.dao.ProductDao" autowire="byType" />
+	<bean id="itemDao" class="com.ideais.stock.dao.ItemDao" autowire="byType" />
+	<bean id="imageDao" class="com.ideais.stock.dao.ImageDao" autowire="byType" />
+	<bean id="adminDao" class="com.ideais.stock.dao.AdminDao" autowire="byType" />
+	
+	<!-- Webservices -->
+	<bean id="categoryWS" class="com.ideais.stock.webservice.CategoryWS" autowire="byType" />
+	<bean id="subcategoryWS" class="com.ideais.stock.webservice.SubcategoryWS" autowire="byType" />
+	<bean id="productWS" class="com.ideais.stock.webservice.ProductWS" autowire="byType" />
+	<bean id="itemWS" class="com.ideais.stock.webservice.ItemWS" autowire="byType" />
+	
+	<!-- WebDrivers -->
+	<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" autowire="byType" />
+	
+	<!-- Config -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>
+					classpath:properties/stockTest.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+ 
+ </beans>

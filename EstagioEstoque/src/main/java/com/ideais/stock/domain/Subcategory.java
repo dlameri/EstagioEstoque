@@ -2,7 +2,6 @@ package com.ideais.stock.domain;
 
 import java.util.List;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,11 +19,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.ideais.stock.json.SubcategoryJSON;
-
 @Entity
 @Table(name="SUBCATEGORIA")
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Subcategory {
 	@Id
@@ -47,6 +43,7 @@ public class Subcategory {
 	
 	@OneToMany(mappedBy="subcategory")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Product> products;
 	
 	public void softDelete() {
