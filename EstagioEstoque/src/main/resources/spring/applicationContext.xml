@@ -37,9 +37,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Filters -->
 	<bean id="loginFilter" class="com.ideais.stock.servlet.filter.LoginFilter" autowire="byType" />
 	
-	<!-- WebDrivers -->
-	<bean id="driver" class="org.openqa.selenium.firefox.FirefoxDriver" autowire="byType" />
-	
 	<!-- Config -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">

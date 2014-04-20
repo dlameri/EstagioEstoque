@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Ignore
-@ContextConfiguration({"classpath:spring/applicationContext.xml", "classpath:spring/dataSource.xml"})
+@ContextConfiguration({"classpath:spring/systemTestContext.xml", "classpath:spring/dataSource.xml"})
 @Transactional(propagation=Propagation.REQUIRED)
 public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContextTests {
 	
