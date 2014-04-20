@@ -1,4 +1,4 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -22,8 +22,8 @@ import com.ideais.stock.service.ItemService;
 
 
 
-@RunWith(JUnit4.class)
-public class ItemDaoTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class ItemServiceTest extends AbstractServiceTest {
 	
 	@Autowired
 	private ItemService itemService;
@@ -51,9 +51,11 @@ public class ItemDaoTest {
 		dimensions.setWidth(30.);
 		
 		category.setName("Luta");
-
+		category.setActive(true);
+		
 		subcategory.setName("Luvas");
 		subcategory.setCategory(category);
+		subcategory.setActive(true);
 		
 		product.setName("Luva de boxe");
 		product.setActive(true);
@@ -66,6 +68,7 @@ public class ItemDaoTest {
 		product.setCategory(category);
 		product.setSubcategory(subcategory);
 		product.setDimensions(dimensions);
+		product.setRank(0);
 		
 		item.setSku(01L);
 		item.setActive(true);
@@ -74,6 +77,7 @@ public class ItemDaoTest {
 		item.setPriceFrom(new BigDecimal (1999.90));
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
+		item.setPromo(false);
 		item.setProduct(product);
 		
 		items.add(item);
@@ -88,18 +92,33 @@ public class ItemDaoTest {
 		image.setItem(item);
 		images.add(image);
 		product.setItems(items);
+		
+		super.setUp();
 	}
 	
 	@Test
 	public void test_create() {
-		Item savedItem = itemService.save(item);
+		item = itemService.save(item);
 
-		assertEquals( savedItem.getId(), item.getId() );
+		assertEquals( new Long(1), item.getSku() );
+	}
+	
+	@Test
+	public void test_find_by_id() {
+		assertEquals(new Long(1), itemService.findById(1L).getId());
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, itemService.findAll().size());
+		assertEquals(16, itemService.findAll().size());
 	}
 	
+	@Test
+	public void delete() {
+		item = itemService.findById(1L);
+		itemService.delete(item);
+		item = itemService.findById(1L);
+
+		assertEquals(false, item.getActive());
+	}
 }

@@ -1,7 +1,8 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,36 +13,40 @@ import com.ideais.stock.service.CategoryService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CategoryDaoTest extends AbstractDaoTest {
+public class CategoryServiceTest extends AbstractServiceTest {
 
 	@Autowired
 	private CategoryService categoryService;
-
+	private Category category;
+	@Before
+	public void setUp() {
+		category = new Category();
+		category.setName("Esportes");
+		category.setActive(true);
+		
+		super.setUp();
+	}
+	
 	@Test
 	public void test_create() {
-		Category category = new Category();
-		category.setName("Esportes");
-		
-		Category category2 = categoryService.save(category);
+		category = categoryService.save(category);
 
-		assertEquals( category2.getId(), category.getId() );
+		assertEquals("Esportes", category.getName());
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(1, categoryService.findAll().size());
+		assertEquals(10, categoryService.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-		Category category2 = categoryService.findById(1L);
-
-		assertEquals(new Long(1), category2.getId());
+		assertEquals(new Long(1), categoryService.findById(1L).getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Category category = categoryService.findById(1L);
+		category = categoryService.findById(1L);
 		
 		category.setName("Celulares");
 		categoryService.save(category);

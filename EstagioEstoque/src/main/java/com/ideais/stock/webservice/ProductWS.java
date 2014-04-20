@@ -68,7 +68,7 @@ public class ProductWS {
 	@Path("/{id}/item")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ItemJSON> searchItemsByProduct(@PathParam("id") Long id) {
+	public List<ItemJSON> getItemsByProductId(@PathParam("id") Long id) {
 		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 		
 		for (Item item : productService.findById(id).getItems()) {
@@ -81,7 +81,7 @@ public class ProductWS {
 	@Path("/{id}/dimensions")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public DimensionsJSON getDimensions(@PathParam("id") Long id) {
+	public DimensionsJSON getDimensionsByProductId(@PathParam("id") Long id) {
 		return new DimensionsJSON(productService.findById(id).getDimensions());
 	}
 }

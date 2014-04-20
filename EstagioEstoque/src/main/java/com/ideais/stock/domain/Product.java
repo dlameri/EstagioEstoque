@@ -24,7 +24,7 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "PRODUTO")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Product {
 	@Id
 	@SequenceGenerator(name = "product_id", sequenceName = "product_id")
@@ -74,7 +74,7 @@ public class Product {
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Category category;
 	
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy="product")
 	@Cascade(CascadeType.ALL)
 	private List<Item> items;
@@ -206,5 +206,10 @@ public class Product {
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	
+	@Override
+	public String toString() {
+		return id + " - " + name;
 	}
 }

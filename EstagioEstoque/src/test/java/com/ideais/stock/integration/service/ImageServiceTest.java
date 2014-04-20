@@ -1,4 +1,4 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -18,8 +18,8 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.service.ImageService;
 
-@RunWith(JUnit4.class)
-public class ImageDaoTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class ImageServiceTest extends AbstractServiceTest {
 	
 	@Autowired
 	private ImageService imageService;
@@ -53,6 +53,7 @@ public class ImageDaoTest {
 		product.setBrand("Paco Ideais");
 		product.setModel("XTVZB-4435");
 		product.setActive(true);
+		product.setRank(0);
 		
 		item.setSku(01L);
 		item.setActive(true);
@@ -62,10 +63,13 @@ public class ImageDaoTest {
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		item.setRank(0);
+		item.setPromo(false);
 		
 		subcategory.setName("Luvas4");
+		subcategory.setActive(true);
 		
 		category.setName("Esportes4");
+		category.setActive(true);
 		
 		subcategory.setCategory(category);
 		product.setCategory(category);
@@ -79,37 +83,44 @@ public class ImageDaoTest {
 		image.setShowcaseUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setSuperzoomUrl("http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg");
 		image.setItem(item);
+		
+		super.setUp();
 	}
 	
 	@Test
 	public void test_create() {
 		Image savedImage = imageService.save(image, true);
 		
-		assertEquals( savedImage.getId(), image.getId() );
+		assertEquals( "http://img1.mlstatic.com/s_MLB_v_O_f_4208129728_042013.jpg", savedImage.getShoppingCartUrl() );
 	}
 	
 	@Test
 	public void test_find_all() {
-		assertEquals(0, imageService.findAll().size());
+		assertEquals(1, imageService.findAll().size());
 	}
 	
 	@Test
 	public void test_find_by_id() {
-	    Image savedImage = imageService.save(image, true);
-	    
-		assertEquals(savedImage.getId(), imageService.findById(savedImage.getId()).getId());
+		assertEquals(new Long(1), imageService.findById(1L).getId());
 	}
 	
 	@Test
 	public void test_update() {
-		Image savedImage = imageService.save(image, true);
+		image = imageService.findById(1L);
 		
 		image.setProductUrl("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg");
 		imageService.save(image, true);
 		
-		Image updatedImage = imageService.findById(savedImage.getId());
+		Image updatedImage = imageService.findById(1L);
 		
 		assertEquals("http://i.mlcdn.com.br/1500x1500/notebook-acer-aspire-e1-nx.m21al.019-intel-core-i34gb-500gb-windows-8-led-15-6-hdmi-135204700.jpg", updatedImage.getProductUrl());
+	}
+	
+	@Test
+	public void delete() { 
+		image = imageService.findById(1L);
+		imageService.delete(image);
+		assertEquals(0, imageService.findAll().size());
 	}
 
 }

@@ -33,8 +33,8 @@ public class ItemJSON {
 		this.rank = item.getRank();
 		this.active = item.getActive();
 		this.count = item.getCount();
-		this.formattedPriceFrom = item.getFormatedPriceFrom();
-		this.formattedPriceFor = item.getFormatedPriceFor();
+		this.formattedPriceFrom = item.getFormattedPriceFrom();
+		this.formattedPriceFor = item.getFormattedPriceFor();
 		
 		links.add(new Link("item/"+id+"/image", "image"));
 		links.add(new Link("product/"+item.getProductId(),"product"));

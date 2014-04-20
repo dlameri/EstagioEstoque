@@ -1,4 +1,4 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionException;
@@ -26,6 +26,7 @@ public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 		prepareDatabase();
 	}
 	
+	@SuppressWarnings("unused")
 	private Session session() {
 		if (sessionFactory == null) {
 			throw new SessionException("Session Factory não pode ser nulo.");

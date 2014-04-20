@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.ImageJSON;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.service.ItemService;
@@ -50,12 +49,10 @@ public class ItemWS {
 		return new ItemJSON(itemService.findById(id));
 	}
 	
-	@Path("/{id}/item")
+	@Path("/{id}/image")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ImageJSON> searchImageByItem(@PathParam("id") Long id) {
-		Product product = new Product();
-		product.setId(id);
+	public List<ImageJSON> getImagesByItemId(@PathParam("id") Long id) {
 		List<ImageJSON> imageJSONs = new ArrayList<ImageJSON>();
 		
 		for (Image image : itemService.findById(id).getImages()) {

@@ -1,4 +1,4 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,7 +13,7 @@ import com.ideais.stock.service.AdminService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AdminDaoTest extends AbstractDaoTest {
+public class AdminServiceTest extends AbstractServiceTest {
 
 	private Admin admin;
 	@Autowired

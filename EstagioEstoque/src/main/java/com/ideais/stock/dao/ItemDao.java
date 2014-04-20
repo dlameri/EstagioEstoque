@@ -38,7 +38,7 @@ public class ItemDao extends AbstractDao<Item>{
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add(Restrictions.like("active", true));
 		
-		return super.findAll(Item.class, Order.asc("name"), restrictions);
+		return super.findAll(Item.class, Order.asc("sku"), restrictions);
 	}
 	
 	public List<Item> findAllOrderByRank() {

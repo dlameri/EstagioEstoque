@@ -51,7 +51,7 @@ public class CategoryWS {
 	@Path("/{id}/subcategory")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<SubcategoryJSON> getSubcategoryByCategory(@PathParam("id") Long id) {
+	public List<SubcategoryJSON> getSubcategoriesByCategoryId(@PathParam("id") Long id) {
 		Category category = categoryService.findById(id);
 		
 		List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
@@ -65,7 +65,7 @@ public class CategoryWS {
 	@Path("/{id}/product")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ProductJSON> searchProductsByCategoryId(@PathParam("id") Long id,
+	public List<ProductJSON> getProductsByCategoryId(@PathParam("id") Long id,
 			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
 			@QueryParam("active") @DefaultValue("true") String active,

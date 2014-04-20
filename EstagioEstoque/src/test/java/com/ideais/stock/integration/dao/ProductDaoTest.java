@@ -1,8 +1,9 @@
-package com.ideais.stock.dao;
+package com.ideais.stock.integration.dao;
 
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,18 +11,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ProductDaoTest extends AbstractDaoTest {
 
 	@Autowired
-	private ProductService productService;
+	private ProductDao productDao;
 	private Subcategory subcategory;
 	private Category category;
 	private Dimensions dimensions;
@@ -46,12 +47,16 @@ public class ProductDaoTest extends AbstractDaoTest {
 		product.setWarranty(36);
 		product.setBrand("Paco Ideais");
 		product.setModel("XTVZB-4435");
+		product.setActive(true);
+		product.setRank(0);
 		
 		subcategory.setName("Luvas");
 		
 		category.setName("Esportes");
+		category.setActive(true);
 		
 		subcategory.setCategory(category);
+		subcategory.setActive(true);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
 		
@@ -60,9 +65,8 @@ public class ProductDaoTest extends AbstractDaoTest {
 	
 	@Test
 	public void test_create() {
-		Product savedProduct = productService.save(product);
-
-		assertEquals( savedProduct.getId(), product.getId() );
+		Product savedProduct = productDao.save(product);
+		assertEquals( new Long(11), savedProduct.getId());
 	}
 	
 	@Test
@@ -76,25 +80,21 @@ public class ProductDaoTest extends AbstractDaoTest {
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		item.setProduct(product);
-
-		Product savedProduct = productService.save(product);
-
-		assertEquals( savedProduct.getId(), product.getId() );
+		List<Product> products = productDao.findAll();
+		for (Product product : products) {
+			System.out.println(product);
+		}
+		Product savedProduct = productDao.save(product);
+		products = productDao.findAll();
+		for (Product product : products) {
+			System.out.println(product);
+		}
+		assertEquals( new Long(12), savedProduct.getId());
 	}
-	
-	
-	@Test
-	public void test_delete() {
-		product = productService.findById(1L);
 		
-		productService.delete(product);
-
-		assertEquals( 0, productService.findAll().size() );
-	}
-	
 	@Test
 	public void find_by_id() {
-		Product product = productService.findById(1L);
+		Product product = productDao.findById(1L);
 		
 		assertEquals(new Long(1), product.getId());
 	}

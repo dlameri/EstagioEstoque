@@ -76,7 +76,7 @@ public class Item {
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Image> images;
 	
-	public String valueFormater(BigDecimal value) {
+	public String valueFormatter(BigDecimal value) {
 	    Locale Local = new Locale("pt", "BR");
 	    DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Local));
 	    return "R$ " + df.format(value);
@@ -182,12 +182,12 @@ public class Item {
 		this.active = active;
 	}
 	
-	public String getFormatedPriceFrom() {
-	    return valueFormater(priceFrom);
+	public String getFormattedPriceFrom() {
+	    return valueFormatter(priceFrom);
 	}
 
-	public String getFormatedPriceFor() {
-		return valueFormater(priceFor);
+	public String getFormattedPriceFor() {
+		return valueFormatter(priceFor);
 	}
 
 	public Boolean getPromo() {

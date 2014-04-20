@@ -38,14 +38,14 @@ public class SubcategoryWS {
 	@Path("/{id}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public SubcategoryJSON getSubcategoriesById(@PathParam("id") Long id) {
+	public SubcategoryJSON getSubcategoryById(@PathParam("id") Long id) {
 		return new SubcategoryJSON(subcategoryService.findById(id));
 	}
 	
 	@Path("{id}/product")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<ProductJSON> getProductBySubcategory(@PathParam("id") Long id) {
+	public List<ProductJSON> getProductsBySubcategoryId(@PathParam("id") Long id) {
 		Subcategory subcategory = subcategoryService.findById(id);
 		
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();

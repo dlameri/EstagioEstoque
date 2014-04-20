@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ideais.stock.dao.AbstractDaoTest;
 import com.ideais.stock.domain.Admin;
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -13,6 +12,7 @@ import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.integration.dao.AbstractDaoTest;
 import com.ideais.stock.service.AdminService;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ImageService;
