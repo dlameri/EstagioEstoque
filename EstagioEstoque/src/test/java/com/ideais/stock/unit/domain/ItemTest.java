@@ -14,7 +14,7 @@ import com.ideais.stock.domain.Item;
 @RunWith(JUnit4.class)
 public class ItemTest {
 	
-	Item item;
+	private Item item;
 	
 	@Before
 	public void setUp() {

@@ -12,7 +12,7 @@ import com.ideais.stock.domain.Subcategory;
 @RunWith(JUnit4.class)
 public class SubcategoryTest {
 	
-	Subcategory subcategory;
+	private Subcategory subcategory;
 	
 	@Before
 	public void setUp() {

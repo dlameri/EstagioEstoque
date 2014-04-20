@@ -12,7 +12,7 @@ import com.ideais.stock.domain.Product;
 @RunWith(JUnit4.class)
 public class ProductTest {
 	
-	Product product;
+	private Product product;
 	
 	@Before
 	public void setUp() {
