@@ -1,7 +1,7 @@
 $(function() {
 
 	$(".btn-danger").click(function() {
-		var urlToSend = $(this).attr("id");
+		var urlToSend = "deletecategory?id=" + $(this).closest("li").attr("id");
 		console.log("Url do request: " + urlToSend);
 
 		$("#toBeDeleted").empty();

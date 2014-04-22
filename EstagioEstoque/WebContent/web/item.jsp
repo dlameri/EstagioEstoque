@@ -42,7 +42,7 @@
 	<ul>
 		<c:forEach items="${items}" var="item">
 			<li>
-				Nome: ${item.name}
+				Nome: ${item.sku}
 				<br/><a href="deleteitem?id=${item.id}">deletar</a>
 			</li>
 		</c:forEach>
