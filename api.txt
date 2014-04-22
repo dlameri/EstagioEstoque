@@ -13,6 +13,23 @@ Categoria:
 	}
 
 
+	@Path("/{id}/subcategory")
+	@GET
+		retorna todas as subcategorias de uma determinada categoria
+	}
+
+
+	@Path("/{id}/product")
+	@GET
+		retorna todos os produtos de uma determinada categoria
+	}
+
+
+	@Path("/{id}/topproducts")
+	@GET
+		retorna todos os produtos mais vendidos de uma determinada categoria
+	}
+
 
 Subategoria:
 	@Path("/api/subcategory")
@@ -23,15 +40,14 @@ Subategoria:
 	}
 
 	@Path("/{id}")
+	@GET
 		retorna a categoria desejada
 	}
-	
-	@Path("/category/{id}")
+
+	@Path("{id}/product")
 	@GET
-		retorna todas as subcategorias de um determinada categoria
-	}
-
-
+		retorna todos os produtos de uma determinada subcategoria
+	}	
 
 
 Produto:
@@ -54,34 +70,22 @@ Produto:
 		retorna o produto desejado
 	}
 
-	@Path("/seach/{textToSeach}")
+	@Path("/search/{textToSearch}")
 	@GET
 		retorna uma lista de produtos que contenham o texto desejado no nome
 	}
 	
-	@Path("/bycategoryid/{id}")
+	@Path("/{id}/item")
 	@GET
-		retorna uma lista de produtos da categoria desejada
+		retorna todos os itens de um determinado produto
 	}
 	
-	@Path("/bysubcategoryid/{id}")
+	@Path("/{id}/dimensions")
 	@GET
-		retorna uma lista de produtos da subcategoria desejada
+		retorna as dimensoes de um determinado produto
 	}
 
-	@Path("/updatestock")
-	@PUT
-		da baixa no estoque
-	}
-
-	@Path("/orderbyrank")
-	@GET
-		retorna todos os produtos ordenados pelo maior rank
-	}
-
-
-
-
+	
 
 Item:
 	@Path("/api/item")
@@ -103,16 +107,9 @@ Item:
 		retorna o item com o id desejado
 	}
 	
-	@Path("/byproductid/{id}")
+	@Path("/{id}/image")
 	@GET
-		retorna os 20 primeiros itens do produto correspondente
-
-		parametros que podem ser usados para personalizar a busca:
-		orderColum="coluna que você deseja ordenar"  --  o nome da coluna deve ser o mesmo nome que está no json. default=rank
-		order="asc" ou "desc" default=desc
-		active="true", "false" ou "all" default=true  (qualquer outro valor vai ser "false")
-		firstResult=">=0" define qual será o primeiro resultado a ser exibido. default=0
-		maxResults=de 1 a 50 -- define o maximo de resultados a ser exibido. se for mais de 50 vai retornar 50 e se for menor que 1 vai retornar 1. default = 20
+		retorna todas as imagens de um determinado item
 	}
 
 	@Path("/orderbyrank")
