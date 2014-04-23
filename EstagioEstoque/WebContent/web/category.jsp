@@ -27,9 +27,14 @@
 		<div id="tbox3">
 			<h3>Categorias Cadastradas</h3>
 			<c:forEach items="${categories}" var="category">
-				<li class="${category.name}">${category.name}&nbsp;<a href="categorias?id=${category.id}">
-				<button	type="button" class="btn btn-xs btn-warning">Editar</button></a>
-				<button id="deletecategory?id=${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
+				<li id="${category.id}">
+					
+				<span id="name-${category.id}" >${category.name}</span>
+				&nbsp;
+				<a id="edit-${category.id}" href="categorias?id=${category.id}">
+					<button	type="button" class="btn btn-xs btn-warning">Editar</button>
+				</a>
+				<button id="delete-${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
 				</li>
 			</c:forEach>
 		</div>
@@ -37,7 +42,6 @@
 	
 	<div id="toBeDeleted">
 		<c:if test="${deleted == \"true\" }">
-<%-- 		<c:if test="${deleted}"> --%>
 			<p> Categoria deletada com sucesso. </p>
 		</c:if>
 	</div>

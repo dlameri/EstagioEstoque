@@ -71,13 +71,14 @@ dependencies {
 	compile 'com.sun.jersey.contribs:jersey-spring:1.8'
 	
 	// Selenium
-	compile 'org.seleniumhq.selenium:selenium-java:2.41.0'
-	compile 'org.seleniumhq.selenium:selenium-server:2.41.0'
-	compile 'org.seleniumhq.selenium:selenium-firefox-driver:2.41.0'
+	testCompile 'org.seleniumhq.selenium:selenium-java:2.41.0'
+	testCompile 'org.seleniumhq.selenium:selenium-server:2.41.0'
+	testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.41.0'
 	
 	// Utils
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	compile 'cglib:cglib:2.2.2'
+	testCompile 'org.mockito:mockito-all:1.8.4'
 }
 
 task copyToWebLib(type: Copy) {

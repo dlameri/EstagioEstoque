@@ -12,6 +12,7 @@ public class ImageJSON {
 	private String shoppingCartUrl;
 	private String androidShowcaseUrl;
 	private String androidProductUrl;
+	private String promo;
 	private Boolean main;
 	
 	public ImageJSON(Image image) {
@@ -22,6 +23,7 @@ public class ImageJSON {
 		this.shoppingCartUrl = image.getShoppingCartUrl();
 		this.androidShowcaseUrl = image.getAndroidShowcaseUrl();
 		this.androidProductUrl = image.getAndroidProductUrl();
+		this.promo = image.getPromo();
 		this.main = image.getMain();
 	}
 	
@@ -72,5 +74,13 @@ public class ImageJSON {
 	}
 	public void setMain(Boolean main) {
 		this.main = main;
+	}
+
+	public String getPromo() {
+		return promo;
+	}
+
+	public void setPromo(String promo) {
+		this.promo = promo;
 	}
 }

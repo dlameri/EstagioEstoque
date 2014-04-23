@@ -24,9 +24,9 @@ public class AbstractServiceTest extends AbstractTransactionalJUnit4SpringContex
 	@Before
 	public void setUp() {
 		prepareDatabase();
+		session().flush();
 	}
 	
-	@SuppressWarnings("unused")
 	private Session session() {
 		if (sessionFactory == null) {
 			throw new SessionException("Session Factory não pode ser nulo.");
