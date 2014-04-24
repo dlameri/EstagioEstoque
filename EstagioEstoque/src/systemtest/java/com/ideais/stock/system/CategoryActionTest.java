@@ -32,6 +32,13 @@ public class CategoryActionTest extends AbstractSystemTest {
 	    element = driver.findElement(By.name("category.name"));
 	    element.sendKeys("Categoria S");
 	    element.submit();
+	    
+	    try {
+	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name-4")));
+	    } catch (Exception e) {
+	    	fail("Categoria criada não foi encontrada."); 
+	    }
+	    
 		assertEquals("Categoria S", getTextById("name-4"));
 	    assertEquals(1, jdbcTemplate.queryForInt("SELECT COUNT(*) FROM CATEGORIA WHERE NM_NOME = ?", new Object[]{"Categoria S"}));
 	}
@@ -42,7 +49,13 @@ public class CategoryActionTest extends AbstractSystemTest {
 	    element = driver.findElement(By.name("category.name"));
 	    element.sendKeys("A");
 	    element.submit();
-	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name-1")));
+	    
+	    try{
+	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("name-1")));
+	    } catch (Exception e) {
+	    	fail("Categoria editada não foi encontrada."); 
+	    }
+	    
 	    assertEquals("Categoria 1A", getTextById("name-1"));
 	}
 	
