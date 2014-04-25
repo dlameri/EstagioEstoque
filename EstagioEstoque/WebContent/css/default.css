@@ -134,6 +134,16 @@ ul.style1 {
 	
 }
 
+.categoryNameList{
+	width: 170px;
+	display: inline-block;
+}
+
+.subcategoryNameList{
+	width: 170px;
+	display: inline-block;
+}
+
 /*********************************************************************************/
 /* Social Icon Styles                                                            */
 /*********************************************************************************/

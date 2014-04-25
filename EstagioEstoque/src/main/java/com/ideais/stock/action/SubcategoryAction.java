@@ -176,4 +176,5 @@ public class SubcategoryAction extends ActionSupport {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
+	
 }

@@ -51,7 +51,7 @@ public class CategoryAction extends ActionSupport {
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
-	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Obrigatório selecionar um categoria") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") })
+	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Obrigatório selecionar um categoria") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "17", message = "Nome com tamanho fora do padrão.") })
 	public String saveCategory() {
 		try {
 			if (category.getId() != null) {
