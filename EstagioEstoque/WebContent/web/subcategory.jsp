@@ -11,41 +11,47 @@
 <title>Subcategoria</title>
 </head>
 <body>
-	<h1>Subcategoria</h1>
-	
-		<form action="addsubcategory" class="form" method="post">
-		
-		<fieldset>
-			<label>Selecione uma categoria:</label>
-			<select name="category.id" id="categoryList" style="display: block;">
-				<c:forEach items="${categories}" var="category">
-					<option value="${category.id}">${category.name}</option>
-				</c:forEach>
-			</select>
+	<div id="three-column" class="container">
+		<div id="tbox2">
+			<h3>Nova SubCategoria</h3>
+			<form action="addsubcategory" class="form" method="post">
 
-			<label>Nome subcategria:</label><br/>
-			<s:textfield id="form-control" placeholder="Subcategoria" name="subcategory.name" cssClass="subcategoryName" maxlength="15" />
-			<span class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</span><br/><br/>
-			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
-		</fieldset>	
-	</form>
+				<fieldset>
+					<label>Selecione uma categoria:</label> <select name="category.id"
+						id="categoryList" style="display: block;">
+						<c:forEach items="${categories}" var="category">
+							<option value="${category.id}">${category.name}</option>
+						</c:forEach>
+					</select> <label>Nome da subcategoria:</label>
+					<s:textfield id="form-control" placeholder="Subcategoria"
+						name="subcategory.name" cssClass="subcategoryName" maxlength="15" />
+					<input type="submit" class="btn btn-submit btn-primary"
+						value="Salvar" /> <span class="error_message hidden nameError">O
+						nome da subcategoria deve ter pelo menos 3 caracteres.</span><br /> <br />
+				</fieldset>
+			</form>
 
-		<ul>
-		<c:forEach items="${categories}" var="category">
-			<li>${category.name}</li>
+		</div>
+		<div id="tbox3">
+			<h3>Subcategorias Cadastradas</h3>
 			<ul>
-			<c:if test="${category.subcategories != null }">
-			<c:forEach items="${category.subcategories}" var="subcategory">
-				<li>
-					<c:if test="${subcategory.active != false }" >
-						${subcategory.name} - editar - <a href="deletesubcategory?id=${subcategory.id}">deletar</a>
-					</c:if>
-				</li>
-			</c:forEach>
-			</c:if>
+				<c:forEach items="${categories}" var="category">
+					<li>${category.name}</li>
+					<ul>
+						<c:if test="${category.subcategories != null }">
+							<c:forEach items="${category.subcategories}" var="subcategory">
+								<li><c:if test="${subcategory.active != false }">
+						<span class ="subcategoryNameList" >${subcategory.name}</span> <a href="editsubcategory?id=${subcategory.id}"
+											type="button" class="btn btn-xs btn-warning"">editar</a>
+										<a href="deletesubcategory?id=${subcategory.id}" type="button"
+											class="btn btn-xs btn-danger">deletar</a>
+									</c:if></li>
+							</c:forEach>
+						</c:if>
+					</ul>
+				</c:forEach>
 			</ul>
-		</c:forEach>
-	</ul>
-
+		</div>
+	</div>
 </body>
 </html>
