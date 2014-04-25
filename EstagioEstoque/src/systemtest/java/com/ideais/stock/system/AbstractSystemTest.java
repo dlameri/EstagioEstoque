@@ -1,5 +1,6 @@
 package com.ideais.stock.system;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.openqa.selenium.By;
@@ -10,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-
-import com.opensymphony.xwork2.interceptor.annotations.After;
-
 
 @Ignore
 @ContextConfiguration("classpath:spring/systemTestContext.xml")
@@ -30,7 +28,7 @@ public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContext
 	}
 	
 	@After
-	public void tearDown() {
+	public void closeFirefox() {
 		driver.close();
 	}
 	
