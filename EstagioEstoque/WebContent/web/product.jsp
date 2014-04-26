@@ -13,47 +13,10 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-<form action="addproduct" class="form" method="post">
-		<fieldset>
-			<label>Selecione uma subcategoria:</label>
-			<select id="categoryList" style="display: block;">
-				<c:forEach items="${categories}" var="category">
-					<option value="${category.id}">${category.name}</option>
-				</c:forEach>
-			</select>	
-			
-			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
-			</select>
-
-			<label for="name">Nome produto:</label>
-			<s:textfield  placeholder="Nome" name="product.name" cssClass="productName"  /><br/>
-			<label>Descrição curta:</label>
-			<s:textfield placeholder="Descrição" name="product.shortDescription" cssClass="shortDesc" /><br/>
-			<label>Descrição longa:</label>
-			<s:textarea name="product.longDescription" cssClass="longDesc" cols="40" rows="10" /><br/>
-			<label>Peso:</label>
-			<s:textfield  placeholder="Peso" name="product.weight" cssClass="weight"  /><br/>
-			<label>Garantia:</label>
-			<s:textfield  placeholder="Garantia" name="product.warranty" cssClass="warranty"  /><br/>
-			<label>Marca:</label>
-			<s:textfield  placeholder="Marca" name="product.brand" cssClass="brand"  /><br/>
-			<label>Modelo:</label>
-			<s:textfield  placeholder="Modelo" name="product.model" cssClass="model"  /><br/>
-			<label class="btn-submit">Dimensões:</label>
-			<s:textfield  placeholder="Largura" name="dimensions.width" cssClass="width"  />
-			<s:textfield  placeholder="Altura" name="dimensions.height" cssClass="height"  />
-			<s:textfield  placeholder="Profundidade" name="dimensions.depth" cssClass="depth"  /><br/>
-			<input type="submit" class="btn btn-submit btn-primary" value="Salvar" />
-		</fieldset>	
-	</form>
-	
-=======
 <a href="formProduto">Adicionar Produto</a>
 	<br>
 	<br>
 	<br>
->>>>>>> 32c1f930dcff9caca3c6440a0b6068eaa80b5b53
 	<ul>
 		<c:forEach items="${products}" var="product">
 			<li>
