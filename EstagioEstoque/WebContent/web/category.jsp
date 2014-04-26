@@ -21,10 +21,12 @@
 					da categoria:</label>
 				<s:textfield type="text" id="form-control" placeholder="Categoria"
 					name="category.name" value="%{category.name}"
-					cssClass="categoryName" maxlength="15" />
+					cssClass="categoryName" minlength="3" maxlength="17" />
 				<input type="submit" class="btn btn-submit btn-primary"
 					value="Salvar" />
 			</form>
+			<p class="error_message hidden nameError">O nome da categoria
+				deve ter pelo menos 3 caracteres.</p>
 
 		</div>
 		<div id="tbox3">

@@ -121,6 +121,15 @@ public class ProductAction extends ActionSupport {
 			return ERROR;
 		}
 	}
+	
+	@SkipValidation
+	public String getProductById() {
+		if (Validade.isValid(id)) {
+			product = productService.findById(Long.valueOf(id));
+			return SUCCESS;
+		}
+		return ERROR;
+	}
 
 	@SkipValidation
 	public String listProducts() {

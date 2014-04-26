@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 <form action="addproduct" class="form" method="post">
 		<fieldset>
 			<label>Selecione uma subcategoria:</label>
@@ -47,11 +48,17 @@
 		</fieldset>	
 	</form>
 	
+=======
+<a href="formProduto">Adicionar Produto</a>
+	<br>
+	<br>
+	<br>
+>>>>>>> 32c1f930dcff9caca3c6440a0b6068eaa80b5b53
 	<ul>
 		<c:forEach items="${products}" var="product">
 			<li>
 				${product.category} - ${product.subcategory} <br/>
-				Nome: ${product.name} - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
+				Nome: <a href="formProduto?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
 				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/>
 				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth }
 				<br/><a href="deleteproduct?id=${product.id}">deletar</a>

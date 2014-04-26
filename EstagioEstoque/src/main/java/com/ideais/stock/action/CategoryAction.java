@@ -61,6 +61,10 @@ public class CategoryAction extends ActionSupport {
 	)
 	public String saveCategory() {
 		try {
+			if (category.getId() != null) {
+				categoryService.save(category);
+				return SUCCESS;
+			}
 			categoryService.save(category);
 			return SUCCESS;
 

@@ -132,6 +132,12 @@
 				<param name="location">/web/produtos?error=true</param>
 			</result>
 		</action>
+		
+		<action name="formProduto" class="com.ideais.stock.action.ProductAction"
+			method="getProductById">
+			<result name="success">addproduct.jsp</result>
+			<result name="error">home.jsp</result>
+		</action>
 
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"
 			method="getSubcategoryList">

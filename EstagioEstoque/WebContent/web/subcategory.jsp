@@ -21,12 +21,7 @@
 					<label>Selecione uma categoria:</label> <select name="category.id"
 						id="categoryList" style="display: block;">
 						<c:forEach items="${categories}" var="category">
-							<c:if test="${subcategory.category != category}">
-								<option value="${category.id}">${category.name}</option>
-							</c:if>
-							<c:if test="${subcategory.category == category}">
-								<option value="${category.id}" selected>${category.name}</option>
-							</c:if>
+							<option value="${category.id}" ${category.id == subcategory.category.id ? 'selected' : ''}>${category.name}</option>
 						</c:forEach>
 					</select> 
 					<input type="hidden" name="subcategory.id" value="${subcategory.id}" /> 
