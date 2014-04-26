@@ -148,6 +148,16 @@
 			<result name="error"></result>
 		</action>
 		
+		<action name="getPaginatedProducts" class="com.ideais.stock.action.ProductAction"
+			method="getPaginatedProducts">
+			<result type="json">
+				<param name="root">
+					productJSONs
+				</param>
+			</result>
+			<result name="error"></result>
+		</action>
+		
 		
 		<!-- Itens -->
 				

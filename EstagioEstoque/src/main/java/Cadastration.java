@@ -53,8 +53,8 @@ public class Cadastration extends AbstractTransactionalJUnit4SpringContextTests 
 
 			Admin admin = new Admin();
 			
-			admin.setEmail("admin2@teste.com");
-			admin.setName("Admin Teste2");
+			admin.setEmail("admin@teste.com");
+			admin.setName("Admin Teste");
 			admin.setPassword("123");
 			adminService.save(admin);
 			

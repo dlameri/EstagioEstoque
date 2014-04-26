@@ -8,8 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
-<script type="text/javascript" src="../js/product.js"></script>
-<%-- <script type="text/javascript" src="../js/validate.product.js"></script> --%>
+<script type="text/javascript" src="../js/product/pagination.js"></script>
 </head>
 <body>
 
@@ -17,7 +16,7 @@
 	<br>
 	<br>
 	<br>
-	<ul>
+	<ul class="productsList">
 		<c:forEach items="${products}" var="product">
 			<li>
 				${product.category} - ${product.subcategory} <br/>
@@ -28,5 +27,9 @@
 			</li>
 		</c:forEach>
 	</ul>
+	
+	<div id="pagination"></div>
+	<input type="hidden" class="elementsCount" value="${products[0].count}"/>
+
 </body>
 </html>

@@ -12,6 +12,7 @@ import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ItemJSON;
+import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
@@ -34,7 +35,8 @@ public class ProductAction extends ActionSupport {
 	private String id;
 	private String deleted;
 	private String confirmation;
-
+	private String page;
+	
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -53,6 +55,7 @@ public class ProductAction extends ActionSupport {
 	private List<Item> items = new ArrayList<Item>();
 
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
+	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
 	@Validations(
@@ -153,7 +156,24 @@ public class ProductAction extends ActionSupport {
 
 	@SkipValidation
 	public String listProducts() {
-		products = productService.findAll(true);
+		products = productService.personalizedQuery("id","asc","true","0","10");
+		return SUCCESS;
+	}
+	
+	@SkipValidation
+	public String getPaginatedProducts() {
+		if (page == null) {
+			page = "0";
+		}
+		
+		productJSONs.clear();
+
+		products = productService.personalizedQuery("id","asc","true",String.valueOf(Integer.parseInt(page) * 10),"10");
+		
+		for (Product product : products) {
+			productJSONs.add(new ProductJSON(product));
+		}
+		
 		return SUCCESS;
 	}
 
@@ -167,6 +187,7 @@ public class ProductAction extends ActionSupport {
 				subcategories.add(new SubcategoryJSON(subcategory));
 			}
 		} catch (Exception e) {
+			LOG.error("Erro ao obter lista de subcategorias para pagina de cadastro de produto.", e);
 			return ERROR;
 		}
 
@@ -246,11 +267,27 @@ public class ProductAction extends ActionSupport {
 		this.confirmation = confirmation;
 	}
 
+	public List<ProductJSON> getProductJSONs() {
+		return productJSONs;
+	}
+
+	public void setProductJSONs(List<ProductJSON> productJSONs) {
+		this.productJSONs = productJSONs;
+	}
+
 	public List<ItemJSON> getItemJSONs() {
 		return itemJSONs;
 	}
 
 	public void setItemJSONs(List<ItemJSON> itemJSONs) {
 		this.itemJSONs = itemJSONs;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
 	}
 }
