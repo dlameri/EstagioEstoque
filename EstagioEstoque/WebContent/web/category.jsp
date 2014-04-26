@@ -25,8 +25,6 @@
 				<input type="submit" class="btn btn-submit btn-primary"
 					value="Salvar" />
 			</form>
-			<p class="error_message hidden nameError">O nome da categoria
-				deve ter pelo menos 3 caracteres.</p>
 
 		</div>
 		<div id="tbox3">

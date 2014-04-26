@@ -12,6 +12,7 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -54,7 +55,10 @@ public class ItemAction extends ActionSupport {
 			@RequiredFieldValidator(fieldName="item.stock", type= ValidatorType.FIELD, message="Largura não pode ser nulo."),
 		},
 		fieldExpressions={
-				@FieldExpressionValidator(fieldName="item.priceFor", shortCircuit=true, expression="item.priceFrom > item.priceFor", message="Preço Por deve ser maior que Preço De.")
+			@FieldExpressionValidator(fieldName="item.priceFor", expression="item.priceFrom > item.priceFor", message="Preço Por deve ser maior que Preço De.", shortCircuit=true)
+		}, 
+		conversionErrorFields={
+			@ConversionErrorFieldValidator(message = "Deve ser um número", shortCircuit = true)
 		}
 	)
 	public String addItem() {

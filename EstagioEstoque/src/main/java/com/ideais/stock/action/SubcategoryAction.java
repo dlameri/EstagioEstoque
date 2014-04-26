@@ -52,7 +52,14 @@ public class SubcategoryAction extends ActionSupport {
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
-	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, message = "Nome não pode ser nulo.") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") }, requiredFields = { @RequiredFieldValidator(fieldName = "category.id", type = ValidatorType.FIELD, message = "Selecione uma categoria.") })
+	@Validations(
+		requiredStrings={ 
+			@RequiredStringValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, message = "Nome não pode ser nulo.") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
+		}, 
+		requiredFields={ 
+			@RequiredFieldValidator(fieldName = "category.id", type = ValidatorType.FIELD, message = "Selecione uma categoria.") 
+		}
+	)
 	public String addSubcategory() {
 		category = categoryService.findById(category.getId());
 		subcategory.setCategory(category);
@@ -172,4 +179,13 @@ public class SubcategoryAction extends ActionSupport {
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}
+
+	public List<ProductJSON> getProductJSONs() {
+		return productJSONs;
+	}
+
+	public void setProductJSONs(List<ProductJSON> productJSONs) {
+		this.productJSONs = productJSONs;
+	}
+
 }

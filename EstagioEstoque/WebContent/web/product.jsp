@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
 <script type="text/javascript" src="../js/product.js"></script>
-<script type="text/javascript" src="../js/validate.product.js"></script>
+<%-- <script type="text/javascript" src="../js/validate.product.js"></script> --%>
 </head>
 <body>
 
@@ -25,23 +25,12 @@
 			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
 			</select>
 
-			<p class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden shortDescError">A descrição curta deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden longDescnameError">A descrição longa deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden weightError">O peso deve ser um número.</p>
-			<p class="error_message hidden warrantyError">A garantia deve ser um número.</p>
-			<p class="error_message hidden brandError">A marca deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden modelError">O modelo deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden widthError">A largura deve ser um número.</p>
-			<p class="error_message hidden heightError">A altura deve ser um número.</p>
-			<p class="error_message hidden depthError">A profundidade deve ser um número.</p>
-
 			<label for="name">Nome produto:</label>
 			<s:textfield  placeholder="Nome" name="product.name" cssClass="productName"  /><br/>
 			<label>Descrição curta:</label>
 			<s:textfield placeholder="Descrição" name="product.shortDescription" cssClass="shortDesc" /><br/>
 			<label>Descrição longa:</label>
-			<TextArea name="product.longDescription" class="longDesc" ></TextArea><br/>
+			<s:textarea name="product.longDescription" cssClass="longDesc" cols="40" rows="10" /><br/>
 			<label>Peso:</label>
 			<s:textfield  placeholder="Peso" name="product.weight" cssClass="weight"  /><br/>
 			<label>Garantia:</label>

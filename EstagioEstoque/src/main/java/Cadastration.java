@@ -3,7 +3,12 @@ import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Admin;
 import com.ideais.stock.domain.Category;
@@ -12,7 +17,6 @@ import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.integration.dao.AbstractDaoTest;
 import com.ideais.stock.service.AdminService;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ImageService;
@@ -20,8 +24,11 @@ import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
 
+@ContextConfiguration({"classpath:spring/applicationContext.xml", "classpath:spring/dataSource.xml"})
+@TransactionConfiguration(defaultRollback=false)
+@Transactional(propagation=Propagation.REQUIRED)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class Cadastration extends AbstractDaoTest {
+public class Cadastration extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
 	private AdminService adminService;

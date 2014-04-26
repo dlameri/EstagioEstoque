@@ -19,6 +19,7 @@ import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -54,20 +55,37 @@ public class ProductAction extends ActionSupport {
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
-	@Validations(requiredStrings = {
+	@Validations(
+		requiredStrings={
 			@RequiredStringValidator(fieldName = "product.name", type = ValidatorType.FIELD, message = "Nome não pode ser nulo."),
 			@RequiredStringValidator(fieldName = "product.longDescription", type = ValidatorType.FIELD, message = "Descrição longa não pode ser nulo."),
 			@RequiredStringValidator(fieldName = "product.shortDescription", type = ValidatorType.FIELD, message = "Descrição curta não pode ser nulo."),
 			@RequiredStringValidator(fieldName = "product.brand", type = ValidatorType.FIELD, message = "Marca não pode ser nulo."),
 			@RequiredStringValidator(fieldName = "product.model", type = ValidatorType.FIELD, message = "Modelo não pode ser nulo."),
 
-	}, stringLengthFields = { @StringLengthFieldValidator(fieldName = "product.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") }, requiredFields = {
+		}, 
+		stringLengthFields={ 
+			@StringLengthFieldValidator(fieldName = "product.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
+		},
+		requiredFields={
 			@RequiredFieldValidator(fieldName = "product.weight", type = ValidatorType.FIELD, message = "Peso não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "product.warranty", type = ValidatorType.FIELD, message = "Garantia não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "dimensions.height", type = ValidatorType.FIELD, message = "Altura não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "dimensions.width", type = ValidatorType.FIELD, message = "Largura não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "dimensions.depth", type = ValidatorType.FIELD, message = "Profundidade não pode ser nulo."),
-			@RequiredFieldValidator(fieldName = "subcategory.id", type = ValidatorType.FIELD, message = "Selecione uma subcategoria.") }, fieldExpressions = { @FieldExpressionValidator(fieldName = "subcategory.id", expression = "subcategory.id > 0", message = "Selecione uma subcategoria.") })
+			@RequiredFieldValidator(fieldName = "subcategory.id", type = ValidatorType.FIELD, message = "Selecione uma subcategoria.") 
+		}, 
+		fieldExpressions={ 
+			@FieldExpressionValidator(fieldName = "subcategory.id", expression = "subcategory.id > 0", message = "Selecione uma subcategoria.") 
+		},
+		conversionErrorFields={
+			@ConversionErrorFieldValidator(fieldName = "product.weight", message = "Deve ser um número", shortCircuit = true),
+			@ConversionErrorFieldValidator(fieldName = "product.warranty", message = "Deve ser um número", shortCircuit = true),
+			@ConversionErrorFieldValidator(fieldName = "dimensions.height", message = "Deve ser um número", shortCircuit = true),
+			@ConversionErrorFieldValidator(fieldName = "dimensions.width", message = "Deve ser um número", shortCircuit = true),
+			@ConversionErrorFieldValidator(fieldName = "dimensions.depth", message = "Deve ser um número", shortCircuit = true)
+		}
+	)
 	public String addProduct() {
 		subcategory = subcategoryService.findById(subcategory.getId());
 		product.setDimensions(dimensions);
@@ -106,6 +124,7 @@ public class ProductAction extends ActionSupport {
 
 	@SkipValidation
 	public String listProducts() {
+		products = productService.findAll(true);
 		return SUCCESS;
 	}
 
@@ -175,7 +194,6 @@ public class ProductAction extends ActionSupport {
 	}
 
 	public List<Product> getProducts() {
-		products = productService.findAll(true);
 		return products;
 	}
 
@@ -197,5 +215,13 @@ public class ProductAction extends ActionSupport {
 
 	public void setConfirmation(String confirmation) {
 		this.confirmation = confirmation;
+	}
+
+	public List<ItemJSON> getItemJSONs() {
+		return itemJSONs;
+	}
+
+	public void setItemJSONs(List<ItemJSON> itemJSONs) {
+		this.itemJSONs = itemJSONs;
 	}
 }

@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="../js/validate.subcategory.js"></script>
+<script type="text/javascript" src="../js/subcategory.js"></script>
 <title>Subcategoria</title>
 </head>
 <body>
@@ -26,11 +27,15 @@
 					<s:textfield id="form-control" placeholder="Subcategoria"
 						name="subcategory.name" cssClass="subcategoryName" maxlength="15" />
 					<input type="submit" class="btn btn-submit btn-primary"
-						value="Salvar" /> <span class="error_message hidden nameError">O
-						nome da subcategoria deve ter pelo menos 3 caracteres.</span><br /> <br />
+						value="Salvar" />
 				</fieldset>
 			</form>
 
+			<span  id="toBeDeleted">
+				<c:if test="${deleted == \"true\" }">
+					<p>Subcategoria deletada com sucesso.</p>
+				</c:if>
+			</span>
 		</div>
 		<div id="tbox3">
 			<h3>Subcategorias Cadastradas</h3>
@@ -38,16 +43,15 @@
 				<c:forEach items="${categories}" var="category">
 					<li>${category.name}</li>
 					<ul>
-						<c:if test="${category.subcategories != null }">
-							<c:forEach items="${category.subcategories}" var="subcategory">
-								<li><c:if test="${subcategory.active != false }">
-						<span class ="subcategoryNameList" >${subcategory.name}</span> <a href="editsubcategory?id=${subcategory.id}"
-											type="button" class="btn btn-xs btn-warning"">editar</a>
-										<a href="deletesubcategory?id=${subcategory.id}" type="button"
-											class="btn btn-xs btn-danger">deletar</a>
-									</c:if></li>
-							</c:forEach>
-						</c:if>
+						<c:forEach items="${category.subcategories}" var="subcategory">
+							<c:if test="${subcategory.active == true}">
+								<li id="${subcategory.id}">
+									<span id="name-${subcategory.id}" class ="subcategoryNameList" >${subcategory.name}</span> 
+									<a id="edit-${subcategory.id}" href="editsubcategory?id=${subcategory.id}" type="button" class="btn btn-xs btn-warning">editar</a>
+									<button id="delete-${subcategory.id}" class="btn btn-xs btn-danger">deletar</button>
+								</li>
+							</c:if>
+						</c:forEach>
 					</ul>
 				</c:forEach>
 			</ul>
