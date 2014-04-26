@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<a href="formProduto">Adicionar Produto</a>
+<a href="productForm">Adicionar Produto</a>
 	<br>
 	<br>
 	<br>
@@ -21,7 +21,7 @@
 		<c:forEach items="${products}" var="product">
 			<li>
 				${product.category} - ${product.subcategory} <br/>
-				Nome: <a href="formProduto?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
+				Nome: <a href="productForm?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
 				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/>
 				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth }
 				<br/><a href="deleteproduct?id=${product.id}">deletar</a>

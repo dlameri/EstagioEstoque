@@ -109,7 +109,7 @@
 		</action>
 
 		<action name="addproduct" class="com.ideais.stock.action.ProductAction"
-			method="addProduct">
+			method="saveProduct">
 			<result name="success" type="redirect">
 				<param name="location">/web/produtos</param>
 			</result>
@@ -133,10 +133,9 @@
 			</result>
 		</action>
 		
-		<action name="formProduto" class="com.ideais.stock.action.ProductAction"
+		<action name="productForm" class="com.ideais.stock.action.ProductAction"
 			method="getProductById">
 			<result name="success">addproduct.jsp</result>
-			<result name="error">home.jsp</result>
 		</action>
 
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"

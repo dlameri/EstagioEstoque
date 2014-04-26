@@ -86,7 +86,10 @@ public class ProductAction extends ActionSupport {
 			@ConversionErrorFieldValidator(fieldName = "dimensions.depth", message = "Deve ser um número", shortCircuit = true)
 		}
 	)
-	public String addProduct() {
+	public String saveProduct() {
+		if (Validade.isValid(id)) {
+			product = productService.findById(Long.valueOf(id));
+		}
 		subcategory = subcategoryService.findById(subcategory.getId());
 		product.setDimensions(dimensions);
 		product.setCategory(subcategory.getCategory());
@@ -97,7 +100,7 @@ public class ProductAction extends ActionSupport {
 	}
 
 	@SkipValidation
-	public String deleteCategory() {
+	public String deleteProduct() {
 		if (Validade.isValid(id)) {
 			product = productService.findById(Long.valueOf(id));
 
@@ -124,11 +127,11 @@ public class ProductAction extends ActionSupport {
 	
 	@SkipValidation
 	public String getProductById() {
-		if (Validade.isValid(id)) {
+		if(Validade.isValid(id)) {
 			product = productService.findById(Long.valueOf(id));
-			return SUCCESS;
 		}
-		return ERROR;
+
+		return SUCCESS;
 	}
 
 	@SkipValidation

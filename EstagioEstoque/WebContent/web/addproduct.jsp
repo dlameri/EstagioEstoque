@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<form action="addproduct" class="form" method="post">
+	<form action="addproduct?id=${id}" class="form" method="post">
 		<fieldset>
 			<label>Selecione uma subcategoria:</label>
 			<select id="categoryList" style="display: block;">
@@ -24,23 +24,12 @@
 			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
 			</select>
 
-			<p class="error_message hidden nameError">O nome da subcategoria deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden shortDescError">A descrição curta deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden longDescnameError">A descrição longa deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden weightError">O peso deve ser um número.</p>
-			<p class="error_message hidden warrantyError">A garantia deve ser um número.</p>
-			<p class="error_message hidden brandError">A marca deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden modelError">O modelo deve ter pelo menos 3 caracteres.</p>
-			<p class="error_message hidden widthError">A largura deve ser um número.</p>
-			<p class="error_message hidden heightError">A altura deve ser um número.</p>
-			<p class="error_message hidden depthError">A profundidade deve ser um número.</p>
-
 			<label for="name">Nome produto:</label>
 			<s:textfield type="text" placeholder="Nome" name="product.name" value="%{product.name}" cssClass="productName"  /><br/>	
 			<label>Descrição curta:</label>
 			<s:textfield type="text" placeholder="Descrição" name="product.shortDescription"  value="%{product.shortDescription}" cssClass="shortDesc" /><br/>
 			<label>Descrição longa:</label>
-			<s:textfield type="textarea" name="product.longDescription" value="%{product.longDescription}" class="longDesc" /><br/>
+			<s:textarea name="product.longDescription" value="%{product.longDescription}" class="longDesc" /><br/>
 			<label>Peso:</label>
 			<s:textfield  placeholder="Peso" name="product.weight" value="%{product.weight}" cssClass="weight"  /><br/>
 			<label>Garantia:</label>
