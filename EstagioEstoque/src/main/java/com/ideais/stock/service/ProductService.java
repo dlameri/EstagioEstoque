@@ -33,6 +33,7 @@ public class ProductService {
 
 	public Product findById(Long id) {
 		try {
+			LOG.debug("Retornando o produto de id: "+ id);
 			return productDao.findById(id);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar o produto ", e);

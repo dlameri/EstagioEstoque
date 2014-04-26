@@ -43,7 +43,7 @@
 						<c:if test="${category.subcategories != null }">
 							<c:forEach items="${category.subcategories}" var="subcategory">
 								<li><c:if test="${subcategory.active != false }">
-						<span class ="subcategoryNameList" >${subcategory.name}</span> <a href="subcategorias?id=${subcategory.id}"
+										<span class ="subcategoryNameList" >${subcategory.name}</span> <a href="subcategorias?id=${subcategory.id}"
 											type="button" class="btn btn-xs btn-warning"">editar</a>
 										<a href="deletesubcategory?id=${subcategory.id}" type="button"
 											class="btn btn-xs btn-danger">deletar</a>

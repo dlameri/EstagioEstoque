@@ -25,8 +25,7 @@
 				<input type="submit" class="btn btn-submit btn-primary"
 					value="Salvar" />
 			</form>
-			<p class="error_message hidden nameError">O nome da categoria
-				deve ter pelo menos 3 caracteres.</p>
+			<p class="error_message hidden nameError">O nome da categoria deve ter pelo menos 3 caracteres.</p>
 
 		</div>
 		<div id="tbox3">
@@ -35,9 +34,9 @@
 				<li id="${category.id}"><span class ="categoryNameList" id="name-${category.id}">${category.name}</span>
 					<a id="edit-${category.id}" href="categorias?id=${category.id}">
 						<button type="button" class="btn btn-xs btn-warning">Editar</button>
-				</a>
-					<button id="delete-${category.id}" type="button"
-						class="btn btn-xs btn-danger">Deletar</button></li>
+					</a>
+					<button id="delete-${category.id}" type="button" class="btn btn-xs btn-danger">Deletar</button>
+				</li>
 			</c:forEach>
 		</div>
 	</div>
