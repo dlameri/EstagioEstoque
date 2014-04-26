@@ -107,6 +107,10 @@ public class SubcategoryAction extends ActionSupport {
 
 	@SkipValidation
 	public String listSubcategories() {
+		if (Validade.isValid(id)) {
+			subcategory = subcategoryService.findById(Long.valueOf(id));
+			return SUCCESS;
+		}
 		subcategories = subcategoryService.findAll(true);
 		return SUCCESS;
 	}
