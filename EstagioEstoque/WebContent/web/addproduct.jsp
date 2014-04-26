@@ -17,10 +17,11 @@
 			<label>Selecione uma subcategoria:</label>
 			<select id="categoryList" style="display: block;">
 				<c:forEach items="${categories}" var="category">
-					<option value="${category.id}">${category.name}</option>
+					<option value="${category.id}" ${category.id == product.category.id ? 'selected' : ''}>${category.name}</option>
 				</c:forEach>
 			</select>	
 			
+			<input type="hidden" class="subcategoryId" value="${product.subcategory.id}" />
 			<select name="subcategory.id" id="categoryList" class="subcategoryList" style="display: block;">
 			</select>
 

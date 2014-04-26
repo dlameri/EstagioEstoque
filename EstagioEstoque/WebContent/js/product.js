@@ -2,6 +2,8 @@ $(function() {
 	
 	$("#categoryList").change(function() {
 		var categoryId = $(this).val();
+		var subcategoryId = $('.subcategoryId').val();
+		console.log("Subcategoria: " + subcategoryId);
 		var subcategories = $(".subcategoryList");
 
 		subcategories.empty();
@@ -14,7 +16,10 @@ $(function() {
 				$.each(data, function(index){
 					var name = data[index].name;
 					var id = data[index].id;
-					subcategories.append('<option value='+id+'>'+name+'</option>');
+					if (subcategoryId == id)
+						subcategories.append('<option value='+id+' selected>'+name+'</option>');
+					else
+						subcategories.append('<option value='+id+'>'+name+'</option>');
 				});
 			}
 		});
