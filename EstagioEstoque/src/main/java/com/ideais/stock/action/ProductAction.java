@@ -87,10 +87,27 @@ public class ProductAction extends ActionSupport {
 		}
 	)
 	public String saveProduct() {
-		if (Validade.isValid(id)) {
-			product = productService.findById(Long.valueOf(id));
-		}
 		subcategory = subcategoryService.findById(subcategory.getId());
+		
+		if (Validade.isValid(id)) {
+			Product savedProduct = productService.findById(Long.valueOf(id));
+			savedProduct.setDimensions(dimensions);
+			savedProduct.setSubcategory(subcategory);
+			savedProduct.setCategory(subcategory.getCategory());
+			savedProduct.setName(product.getName());
+			savedProduct.setBrand(product.getBrand());
+			savedProduct.setModel(product.getModel());
+			savedProduct.setWarranty(product.getWarranty());
+			savedProduct.setWeight(product.getWeight());
+			savedProduct.setLongDescription(product.getLongDescription());
+			savedProduct.setShortDescription(product.getShortDescription());
+			
+			productService.save(savedProduct);
+
+			return SUCCESS;
+
+		}
+		
 		product.setDimensions(dimensions);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
