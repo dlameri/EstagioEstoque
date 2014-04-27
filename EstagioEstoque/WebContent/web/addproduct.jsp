@@ -12,8 +12,9 @@
 </head>
 <body>
 
-	<form action="addproduct?id=${id}" class="form" method="post">
+	<form action="saveProduct?id=${id}" class="form" method="post">
 		<fieldset>
+		<input class="" id="Edit-active" type="checkbox" name="active" value="true" checked="checked" /><span class="jtable-option-text-clickable">Ativo</span>
 			<label>Selecione uma subcategoria:</label>
 			<select id="categoryList" style="display: block;">
 				<c:forEach items="${categories}" var="category">

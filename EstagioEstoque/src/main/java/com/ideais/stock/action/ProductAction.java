@@ -13,13 +13,12 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.CategoryJSON;
 import com.ideais.stock.json.ItemJSON;
-import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
+import com.ideais.stock.json.internal.ProductInternalJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
-import com.ideais.stock.util.JSONResponse;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
@@ -39,6 +38,9 @@ public class ProductAction extends ActionSupport {
 	private String confirmation;
 	private String page;
 	private String query;
+	private Boolean status;
+	private Long categoryId;
+	private Long subcategoryId;
 	private int jtStartIndex;
 	private int jtPageSize;
 	
@@ -51,6 +53,7 @@ public class ProductAction extends ActionSupport {
 	@Autowired
 	private ItemService itemService;
 
+	private ProductInternalJSON savedProduct;
 	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
@@ -61,7 +64,7 @@ public class ProductAction extends ActionSupport {
 
 	private List<CategoryJSON> categoryJSONs = new ArrayList<CategoryJSON>();
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
-	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
+	private List<ProductInternalJSON> productJSONs = new ArrayList<ProductInternalJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
 	@Validations(
@@ -82,10 +85,10 @@ public class ProductAction extends ActionSupport {
 			@RequiredFieldValidator(fieldName = "dimensions.height", type = ValidatorType.FIELD, message = "Altura não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "dimensions.width", type = ValidatorType.FIELD, message = "Largura não pode ser nulo."),
 			@RequiredFieldValidator(fieldName = "dimensions.depth", type = ValidatorType.FIELD, message = "Profundidade não pode ser nulo."),
-			@RequiredFieldValidator(fieldName = "subcategory.id", type = ValidatorType.FIELD, message = "Selecione uma subcategoria.") 
+			@RequiredFieldValidator(fieldName = "subcategoryId", type = ValidatorType.FIELD, message = "Selecione uma subcategoria.") 
 		}, 
 		fieldExpressions={ 
-			@FieldExpressionValidator(fieldName = "subcategory.id", expression = "subcategory.id > 0", message = "Selecione uma subcategoria.") 
+			@FieldExpressionValidator(fieldName = "subcategoryId", expression = "subcategoryId > 0", message = "Selecione uma subcategoria.") 
 		},
 		conversionErrorFields={
 			@ConversionErrorFieldValidator(fieldName = "product.weight", message = "Deve ser um número", shortCircuit = true),
@@ -96,22 +99,22 @@ public class ProductAction extends ActionSupport {
 		}
 	)
 	public String saveProduct() {
-		subcategory = subcategoryService.findById(subcategory.getId());
+		subcategory = subcategoryService.findById(subcategoryId);
 		
 		if (Validade.isValid(id)) {
-			Product savedProduct = productService.findById(Long.valueOf(id));
-			savedProduct.setDimensions(dimensions);
-			savedProduct.setSubcategory(subcategory);
-			savedProduct.setCategory(subcategory.getCategory());
-			savedProduct.setName(product.getName());
-			savedProduct.setBrand(product.getBrand());
-			savedProduct.setModel(product.getModel());
-			savedProduct.setWarranty(product.getWarranty());
-			savedProduct.setWeight(product.getWeight());
-			savedProduct.setLongDescription(product.getLongDescription());
-			savedProduct.setShortDescription(product.getShortDescription());
+			Product productToBeEdited = productService.findById(Long.valueOf(id));
+			productToBeEdited.setDimensions(dimensions);
+			productToBeEdited.setSubcategory(subcategory);
+			productToBeEdited.setCategory(subcategory.getCategory());
+			productToBeEdited.setName(product.getName());
+			productToBeEdited.setBrand(product.getBrand());
+			productToBeEdited.setModel(product.getModel());
+			productToBeEdited.setWarranty(product.getWarranty());
+			productToBeEdited.setWeight(product.getWeight());
+			productToBeEdited.setLongDescription(product.getLongDescription());
+			productToBeEdited.setShortDescription(product.getShortDescription());
 			
-			productService.save(savedProduct);
+			savedProduct = new ProductInternalJSON(productService.save(productToBeEdited));
 
 			return SUCCESS;
 
@@ -120,7 +123,8 @@ public class ProductAction extends ActionSupport {
 		product.setDimensions(dimensions);
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
-		productService.save(product);
+		
+		savedProduct = new ProductInternalJSON(productService.save(product));
 
 		return SUCCESS;
 	}
@@ -171,13 +175,13 @@ public class ProductAction extends ActionSupport {
 		productJSONs.clear();
 		
 		if (query == null || "".equals(query)) {
-			products = productService.personalizedQuery("id","asc","true",String.valueOf(jtStartIndex),String.valueOf(jtPageSize), false);
+			products = productService.personalizedQuery("id","asc",String.valueOf(status),String.valueOf(jtStartIndex),String.valueOf(jtPageSize), false);
 		} else {
-			products = productService.search("name","asc",true,jtStartIndex, jtPageSize, query);
+			products = productService.search("name","asc",status,jtStartIndex, jtPageSize, query);
 		}
 		
 		for (Product product : products) {
-			productJSONs.add(new ProductJSON(product));
+			productJSONs.add(new ProductInternalJSON(product));
 		}
 		
 		return SUCCESS;
@@ -282,11 +286,11 @@ public class ProductAction extends ActionSupport {
 		this.confirmation = confirmation;
 	}
 
-	public List<ProductJSON> getProductJSONs() {
+	public List<ProductInternalJSON> getProductJSONs() {
 		return productJSONs;
 	}
 
-	public void setProductJSONs(List<ProductJSON> productJSONs) {
+	public void setProductJSONs(List<ProductInternalJSON> productJSONs) {
 		this.productJSONs = productJSONs;
 	}
 
@@ -336,6 +340,38 @@ public class ProductAction extends ActionSupport {
 
 	public void setCategoryJSONs(List<CategoryJSON> categoryJSONs) {
 		this.categoryJSONs = categoryJSONs;
+	}
+
+	public ProductInternalJSON getSavedProduct() {
+		return savedProduct;
+	}
+
+	public void setSavedProduct(ProductInternalJSON savedProduct) {
+		this.savedProduct = savedProduct;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public Long getSubcategoryId() {
+		return subcategoryId;
+	}
+
+	public void setSubcategoryId(Long subcategoryId) {
+		this.subcategoryId = subcategoryId;
 	}
 	
 }

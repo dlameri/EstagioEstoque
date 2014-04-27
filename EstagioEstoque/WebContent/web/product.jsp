@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
+<script type="text/javascript" src="../js/product/validate.product.js"></script>
 <script type="text/javascript" src="../js/product/pagination.js"></script>
 <script type="text/javascript" src="../js/product/product.js"></script>
 </head>
@@ -18,6 +19,10 @@
 	<br>
 	<form>
 		<input type="text" class="searchBar">
+		<select class="statusSelector">
+			<option value="true" selected="selected">Ativos</option>
+			<option value="false">Inativos</option>
+		</select>
 		<button class="btn btn-submit btn-primary btn-search">buscar</button>
 	</form>
 	<br>

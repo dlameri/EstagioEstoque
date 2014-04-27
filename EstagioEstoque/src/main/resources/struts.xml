@@ -108,10 +108,12 @@
 			<result name="success">product.jsp</result>
 		</action>
 
-		<action name="addproduct" class="com.ideais.stock.action.ProductAction"
+		<action name="saveProduct" class="com.ideais.stock.action.ProductAction"
 			method="saveProduct">
-			<result name="success" type="redirect">
-				<param name="location">/web/produtos</param>
+			<result type="json">
+				<param name="root">
+					savedProduct
+				</param>
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">/web/produtos?error=true</param>
@@ -121,7 +123,7 @@
 			</result>
 		</action>
 		
-		<action name="deleteproduct" class="com.ideais.stock.action.ProductAction"
+		<action name="deleteProduct" class="com.ideais.stock.action.ProductAction"
 			method="deleteProduct">
 			<result type="json">
 				<param name="root">
