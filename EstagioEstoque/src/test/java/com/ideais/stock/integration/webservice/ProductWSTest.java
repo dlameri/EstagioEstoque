@@ -50,12 +50,12 @@ public class ProductWSTest extends AbstractWebserviceTest {
 	
 	@Test
 	public void get_product_by_id() {
-		assertEquals(productJSON.getName(), productWS.getProductById(1L).getName());
+		assertEquals(productJSON.getId(), productWS.getProductById(1L).getId());
 	}
 	
 	@Test
 	public void get_products() {
-		assertEquals(8, productWS.getProducts("id", "asc", "true", "0", "10").size());
+		assertEquals(8, productWS.getProducts("id", "asc", "true", "0", "10", true).size());
 	}
 	
 	@Test

@@ -9,27 +9,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
 <script type="text/javascript" src="../js/product/pagination.js"></script>
+<script type="text/javascript" src="../js/product/product.js"></script>
 </head>
 <body>
 
 <a href="productForm">Adicionar Produto</a>
 	<br>
 	<br>
+	<form>
+		<input type="text" class="searchBar">
+		<button class="btn btn-submit btn-primary btn-search">buscar</button>
+	</form>
 	<br>
-	<ul class="productsList">
-		<c:forEach items="${products}" var="product">
-			<li>
-				${product.category} - ${product.subcategory} <br/>
-				Nome: <a href="productForm?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/>
-				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/>
-				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth }
-				<br/><a href="deleteproduct?id=${product.id}">deletar</a>
-			</li>
-		</c:forEach>
-	</ul>
+<!-- 	<ul class="productsList"> -->
+<%-- 		<c:forEach items="${products}" var="product"> --%>
+<!-- 			<li> -->
+<%-- 				${product.category} - ${product.subcategory} <br/> --%>
+<%-- 				Nome: <a href="productForm?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/> --%>
+<%-- 				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/> --%>
+<%-- 				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth } --%>
+<%-- 				<br/><a href="deleteproduct?id=${product.id}">deletar</a> --%>
+<!-- 			</li> -->
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
 	
-	<div id="pagination"></div>
-	<input type="hidden" class="elementsCount" value="${products[0].count}"/>
+	<div id="productContainer"></div>
 
 </body>
 </html>

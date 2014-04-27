@@ -65,10 +65,10 @@ public class ProductDao extends AbstractDao<Product>{
 		return findByRestrictions(Product.class, restrictions);
 	}
 	
-	public List<Product> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
+	public List<Product> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults, Boolean hasItems) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-
-		restrictions.add(Restrictions.isNotEmpty("items"));
+		if (hasItems)
+			restrictions.add(Restrictions.isNotEmpty("items"));
 		
 		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
 
@@ -81,11 +81,18 @@ public class ProductDao extends AbstractDao<Product>{
 		return products;
 	}
 
-	public List<Product> search(String textToSearch, Boolean active) {
+	public List<Product> search(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
-		restrictions.add( Restrictions.eq("active", active) );
 
-		return findByRestrictions(Product.class, restrictions);
+		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active  + " AND NM_NOME like \"%"+textToSearch+"%\"").list().get(0)).intValue();
+		
+		for (Product product: products) {
+			product.setCount(count);
+		}
+		
+		return products;
 	}
 }

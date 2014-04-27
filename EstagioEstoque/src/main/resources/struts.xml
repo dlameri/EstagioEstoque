@@ -138,6 +138,16 @@
 			<result name="success">addproduct.jsp</result>
 		</action>
 
+		<action name="getCategories" class="com.ideais.stock.action.ProductAction"
+			method="getCategoryList">
+			<result type="json">
+				<param name="root">
+					categoryJSONs
+				</param>
+			</result>
+			<result name="error"></result>
+		</action>
+
 		<action name="selectSubcategories" class="com.ideais.stock.action.ProductAction"
 			method="getSubcategoryList">
 			<result type="json">

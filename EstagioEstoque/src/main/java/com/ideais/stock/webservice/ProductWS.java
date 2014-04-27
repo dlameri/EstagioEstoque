@@ -33,11 +33,12 @@ public class ProductWS {
 			@QueryParam("order") @DefaultValue("desc") String order,
 			@QueryParam("active") @DefaultValue("true") String active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
-			@QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+			@QueryParam("maxResults") @DefaultValue("20") String maxResults,
+			@QueryParam("hasItems") @DefaultValue("true") Boolean hasItems) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 
 		for (Product product : productService.personalizedQuery(orderColumn,
-				order, active, firstResult, maxResults)) {
+				order, active, firstResult, maxResults, hasItems)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 
@@ -55,11 +56,15 @@ public class ProductWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<ProductJSON> searchProducts(
-			@PathParam("textToSearch") String textToSearch,
-			@QueryParam("active") @DefaultValue("true") Boolean active) {
+			@QueryParam("orderColumn") @DefaultValue("name") String orderColumn,
+			@QueryParam("order") @DefaultValue("asc") String order,
+			@QueryParam("active") @DefaultValue("true") Boolean active,
+			@QueryParam("firstResult") @DefaultValue("0") int firstResult,
+			@QueryParam("maxResults") @DefaultValue("20") int maxResults,
+			@PathParam("textToSearch") String textToSearch) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 
-		for (Product product : productService.search(textToSearch, active)) {
+		for (Product product : productService.search(orderColumn, order, active, firstResult, maxResults, textToSearch)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 

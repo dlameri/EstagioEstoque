@@ -11,6 +11,7 @@ import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
+import com.ideais.stock.json.CategoryJSON;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
@@ -18,6 +19,7 @@ import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
+import com.ideais.stock.util.JSONResponse;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
@@ -36,6 +38,9 @@ public class ProductAction extends ActionSupport {
 	private String deleted;
 	private String confirmation;
 	private String page;
+	private String query;
+	private int jtStartIndex;
+	private int jtPageSize;
 	
 	@Autowired
 	private CategoryService categoryService;
@@ -54,6 +59,7 @@ public class ProductAction extends ActionSupport {
 	private List<Product> products = new ArrayList<Product>();
 	private List<Item> items = new ArrayList<Item>();
 
+	private List<CategoryJSON> categoryJSONs = new ArrayList<CategoryJSON>();
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
@@ -156,19 +162,19 @@ public class ProductAction extends ActionSupport {
 
 	@SkipValidation
 	public String listProducts() {
-		products = productService.personalizedQuery("id","asc","true","0","10");
+		products = productService.personalizedQuery("id","asc","true","0","10", false);
 		return SUCCESS;
 	}
 	
 	@SkipValidation
 	public String getPaginatedProducts() {
-		if (page == null) {
-			page = "0";
-		}
-		
 		productJSONs.clear();
-
-		products = productService.personalizedQuery("id","asc","true",String.valueOf(Integer.parseInt(page) * 10),"10");
+		
+		if (query == null || "".equals(query)) {
+			products = productService.personalizedQuery("id","asc","true",String.valueOf(jtStartIndex),String.valueOf(jtPageSize), false);
+		} else {
+			products = productService.search("name","asc",true,jtStartIndex, jtPageSize, query);
+		}
 		
 		for (Product product : products) {
 			productJSONs.add(new ProductJSON(product));
@@ -177,6 +183,15 @@ public class ProductAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	@SkipValidation
+	public String getCategoryList() {
+		categoryJSONs.clear();
+		for (Category category : categoryService.findAll()) {
+			categoryJSONs.add(new CategoryJSON(category));
+		}
+		return SUCCESS;
+	}
+	
 	@SkipValidation
 	public String getSubcategoryList() {
 		try {
@@ -290,4 +305,37 @@ public class ProductAction extends ActionSupport {
 	public void setPage(String page) {
 		this.page = page;
 	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public int getJtStartIndex() {
+		return jtStartIndex;
+	}
+
+	public void setJtStartIndex(int jtStartIndex) {
+		this.jtStartIndex = jtStartIndex;
+	}
+
+	public int getJtPageSize() {
+		return jtPageSize;
+	}
+
+	public void setJtPageSize(int jtPageSize) {
+		this.jtPageSize = jtPageSize;
+	}
+
+	public List<CategoryJSON> getCategoryJSONs() {
+		return categoryJSONs;
+	}
+
+	public void setCategoryJSONs(List<CategoryJSON> categoryJSONs) {
+		this.categoryJSONs = categoryJSONs;
+	}
+	
 }

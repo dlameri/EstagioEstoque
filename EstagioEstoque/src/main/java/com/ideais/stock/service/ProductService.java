@@ -72,23 +72,25 @@ public class ProductService {
 	}
 
 	public List<Product> personalizedQuery(String orderColumn, String order,
-			String active, String firstResult, String maxResults) {
+			String active, String firstResult, String maxResults, Boolean hasItems) {
 		try {
 			return productDao.personalizedQuery(orderColumn, order, active,
-					firstResult, maxResults);
+					firstResult, maxResults, hasItems);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pegar o produto. Parametros passados: orderColumn: "
 							+ orderColumn + "; order: " + order + "; active: "
 							+ active + "; firstResult: " + firstResult
-							+ "; maxResults: " + maxResults, e);
+							+ "; maxResults: " + maxResults + "; hasItems: " + hasItems, e);
 			return null;
 		}
 	}
 
-	public List<Product> search(String textToSearch, Boolean active) {
+	public List<Product> search(String orderColumn, String order,
+			Boolean active, int firstResult, int maxResults, String textToSearch) {
 		try {
-			return productDao.search(textToSearch, active);
+			return productDao.search(orderColumn, order, active,
+					firstResult, maxResults, textToSearch);
 		} catch (HibernateException e) {
 			LOG.error("Error ao fazer a busca. Parametro passado: "
 					+ textToSearch, e);
