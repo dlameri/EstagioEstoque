@@ -91,6 +91,11 @@ table {
 	text-align: center;
 }
 
+#searchProduct{
+	width: 510px;
+	display: inline-block;
+}
+
 #table h3
 	/*********************************************************************************/
 	/* Image Style                                                                   */

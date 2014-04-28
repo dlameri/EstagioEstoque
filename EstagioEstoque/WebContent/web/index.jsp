@@ -9,7 +9,7 @@
 
 	<div id="three-column" class="container">
 		<div id="icon">
-			<span class="icon icon-wrench"></span>
+			<span class="icon icon-group"></span>
 			<div class="title">
 				<h1>Bem-Vindo ao Sistema de Estoque</h1>
 			</div>
