@@ -20,7 +20,7 @@
 				<h1>Sistema de Consulta e Cadastro de Produtos</h1>
 				<form>
 					<input type="text" class="searchBar form-control" id="searchProduct"> <select
-						class="form-control statusSelector">
+						class="form-control statusSelector searchStatusProduct">
 						<option value="true" selected="selected">Ativos</option>
 						<option value="false">Inativos</option>
 					</select><br><br>
