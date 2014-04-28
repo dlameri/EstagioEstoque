@@ -18,15 +18,15 @@
 		<div id="icon">
 			<span class="icon icon-pencil"></span>
 			<div class="title">
-				<h1>Sistema de Busca e Cadastro de Produtos</h1>
+				<h1>Sistema de Consulta e Cadastro de Produtos</h1>
 				<form>
-					<input type="text" class="searchBar" id="searchProduct"> <select
-						class="statusSelector">
+					<input type="text" class="searchBar form-control" id="searchProduct"> <select
+						class="form-control statusSelector">
 						<option value="true" selected="selected">Ativos</option>
 						<option value="false">Inativos</option>
 					</select><br><br>
-					<button class="btn btn-submit btn-primary btn-search">Buscar</button>
-					<button class="btn btn-submit btn-primary btn-search">Limpar</button>
+					<button class="btn btn-submit btn-primary btn-search">Product Search</button>
+					<button class="btn btn-submit btn-primary btn-search">Clean Field</button>
 				</form>
 			</div>
 			<div id="texto">

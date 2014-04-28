@@ -23,7 +23,7 @@
 					características com a opção de listagem dos mesmos. Utilize esse
 					sistema com prudência, todas as informações estarão contidas em
 					nossa base de dados e disponíveis para futuras consultas.</b></p>
-				<p><b>Atenciosamente, Stock Team.</b></p>	
+				<p><b>Atenciosamente, Stock Team.</b></p>
 			</div>
 		</div>
 	</div>

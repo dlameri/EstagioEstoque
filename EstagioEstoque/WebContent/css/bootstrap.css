@@ -1095,8 +1095,8 @@ output {
 }
 
 .form-control {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 10%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
