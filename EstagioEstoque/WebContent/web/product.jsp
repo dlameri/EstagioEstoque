@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
 <script type="text/javascript" src="../js/product/validate.product.js"></script>
-<script type="text/javascript" src="../js/product/pagination.js"></script>
-<script type="text/javascript" src="../js/product/product.js"></script>
+<script type="text/javascript" src="../js/product/productJTable.js"></script>
 </head>
 <body>
 

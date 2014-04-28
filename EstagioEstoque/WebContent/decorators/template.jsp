@@ -18,7 +18,7 @@
 <link href="../css/jQuery/jquery-ui-1.10.4.min.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/jQuery/jTable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="../js/jQuery/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="../js/jQuery/jquery-ui-1.10.4.js"></script>
+<script type="text/javascript" src="../js/jQuery/jquery-ui-1.10.4.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.mask.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.paging.min.js"></script>

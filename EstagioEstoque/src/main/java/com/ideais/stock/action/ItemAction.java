@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
+import com.ideais.stock.json.internal.ItemInternalJSON;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,8 +26,10 @@ public class ItemAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
-	private String deleted;
-	private String confirmation;
+	private Long productId;
+	private Boolean status;
+	private int jtStartIndex;
+	private int jtPageSize;
 	
 	@Autowired
 	private ProductService productService;
@@ -35,9 +38,12 @@ public class ItemAction extends ActionSupport {
 	
 	private Product product;
 	private Item item;
+	private ItemInternalJSON savedItem;
 	
 	private List<Image> images = new ArrayList<Image>();
 	private List<Item> items = new ArrayList<Item>();
+	
+	private List<ItemInternalJSON> itemJSONList = new ArrayList<ItemInternalJSON>();
 	
 	@Validations(
 		requiredStrings={
@@ -61,8 +67,8 @@ public class ItemAction extends ActionSupport {
 			@ConversionErrorFieldValidator(message = "Deve ser um número", shortCircuit = true)
 		}
 	)
-	public String addItem() {
-		product = productService.findById(product.getId());
+	public String saveItem() {
+		product = productService.findById(productId);
 		
 		for (Image image : images) {
 			image.setItem(item);
@@ -70,7 +76,7 @@ public class ItemAction extends ActionSupport {
 		
 		item.setProduct(product);
 		item.setImages(images);
-		itemService.save(item);
+		savedItem = new ItemInternalJSON(itemService.save(item));
 		
 		return SUCCESS;
 	}
@@ -80,6 +86,23 @@ public class ItemAction extends ActionSupport {
 		items = itemService.findAll();
 		return SUCCESS;
 	}
+	
+	@SkipValidation
+	public String getItemsByProductId() {
+		itemJSONList.clear();
+		
+		Product product = new Product();
+		product.setId(productId);
+		
+		items = itemService.findByProductId(product, "id", "asc", String.valueOf(true), String.valueOf(jtStartIndex), String.valueOf(jtPageSize));
+		
+		for (Item item : items) {
+			itemJSONList.add(new ItemInternalJSON(item));
+		}
+		
+		return SUCCESS;
+	}
+	
 	
 	@SkipValidation
 	public String deleteItem() {
@@ -137,19 +160,51 @@ public class ItemAction extends ActionSupport {
 		this.items = items;
 	}
 
-	public String getDeleted() {
-		return deleted;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setDeleted(String deleted) {
-		this.deleted = deleted;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
-	public String getConfirmation() {
-		return confirmation;
+	public Boolean getStatus() {
+		return status;
 	}
 
-	public void setConfirmation(String confirmation) {
-		this.confirmation = confirmation;
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public int getJtStartIndex() {
+		return jtStartIndex;
+	}
+
+	public void setJtStartIndex(int jtStartIndex) {
+		this.jtStartIndex = jtStartIndex;
+	}
+
+	public int getJtPageSize() {
+		return jtPageSize;
+	}
+
+	public void setJtPageSize(int jtPageSize) {
+		this.jtPageSize = jtPageSize;
+	}
+
+	public List<ItemInternalJSON> getItemJSONList() {
+		return itemJSONList;
+	}
+
+	public void setItemJSONList(List<ItemInternalJSON> itemJSONList) {
+		this.itemJSONList = itemJSONList;
+	}
+
+	public ItemInternalJSON getSavedItem() {
+		return savedItem;
+	}
+
+	public void setSavedItem(ItemInternalJSON savedItem) {
+		this.savedItem = savedItem;
 	}
 }

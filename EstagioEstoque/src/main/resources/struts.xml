@@ -178,10 +178,12 @@
 			<result name="success">item.jsp</result>
 		</action>
 		
-		<action name="addItem" class="com.ideais.stock.action.ItemAction"
-			method="addItem">
-			<result name="success" type="redirect">
-				<param name="location">/web/itens</param>
+		<action name="saveItem" class="com.ideais.stock.action.ItemAction"
+			method="saveItem">
+			<result type="json">
+				<param name="root">
+					savedItem
+				</param>
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">/web/itens?error=true</param>
@@ -191,7 +193,7 @@
 			</result>
 		</action>
 		
-		<action name="deleteitem" class="com.ideais.stock.action.ItemAction"
+		<action name="deleteItem" class="com.ideais.stock.action.ItemAction"
 			method="deleteItem">
 			<result name="success" type="redirect">
 				<param name="location">/web/itens?deleted=true</param>
@@ -199,6 +201,16 @@
 			<result name="error" type="redirect">
 				<param name="location">/web/itens?error=true</param>
 			</result>
+		</action>
+		
+		<action name="getItemsByProductId" class="com.ideais.stock.action.ItemAction"
+			method="getItemsByProductId">
+			<result type="json">
+				<param name="root">
+					itemJSONList
+				</param>
+			</result>
+			<result name="error"></result>
 		</action>
 		
 		

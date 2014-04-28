@@ -36,7 +36,6 @@ public class ProductAction extends ActionSupport {
 	private String id;
 	private String deleted;
 	private String confirmation;
-	private String page;
 	private String query;
 	private Boolean status;
 	private Long categoryId;
@@ -54,7 +53,6 @@ public class ProductAction extends ActionSupport {
 	private ItemService itemService;
 
 	private ProductInternalJSON savedProduct;
-	private Subcategory subcategory = new Subcategory();
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
 
@@ -99,7 +97,7 @@ public class ProductAction extends ActionSupport {
 		}
 	)
 	public String saveProduct() {
-		subcategory = subcategoryService.findById(subcategoryId);
+		Subcategory subcategory = subcategoryService.findById(subcategoryId);
 		
 		if (Validade.isValid(id)) {
 			Product productToBeEdited = productService.findById(Long.valueOf(id));
@@ -237,14 +235,6 @@ public class ProductAction extends ActionSupport {
 		return dimensions;
 	}
 
-	public Subcategory getSubcategory() {
-		return subcategory;
-	}
-
-	public void setSubcategory(Subcategory subcategory) {
-		this.subcategory = subcategory;
-	}
-
 	public List<Category> getCategories() {
 		categories = categoryService.findAll();
 		return categories;
@@ -300,14 +290,6 @@ public class ProductAction extends ActionSupport {
 
 	public void setItemJSONs(List<ItemJSON> itemJSONs) {
 		this.itemJSONs = itemJSONs;
-	}
-
-	public String getPage() {
-		return page;
-	}
-
-	public void setPage(String page) {
-		this.page = page;
 	}
 
 	public String getQuery() {
