@@ -13,6 +13,7 @@ import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
+import com.ideais.stock.json.internal.CategoryInternalJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
@@ -31,6 +32,11 @@ public class CategoryAction extends ActionSupport {
 	private String id;
 	private String deleted;
 	private String confirmation;
+	private String query;
+	private Boolean status;
+	private Long categoryId;
+	private int jtStartIndex;
+	private int jtPageSize;
 
 	private Category category = new Category();
 
@@ -43,10 +49,12 @@ public class CategoryAction extends ActionSupport {
 	@Autowired
 	private ItemService itemService;
 
+	private CategoryInternalJSON savedCategory;
 	private List<Category> categories;
 	private List<Subcategory> subcategories;
 	private List<Product> products;
 	private List<Item> items;
+	private List<CategoryInternalJSON> categoryJSONList = new ArrayList<CategoryInternalJSON>();
 	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
@@ -61,7 +69,7 @@ public class CategoryAction extends ActionSupport {
 	)
 	public String saveCategory() {
 		try {
-			categoryService.save(category);
+			savedCategory = new CategoryInternalJSON(categoryService.save(category));
 			return SUCCESS;
 
 		} catch (Exception e) {
@@ -127,6 +135,23 @@ public class CategoryAction extends ActionSupport {
 		categories = categoryService.findAll();
 		return SUCCESS;
 	}
+	
+	@SkipValidation
+	public String getPaginatedCategories() {
+		categoryJSONList.clear();
+		
+		if (query == null || "".equals(query)) {
+			categories = categoryService.personalizedQuery("id","asc", status, jtStartIndex, jtPageSize);
+		} else {
+			categories = categoryService.search("name","asc", status, jtStartIndex, jtPageSize, query);
+		}
+		
+		for (Category category : categories) {
+			categoryJSONList.add(new CategoryInternalJSON(category));
+		}
+		
+		return SUCCESS;
+	}
 
 	public Category getCategory() {
 		return category;
@@ -184,4 +209,60 @@ public class CategoryAction extends ActionSupport {
 		this.confirmation = confirmation;
 	}
 
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public int getJtStartIndex() {
+		return jtStartIndex;
+	}
+
+	public void setJtStartIndex(int jtStartIndex) {
+		this.jtStartIndex = jtStartIndex;
+	}
+
+	public int getJtPageSize() {
+		return jtPageSize;
+	}
+
+	public void setJtPageSize(int jtPageSize) {
+		this.jtPageSize = jtPageSize;
+	}
+
+	public List<CategoryInternalJSON> getCategoryJSONList() {
+		return categoryJSONList;
+	}
+
+	public void setCategoryJSONList(List<CategoryInternalJSON> categoryJSONList) {
+		this.categoryJSONList = categoryJSONList;
+	}
+
+	public CategoryInternalJSON getSavedCategory() {
+		return savedCategory;
+	}
+
+	public void setSavedCategory(CategoryInternalJSON savedCategory) {
+		this.savedCategory = savedCategory;
+	}
+	
 }

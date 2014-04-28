@@ -12,6 +12,7 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
+import com.ideais.stock.json.internal.SubcategoryInternalJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
@@ -31,6 +32,10 @@ public class SubcategoryAction extends ActionSupport {
 	private String id;
 	private String deleted;
 	private String confirmation;
+	private Boolean status;
+	private Long categoryId;
+	private int jtStartIndex;
+	private int jtPageSize;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -43,6 +48,7 @@ public class SubcategoryAction extends ActionSupport {
 
 	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
+	private SubcategoryInternalJSON savedSubcategory;
 
 	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 	private List<Category> categories = new ArrayList<Category>();
@@ -51,19 +57,22 @@ public class SubcategoryAction extends ActionSupport {
 
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
+	
+	private List<SubcategoryInternalJSON> subcategoryJSONList = new ArrayList<SubcategoryInternalJSON>(); 
 
 	@Validations(
 		requiredStrings={ 
 			@RequiredStringValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, message = "Nome não pode ser nulo.") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
 		}, 
 		requiredFields={ 
-			@RequiredFieldValidator(fieldName = "category.id", type = ValidatorType.FIELD, message = "Selecione uma categoria.") 
+			@RequiredFieldValidator(fieldName = "categoryId", type = ValidatorType.FIELD, message = "Selecione uma categoria.") 
 		}
 	)
-	public String addSubcategory() {
-		category = categoryService.findById(category.getId());
+	public String saveSubcategory() {
+		category = categoryService.findById(categoryId);
 		subcategory.setCategory(category);
-		subcategoryService.save(subcategory);
+		
+		savedSubcategory = new SubcategoryInternalJSON(subcategoryService.save(subcategory));
 		return SUCCESS;
 	}
 
@@ -112,6 +121,21 @@ public class SubcategoryAction extends ActionSupport {
 			return SUCCESS;
 		}
 		subcategories = subcategoryService.findAll(true);
+		return SUCCESS;
+	}
+	
+	@SkipValidation
+	public String getSubcategoriesByCategoryId() {
+		subcategoryJSONList.clear();
+		
+		Category category = new Category();
+		category.setId(categoryId);
+		subcategories = subcategoryService.findByCategoryId(category, true);
+		
+		for (Subcategory subcategory : subcategories) {
+			subcategoryJSONList.add(new SubcategoryInternalJSON(subcategory));
+		}
+		
 		return SUCCESS;
 	}
 
@@ -190,6 +214,55 @@ public class SubcategoryAction extends ActionSupport {
 
 	public void setProductJSONs(List<ProductJSON> productJSONs) {
 		this.productJSONs = productJSONs;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public int getJtStartIndex() {
+		return jtStartIndex;
+	}
+
+	public void setJtStartIndex(int jtStartIndex) {
+		this.jtStartIndex = jtStartIndex;
+	}
+
+	public int getJtPageSize() {
+		return jtPageSize;
+	}
+
+	public void setJtPageSize(int jtPageSize) {
+		this.jtPageSize = jtPageSize;
+	}
+
+	public SubcategoryInternalJSON getSavedSubcategory() {
+		return savedSubcategory;
+	}
+
+	public void setSavedSubcategory(SubcategoryInternalJSON savedSubcategory) {
+		this.savedSubcategory = savedSubcategory;
+	}
+
+	public List<SubcategoryInternalJSON> getSubcategoryJSONList() {
+		return subcategoryJSONList;
+	}
+
+	public void setSubcategoryJSONList(
+			List<SubcategoryInternalJSON> subcategoryJSONList) {
+		this.subcategoryJSONList = subcategoryJSONList;
 	}
 
 }

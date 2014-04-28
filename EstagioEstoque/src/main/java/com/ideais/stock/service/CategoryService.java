@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Product;
 
 public class CategoryService {
 	
@@ -55,6 +56,33 @@ public class CategoryService {
 			return categoryDao.findAll();
 		} catch (HibernateException e) {
 			LOG.error("Error ao pegar todas as categorias ", e);
+			return null;
+		}
+	}
+	
+	public List<Category> personalizedQuery(String orderColumn, String order,
+			Boolean active, int firstResult, int maxResults) {
+		try {
+			return categoryDao.personalizedQuery(orderColumn, order, active,
+					firstResult, maxResults);
+		} catch (HibernateException e) {
+			LOG.error(
+					"Error ao pegar o produto. Parametros passados: orderColumn: "
+							+ orderColumn + "; order: " + order + "; active: "
+							+ active + "; firstResult: " + firstResult
+							+ "; maxResults: " + maxResults, e);
+			return null;
+		}
+	}
+
+	public List<Category> search(String orderColumn, String order,
+			Boolean active, int firstResult, int maxResults, String textToSearch) {
+		try {
+			return categoryDao.search(orderColumn, order, active,
+					firstResult, maxResults, textToSearch);
+		} catch (HibernateException e) {
+			LOG.error("Error ao fazer a busca. Parametro passado: "
+					+ textToSearch, e);
 			return null;
 		}
 	}

@@ -8,41 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Categoria</title>
-<script type="text/javascript" src="../js/category.js"></script>
-<script type="text/javascript" src="../js/validate.category.js"></script>
+<script type="text/javascript" src="../js/category/category.js"></script>
+<script type="text/javascript" src="../js/category/validate.category.js"></script>
 </head>
 <body>
 
-	<div id="three-column" class="container">
-		<div id="tbox2">
-			<h3>Nova Categoria</h3>
-			<form action="addcategory" class="form" method="post">
-				<input type="hidden" name="category.id" value="${category.id}" /> <label>Nome
-					da categoria:</label>
-				<s:textfield type="text" id="form-control" placeholder="Categoria"
-					name="category.name" value="%{category.name}"
-					cssClass="categoryName" minlength="3" maxlength="17" />
-				<input type="submit" class="btn btn-submit btn-primary"
-					value="Salvar" />
-			</form>
+	<h1>Categorias</h1>
+	<br />
 
-		</div>
-		<div id="tbox3">
-			<h3>Categorias Cadastradas</h3>
-			<c:forEach items="${categories}" var="category">
-				<li id="${category.id}"><span class ="categoryNameList" id="name-${category.id}">${category.name}</span>
-					<a id="edit-${category.id}" href="categorias?id=${category.id}">
-						<button type="button" class="btn btn-xs btn-warning">Editar</button>
-				</a>
-					<button id="delete-${category.id}" type="button"
-						class="btn btn-xs btn-danger">Deletar</button></li>
-			</c:forEach>
-		</div>
-	</div>
+	<form>
+		<input type="text" class="searchBar form-control" id="searchProduct">
+		<select class="form-control statusSelector">
+			<option value="true" selected="selected">Ativos</option>
+			<option value="false">Inativos</option>
+		</select><br>
+		<br>
+		<button class="btn btn-submit btn-primary btn-search">Product
+			Search</button>
+		<button class="btn btn-submit btn-primary btn-search">Clean
+			Field</button>
+	</form>
 
-	<div id="toBeDeleted">
-		<c:if test="${deleted == \"true\" }">
-			<p>Categoria deletada com sucesso.</p>
-		</c:if>
-	</div>
+	<div id="categoryContainer"></div>
 </body>

@@ -11,11 +11,13 @@ public class CategoryInternalJSON implements Serializable {
 	private Long id;
 	private String name;
 	private Boolean active;
+	private Integer count;
 
 	public CategoryInternalJSON(Category category) {
 		this.id = category.getId();
 		this.name = category.getName();
 		this.active = category.getActive();
+		this.count = category.getCount();
 	}
 
 	public Long getId() {
@@ -40,6 +42,14 @@ public class CategoryInternalJSON implements Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	
 }

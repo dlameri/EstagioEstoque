@@ -1,5 +1,6 @@
 package com.ideais.stock.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Product;
 
 public class CategoryDao extends AbstractDao<Category>{
 	
@@ -39,5 +41,34 @@ public class CategoryDao extends AbstractDao<Category>{
 		restrictions.add( Restrictions.eq("name", name) );
 		
 		return findByRestrictions( Category.class, restrictions );
+	}
+	
+	public List<Category> personalizedQuery(String orderColumn, String order, Boolean active, int firstResult, int maxResults) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		
+		List<Category> categories = findByParams(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO=" + active).list().get(0)).intValue();
+		
+		for (Category category: categories) {
+			category.setCount(count);
+		}
+		
+		return categories;
+	}
+	
+	public List<Category> search(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
+
+		List<Category> categories = findByParams(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO =" + active  + " AND NM_NOME like \"%"+textToSearch+"%\"").list().get(0)).intValue();
+		
+		for (Category category: categories) {
+			category.setCount(count);
+		}
+		
+		return categories;
 	}
 }

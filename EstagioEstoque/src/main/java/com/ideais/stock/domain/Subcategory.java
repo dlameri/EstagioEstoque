@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.Cache;
@@ -45,6 +46,9 @@ public class Subcategory {
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private List<Product> products;
+	
+	@Transient
+	private Integer count;
 	
 	public void softDelete() {
 		active = false;
@@ -88,6 +92,14 @@ public class Subcategory {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	@Override

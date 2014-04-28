@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -40,6 +41,9 @@ public class Category implements Serializable {
 	@OneToMany(mappedBy="category")
 	@Cascade({CascadeType.DELETE, CascadeType.SAVE_UPDATE})
 	private List<Subcategory> subcategories;
+	
+	@Transient
+	private Integer count;
 	
 	public void softDelete() {
 		active = false;
@@ -75,6 +79,14 @@ public class Category implements Serializable {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	@Override

@@ -42,10 +42,12 @@
 			<result name="input">category.jsp</result>
 		</action>
 
-		<action name="addcategory" class="com.ideais.stock.action.CategoryAction"
+		<action name="saveCategory" class="com.ideais.stock.action.CategoryAction"
 			method="saveCategory">
-			<result name="success" type="redirect">
-				<param name="location">/web/categorias</param>
+			<result type="json">
+				<param name="root">
+					savedCategory
+				</param>
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">/web/categorias?error=true</param>
@@ -55,7 +57,7 @@
 			</result>
 		</action>
 
-		<action name="deletecategory" class="com.ideais.stock.action.CategoryAction"
+		<action name="deleteCategory" class="com.ideais.stock.action.CategoryAction"
 			method="deleteCategory">
 			<result type="json">
 				<param name="root">
@@ -66,6 +68,16 @@
 				<param name="location">/web/categorias?error=true</param>
 			</result>
 		</action>
+		
+		<action name="getPaginatedCategories" class="com.ideais.stock.action.CategoryAction"
+			method="getPaginatedCategories">
+			<result type="json">
+				<param name="root">
+					categoryJSONList
+				</param>
+			</result>
+			<result name="error"></result>
+		</action>
 
 
 		<!-- Subcategorias -->
@@ -75,10 +87,12 @@
 			<result name="success">subcategory.jsp</result>
 		</action>
 
-		<action name="addsubcategory" class="com.ideais.stock.action.SubcategoryAction"
-			method="addSubcategory">
-			<result name="success" type="redirect">
-				<param name="location">/web/subcategorias</param>
+		<action name="saveSubcategory" class="com.ideais.stock.action.SubcategoryAction"
+			method="saveSubcategory">
+			<result type="json">
+				<param name="root">
+					savedSubcategory
+				</param>
 			</result>
 			<result name="error" type="redirect">
 				<param name="location">/web/subcategorias?error=true</param>
@@ -88,7 +102,7 @@
 			</result>
 		</action>
 
-		<action name="deletesubcategory" class="com.ideais.stock.action.SubcategoryAction"
+		<action name="deleteSubcategory" class="com.ideais.stock.action.SubcategoryAction"
 			method="deleteSubcategory">
 			<result type="json">
 				<param name="root">
@@ -98,6 +112,16 @@
 			<result name="error" type="redirect">
 				<param name="location">/web/subcategorias?error=true</param>
 			</result>
+		</action>
+		
+		<action name="getSubcategoriesByCategoryId" class="com.ideais.stock.action.SubcategoryAction"
+			method="getSubcategoriesByCategoryId">
+			<result type="json">
+				<param name="root">
+					subcategoryJSONList
+				</param>
+			</result>
+			<result name="error"></result>
 		</action>
 
 
