@@ -38,10 +38,8 @@
 		<div id="menu" class="container">
 			<ul>
 				<li><a href="/EstagioEstoque/web/">Home</a></li>
-				<li><a href="categorias">Categoria</a></li>
-				<li><a href="subcategorias">Subcategoria</a></li>
-				<li><a href="produtos">Produto</a></li>
-				<li><a href="itens">Item</a></li>
+				<li><a href="categorias">Categoria & Subcategoria</a></li>
+				<li><a href="produtos">Produto & Item</a></li>
 				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
 		</div>	

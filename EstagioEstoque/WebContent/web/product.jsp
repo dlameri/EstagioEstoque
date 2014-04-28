@@ -15,7 +15,7 @@
 
 	<div id="three-column" class="container">
 		<div id="icon">
-			<span class="icon icon-pencil"></span>
+			<span class="icon icon-barcode"></span>
 			<div class="title">
 				<h1>Sistema de Consulta e Cadastro de Produtos</h1>
 				<form>
