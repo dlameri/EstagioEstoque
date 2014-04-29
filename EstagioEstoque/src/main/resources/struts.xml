@@ -75,8 +75,8 @@
 			</result>
 		</action>
 		
-		<action name="requestDeleteCategory" class="com.ideais.stock.action.CategoryAction"
-			method="deleteCategory">
+		<action name="checkCategoryBeforeDeleting" class="com.ideais.stock.action.CategoryAction"
+			method="checkCategoryBeforeDeleting">
 			<result type="json">
 				<param name="root">
 					subcategoryJSONs

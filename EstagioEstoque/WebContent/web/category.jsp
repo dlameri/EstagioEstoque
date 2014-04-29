@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Categoria</title>
-<script type="text/javascript" src="../js/category/category.js"></script>
+<script type="text/javascript" src="../js/category/categoryJTable.js"></script>
 <script type="text/javascript" src="../js/category/validate.category.js"></script>
 </head>
 <body>

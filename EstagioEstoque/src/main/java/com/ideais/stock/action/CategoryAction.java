@@ -86,7 +86,7 @@ public class CategoryAction extends ActionSupport {
 	}
 
 	@SkipValidation
-	public String requestDeleteCategory() {
+	public String checkCategoryBeforeDeleting() {
 		category = categoryService.findById(Long.valueOf(id));
 
 		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);

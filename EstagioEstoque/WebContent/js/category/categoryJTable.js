@@ -7,47 +7,28 @@ $(function() {
          paging: true,
          pageSize: 10,
          pageSizes: [10, 20, 35, 50],
-         deleteConfirmation: function(datas) {
+         deleteConfirmation: function(data) {
         	
-        	 datas.deleteConfirmMessage = "Esta categoria tem as seguintes subcategorias atreladas a ela: <br/> ";
         	 $.ajax({
      			type : "GET",
-     			url : '/EstagioEstoque/web/requestDeleteCategory?id=' + datas.record.id,
+     			url : '/EstagioEstoque/web/checkCategoryBeforeDeleting?id=' + data.record.id,
      			dataType : 'json',
      			async: false,
      			beforeSend : console.log("Enviando dados pro serv"),
-     			success : function(data) {
-     				console.log("yay: " + data);
-     				if (data.length > 0) {
-     					$("#toBeDeleted").append('<ul class="subcategories"></ul>');
-     					$.each(data, function(index) {
-     						var name = data[index].name;
-     						var subcategoryId = data[index].id;
-     						datas.deleteConfirmMessage += subcategoryId + " - " + name + "<br/>";
-     						var products = data[index].products;
-     						$("ul.subcategories").append('<li class="subcategory'+subcategoryId+'">' + name + '</li>');
-     						$('li.subcategory'+subcategoryId).append('<ul class="subcategory'+subcategoryId+'"></ul>');
-			 					$.each(products, function(index) {
-			 							var name = products[index].name;
-			 							var productId = products[index].id;
-			 							var items = products[index].items;
-			 							$('ul.subcategory'+subcategoryId).append('<li class="product'+productId+'">' + name + '</li>');
-			 							$('li.product'+productId).append('<ul class="product'+productId+'"></ul>');
-			 							$.each(items, function(index) {
-			 								var name = items[index].sku;
-			 								$('ul.product'+productId).append('<li>' + name + '</li>');
-			 							});
-			 						});
-			 					});
-			 					$("#toBeDeleted").append('<button id="/EstagioEstoque/web/deleteCategory?id=1&confirmation=ok" type="button" class="btn btn-xs btn-danger btn-delete">OK</button>');
-			 					$("#toBeDeleted").append('<button type="button" class="btn-cancel btn btn-xs btn-warning">Cancelar</button>');
-			 				}
-     				else {
-//     					window.location.replace("/EstagioEstoque/web/subcategorias?deleted=true");
+     			success : function(response) {
+     				if (response.length > 0 ) {
+     					data.deleteConfirmMessage = "Esta categoria tem as seguintes subcategorias atreladas a ela: <br/> ";
+	 					$.each(response, function(index) {
+	 						var name = response[index].name;
+	 						var subcategoryId = response[index].id;
+	 						data.deleteConfirmMessage += subcategoryId + " - " + name + "<br/>";
+		 				});
+     				} else {
+     					data.deleteConfirmMessage = "Você tem certeza que deseja deletar a categoria?<br/> ";
      				}
      			}
-     		});
-         },
+        	 });
+        },
          actions: {
         	 listAction: function (postData, jtParams) {
                  console.log("Recebendo lista do server...");
@@ -332,6 +313,10 @@ $(function() {
                      }
                  }
              }
+         },
+         formSubmitting: function(event, data){
+        	 console.log(data);
+        	 return true;
          }
      });
 	 
