@@ -48,7 +48,7 @@ public class ProductDao extends AbstractDao<Product>{
 
 		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + parseStringToBoolean(active) + " AND CD_CATEGORIA =" + category.getId()).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + Boolean.parseBoolean(active) + " AND CD_CATEGORIA =" + category.getId()).list().get(0)).intValue();
 		
 		for (Product product: products) {
 			product.setCount(count);
@@ -72,7 +72,7 @@ public class ProductDao extends AbstractDao<Product>{
 		
 		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + parseStringToBoolean(active)).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + Boolean.parseBoolean(active)).list().get(0)).intValue();
 		
 		for (Product product: products) {
 			product.setCount(count);

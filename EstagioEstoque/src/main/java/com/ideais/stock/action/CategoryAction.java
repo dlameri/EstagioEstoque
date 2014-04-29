@@ -3,15 +3,12 @@ package com.ideais.stock.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Item;
-import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.json.ItemJSON;
-import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.json.internal.InternalCategoryJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
@@ -89,57 +86,24 @@ public class CategoryAction extends ActionSupport {
 	}
 
 	@SkipValidation
-	public String deleteCategory() {
-		List<Subcategory> subcategories;
-		List<Product> products;
-		List<Item> items;
-		
-		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
-		
-		SubcategoryJSON subcategoryJSON;
-		ProductJSON productJSON;
-		
+	public String requestDeleteCategory() {
 		category = categoryService.findById(Long.valueOf(id));
 
-		if (!"ok".equals(confirmation)) {
-			subcategories = subcategoryService.findByCategoryId(category, true);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
 
-			if (subcategories != null) {
-				if (subcategories.size() > 0) {
-					for (Subcategory subcategory : subcategories) {
-						subcategoryJSON = new SubcategoryJSON(subcategory);
-						products = productService.findBySubcategoryId(subcategory, true);
-						productJSONs = new ArrayList<ProductJSON>();
-						
-						if (products != null) {
-							if (products.size() > 0) {
-								for (Product product : products) {
-									productJSON = new ProductJSON(product);
-									items = itemService.findByProductId(product, true);
-									itemJSONs = new ArrayList<ItemJSON>();
-									
-									if (items != null) {
-										if (items.size() > 0) {
-											for (Item item : items) {
-												itemJSONs.add(new ItemJSON(item));
-											}
-										}
-									}
-									productJSON.setItems(itemJSONs);
-									productJSONs.add(productJSON);
-								}
-							}
-						}
-						subcategoryJSON.setProducts(productJSONs);
-						subcategoryJSONs.add(subcategoryJSON);
-					}
-
-					return SUCCESS;
-				}
-			}
+		if( subcategories == null ) {
+			return "SUCCESS";
+		}
+			
+		for (Subcategory subcategory : subcategories) {
+			subcategoryJSONs.add(new SubcategoryJSON(subcategory));
 		}
 
+		return SUCCESS;
+	}
+		
+	@SkipValidation
+	public String deleteCategory() {
 		Category deletedCategory = categoryService.delete(category);
 		
 		if (deletedCategory == null) {
@@ -161,7 +125,8 @@ public class CategoryAction extends ActionSupport {
 		List<Category> categories;
 		List<InternalCategoryJSON> categoriesJSON = new ArrayList<InternalCategoryJSON>();
 		
-		if (query == null || "".equals(query)) {
+		
+		if (StringUtils.isBlank(query)) {
 			categories = categoryService.personalizedQuery("id","asc", status, jtStartIndex, jtPageSize);
 		} else {
 			categories = categoryService.search("name","asc", status, jtStartIndex, jtPageSize, query);
