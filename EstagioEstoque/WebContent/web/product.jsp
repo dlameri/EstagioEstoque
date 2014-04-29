@@ -8,7 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
-<link href="../css/product.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../css/product.css" rel="stylesheet" type="text/css"
+	media="all" />
 <script type="text/javascript" src="../js/product/validate.product.js"></script>
 <script type="text/javascript" src="../js/product/productJTable.js"></script>
 </head>
@@ -20,18 +21,21 @@
 			<div class="title">
 				<h1>Sistema de Consulta e Cadastro de Produtos</h1>
 				<form>
-					<input type="text" class="searchBar form-control" id="searchProduct"> <select
+					<input type="text" class="searchBar form-control"
+						id="searchProduct"> <select
 						class="form-control statusSelector searchStatusProduct">
 						<option value="true" selected="selected">Ativos</option>
 						<option value="false">Inativos</option>
-					</select><br><br>
-					<button class="btn btn-submit btn-primary btn-search">Product Search</button>
-					<button class="btn btn-submit btn-primary btn-search">Clean Field</button>
+					</select><br> <br>
+					<button class="btn btn-submit btn-primary btn-search">Product
+						Search</button>
+					<button class="btn btn-submit btn-primary btn-search">Clean
+						Field</button>
 				</form>
 			</div>
 			<div id="texto">
 				<br>
-			<div id="productContainer"></div>
+				<div id="productContainer"></div>
 			</div>
 		</div>
 	</div>
