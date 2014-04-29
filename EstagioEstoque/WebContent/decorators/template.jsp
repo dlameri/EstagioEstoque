@@ -16,7 +16,7 @@
 <link href="../css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/fonts.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/jQuery/jquery-ui-1.10.4.min.css" rel="stylesheet" type="text/css" media="all" />
-<link href="../css/jQuery/jTable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../css/jQuery/jTable/themes/metro/lightgray/jtable.min.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="../js/jQuery/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery-ui-1.10.4.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.validate.min.js"></script>
@@ -38,10 +38,8 @@
 		<div id="menu" class="container">
 			<ul>
 				<li><a href="/EstagioEstoque/web/">Home</a></li>
-				<li><a href="categorias">Categoria</a></li>
-				<li><a href="subcategorias">Subcategoria</a></li>
-				<li><a href="produtos">Produto</a></li>
-				<li><a href="itens">Item</a></li>
+				<li><a href="categorias">Categoria & Subcategoria</a></li>
+				<li><a href="produtos">Produto & Item</a></li>
 				<li><a href="/EstagioEstoque/LogoutServlet">Logout</a></li>
 			</ul>
 		</div>	

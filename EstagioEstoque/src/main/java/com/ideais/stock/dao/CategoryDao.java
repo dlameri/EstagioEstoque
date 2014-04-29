@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Product;
 
 public class CategoryDao extends AbstractDao<Category>{
 	
@@ -48,7 +47,8 @@ public class CategoryDao extends AbstractDao<Category>{
 		
 		List<Category> categories = findByParams(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO=" + active).list().get(0)).intValue();
+		Integer count = ((BigInteger) session()
+				.createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO=" + active).list().get(0)).intValue();
 		
 		for (Category category: categories) {
 			category.setCount(count);
@@ -57,7 +57,7 @@ public class CategoryDao extends AbstractDao<Category>{
 		return categories;
 	}
 	
-	public List<Category> search(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+	public List<Category> search (String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
 
@@ -68,7 +68,11 @@ public class CategoryDao extends AbstractDao<Category>{
 		for (Category category: categories) {
 			category.setCount(count);
 		}
-		
+
 		return categories;
+	}
+	
+	public int getCount(){
+		return 0;
 	}
 }

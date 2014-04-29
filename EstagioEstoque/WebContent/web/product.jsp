@@ -15,12 +15,12 @@
 
 	<div id="three-column" class="container">
 		<div id="icon">
-			<span class="icon icon-pencil"></span>
+			<span class="icon icon-barcode"></span>
 			<div class="title">
 				<h1>Sistema de Consulta e Cadastro de Produtos</h1>
 				<form>
 					<input type="text" class="searchBar form-control" id="searchProduct"> <select
-						class="form-control statusSelector">
+						class="form-control statusSelector searchStatusProduct">
 						<option value="true" selected="selected">Ativos</option>
 						<option value="false">Inativos</option>
 					</select><br><br>
@@ -30,19 +30,7 @@
 			</div>
 			<div id="texto">
 				<br>
-				<!-- 	<ul class="productsList"> -->
-				<%-- 		<c:forEach items="${products}" var="product"> --%>
-				<!-- 			<li> -->
-				<%-- 				${product.category} - ${product.subcategory} <br/> --%>
-				<%-- 				Nome: <a href="productForm?id=${product.id}">${product.name}</a> - ShortDesc: ${product.shortDescription } - LongDesc: ${product.longDescription }<br/> --%>
-				<%-- 				Weight: ${product.weight } - Warranty: ${product.warranty } - Model: ${product.model }<br/> --%>
-				<%-- 				Brand: ${product.brand } - Dimensions: ${product.dimensions.width }x${product.dimensions.height }x${product.dimensions.depth } --%>
-				<%-- 				<br/><a href="deleteproduct?id=${product.id}">deletar</a> --%>
-				<!-- 			</li> -->
-				<%-- 		</c:forEach> --%>
-				<!-- 	</ul> -->
-
-				<div id="productContainer"></div>
+			<div id="productContainer"></div>
 			</div>
 		</div>
 	</div>

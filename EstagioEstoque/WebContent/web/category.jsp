@@ -13,21 +13,31 @@
 </head>
 <body>
 
-	<h1>Categorias</h1>
-	<br />
+	<div id="three-column" class="container">
+		<div id="icon">
+			<span class="icon icon-sitemap"></span>
+			<div class="title">
+				<h1>Sistema de Consulta e Cadastro Categórico</h1>
+				<form>
+					<input type="text" class="searchBar form-control"
+						id="searchProduct"> <select
+						class="form-control statusSelector searchStatusProduct">
+						<option value="true" selected="selected">Ativos</option>
+						<option value="false">Inativos</option>
+					</select><br>
+					<br>
+					<button class="btn btn-submit btn-primary btn-search">Category
+						Search</button>
+					<button class="btn btn-submit btn-primary btn-search">Clean
+						Field</button>
+				</form>
+			</div>
+			<div id="texto">
+				<br>
+					<div id="categoryContainer"></div>
+			</div>
+		</div>
+	</div>
 
-	<form>
-		<input type="text" class="searchBar form-control" id="searchProduct">
-		<select class="form-control statusSelector">
-			<option value="true" selected="selected">Ativos</option>
-			<option value="false">Inativos</option>
-		</select><br>
-		<br>
-		<button class="btn btn-submit btn-primary btn-search">Product
-			Search</button>
-		<button class="btn btn-submit btn-primary btn-search">Clean
-			Field</button>
-	</form>
 
-	<div id="categoryContainer"></div>
 </body>

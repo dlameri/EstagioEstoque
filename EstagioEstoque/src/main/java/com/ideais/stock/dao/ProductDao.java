@@ -83,7 +83,15 @@ public class ProductDao extends AbstractDao<Product>{
 
 	public List<Product> search(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
+		restrictions.add( Restrictions.or( Restrictions.like("name", "%"+textToSearch+"%") ) );
+		restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+textToSearch+"%") ) );
+		
+		String[] splittedQuery = textToSearch.split(" ");
+		
+		for (String string : splittedQuery) {
+			restrictions.add( Restrictions.or( Restrictions.like("name", "%"+string+"%") ) );
+			restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+string+"%") ) );
+		}
 
 		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
 

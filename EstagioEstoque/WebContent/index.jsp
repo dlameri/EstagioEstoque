@@ -37,9 +37,9 @@
 	<div class="container">
 		<form action="LoginServlet" method="post" class="form-signin">
 			<h2 class="form-signin-heading">Área de Acesso Restrito</h2>
-			<input type="text" class="form-control" placeholder="Login"
+			<input type="text" class="form-control-login" placeholder="Login"
 				name="email" value="admin@teste.com" required autofocus> <input
-				type="password" class="form-control" placeholder="Senha" name="pwd"
+				type="password" class="form-control-login" placeholder="Senha" name="pwd"
 				value="123" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 		</form>
