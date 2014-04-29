@@ -93,6 +93,7 @@ table {
 
 #searchProduct{
 	width: 450px;
+	height: 20px;
 	display: inline-block;
 }
 
@@ -637,4 +638,8 @@ ul.contact li a.icon-rss:before {
 #image {
 	height: 50px;
 	width: 50px;
+}
+
+.jtable-input-field-container{
+	display:inline-block;
 }
