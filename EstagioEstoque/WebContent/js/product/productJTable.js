@@ -6,6 +6,7 @@ $(function() {
          title: 'Produtos',
          paging: true,
          pageSize: 10,
+         pageSizes: [10, 20, 35, 50],
          actions: {
         	 listAction: function (postData, jtParams) {
                  console.log("Recebendo lista do server...");
@@ -121,6 +122,7 @@ $(function() {
                                  title: 'Itens de - ' + productData.record.name,
                                  paging: true,
                                  pageSize: 10,
+                                 pageSizes: [10, 20, 35, 50],
                                  actions: {
                                 	 listAction: function (postData, jtParams) {
                                          console.log("Recebendo lista do server...");

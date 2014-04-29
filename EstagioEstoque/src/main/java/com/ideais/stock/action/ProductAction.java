@@ -14,7 +14,7 @@ import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.CategoryJSON;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.SubcategoryJSON;
-import com.ideais.stock.json.internal.ProductInternalJSON;
+import com.ideais.stock.json.internal.InternalProductJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
@@ -52,7 +52,7 @@ public class ProductAction extends ActionSupport {
 	@Autowired
 	private ItemService itemService;
 
-	private ProductInternalJSON savedProduct;
+	private InternalProductJSON savedProduct;
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
 
@@ -62,7 +62,7 @@ public class ProductAction extends ActionSupport {
 
 	private List<CategoryJSON> categoryJSONs = new ArrayList<CategoryJSON>();
 	private List<SubcategoryJSON> subcategories = new ArrayList<SubcategoryJSON>();
-	private List<ProductInternalJSON> productJSONs = new ArrayList<ProductInternalJSON>();
+	private List<InternalProductJSON> productJSONs = new ArrayList<InternalProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 
 	@Validations(
@@ -112,7 +112,7 @@ public class ProductAction extends ActionSupport {
 			productToBeEdited.setLongDescription(product.getLongDescription());
 			productToBeEdited.setShortDescription(product.getShortDescription());
 			
-			savedProduct = new ProductInternalJSON(productService.save(productToBeEdited));
+			savedProduct = new InternalProductJSON(productService.save(productToBeEdited));
 
 			return SUCCESS;
 
@@ -122,7 +122,7 @@ public class ProductAction extends ActionSupport {
 		product.setCategory(subcategory.getCategory());
 		product.setSubcategory(subcategory);
 		
-		savedProduct = new ProductInternalJSON(productService.save(product));
+		savedProduct = new InternalProductJSON(productService.save(product));
 
 		return SUCCESS;
 	}
@@ -179,7 +179,7 @@ public class ProductAction extends ActionSupport {
 		}
 		
 		for (Product product : products) {
-			productJSONs.add(new ProductInternalJSON(product));
+			productJSONs.add(new InternalProductJSON(product));
 		}
 		
 		return SUCCESS;
@@ -276,11 +276,11 @@ public class ProductAction extends ActionSupport {
 		this.confirmation = confirmation;
 	}
 
-	public List<ProductInternalJSON> getProductJSONs() {
+	public List<InternalProductJSON> getProductJSONs() {
 		return productJSONs;
 	}
 
-	public void setProductJSONs(List<ProductInternalJSON> productJSONs) {
+	public void setProductJSONs(List<InternalProductJSON> productJSONs) {
 		this.productJSONs = productJSONs;
 	}
 
@@ -324,11 +324,11 @@ public class ProductAction extends ActionSupport {
 		this.categoryJSONs = categoryJSONs;
 	}
 
-	public ProductInternalJSON getSavedProduct() {
+	public InternalProductJSON getSavedProduct() {
 		return savedProduct;
 	}
 
-	public void setSavedProduct(ProductInternalJSON savedProduct) {
+	public void setSavedProduct(InternalProductJSON savedProduct) {
 		this.savedProduct = savedProduct;
 	}
 

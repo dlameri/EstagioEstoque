@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.ideais.stock.domain.Item;
 
-public class ItemInternalJSON {
+public class InternalItemJSON {
 	
 	private Long id;
 	private Long sku;
@@ -20,7 +20,7 @@ public class ItemInternalJSON {
 	private Integer count;
 	private Long productId;
 	
-	public ItemInternalJSON(Item item) {
+	public InternalItemJSON(Item item) {
 		this.id = item.getId();
 		this.sku = item.getSku();
 		this.priceFrom = item.getPriceFrom();

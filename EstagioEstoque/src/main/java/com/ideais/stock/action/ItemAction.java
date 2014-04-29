@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
-import com.ideais.stock.json.internal.ItemInternalJSON;
+import com.ideais.stock.json.internal.InternalItemJSON;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -38,12 +38,12 @@ public class ItemAction extends ActionSupport {
 	
 	private Product product;
 	private Item item;
-	private ItemInternalJSON savedItem;
+	private InternalItemJSON savedItem;
 	
 	private List<Image> images = new ArrayList<Image>();
 	private List<Item> items = new ArrayList<Item>();
 	
-	private List<ItemInternalJSON> itemJSONList = new ArrayList<ItemInternalJSON>();
+	private List<InternalItemJSON> itemJSONList = new ArrayList<InternalItemJSON>();
 	
 	@Validations(
 		requiredStrings={
@@ -76,7 +76,7 @@ public class ItemAction extends ActionSupport {
 		
 		item.setProduct(product);
 		item.setImages(images);
-		savedItem = new ItemInternalJSON(itemService.save(item));
+		savedItem = new InternalItemJSON(itemService.save(item));
 		
 		return SUCCESS;
 	}
@@ -97,7 +97,7 @@ public class ItemAction extends ActionSupport {
 		items = itemService.findByProductId(product, "id", "asc", String.valueOf(true), String.valueOf(jtStartIndex), String.valueOf(jtPageSize));
 		
 		for (Item item : items) {
-			itemJSONList.add(new ItemInternalJSON(item));
+			itemJSONList.add(new InternalItemJSON(item));
 		}
 		
 		return SUCCESS;
@@ -192,19 +192,19 @@ public class ItemAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
-	public List<ItemInternalJSON> getItemJSONList() {
+	public List<InternalItemJSON> getItemJSONList() {
 		return itemJSONList;
 	}
 
-	public void setItemJSONList(List<ItemInternalJSON> itemJSONList) {
+	public void setItemJSONList(List<InternalItemJSON> itemJSONList) {
 		this.itemJSONList = itemJSONList;
 	}
 
-	public ItemInternalJSON getSavedItem() {
+	public InternalItemJSON getSavedItem() {
 		return savedItem;
 	}
 
-	public void setSavedItem(ItemInternalJSON savedItem) {
+	public void setSavedItem(InternalItemJSON savedItem) {
 		this.savedItem = savedItem;
 	}
 }

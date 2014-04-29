@@ -7,7 +7,7 @@ import java.util.List;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ProductJSON;
 
-public class SubcategoryInternalJSON implements Serializable {
+public class InternalSubcategoryJSON implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,7 +19,7 @@ public class SubcategoryInternalJSON implements Serializable {
 	
 	private List<ProductJSON> products = new ArrayList<ProductJSON>();
 
-	public SubcategoryInternalJSON(Subcategory subcategory) {
+	public InternalSubcategoryJSON(Subcategory subcategory) {
 		this.id = subcategory.getId();
 		this.name = subcategory.getName();
 		this.active = subcategory.getActive();

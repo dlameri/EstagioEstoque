@@ -101,6 +101,30 @@ public abstract class AbstractDao<T> {
 
 		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	public int getCount(Class<T> persistenceClass, List<Criterion> restrictions, String orderColum,
+			String order, String active, String firstResult, String maxResults)
+			throws HibernateException {
+		
+		Criteria criteria = session().createCriteria(persistenceClass);
+		
+		for (Criterion restriction : restrictions) {
+			criteria.add(restriction);
+		}
+		
+		if (orderColum != null) {
+			if ("asc".equals(order)) {
+				criteria.addOrder(Property.forName(orderColum).asc());
+			}
+			if ("desc".equals(order)) {
+				criteria.addOrder(Property.forName(orderColum).desc());
+			}
+		}
+
+		criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
+
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list().size();
+	}
 
 	protected Boolean parseStringToBoolean(String string) {
 		if ("true".equals(string)) {

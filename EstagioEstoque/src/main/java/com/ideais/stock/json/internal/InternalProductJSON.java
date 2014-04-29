@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.ItemJSON;
 
-public class ProductInternalJSON implements Serializable {
+public class InternalProductJSON implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +33,7 @@ public class ProductInternalJSON implements Serializable {
 	private Double height;
 	private Double depth;
 
-	public ProductInternalJSON(Product product) {
+	public InternalProductJSON(Product product) {
 		this.id = product.getId();
 		this.name = product.getName();
 		this.shortDescription = product.getShortDescription();

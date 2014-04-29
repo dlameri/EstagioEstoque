@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Product;
 
 public class CategoryService {
 	
@@ -38,7 +37,6 @@ public class CategoryService {
 			LOG.error("Error ao pegar a categoria ("+id+")", e);
 			return null;
 		}
-		
 	}
 	
 	public List<Category> findByName(String name) {
@@ -48,7 +46,6 @@ public class CategoryService {
 			LOG.error("Error ao pegar a categoria pelo nome ("+name+")", e);
 			return null;
 		}
-		
 	}
 
 	public List<Category> findAll() {
@@ -85,6 +82,14 @@ public class CategoryService {
 					+ textToSearch, e);
 			return null;
 		}
+	}
+	
+	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults) {
+		return categoryDao.getCount(orderColumn, order, active, firstResult, maxResults);
+	}
+	
+	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+		return categoryDao.getCount(orderColumn, order, active, firstResult, maxResults, textToSearch);
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)

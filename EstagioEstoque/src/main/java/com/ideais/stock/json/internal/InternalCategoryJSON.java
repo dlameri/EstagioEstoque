@@ -2,9 +2,11 @@ package com.ideais.stock.json.internal;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import com.ideais.stock.domain.Category;
 
-public class CategoryInternalJSON implements Serializable {
+public class InternalCategoryJSON implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -13,7 +15,7 @@ public class CategoryInternalJSON implements Serializable {
 	private Boolean active;
 	private Integer count;
 
-	public CategoryInternalJSON(Category category) {
+	public InternalCategoryJSON(Category category) {
 		this.id = category.getId();
 		this.name = category.getName();
 		this.active = category.getActive();
@@ -28,6 +30,7 @@ public class CategoryInternalJSON implements Serializable {
 		this.id = id;
 	}
 
+	@JsonProperty("SeraUmNome")
 	public String getName() {
 		return name;
 	}

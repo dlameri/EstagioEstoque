@@ -13,7 +13,8 @@ import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.SubcategoryJSON;
-import com.ideais.stock.json.internal.CategoryInternalJSON;
+import com.ideais.stock.json.internal.InternalCategoryJSON;
+import com.ideais.stock.json.internal.ResponseJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
@@ -37,6 +38,8 @@ public class CategoryAction extends ActionSupport {
 	private Long categoryId;
 	private int jtStartIndex;
 	private int jtPageSize;
+	private ResponseJSON<InternalCategoryJSON> jsonOutput;
+	private ResponseJSON<InternalCategoryJSON> jsonInput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Por favor, verifique os campos.");
 
 	private Category category = new Category();
 
@@ -49,12 +52,12 @@ public class CategoryAction extends ActionSupport {
 	@Autowired
 	private ItemService itemService;
 
-	private CategoryInternalJSON savedCategory;
+	private InternalCategoryJSON savedCategory;
 	private List<Category> categories;
 	private List<Subcategory> subcategories;
 	private List<Product> products;
 	private List<Item> items;
-	private List<CategoryInternalJSON> categoryJSONList = new ArrayList<CategoryInternalJSON>();
+	private List<InternalCategoryJSON> categoryJSONList = new ArrayList<InternalCategoryJSON>();
 	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
@@ -68,13 +71,14 @@ public class CategoryAction extends ActionSupport {
 		}
 	)
 	public String saveCategory() {
-		try {
-			savedCategory = new CategoryInternalJSON(categoryService.save(category));
-			return SUCCESS;
-
-		} catch (Exception e) {
+		savedCategory = new InternalCategoryJSON(categoryService.save(category));
+	
+		if (savedCategory == null) {
+			jsonOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Erro ao salvar categoria.");
 			return ERROR;
 		}
+		
+		return SUCCESS;
 	}
 
 	@SkipValidation
@@ -147,8 +151,11 @@ public class CategoryAction extends ActionSupport {
 		}
 		
 		for (Category category : categories) {
-			categoryJSONList.add(new CategoryInternalJSON(category));
+			categoryJSONList.add(new InternalCategoryJSON(category));
 		}
+		
+		jsonOutput = new ResponseJSON<InternalCategoryJSON>("OK", categoryJSONList, categoryService.getCount("id","asc", status, jtStartIndex, jtPageSize));
+//		jsonOutput = new ResponseJSON<CategoryInternalJSON>("ERROR", "Deu ruim!");
 		
 		return SUCCESS;
 	}
@@ -249,20 +256,36 @@ public class CategoryAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
-	public List<CategoryInternalJSON> getCategoryJSONList() {
+	public List<InternalCategoryJSON> getCategoryJSONList() {
 		return categoryJSONList;
 	}
 
-	public void setCategoryJSONList(List<CategoryInternalJSON> categoryJSONList) {
+	public void setCategoryJSONList(List<InternalCategoryJSON> categoryJSONList) {
 		this.categoryJSONList = categoryJSONList;
 	}
 
-	public CategoryInternalJSON getSavedCategory() {
+	public InternalCategoryJSON getSavedCategory() {
 		return savedCategory;
 	}
 
-	public void setSavedCategory(CategoryInternalJSON savedCategory) {
+	public void setSavedCategory(InternalCategoryJSON savedCategory) {
 		this.savedCategory = savedCategory;
 	}
-	
+
+	public ResponseJSON<InternalCategoryJSON> getJsonOutput() {
+		return jsonOutput;
+	}
+
+	public void setJsonOutput(ResponseJSON<InternalCategoryJSON> jsonOutput) {
+		this.jsonOutput = jsonOutput;
+	}
+
+	public ResponseJSON<InternalCategoryJSON> getJsonInput() {
+		return jsonInput;
+	}
+
+	public void setJsonInput(ResponseJSON<InternalCategoryJSON> jsonInput) {
+		this.jsonInput = jsonInput;
+	}
+
 }

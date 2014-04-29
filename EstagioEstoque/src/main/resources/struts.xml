@@ -52,8 +52,10 @@
 			<result name="error" type="redirect">
 				<param name="location">/web/categorias?error=true</param>
 			</result>
-			<result name="input" type="dispatcher">
-				<param name="location">/web/category.jsp</param>
+			<result name="input" type="json">
+				<param name="root">
+					jsonInput
+				</param>
 			</result>
 		</action>
 
@@ -73,7 +75,7 @@
 			method="getPaginatedCategories">
 			<result type="json">
 				<param name="root">
-					categoryJSONList
+					jsonOutput
 				</param>
 			</result>
 			<result name="error"></result>

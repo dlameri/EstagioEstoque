@@ -72,7 +72,15 @@ public class CategoryDao extends AbstractDao<Category>{
 		return categories;
 	}
 	
-	public int getCount(){
-		return 0;
+	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		return super.getCount(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+	}
+	
+	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
+
+		return super.getCount(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
 	}
 }

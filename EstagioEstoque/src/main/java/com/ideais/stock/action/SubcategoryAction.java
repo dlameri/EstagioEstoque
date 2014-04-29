@@ -12,7 +12,7 @@ import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
-import com.ideais.stock.json.internal.SubcategoryInternalJSON;
+import com.ideais.stock.json.internal.InternalSubcategoryJSON;
 import com.ideais.stock.service.CategoryService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
@@ -48,7 +48,7 @@ public class SubcategoryAction extends ActionSupport {
 
 	private Category category = new Category();
 	private Subcategory subcategory = new Subcategory();
-	private SubcategoryInternalJSON savedSubcategory;
+	private InternalSubcategoryJSON savedSubcategory;
 
 	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 	private List<Category> categories = new ArrayList<Category>();
@@ -58,7 +58,7 @@ public class SubcategoryAction extends ActionSupport {
 	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 	
-	private List<SubcategoryInternalJSON> subcategoryJSONList = new ArrayList<SubcategoryInternalJSON>(); 
+	private List<InternalSubcategoryJSON> subcategoryJSONList = new ArrayList<InternalSubcategoryJSON>(); 
 
 	@Validations(
 		requiredStrings={ 
@@ -72,7 +72,7 @@ public class SubcategoryAction extends ActionSupport {
 		category = categoryService.findById(categoryId);
 		subcategory.setCategory(category);
 		
-		savedSubcategory = new SubcategoryInternalJSON(subcategoryService.save(subcategory));
+		savedSubcategory = new InternalSubcategoryJSON(subcategoryService.save(subcategory));
 		return SUCCESS;
 	}
 
@@ -133,7 +133,7 @@ public class SubcategoryAction extends ActionSupport {
 		subcategories = subcategoryService.findByCategoryId(category, true);
 		
 		for (Subcategory subcategory : subcategories) {
-			subcategoryJSONList.add(new SubcategoryInternalJSON(subcategory));
+			subcategoryJSONList.add(new InternalSubcategoryJSON(subcategory));
 		}
 		
 		return SUCCESS;
@@ -248,20 +248,20 @@ public class SubcategoryAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
-	public SubcategoryInternalJSON getSavedSubcategory() {
+	public InternalSubcategoryJSON getSavedSubcategory() {
 		return savedSubcategory;
 	}
 
-	public void setSavedSubcategory(SubcategoryInternalJSON savedSubcategory) {
+	public void setSavedSubcategory(InternalSubcategoryJSON savedSubcategory) {
 		this.savedSubcategory = savedSubcategory;
 	}
 
-	public List<SubcategoryInternalJSON> getSubcategoryJSONList() {
+	public List<InternalSubcategoryJSON> getSubcategoryJSONList() {
 		return subcategoryJSONList;
 	}
 
 	public void setSubcategoryJSONList(
-			List<SubcategoryInternalJSON> subcategoryJSONList) {
+			List<InternalSubcategoryJSON> subcategoryJSONList) {
 		this.subcategoryJSONList = subcategoryJSONList;
 	}
 
