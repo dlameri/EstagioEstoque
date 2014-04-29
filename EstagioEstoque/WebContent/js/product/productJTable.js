@@ -113,7 +113,8 @@ $(function() {
                  create: false,
                  display: function (productData) {
                      //Create an image that will be used to open child table
-                     var $img = $('<img src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
+                     var $img = $('<img class="child-opener-image" src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
+                     $img.closest('td').addClass("child-opener-image-column");
                      //Open child table when user clicks the image
                      $img.click(function () {
                     	 $('#productContainer').jtable('openChildTable',

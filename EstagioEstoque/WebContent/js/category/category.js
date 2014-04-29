@@ -12,7 +12,7 @@ $(function() {
         	 datas.deleteConfirmMessage = "Esta categoria tem as seguintes subcategorias atreladas a ela: <br/> ";
         	 $.ajax({
      			type : "GET",
-     			url : '/EstagioEstoque/web/deleteCategory?id=' + datas.record.id,
+     			url : '/EstagioEstoque/web/requestDeleteCategory?id=' + datas.record.id,
      			dataType : 'json',
      			async: false,
      			beforeSend : console.log("Enviando dados pro serv"),
@@ -43,7 +43,7 @@ $(function() {
 			 					$("#toBeDeleted").append('<button type="button" class="btn-cancel btn btn-xs btn-warning">Cancelar</button>');
 			 				}
      				else {
-     					window.location.replace("/EstagioEstoque/web/subcategorias?deleted=true");
+//     					window.location.replace("/EstagioEstoque/web/subcategorias?deleted=true");
      				}
      			}
      		});

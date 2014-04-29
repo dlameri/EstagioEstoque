@@ -75,16 +75,17 @@ public abstract class AbstractDao<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> findByParams(Class<T> persistenceClass, List<Criterion> restrictions, String orderColum,
-			String order, String active, String firstResult, String maxResults)
+	public List<T> findByParams(Class<T> persistenceClass,
+			List<Criterion> restrictions, String orderColum, String order,
+			String active, String firstResult, String maxResults)
 			throws HibernateException {
-		
+
 		Criteria criteria = session().createCriteria(persistenceClass);
-		
+
 		for (Criterion restriction : restrictions) {
 			criteria.add(restriction);
 		}
-		
+
 		if (orderColum != null) {
 			if ("asc".equals(order)) {
 				criteria.addOrder(Property.forName(orderColum).asc());
@@ -94,43 +95,29 @@ public abstract class AbstractDao<T> {
 			}
 		}
 
-		criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
+		criteria.add(Restrictions.like("active", Boolean.valueOf(active)));
 
 		criteria.setFirstResult(setFirstResult(firstResult));
 		criteria.setMaxResults(setMaxResult(maxResults));
 
-		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list();
 	}
-	
-	public int getCount(Class<T> persistenceClass, List<Criterion> restrictions, String orderColum,
-			String order, String active, String firstResult, String maxResults)
+
+	public int getCount(Class<T> persistenceClass,
+			List<Criterion> restrictions, Boolean active)
 			throws HibernateException {
-		
+
 		Criteria criteria = session().createCriteria(persistenceClass);
-		
+
 		for (Criterion restriction : restrictions) {
 			criteria.add(restriction);
 		}
-		
-		if (orderColum != null) {
-			if ("asc".equals(order)) {
-				criteria.addOrder(Property.forName(orderColum).asc());
-			}
-			if ("desc".equals(order)) {
-				criteria.addOrder(Property.forName(orderColum).desc());
-			}
-		}
 
-		criteria.add(Restrictions.like("active", parseStringToBoolean(active)));
+		criteria.add(Restrictions.like("active", active));
 
-		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list().size();
-	}
-
-	protected Boolean parseStringToBoolean(String string) {
-		if ("true".equals(string)) {
-			return true;
-		}
-		return false;
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+				.list().size();
 	}
 
 	private int setFirstResult(String firstResult) {

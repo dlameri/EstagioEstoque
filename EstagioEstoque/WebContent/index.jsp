@@ -23,7 +23,6 @@
 <link href="./css/bootstrap.css" rel="stylesheet">
 
 <link href="./css/login.css" rel="stylesheet">
-<script type="text/javascript" src="./js/catalogo.js"></script>
 
 </head>
 <body>

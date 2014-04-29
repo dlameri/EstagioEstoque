@@ -84,23 +84,24 @@ public class CategoryService {
 		}
 	}
 	
-	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults) {
-		return categoryDao.getCount(orderColumn, order, active, firstResult, maxResults);
+	public int getCount(Boolean active) {
+		return categoryDao.getCount(active);
 	}
 	
-	public int getCount(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
-		return categoryDao.getCount(orderColumn, order, active, firstResult, maxResults, textToSearch);
+	public int getCount(Boolean active, String textToSearch) {
+		return categoryDao.getCount(active, textToSearch);
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void delete(Category category) {
+	public Category delete(Category category) {
 		subcategoryService.delete(category);
 
 		try {
 			category.softDelete();
-			categoryDao.save(category);
+			return categoryDao.save(category);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar a categoria ", e);
+			return null;
 		}
 		
 	}

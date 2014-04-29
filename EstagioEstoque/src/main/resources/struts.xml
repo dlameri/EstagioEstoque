@@ -44,22 +44,38 @@
 
 		<action name="saveCategory" class="com.ideais.stock.action.CategoryAction"
 			method="saveCategory">
-			<result type="json">
+			<result name="success" type="json">
 				<param name="root">
-					savedCategory
+					responseOutput
 				</param>
 			</result>
-			<result name="error" type="redirect">
-				<param name="location">/web/categorias?error=true</param>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
 			</result>
 			<result name="input" type="json">
 				<param name="root">
-					jsonInput
+					inputResponseError
 				</param>
 			</result>
 		</action>
 
 		<action name="deleteCategory" class="com.ideais.stock.action.CategoryAction"
+			method="deleteCategory">
+			<result name="success" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+		</action>
+		
+		<action name="requestDeleteCategory" class="com.ideais.stock.action.CategoryAction"
 			method="deleteCategory">
 			<result type="json">
 				<param name="root">
@@ -73,12 +89,16 @@
 		
 		<action name="getPaginatedCategories" class="com.ideais.stock.action.CategoryAction"
 			method="getPaginatedCategories">
-			<result type="json">
+			<result name="success" type="json">
 				<param name="root">
-					jsonOutput
+					responseOutput
 				</param>
 			</result>
-			<result name="error"></result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
 		</action>
 
 
