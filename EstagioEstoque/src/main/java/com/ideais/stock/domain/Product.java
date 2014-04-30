@@ -59,6 +59,9 @@ public class Product {
 	@Column(name = "NR_RANK", nullable = false)
 	private Integer rank;
 	
+	@Column(name="BO_PROMO", nullable=false)
+	private Boolean promo;
+	
 	@Transient
 	private Integer count;
 
@@ -208,6 +211,14 @@ public class Product {
 		this.count = count;
 	}
 	
+	public Boolean getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Boolean promo) {
+		this.promo = promo;
+	}
+
 	@Override
 	public String toString() {
 		return id + " - " + name;

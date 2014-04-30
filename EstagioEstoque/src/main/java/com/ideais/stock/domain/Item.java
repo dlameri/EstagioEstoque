@@ -59,9 +59,6 @@ public class Item {
 	@Column(name="BO_ATIVO", nullable=false)
 	private Boolean active;
 	
-	@Column(name="BO_PROMO", nullable=false)
-	private Boolean promo;
-	
 	@Transient
 	private Integer count;
 	
@@ -188,14 +185,6 @@ public class Item {
 
 	public String getFormattedPriceFor() {
 		return valueFormatter(priceFor);
-	}
-
-	public Boolean getPromo() {
-		return promo;
-	}
-
-	public void setPromo(Boolean promo) {
-		this.promo = promo;
 	}
 
 	public Integer getCount() {

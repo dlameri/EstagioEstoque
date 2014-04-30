@@ -90,11 +90,4 @@ public class ItemDao extends AbstractDao<Item>{
 		return items;
 	}
 
-	public List<Item> findPromoItems() {
-		List<Criterion> restrictions = new ArrayList<Criterion>();
-
-		restrictions.add(Restrictions.like("promo", true));
-
-		return super.findByRestrictions(Item.class, restrictions);
-	}
 }
