@@ -24,7 +24,7 @@
 <script type="text/javascript" src="../js/jQuery/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.mask.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/external/json2.min.js"></script>
-<script type="text/javascript" src="../js/jQuery/jquery.jtable.min.js"></script>
+<script type="text/javascript" src="../js/jQuery/jquery.jtable.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.validationEngine-pt_BR.js"></script>
 <decorator:head />
