@@ -89,6 +89,7 @@ public class SubcategoryAction extends ActionSupport {
 	
 	@SkipValidation
 	public String deleteSubcategory() {
+		subcategory = subcategoryService.findById(Long.valueOf(id));
 		Subcategory deletedSubcategory = subcategoryService.delete(subcategory);
 
 		if (deletedSubcategory == null) {
@@ -111,13 +112,13 @@ public class SubcategoryAction extends ActionSupport {
 		
 		Category category = new Category();
 		category.setId(categoryId);
-		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, false);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
 		
 		for (Subcategory subcategory : subcategories) {
 			subcategoriesJSON.add(new InternalSubcategoryJSON(subcategory));
 		}
-		responseOutput = new ResponseJSON<InternalSubcategoryJSON>( "OK", subcategoriesJSON, subcategoriesJSON.get(0).getCount() );
-		
+
+		responseOutput = new ResponseJSON<InternalSubcategoryJSON>( "OK", subcategoriesJSON, 10 );
 		return SUCCESS;
 	}
 

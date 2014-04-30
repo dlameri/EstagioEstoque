@@ -7,6 +7,23 @@ $(function() {
          paging: true,
          pageSize: 10,
          pageSizes: [10, 20, 35, 50],
+         deleteConfirmation: function(data) {
+         	
+        	 $.ajax({
+     			type : "GET",
+     			url : '/EstagioEstoque/web/checkProductBeforeDeleting?id=' + data.record.id,
+     			dataType : 'json',
+     			async: false,
+     			beforeSend : console.log("Enviando dados pro serv"),
+     			success : function(response) {
+     				if (response.length > 0 ) {
+     					data.deleteConfirmMessage = "Este produto tem itens atrelados a ele.<br/> Você tem certeza que deseja deletá-lo?";
+     				} else {
+     					data.deleteConfirmMessage = "Você tem certeza que deseja deletar o produto?<br/> ";
+     				}
+     			}
+        	 });
+         },
          actions: {
         	 listAction: function (postData, jtParams) {
                  console.log("Recebendo lista do server...");
@@ -17,13 +34,7 @@ $(function() {
                          dataType: 'json',
                          data: postData,
                          success: function (data) {
-                        	 if (data.length > 0) {
-                        		 var count = data[0].count;
-                        	 } else {
-                        		 count = 0;
-                        	 }
-                        	 var result = {Result: "OK", Records: data, TotalRecordCount: count};
-                             $dfd.resolve(result);
+                             $dfd.resolve(data);
                          },
                          error: function () {
                              $dfd.reject();
@@ -40,12 +51,7 @@ $(function() {
                          dataType: 'json',
                          data: postData,
                          success: function (data) {
-                        	 if (data) {
-                        		 var result = {Result: "OK", Record: data};
-                                 $dfd.resolve(result);
-                        	 } else {
-                        		 $dfd.reject();
-                        	 }
+                             $dfd.resolve(data);
                          },
                          error: function () {
                              $dfd.reject();
@@ -62,12 +68,7 @@ $(function() {
                          dataType: 'json',
                          data: postData,
                          success: function (data) {
-                        	 if (data) {
-                        		 var result = {Result: "OK"};
-                                 $dfd.resolve(result);
-                        	 } else {
-                        		 $dfd.reject();
-                        	 }
+                             $dfd.resolve(data);
                          },
                          error: function () {
                              $dfd.reject();
@@ -79,17 +80,12 @@ $(function() {
                  console.log("Enviando produto para deleção...");
                  return $.Deferred(function ($dfd) {
                      $.ajax({
-                    	 url: '/EstagioEstoque/web/deleteProduct?confirmation=ok',
+                    	 url: '/EstagioEstoque/web/deleteProduct',
                          type: 'POST',
                          dataType: 'json',
                          data: postData,
                          success: function (data) {
-                        	 if (data) {
-                        		 var result = {Result: "OK"};
-                                 $dfd.resolve(result);
-                        	 } else {
-                        		 $dfd.reject();
-                        	 }
+                             $dfd.resolve(data);
                          },
                          error: function () {
                              $dfd.reject();
@@ -134,13 +130,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data.length > 0) {
-                                                		 var count = data[0].count;
-                                                	 } else {
-                                                		 count = 0;
-                                                	 }
-                                                	 var result = {Result: "OK", Records: data, TotalRecordCount: count};
-                                                     $dfd.resolve(result);
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -157,12 +147,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK", Record: data};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -179,12 +164,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK"};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -201,12 +181,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK"};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();

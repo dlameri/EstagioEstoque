@@ -95,14 +95,15 @@ public class ProductService {
 		}
 	}
 
-	public void delete(Product product) {
+	public Product delete(Product product) {
 		itemService.delete(product);
 		
 		try {
 			product.softDelete();
-			productDao.save(product);
+			return productDao.save(product);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar o produto ", e);
+			return null;
 		}
 	}
 

@@ -28,7 +28,7 @@ $(function() {
      				}
      			}
         	 });
-        },
+         },
          actions: {
         	 listAction: function (postData, jtParams) {
                  console.log("Recebendo lista do server...");
@@ -222,33 +222,8 @@ $(function() {
                                  },
                                  fields: {
                                 	 categoryId: {
-                                         title: 'Categoria',
-                                         options: function () {
-                                             
-                                             if (cachedCategoryOptions) {
-                                                 return cachedCategoryOptions;
-                                             }
-
-                                             var options = new Object();
-
-                                             $.ajax({ //Not found in cache, get from server
-                                                 url: '/EstagioEstoque/web/getCategories',
-                                                 type: 'POST',
-                                                 dataType: 'json',
-                                                 async: false,
-                                                 success: function (data) {
-                                                	 var categories = new Object();
-                                                	 $.each(data, function(index) {
-                                                		 var id = data[index].id;
-                                            			 categories[id] = data[index].name;
-                                                     });
-                                                     options = categories;
-                                                 }
-                                             });
-                                              
-                                             return cachedCategoryOptions = options; //Cache results and return options
-                                         },
-                                         list: false
+                                         type: 'hidden',
+                                         defaultValue: categoryData.record.id
                                      },
                                      id: {
                                          key: true,

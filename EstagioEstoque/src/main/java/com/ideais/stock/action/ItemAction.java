@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.internal.InternalItemJSON;
+import com.ideais.stock.json.internal.ResponseJSON;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,25 +30,23 @@ public class ItemAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private ItemService itemService;
+
 	private String id;
 	private Long productId;
 	private Boolean status;
 	private String jtStartIndex;
 	private String jtPageSize;
 	
-	@Autowired
-	private ProductService productService;
-	@Autowired
-	private ItemService itemService;
-	
-	private Product product;
 	private Item item;
-	private InternalItemJSON savedItem;
 	
-	private List<Image> images = new ArrayList<Image>();
 	private List<Item> items = new ArrayList<Item>();
 	
-	private List<InternalItemJSON> itemJSONList = new ArrayList<InternalItemJSON>();
+	private ResponseJSON<InternalItemJSON> responseOutput;
+	private ResponseJSON<InternalItemJSON> inputResponseError = new ResponseJSON<InternalItemJSON>("ERROR", "Por favor, verifique os campos.");
 	
 	@Validations(
 		requiredStrings={
@@ -73,28 +71,29 @@ public class ItemAction extends ActionSupport {
 		}
 	)
 	public String saveItem() {
-		product = productService.findById(productId);
-		
-		for (Image image : images) {
-			image.setItem(item);
-		}
+		Product product = productService.findById(productId);
+		Item savedItem;
 		
 		item.setProduct(product);
-		item.setImages(images);
-		savedItem = new InternalItemJSON(itemService.save(item));
+		savedItem = itemService.save(item);
+
+		if (savedItem == null) {
+			responseOutput = new ResponseJSON<InternalItemJSON>("ERROR", new InternalItemJSON(savedItem));
+			return ERROR;
+		}
 		
+		responseOutput = new ResponseJSON<InternalItemJSON>("OK", new InternalItemJSON(savedItem));
 		return SUCCESS;
 	}
 	
 	@SkipValidation
 	public String listItems() {
-		items = itemService.findAll();
 		return SUCCESS;
 	}
 	
 	@SkipValidation
 	public String getItemsByProductId() {
-		itemJSONList.clear();
+		List<InternalItemJSON> itemsJSON = new ArrayList<InternalItemJSON>();
 		
 		Product product = new Product();
 		product.setId(productId);
@@ -104,9 +103,10 @@ public class ItemAction extends ActionSupport {
 		items = itemService.findByProductId(product, true, pagination);
 		
 		for (Item item : items) {
-			itemJSONList.add(new InternalItemJSON(item));
+			itemsJSON.add(new InternalItemJSON(item));
 		}
 		
+		responseOutput = new ResponseJSON<InternalItemJSON>("OK", itemsJSON, 10 );
 		return SUCCESS;
 	}
 	
@@ -114,8 +114,14 @@ public class ItemAction extends ActionSupport {
 	@SkipValidation
 	public String deleteItem() {
 		item = itemService.findById(Long.valueOf(id));
-		itemService.delete(item);
+		Item deletedItem = itemService.delete(item);
 		
+		if (deletedItem == null) {
+			responseOutput = new ResponseJSON<InternalItemJSON>("ERROR", new InternalItemJSON(deletedItem));
+			return ERROR;
+		}
+		
+		responseOutput = new ResponseJSON<InternalItemJSON>("OK", new InternalItemJSON(deletedItem));
 		return SUCCESS;
 	}
 
@@ -135,28 +141,12 @@ public class ItemAction extends ActionSupport {
 		this.itemService = itemService;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	public Item getItem() {
 		return item;
 	}
 
 	public void setItem(Item item) {
 		this.item = item;
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
 	}
 
 	public List<Item> getItems() {
@@ -199,19 +189,21 @@ public class ItemAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
-	public List<InternalItemJSON> getItemJSONList() {
-		return itemJSONList;
+	public ResponseJSON<InternalItemJSON> getResponseOutput() {
+		return responseOutput;
 	}
 
-	public void setItemJSONList(List<InternalItemJSON> itemJSONList) {
-		this.itemJSONList = itemJSONList;
+	public void setResponseOutput(ResponseJSON<InternalItemJSON> responseOutput) {
+		this.responseOutput = responseOutput;
 	}
 
-	public InternalItemJSON getSavedItem() {
-		return savedItem;
+	public ResponseJSON<InternalItemJSON> getInputResponseError() {
+		return inputResponseError;
 	}
 
-	public void setSavedItem(InternalItemJSON savedItem) {
-		this.savedItem = savedItem;
+	public void setInputResponseError(
+			ResponseJSON<InternalItemJSON> inputResponseError) {
+		this.inputResponseError = inputResponseError;
 	}
+
 }

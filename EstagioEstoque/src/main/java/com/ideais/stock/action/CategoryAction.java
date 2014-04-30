@@ -85,7 +85,7 @@ public class CategoryAction extends ActionSupport {
 
 	@SkipValidation
 	public String checkCategoryBeforeDeleting() {
-		if (Validade.isValid(id)) {
+		if (!Validade.isValid(id)) {
 			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Id inválido.");
 			return ERROR;
 		}

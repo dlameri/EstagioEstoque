@@ -92,12 +92,13 @@ public class ItemService {
 		}
 	}
 
-	public void delete(Item item) {
+	public Item delete(Item item) {
 		try {
 			item.softDelete();
-			itemDao.save(item);
+			return itemDao.save(item);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar o item ", e);
+			return null;
 		}
 	}
 
