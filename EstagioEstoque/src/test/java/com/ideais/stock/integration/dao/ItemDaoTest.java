@@ -69,6 +69,7 @@ public class ItemDaoTest extends AbstractDaoTest {
 		product.setSubcategory(subcategory);
 		product.setDimensions(dimensions);
 		product.setRank(0);
+		product.setPromo(false);
 		
 		item.setSku(01L);
 		item.setActive(true);
@@ -77,7 +78,6 @@ public class ItemDaoTest extends AbstractDaoTest {
 		item.setPriceFrom(new BigDecimal (1999.90));
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
-		item.setPromo(false);
 		item.setProduct(product);
 		item.setRank(0);
 		
