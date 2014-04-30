@@ -54,6 +54,7 @@ public class ImageDaoTest extends AbstractDaoTest {
 		product.setModel("XTVZB-4435");
 		product.setActive(true);
 		product.setRank(0);
+		product.setPromo(false);
 		
 		item.setSku(01L);
 		item.setActive(true);
@@ -63,7 +64,6 @@ public class ImageDaoTest extends AbstractDaoTest {
 		item.setPriceFor(new BigDecimal (19.90));
 		item.setStock(9999);
 		item.setRank(0);
-		item.setPromo(false);
 		
 		subcategory.setName("Luvas4");
 		subcategory.setActive(true);

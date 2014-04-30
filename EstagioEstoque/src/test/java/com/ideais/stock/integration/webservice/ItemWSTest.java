@@ -31,6 +31,7 @@ public class ItemWSTest extends AbstractWebserviceTest {
 		
 		product.setId(1L);
 		product.setName("Nome do produto");
+		product.setPromo(false);
 		
 		item.setActive(true);
 		item.setId(1L);
@@ -41,7 +42,6 @@ public class ItemWSTest extends AbstractWebserviceTest {
 		item.setPriceFrom(new BigDecimal(299.90));
 		item.setRank(0);
 		item.setStock(0);
-		item.setPromo(false);
 		
 		item.setProduct(product);
 		

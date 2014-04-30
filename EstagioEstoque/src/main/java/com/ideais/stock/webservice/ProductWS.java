@@ -35,9 +35,18 @@ public class ProductWS {
 			@QueryParam("active") @DefaultValue("true") Boolean active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
 			@QueryParam("maxResults") @DefaultValue("20") String maxResults,
-			@QueryParam("hasItems") @DefaultValue("true") Boolean hasItems) {
+			@QueryParam("hasItems") @DefaultValue("true") Boolean hasItems,
+			@QueryParam("promo") @DefaultValue("false") Boolean promo) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
 		Pagination pagination = new Pagination(orderColumn, order, firstResult, maxResults);
+		
+		if (promo) {
+			for (Product product : productService.findPromoProducts()) {
+				productJSONs.add(new ProductJSON(product));
+			}
+
+			return productJSONs;
+		}
 		
 		for (Product product : productService.findAllWithPagination(active, pagination, hasItems)) {
 			productJSONs.add(new ProductJSON(product));

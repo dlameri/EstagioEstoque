@@ -92,6 +92,10 @@ public class Cadastration extends AbstractTransactionalJUnit4SpringContextTests 
 						product.setBrand("Paco Ideais " + j2);
 						product.setModel("XTVZB-4435 " + j2);
 						
+						if (j2 == 3) {
+							product.setPromo(true);
+						}
+						
 						productDao.save(product);
 						
 						for (int k = 0; k < 3; k++) {
@@ -106,10 +110,6 @@ public class Cadastration extends AbstractTransactionalJUnit4SpringContextTests 
 							item.setStock(5+k);
 							item.setRank(0+k-j2);
 							item.setProduct(product);
-							
-							if (j2 == 3) {
-								item.setPromo(true);
-							}
 							
 							
 							itemDao.save(item);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
@@ -23,6 +24,7 @@ public class ProductService {
 
 	public Product save(Product product) {
 		product.setRank(0);
+		product.setPromo(false);
 		product.setActive(true);
 		try {
 			return productDao.save(product);
@@ -117,5 +119,8 @@ public class ProductService {
 			}
 		}
 	}
-
+	
+	public List<Product> findPromoProducts() {
+		return productDao.findPromoProducts();
+	}
 }

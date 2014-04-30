@@ -41,6 +41,7 @@ public class ProductWSTest extends AbstractWebserviceTest {
 		product.setRank(0);
 		product.setWarranty(0);
 		product.setWeight(0);
+		product.setPromo(false);
 		
 		product.setDimensions(dimensions);
 		
@@ -55,7 +56,7 @@ public class ProductWSTest extends AbstractWebserviceTest {
 	
 	@Test
 	public void get_products() {
-		assertEquals(8, productWS.getProducts("id", "asc", true, "0", "10", true).size());
+		assertEquals(8, productWS.getProducts("id", "asc", true, "0", "10", true, false).size());
 	}
 	
 	@Test

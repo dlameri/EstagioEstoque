@@ -105,4 +105,12 @@ public class ProductDao extends AbstractDao<Product>{
 		
 		return products;
 	}
+	
+	public List<Product> findPromoProducts() {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+
+		restrictions.add(Restrictions.like("promo", true));
+
+		return super.findByRestrictions(Product.class, restrictions);
+	}
 }
