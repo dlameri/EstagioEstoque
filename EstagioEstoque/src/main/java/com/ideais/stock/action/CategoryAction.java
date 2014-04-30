@@ -13,8 +13,6 @@ import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.json.internal.InternalCategoryJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
 import com.ideais.stock.service.CategoryService;
-import com.ideais.stock.service.ItemService;
-import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,13 +29,8 @@ public class CategoryAction extends ActionSupport {
 	private CategoryService categoryService;
 	@Autowired
 	private SubcategoryService subcategoryService;
-	@Autowired
-	private ProductService productService;
-	@Autowired
-	private ItemService itemService;
 	
 	private String id;
-	private String confirmation;
 	private String query;
 	private Boolean status;
 	private Long categoryId;
@@ -48,7 +41,7 @@ public class CategoryAction extends ActionSupport {
 	
 	private ResponseJSON<InternalCategoryJSON> responseOutput;
 	private ResponseJSON<InternalCategoryJSON> inputResponseError = new ResponseJSON<InternalCategoryJSON>("ERROR", "Por favor, verifique os campos.");
-	private List<SubcategoryJSON> subcategoryJSONs = new ArrayList<SubcategoryJSON>();
+	private List<SubcategoryJSON> subcategoriesJSON = new ArrayList<SubcategoryJSON>();
 
 
 	@Validations(
@@ -87,16 +80,21 @@ public class CategoryAction extends ActionSupport {
 
 	@SkipValidation
 	public String checkCategoryBeforeDeleting() {
+		if (Validade.isValid(id)) {
+			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Id inválido.");
+			return ERROR;
+		}
+		
 		category = categoryService.findById(Long.valueOf(id));
 
 		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
 
 		if( subcategories == null ) {
-			return "SUCCESS";
+			return SUCCESS;
 		}
 			
 		for (Subcategory subcategory : subcategories) {
-			subcategoryJSONs.add(new SubcategoryJSON(subcategory));
+			subcategoriesJSON.add(new SubcategoryJSON(subcategory));
 		}
 
 		return SUCCESS;
@@ -158,19 +156,11 @@ public class CategoryAction extends ActionSupport {
 	}
 
 	public List<SubcategoryJSON> getSubcategoryJSONs() {
-		return subcategoryJSONs;
+		return subcategoriesJSON;
 	}
 
 	public void setSubcategoryJSONs(List<SubcategoryJSON> subcategoryJSONs) {
-		this.subcategoryJSONs = subcategoryJSONs;
-	}
-
-	public String getConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(String confirmation) {
-		this.confirmation = confirmation;
+		this.subcategoriesJSON = subcategoryJSONs;
 	}
 
 	public String getQuery() {

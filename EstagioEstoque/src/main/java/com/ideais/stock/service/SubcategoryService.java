@@ -59,14 +59,15 @@ public class SubcategoryService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void delete(Subcategory subcategory) {
+	public Subcategory delete(Subcategory subcategory) {
 		productService.delete(subcategory);
 		
 		try {
 			subcategory.softDelete();
-			subcategoryDao.save(subcategory);
+			return subcategoryDao.save(subcategory);
 		} catch (HibernateException e) {
 			LOG.error("Error ao deletar a subcategoria ", e);
+			return null;
 		}
 	}
 

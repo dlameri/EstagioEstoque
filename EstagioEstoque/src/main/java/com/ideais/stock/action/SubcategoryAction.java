@@ -7,14 +7,12 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.ProductJSON;
 import com.ideais.stock.json.internal.InternalSubcategoryJSON;
+import com.ideais.stock.json.internal.ResponseJSON;
 import com.ideais.stock.service.CategoryService;
-import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
@@ -29,37 +27,25 @@ public class SubcategoryAction extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	private String id;
-	private String deleted;
-	private String confirmation;
-	private Boolean status;
-	private Long categoryId;
-	private int jtStartIndex;
-	private int jtPageSize;
-
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
 	private SubcategoryService subcategoryService;
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private ItemService itemService;
 
-	private Category category = new Category();
+	private String id;
+	private Boolean status;
+	private Long categoryId;
+	private int jtStartIndex;
+	private int jtPageSize;
+
 	private Subcategory subcategory = new Subcategory();
-	private InternalSubcategoryJSON savedSubcategory;
 
-	private List<Subcategory> subcategories = new ArrayList<Subcategory>();
-	private List<Category> categories = new ArrayList<Category>();
-	private List<Product> products = new ArrayList<Product>();
-	private List<Item> items;
-
-	private List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-	private List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
+	private ResponseJSON<InternalSubcategoryJSON> responseOutput;
+	private ResponseJSON<InternalSubcategoryJSON> inputResponseError = new ResponseJSON<InternalSubcategoryJSON>("ERROR", "Por favor, verifique os campos.");
+	private List<ProductJSON> productsJSON = new ArrayList<ProductJSON>();
 	
-	private List<InternalSubcategoryJSON> subcategoryJSONList = new ArrayList<InternalSubcategoryJSON>(); 
-
 	@Validations(
 		requiredStrings={ 
 			@RequiredStringValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, message = "Nome não pode ser nulo.") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "subcategory.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
@@ -69,83 +55,70 @@ public class SubcategoryAction extends ActionSupport {
 		}
 	)
 	public String saveSubcategory() {
-		category = categoryService.findById(categoryId);
+		InternalSubcategoryJSON savedSubcategory;
+
+		Category category = categoryService.findById(categoryId);
 		subcategory.setCategory(category);
 		
 		savedSubcategory = new InternalSubcategoryJSON(subcategoryService.save(subcategory));
+		
+		responseOutput = new ResponseJSON<InternalSubcategoryJSON>("OK", savedSubcategory);
 		return SUCCESS;
 	}
 
 	@SkipValidation
-	public String deleteSubcategory() {
+	public String checkSubcategoryBeforeDeleting() {
 		if (Validade.isValid(id)) {
-			ProductJSON productJSON;
-
-			subcategory = subcategoryService.findById(Long.valueOf(id));
-
-			if (!"ok".equals(confirmation)) {
-				products = productService.findBySubcategoryId(subcategory, true);
-				if (products != null) {
-					if (products.size() > 0) {
-						for (Product product : products) {
-							productJSON = new ProductJSON(product);
-							items = itemService.findByProductId(product, true);
-							itemJSONs = new ArrayList<ItemJSON>();
-
-							if (items != null) {
-								if (items.size() > 0) {
-									for (Item item : items) {
-										itemJSONs.add(new ItemJSON(item));
-									}
-								}
-							}
-							productJSON.setItems(itemJSONs);
-							productJSONs.add(productJSON);
-						}
-						return SUCCESS;
-					}
-				}
-			}
-
-				subcategoryService.delete(subcategory);
-				return SUCCESS;
-		} else {
+			responseOutput = new ResponseJSON<InternalSubcategoryJSON>("ERROR", "Id inválido.");
 			return ERROR;
 		}
+		
+		subcategory = subcategoryService.findById(Long.valueOf(id));
+
+		List<Product> products = productService.findBySubcategoryId(subcategory, true);
+		if (products == null) {
+			return SUCCESS;
+		}
+
+		for (Product product : products) {
+			productsJSON.add(new ProductJSON(product));
+		}
+
+		return SUCCESS;
+	}
+	
+	@SkipValidation
+	public String deleteSubcategory() {
+		Subcategory deletedSubcategory = subcategoryService.delete(subcategory);
+
+		if (deletedSubcategory == null) {
+			responseOutput = new ResponseJSON<InternalSubcategoryJSON>("ERROR", "Erro ao deletar categoria.");
+			return ERROR;
+		}
+			
+		responseOutput = new ResponseJSON<InternalSubcategoryJSON>("OK", new InternalSubcategoryJSON(deletedSubcategory));
+		return SUCCESS;
 	}
 
 	@SkipValidation
 	public String listSubcategories() {
-		if (Validade.isValid(id)) {
-			subcategory = subcategoryService.findById(Long.valueOf(id));
-			return SUCCESS;
-		}
-		subcategories = subcategoryService.findAll(true);
 		return SUCCESS;
 	}
 	
 	@SkipValidation
 	public String getSubcategoriesByCategoryId() {
-		subcategoryJSONList.clear();
+		List<InternalSubcategoryJSON> subcategoriesJSON = new ArrayList<InternalSubcategoryJSON>();
 		
 		Category category = new Category();
 		category.setId(categoryId);
-		subcategories = subcategoryService.findByCategoryId(category, true);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
 		
 		for (Subcategory subcategory : subcategories) {
-			subcategoryJSONList.add(new InternalSubcategoryJSON(subcategory));
+			subcategoriesJSON.add(new InternalSubcategoryJSON(subcategory));
 		}
+		responseOutput = new ResponseJSON<InternalSubcategoryJSON>( "OK", subcategoriesJSON, subcategoriesJSON.get(0).getCount() );
 		
 		return SUCCESS;
-	}
-
-	public List<Subcategory> getSubcategories() {
-		return subcategories;
-	}
-
-	public List<Category> getCategories() {
-		categories = categoryService.findAll();
-		return categories;
 	}
 
 	public Subcategory getSubcategory() {
@@ -156,48 +129,8 @@ public class SubcategoryAction extends ActionSupport {
 		this.subcategory = subcategory;
 	}
 
-	public void setSubcategories(List<Subcategory> subcategories) {
-		this.subcategories = subcategories;
-	}
-
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
-	public String getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(String deleted) {
-		this.deleted = deleted;
-	}
-
-	public String getConfirmation() {
-		return confirmation;
-	}
-
-	public void setConfirmation(String confirmation) {
-		this.confirmation = confirmation;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 
 	public String getId() {
@@ -209,11 +142,11 @@ public class SubcategoryAction extends ActionSupport {
 	}
 
 	public List<ProductJSON> getProductJSONs() {
-		return productJSONs;
+		return productsJSON;
 	}
 
 	public void setProductJSONs(List<ProductJSON> productJSONs) {
-		this.productJSONs = productJSONs;
+		this.productsJSON = productJSONs;
 	}
 
 	public Boolean getStatus() {
@@ -248,21 +181,22 @@ public class SubcategoryAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
-	public InternalSubcategoryJSON getSavedSubcategory() {
-		return savedSubcategory;
+	public ResponseJSON<InternalSubcategoryJSON> getResponseOutput() {
+		return responseOutput;
 	}
 
-	public void setSavedSubcategory(InternalSubcategoryJSON savedSubcategory) {
-		this.savedSubcategory = savedSubcategory;
+	public void setResponseOutput(
+			ResponseJSON<InternalSubcategoryJSON> responseOutput) {
+		this.responseOutput = responseOutput;
 	}
 
-	public List<InternalSubcategoryJSON> getSubcategoryJSONList() {
-		return subcategoryJSONList;
+	public ResponseJSON<InternalSubcategoryJSON> getInputResponseError() {
+		return inputResponseError;
 	}
 
-	public void setSubcategoryJSONList(
-			List<InternalSubcategoryJSON> subcategoryJSONList) {
-		this.subcategoryJSONList = subcategoryJSONList;
+	public void setInputResponseError(
+			ResponseJSON<InternalSubcategoryJSON> inputResponseError) {
+		this.inputResponseError = inputResponseError;
 	}
 
 }

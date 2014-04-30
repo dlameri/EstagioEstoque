@@ -79,7 +79,7 @@
 			method="checkCategoryBeforeDeleting">
 			<result type="json">
 				<param name="root">
-					subcategoryJSONs
+					subcategoriesJSON
 				</param>
 			</result>
 			<result name="error" type="redirect">
@@ -111,24 +111,28 @@
 
 		<action name="saveSubcategory" class="com.ideais.stock.action.SubcategoryAction"
 			method="saveSubcategory">
-			<result type="json">
+			<result name="success" type="json">
 				<param name="root">
-					savedSubcategory
+					responseOutput
 				</param>
 			</result>
-			<result name="error" type="redirect">
-				<param name="location">/web/subcategorias?error=true</param>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
 			</result>
-			<result name="input" type="dispatcher">
-				<param name="location">/web/subcategory.jsp</param>
+			<result name="input" type="json">
+				<param name="root">
+					inputResponseError
+				</param>
 			</result>
 		</action>
 
-		<action name="deleteSubcategory" class="com.ideais.stock.action.SubcategoryAction"
-			method="deleteSubcategory">
-			<result type="json">
+		<action name="checkSubcategoryBeforeDeleting" class="com.ideais.stock.action.SubcategoryAction"
+			method="checkSubcategoryBeforeDeleting">
+			<result name="success" type="json">
 				<param name="root">
-					productJSONs
+					productsJSON
 				</param>
 			</result>
 			<result name="error" type="redirect">
@@ -136,14 +140,32 @@
 			</result>
 		</action>
 		
-		<action name="getSubcategoriesByCategoryId" class="com.ideais.stock.action.SubcategoryAction"
-			method="getSubcategoriesByCategoryId">
-			<result type="json">
+		<action name="deleteSubcategory" class="com.ideais.stock.action.SubcategoryAction"
+			method="deleteSubcategory">
+			<result name="success" type="json">
 				<param name="root">
-					subcategoryJSONList
+					responseOutput
 				</param>
 			</result>
-			<result name="error"></result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+		</action>
+		
+		<action name="getSubcategoriesByCategoryId" class="com.ideais.stock.action.SubcategoryAction"
+			method="getSubcategoriesByCategoryId">
+			<result name="success" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
 		</action>
 
 

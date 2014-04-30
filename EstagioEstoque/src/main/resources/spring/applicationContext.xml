@@ -8,6 +8,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<bean id="categoryAction" class="com.ideais.stock.action.CategoryAction" scope="prototype" autowire="byType" />
 	<bean id="subcategoryAction" class="com.ideais.stock.action.SubcategoryAction" scope="prototype" autowire="byType" />
 	<bean id="productAction" class="com.ideais.stock.action.ProductAction" scope="prototype" autowire="byType" />
+	<bean id="itemAction" class="com.ideais.stock.action.ItemAction" scope="prototype" autowire="byType" />
 	
 	<!-- Services -->
 	<bean id="categoryService" class="com.ideais.stock.service.CategoryService" autowire="byType" />

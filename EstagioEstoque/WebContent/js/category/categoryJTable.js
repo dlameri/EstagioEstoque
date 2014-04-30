@@ -89,7 +89,7 @@ $(function() {
                  console.log("Enviando produto para deleção...");
                  return $.Deferred(function ($dfd) {
                      $.ajax({
-                    	 url: '/EstagioEstoque/web/deleteCategory?confirmation=ok',
+                    	 url: '/EstagioEstoque/web/deleteCategory',
                          type: 'POST',
                          dataType: 'json',
                          data: postData,
@@ -116,7 +116,7 @@ $(function() {
                  sorting: false,
                  edit: false,
                  create: false,
-                 display: function (productData) {
+                 display: function (categoryData) {
                      //Create an image that will be used to open child table
                      var $img = $('<img src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
                      //Open child table when user clicks the image
@@ -124,27 +124,43 @@ $(function() {
                     	 $('#categoryContainer').jtable('openChildTable',
                                  $img.closest('tr'), //Parent row
                                  {
-                                 title: 'Itens de - ' + productData.record.name,
+                                 title: 'Itens de - ' + categoryData.record.name,
                                  paging: true,
                                  pageSize: 10,
                                  pageSizes: [10, 20, 35, 50],
+                                 deleteConfirmation: function(data) {
+                                 	
+                                	 $.ajax({
+                             			type : "GET",
+                             			url : '/EstagioEstoque/web/checkSubcategoryBeforeDeleting?id=' + data.record.id,
+                             			dataType : 'json',
+                             			async: false,
+                             			beforeSend : console.log("Enviando dados pro serv"),
+                             			success : function(response) {
+                             				if (response.length > 0 ) {
+                             					data.deleteConfirmMessage = "Esta subcategoria tem os seguintes produtos atrelados a ela: <br/> ";
+                        	 					$.each(response, function(index) {
+                        	 						var name = response[index].name;
+                        	 						var subcategoryId = response[index].id;
+                        	 						data.deleteConfirmMessage += subcategoryId + " - " + name + "<br/>";
+                        		 				});
+                             				} else {
+                             					data.deleteConfirmMessage = "Você tem certeza que deseja deletar a categoria?<br/> ";
+                             				}
+                             			}
+                                	 });
+                                 },
                                  actions: {
                                 	 listAction: function (postData, jtParams) {
                                          console.log("Recebendo lista do server...");
                                          return $.Deferred(function ($dfd) {
                                              $.ajax({
-                                                 url: '/EstagioEstoque/web/getSubcategoriesByCategoryId?categoryId=' + productData.record.id + '&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize,
+                                                 url: '/EstagioEstoque/web/getSubcategoriesByCategoryId?categoryId=' + categoryData.record.id + '&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize,
                                                  type: 'POST',
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data.length > 0) {
-                                                		 var count = data[0].count;
-                                                	 } else {
-                                                		 count = 0;
-                                                	 }
-                                                	 var result = {Result: "OK", Records: data, TotalRecordCount: count};
-                                                     $dfd.resolve(result);
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -161,12 +177,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK", Record: data};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -183,12 +194,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK"};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -205,12 +211,7 @@ $(function() {
                                                  dataType: 'json',
                                                  data: postData,
                                                  success: function (data) {
-                                                	 if (data) {
-                                                		 var result = {Result: "OK"};
-                                                         $dfd.resolve(result);
-                                                	 } else {
-                                                		 $dfd.reject();
-                                                	 }
+                                                     $dfd.resolve(data);
                                                  },
                                                  error: function () {
                                                      $dfd.reject();
@@ -280,12 +281,26 @@ $(function() {
                                              }
                                          }
                                      }
+                                 },
+                                 //Initialize validation logic when a form is created
+                                 formCreated: function (event, data) {
+                                     data.form.find('input[name="subcategory.name"]').addClass('validate[required]');
+                                     data.form.validationEngine();
+                                 },
+                                 //Validate form when it is being submitted
+                                 formSubmitting: function (event, data) {
+                                     return data.form.validationEngine('validate');
+                                 },
+                                 //Dispose validation logic when form is closed
+                                 formClosed: function (event, data) {
+                                     data.form.validationEngine('hide');
+                                     data.form.validationEngine('detach');
                                  }
                              }, function (data) { //opened handler
                                  data.childTable.jtable('load');
                              });
                      });
-                     //Return image to show on the person row
+                     //Return image to show on the category row
                      return $img;
                  }
              },
@@ -314,9 +329,19 @@ $(function() {
                  }
              }
          },
-         formSubmitting: function(event, data){
-        	 console.log(data);
-        	 return true;
+         //Initialize validation logic when a form is created
+         formCreated: function (event, data) {
+             data.form.find('input[name="category.name"]').addClass('validate[required]');
+             data.form.validationEngine();
+         },
+         //Validate form when it is being submitted
+         formSubmitting: function (event, data) {
+             return data.form.validationEngine('validate');
+         },
+         //Dispose validation logic when form is closed
+         formClosed: function (event, data) {
+             data.form.validationEngine('hide');
+             data.form.validationEngine('detach');
          }
      });
 	 
