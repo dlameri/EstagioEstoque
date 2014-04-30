@@ -27,10 +27,8 @@
 						<option value="true" selected="selected">Ativos</option>
 						<option value="false">Inativos</option>
 					</select><br> <br>
-					<button class="btn btn-submit btn-primary btn-search">Product
-						Search</button>
-					<button class="btn btn-submit btn-primary btn-search">Clean
-						Field</button>
+					<button class="btn btn-submit btn-primary btn-search">Buscar Produto</button>
+					<button class="btn btn-submit btn-primary btn-search">Limpar Campo</button>
 				</form>
 			</div>
 			<div id="texto">

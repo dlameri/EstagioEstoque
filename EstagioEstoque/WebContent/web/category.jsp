@@ -26,10 +26,8 @@
 						<option value="false">Inativos</option>
 					</select><br>
 					<br>
-					<button class="btn btn-submit btn-primary btn-search">Category
-						Search</button>
-					<button class="btn btn-submit btn-primary btn-search">Clean
-						Field</button>
+					<button class="btn btn-submit btn-primary btn-search">Buscar Categoria</button>
+					<button class="btn btn-submit btn-primary btn-search">Limpar Campo</button>
 				</form>
 			</div>
 			<div id="texto">

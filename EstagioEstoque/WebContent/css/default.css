@@ -46,7 +46,7 @@ a:hover {
 
 .container {
 	margin: 0px auto;
-	width: 1200px;
+	width: 100%;
 	text-align: left;
 }
 
@@ -58,6 +58,8 @@ a:hover {
 	margin-left: 80px;
 	margin-right: 80px;
 	magin-bottom: -80px;
+	text-align: left;
+	display: block;
 }
 
 #icon {
@@ -640,6 +642,73 @@ ul.contact li a.icon-rss:before {
 	width: 50px;
 }
 
-/* .jtable-input-field-container{ */
+/* .categoryIdContainer{ */
+/* 	width: 200px; */
+/* 	display: inline-block; */
+/* } */
+
+/* .subcategoryIdContainer{ */
+/* 	width: 175px; */
+/* 	display: inline-block; */
+/* } */
+
+/* .nameContainer{ */
+/* 	width: 175px; */
+/* 	display:block; */
+/* } */
+
+/* .brandContainer{ */
+/* 	width: 175px; */
 /* 	display:inline-block; */
 /* } */
+
+/* .modelContainer{ */
+
+/* } */
+
+/* .shortDescriptionContainer{ */
+
+/* } */
+
+/* .weightContainer{ */
+
+/* } */
+
+/* .warrantyContainer{ */
+
+/* } */
+
+.jtable-input-field-container{
+	float:left;
+	width: 210px;
+}
+
+.jtable-input-field-container:nth-child(1n) {
+	clear:left;
+}
+
+.jtable-input-field-container:nth-child(2n) {
+	clear: none;
+}
+
+.widthContainer{
+
+}
+
+.heightContainer{
+	
+}
+
+.depthContainer{
+
+}
+
+.longDescriptionContainer{
+	float:none;
+
+}
+
+.activeContainer{
+	float:none;
+
+}
