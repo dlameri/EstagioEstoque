@@ -712,3 +712,27 @@ ul.contact li a.icon-rss:before {
 	float:none;
 
 }
+
+.priceFromContainer{
+	float: none;
+}
+
+.priceForContainer{
+	float: none;
+}
+
+.optionNameContainer{
+	float: none;
+}
+
+.optionValueContainer{
+	float: none;
+}
+
+.stockContainer{
+	float: none;
+}
+
+.activeContainer{
+	float: none;
+}
