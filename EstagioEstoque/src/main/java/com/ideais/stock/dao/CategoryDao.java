@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 
 public class CategoryDao extends AbstractDao<Category>{
 	
@@ -42,10 +43,10 @@ public class CategoryDao extends AbstractDao<Category>{
 		return findByRestrictions( Category.class, restrictions );
 	}
 	
-	public List<Category> personalizedQuery(String orderColumn, String order, Boolean active, int firstResult, int maxResults) {
+	public List<Category> findAllWithPagination(Boolean active, Pagination pagination) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		
-		List<Category> categories = findByParams(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+		List<Category> categories = findByParams(Category.class, restrictions, active, pagination);
 
 		Integer count = ((BigInteger) session()
 				.createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO=" + active).list().get(0)).intValue();
@@ -57,11 +58,11 @@ public class CategoryDao extends AbstractDao<Category>{
 		return categories;
 	}
 	
-	public List<Category> search (String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+	public List<Category> search (Boolean active, Pagination pagination, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.like("name", "%"+textToSearch+"%") );
 
-		List<Category> categories = findByParams(Category.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+		List<Category> categories = findByParams(Category.class, restrictions, active, pagination);
 
 		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_CATEGORIA) FROM CATEGORIA WHERE BO_ATIVO =" + active  + " AND NM_NOME like \"%"+textToSearch+"%\"").list().get(0)).intValue();
 		

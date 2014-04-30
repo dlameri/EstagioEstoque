@@ -12,6 +12,8 @@ import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ideais.stock.domain.Pagination;
+
 public abstract class AbstractDao<T> {
 
 	private static final int DEFAULT_OFFSET_VALUE = 0;
@@ -76,8 +78,7 @@ public abstract class AbstractDao<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> findByParams(Class<T> persistenceClass,
-			List<Criterion> restrictions, String orderColum, String order,
-			String active, String firstResult, String maxResults)
+			List<Criterion> restrictions, Boolean active, Pagination pagination)
 			throws HibernateException {
 
 		Criteria criteria = session().createCriteria(persistenceClass);
@@ -86,22 +87,21 @@ public abstract class AbstractDao<T> {
 			criteria.add(restriction);
 		}
 
-		if (orderColum != null) {
-			if ("asc".equals(order)) {
-				criteria.addOrder(Property.forName(orderColum).asc());
+		if (pagination.getOrderColumn() != null) {
+			if ("asc".equals(pagination.getOrder())) {
+				criteria.addOrder(Property.forName(pagination.getOrderColumn()).asc());
 			}
-			if ("desc".equals(order)) {
-				criteria.addOrder(Property.forName(orderColum).desc());
+			if ("desc".equals(pagination.getOrder())) {
+				criteria.addOrder(Property.forName(pagination.getOrderColumn()).desc());
 			}
 		}
 
-		criteria.add(Restrictions.like("active", Boolean.valueOf(active)));
+		criteria.add(Restrictions.like("active", active));
 
-		criteria.setFirstResult(setFirstResult(firstResult));
-		criteria.setMaxResults(setMaxResult(maxResults));
+		criteria.setFirstResult(setFirstResult(pagination.getFirstResult()));
+		criteria.setMaxResults(setMaxResult(pagination.getMaxResults()));
 
-		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list();
+		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	public int getCount(Class<T> persistenceClass,

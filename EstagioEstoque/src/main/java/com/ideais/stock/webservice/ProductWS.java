@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.DimensionsJSON;
 import com.ideais.stock.json.ItemJSON;
@@ -31,14 +32,14 @@ public class ProductWS {
 	public List<ProductJSON> getProducts(
 			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
-			@QueryParam("active") @DefaultValue("true") String active,
+			@QueryParam("active") @DefaultValue("true") Boolean active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
 			@QueryParam("maxResults") @DefaultValue("20") String maxResults,
 			@QueryParam("hasItems") @DefaultValue("true") Boolean hasItems) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-
-		for (Product product : productService.personalizedQuery(orderColumn,
-				order, active, firstResult, maxResults, hasItems)) {
+		Pagination pagination = new Pagination(orderColumn, order, firstResult, maxResults);
+		
+		for (Product product : productService.findAllWithPagination(active, pagination, hasItems)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 
@@ -59,12 +60,13 @@ public class ProductWS {
 			@QueryParam("orderColumn") @DefaultValue("name") String orderColumn,
 			@QueryParam("order") @DefaultValue("asc") String order,
 			@QueryParam("active") @DefaultValue("true") Boolean active,
-			@QueryParam("firstResult") @DefaultValue("0") int firstResult,
-			@QueryParam("maxResults") @DefaultValue("20") int maxResults,
+			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
+			@QueryParam("maxResults") @DefaultValue("20") String maxResults,
 			@PathParam("textToSearch") String textToSearch) {
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-
-		for (Product product : productService.search(orderColumn, order, active, firstResult, maxResults, textToSearch)) {
+		Pagination pagination = new Pagination(orderColumn, order, firstResult, maxResults);
+		
+		for (Product product : productService.search(active, pagination, textToSearch)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 

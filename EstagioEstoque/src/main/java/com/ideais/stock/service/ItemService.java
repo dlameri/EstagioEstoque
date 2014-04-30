@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.ItemDao;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 
 public class ItemService {
@@ -56,32 +57,28 @@ public class ItemService {
 		}
 	}
 
-	public List<Item> findByProductId(Product product, String orderColumn,
-			String order, String active, String firstResult, String maxResults) {
+	public List<Item> findByProductId(Product product, Boolean active, Pagination pagination) {
 		try {
-			return itemDao.findByProductId(product, orderColumn, order, active,
-					firstResult, maxResults);
+			return itemDao.findByProductId(product, active, pagination);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pega o item pelo produto. Parametros passados: orderColumn: "
-							+ orderColumn + "; order: " + order + "; active: "
-							+ active + "; firstResult: " + firstResult
-							+ "; maxResults: " + maxResults, e);
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults(), e);
 			return null;
 		}
 	}
 
-	public List<Item> personalizedQuery(String orderColumn, String order,
-			String active, String firstResult, String maxResults) {
+	public List<Item> findAllWithPagination(Boolean active, Pagination pagination) {
 		try {
-			return itemDao.personalizedQuery(orderColumn, order, active,
-					firstResult, maxResults);
+			return itemDao.findAllWithPagination(active, pagination);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pega o item. Parametros passados: orderColumn: "
-							+ orderColumn + "; order: " + order + "; active: "
-							+ active + "; firstResult: " + firstResult
-							+ "; maxResults: " + maxResults, e);
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults(), e);
 			return null;
 		}
 	}

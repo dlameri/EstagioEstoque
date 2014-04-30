@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.SubcategoryJSON;
 import com.ideais.stock.json.internal.InternalCategoryJSON;
@@ -23,6 +24,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class CategoryAction extends ActionSupport {
 
+	private static final String DEFAULT_ORDER = "asc";
+
+	private static final String DEFAULT_ORDER_COLUMN = "id";
+
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -34,8 +39,8 @@ public class CategoryAction extends ActionSupport {
 	private String query;
 	private Boolean status;
 	private Long categoryId;
-	private int jtStartIndex;
-	private int jtPageSize;
+	private String jtStartIndex;
+	private String jtPageSize;
 
 	private Category category = new Category();
 	
@@ -102,6 +107,7 @@ public class CategoryAction extends ActionSupport {
 		
 	@SkipValidation
 	public String deleteCategory() {
+		category = categoryService.findById(Long.valueOf(id));
 		Category deletedCategory = categoryService.delete(category);
 		
 		if (deletedCategory == null) {
@@ -123,11 +129,12 @@ public class CategoryAction extends ActionSupport {
 		List<Category> categories;
 		List<InternalCategoryJSON> categoriesJSON = new ArrayList<InternalCategoryJSON>();
 		
+		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
 		
 		if (StringUtils.isBlank(query)) {
-			categories = categoryService.personalizedQuery("id","asc", status, jtStartIndex, jtPageSize);
+			categories = categoryService.findAllWithPagination(status, pagination);
 		} else {
-			categories = categoryService.search("name","asc", status, jtStartIndex, jtPageSize, query);
+			categories = categoryService.search(status, pagination, query);
 		}
 		
 		for (Category category : categories) {
@@ -187,19 +194,19 @@ public class CategoryAction extends ActionSupport {
 		this.categoryId = categoryId;
 	}
 
-	public int getJtStartIndex() {
+	public String getJtStartIndex() {
 		return jtStartIndex;
 	}
 
-	public void setJtStartIndex(int jtStartIndex) {
+	public void setJtStartIndex(String jtStartIndex) {
 		this.jtStartIndex = jtStartIndex;
 	}
 
-	public int getJtPageSize() {
+	public String getJtPageSize() {
 		return jtPageSize;
 	}
 
-	public void setJtPageSize(int jtPageSize) {
+	public void setJtPageSize(String jtPageSize) {
 		this.jtPageSize = jtPageSize;
 	}
 
@@ -226,6 +233,14 @@ public class CategoryAction extends ActionSupport {
 	public void setInputResponseError(
 			ResponseJSON<InternalCategoryJSON> inputResponseError) {
 		this.inputResponseError = inputResponseError;
+	}
+
+	public List<SubcategoryJSON> getSubcategoriesJSON() {
+		return subcategoriesJSON;
+	}
+
+	public void setSubcategoriesJSON(List<SubcategoryJSON> subcategoriesJSON) {
+		this.subcategoriesJSON = subcategoriesJSON;
 	}
 	
 }

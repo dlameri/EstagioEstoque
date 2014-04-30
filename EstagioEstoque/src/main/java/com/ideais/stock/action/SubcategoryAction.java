@@ -111,7 +111,7 @@ public class SubcategoryAction extends ActionSupport {
 		
 		Category category = new Category();
 		category.setId(categoryId);
-		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, false);
 		
 		for (Subcategory subcategory : subcategories) {
 			subcategoriesJSON.add(new InternalSubcategoryJSON(subcategory));

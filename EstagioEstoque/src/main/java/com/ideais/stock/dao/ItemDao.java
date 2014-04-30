@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 
 
@@ -59,12 +60,12 @@ public class ItemDao extends AbstractDao<Item>{
 		return super.findByRestrictions(Item.class, restrictions);
 	}
 
-	public List<Item> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults) {
+	public List<Item> findAllWithPagination(Boolean active, Pagination pagination) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 
-		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+		List<Item> items = findByParams(Item.class, restrictions, active, pagination);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + Boolean.parseBoolean(active)).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + active).list().get(0)).intValue();
 		
 		for (Item item: items) {
 			item.setCount(count);
@@ -73,14 +74,14 @@ public class ItemDao extends AbstractDao<Item>{
 		return items;
 	}
 	
-	public List<Item> findByProductId(Product product, String orderColumn, String order, String active, String firstResult, String maxResults) {
+	public List<Item> findByProductId(Product product, Boolean active, Pagination pagination) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 
 		restrictions.add(Restrictions.like("product", product));
 
-		List<Item> items = findByParams(Item.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+		List<Item> items = findByParams(Item.class, restrictions, active, pagination);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + Boolean.parseBoolean(active)  + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + active + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
 		
 		for (Item item: items) {
 			item.setCount(count);

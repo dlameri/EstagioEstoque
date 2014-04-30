@@ -48,12 +48,12 @@ public class CategoryWSTest extends AbstractWebserviceTest {
 	
 	@Test
 	public void get_products_by_category_id() {
-		assertEquals(3, categoryWS.getProductsByCategoryId(1L, "id", "asc", "true", "0", "20").size());
+		assertEquals(3, categoryWS.getProductsByCategoryId(1L, "id", "asc", true, "0", "20").size());
 	}
 	
 	@Test
 	public void get_top_products_by_category_id() {
-		assertEquals(1, categoryWS.getTopProductsByCategoryId(1L, "id", "asc", "true", "0", "1").size());
+		assertEquals(1, categoryWS.getTopProductsByCategoryId(1L, "id", "asc", true, "0", "1").size());
 	}
 	
 }

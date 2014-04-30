@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Ignore
-@ContextConfiguration({"classpath:spring/integrationContext.xml", "classpath:spring/dataSource.xml"})
+@ContextConfiguration({"classpath:spring/integrationTestContext.xml", "classpath:spring/dataSource.xml"})
 @TransactionConfiguration(defaultRollback=false)
 @Transactional(propagation=Propagation.REQUIRED)
 public class AbstractDaoTest extends AbstractTransactionalJUnit4SpringContextTests {

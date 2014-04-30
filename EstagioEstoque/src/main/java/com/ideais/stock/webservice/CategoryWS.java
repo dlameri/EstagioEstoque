@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.CategoryJSON;
@@ -68,15 +69,16 @@ public class CategoryWS {
 	public List<ProductJSON> getProductsByCategoryId(@PathParam("id") Long id,
 			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
-			@QueryParam("active") @DefaultValue("true") String active,
+			@QueryParam("active") @DefaultValue("true") Boolean active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
 			@QueryParam("maxResults") @DefaultValue("10") String maxResults) {
 		Category category = new Category();
 		category.setId(id);
 		
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-
-		for (Product product : productService.findByCategoryId(category, orderColumn, order, active, firstResult, maxResults)) {
+		Pagination pagination = new Pagination(orderColumn, order, firstResult, maxResults);
+		
+		for (Product product : productService.findByCategoryId(category, active, pagination)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 
@@ -89,15 +91,16 @@ public class CategoryWS {
 	public List<ProductJSON> getTopProductsByCategoryId(@PathParam("id") Long id,
 			@QueryParam("orderColumn") @DefaultValue("rank") String orderColumn,
 			@QueryParam("order") @DefaultValue("desc") String order,
-			@QueryParam("active") @DefaultValue("true") String active,
+			@QueryParam("active") @DefaultValue("true") Boolean active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
 			@QueryParam("maxResults") @DefaultValue("10") String maxResults) {
 		Category category = new Category();
 		category.setId(id);
 		
 		List<ProductJSON> productJSONs = new ArrayList<ProductJSON>();
-
-		for (Product product : productService.findByCategoryId(category, orderColumn, order, active, firstResult, maxResults)) {
+		Pagination pagination = new Pagination(orderColumn, order, firstResult, maxResults);
+		
+		for (Product product : productService.findByCategoryId(category, active, pagination)) {
 			productJSONs.add(new ProductJSON(product));
 		}
 

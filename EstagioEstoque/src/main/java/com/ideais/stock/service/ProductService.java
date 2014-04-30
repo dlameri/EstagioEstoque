@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
@@ -50,14 +51,14 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> findByCategoryId(Category category,
-			String orderColumn, String order, String active,
-			String firstResult, String maxResults) {
+	public List<Product> findByCategoryId(Category category, Boolean active, Pagination pagination) {
 		try {
-			return productDao.findByCategoryId(category, orderColumn, order,
-					active, firstResult, maxResults);
+			return productDao.findByCategoryId(category, active, pagination);
 		} catch (HibernateException e) {
-			LOG.error("Erro ao pegar produto pela categoria.\nParametros passados: orderColumn: " + orderColumn + "; order: " + order + "; active: " + active + "; firstResult: " + firstResult + "; maxResults: " +  maxResults, e);
+			LOG.error("Erro ao pegar produto pela categoria.\nParametros passados: orderColumn: "
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults(), e);
 			return null;
 		}
 	}
@@ -71,26 +72,22 @@ public class ProductService {
 		}
 	}
 
-	public List<Product> personalizedQuery(String orderColumn, String order,
-			String active, String firstResult, String maxResults, Boolean hasItems) {
+	public List<Product> findAllWithPagination(Boolean active, Pagination pagination, Boolean hasItems) {
 		try {
-			return productDao.personalizedQuery(orderColumn, order, active,
-					firstResult, maxResults, hasItems);
+			return productDao.findAllWithPagination(active, pagination, hasItems);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pegar o produto. Parametros passados: orderColumn: "
-							+ orderColumn + "; order: " + order + "; active: "
-							+ active + "; firstResult: " + firstResult
-							+ "; maxResults: " + maxResults + "; hasItems: " + hasItems, e);
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults() + "; hasItems: " + hasItems, e);
 			return null;
 		}
 	}
 
-	public List<Product> search(String orderColumn, String order,
-			Boolean active, int firstResult, int maxResults, String textToSearch) {
+	public List<Product> search(Boolean active, Pagination pagination, String textToSearch) {
 		try {
-			return productDao.search(orderColumn, order, active,
-					firstResult, maxResults, textToSearch);
+			return productDao.search(active, pagination, textToSearch);
 		} catch (HibernateException e) {
 			LOG.error("Error ao fazer a busca. Parametro passado: "
 					+ textToSearch, e);

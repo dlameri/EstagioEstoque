@@ -56,7 +56,7 @@ public class ItemWSTest extends AbstractWebserviceTest {
 	
 	@Test
 	public void get_items() {
-		assertEquals(10, itemWS.getItems("id", "asc", "true", "0", "10").size());
+		assertEquals(10, itemWS.getItems("id", "asc", true, "0", "10").size());
 	}
 	
 	@Test

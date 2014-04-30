@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
@@ -40,15 +41,15 @@ public class ProductDao extends AbstractDao<Product>{
 		return super.findAll(Product.class, Order.asc("name"), restrictions);
 	}
 	
-	public List<Product> findByCategoryId(Category category, String orderColumn, String order, String active, String firstResult, String maxResults) {
+	public List<Product> findByCategoryId(Category category, Boolean active, Pagination pagination) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 
 		restrictions.add(Restrictions.isNotEmpty("items"));
 		restrictions.add(Restrictions.like("category", category));
 
-		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+		List<Product> products = findByParams(Product.class, restrictions, active, pagination);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + Boolean.parseBoolean(active) + " AND CD_CATEGORIA =" + category.getId()).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active + " AND CD_CATEGORIA =" + category.getId()).list().get(0)).intValue();
 		
 		for (Product product: products) {
 			product.setCount(count);
@@ -65,14 +66,15 @@ public class ProductDao extends AbstractDao<Product>{
 		return findByRestrictions(Product.class, restrictions);
 	}
 	
-	public List<Product> personalizedQuery(String orderColumn, String order, String active, String firstResult, String maxResults, Boolean hasItems) {
+	public List<Product> findAllWithPagination(Boolean active, Pagination pagination, Boolean hasItems) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
+		
 		if (hasItems)
 			restrictions.add(Restrictions.isNotEmpty("items"));
 		
-		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, active, firstResult, maxResults);
+		List<Product> products = findByParams(Product.class, restrictions, active, pagination);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + Boolean.parseBoolean(active)).list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active).list().get(0)).intValue();
 		
 		for (Product product: products) {
 			product.setCount(count);
@@ -81,7 +83,7 @@ public class ProductDao extends AbstractDao<Product>{
 		return products;
 	}
 
-	public List<Product> search(String orderColumn, String order, Boolean active, int firstResult, int maxResults, String textToSearch) {
+	public List<Product> search(Boolean active, Pagination pagination, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		restrictions.add( Restrictions.or( Restrictions.like("name", "%"+textToSearch+"%") ) );
 		restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+textToSearch+"%") ) );
@@ -93,7 +95,7 @@ public class ProductDao extends AbstractDao<Product>{
 			restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+string+"%") ) );
 		}
 
-		List<Product> products = findByParams(Product.class, restrictions, orderColumn, order, String.valueOf(active), String.valueOf(firstResult), String.valueOf(maxResults));
+		List<Product> products = findByParams(Product.class, restrictions, active, pagination);
 
 		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active  + " AND NM_NOME like \"%"+textToSearch+"%\"").list().get(0)).intValue();
 		

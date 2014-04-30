@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.dao.CategoryDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
 
 public class CategoryService {
 	
@@ -57,26 +58,22 @@ public class CategoryService {
 		}
 	}
 	
-	public List<Category> personalizedQuery(String orderColumn, String order,
-			Boolean active, int firstResult, int maxResults) {
+	public List<Category> findAllWithPagination(Boolean active, Pagination pagination) {
 		try {
-			return categoryDao.personalizedQuery(orderColumn, order, active,
-					firstResult, maxResults);
+			return categoryDao.findAllWithPagination(active, pagination);
 		} catch (HibernateException e) {
 			LOG.error(
 					"Error ao pegar o produto. Parametros passados: orderColumn: "
-							+ orderColumn + "; order: " + order + "; active: "
-							+ active + "; firstResult: " + firstResult
-							+ "; maxResults: " + maxResults, e);
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults(), e);
 			return null;
 		}
 	}
 
-	public List<Category> search(String orderColumn, String order,
-			Boolean active, int firstResult, int maxResults, String textToSearch) {
+	public List<Category> search(Boolean active, Pagination pagination, String textToSearch) {
 		try {
-			return categoryDao.search(orderColumn, order, active,
-					firstResult, maxResults, textToSearch);
+			return categoryDao.search(active, pagination, textToSearch);
 		} catch (HibernateException e) {
 			LOG.error("Error ao fazer a busca. Parametro passado: "
 					+ textToSearch, e);

@@ -3,12 +3,14 @@ package com.ideais.stock.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 import com.ideais.stock.json.CategoryJSON;
@@ -31,6 +33,10 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class ProductAction extends ActionSupport {
 
+	private static final String DEFAULT_ORDER = "asc";
+
+	private static final String DEFAULT_ORDER_COLUMN = "id";
+	
 	private static final long serialVersionUID = 1L;
 
 	private String id;
@@ -40,8 +46,8 @@ public class ProductAction extends ActionSupport {
 	private Boolean status;
 	private Long categoryId;
 	private Long subcategoryId;
-	private int jtStartIndex;
-	private int jtPageSize;
+	private String jtStartIndex;
+	private String jtPageSize;
 	
 	@Autowired
 	private CategoryService categoryService;
@@ -164,7 +170,6 @@ public class ProductAction extends ActionSupport {
 
 	@SkipValidation
 	public String listProducts() {
-		products = productService.personalizedQuery("id","asc","true","0","10", false);
 		return SUCCESS;
 	}
 	
@@ -172,10 +177,12 @@ public class ProductAction extends ActionSupport {
 	public String getPaginatedProducts() {
 		productJSONs.clear();
 		
-		if (query == null || "".equals(query)) {
-			products = productService.personalizedQuery("id","asc",String.valueOf(status),String.valueOf(jtStartIndex),String.valueOf(jtPageSize), false);
+		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
+		
+		if (StringUtils.isBlank(query)) {
+			products = productService.findAllWithPagination(status, pagination, false);
 		} else {
-			products = productService.search("name","asc",status,jtStartIndex, jtPageSize, query);
+			products = productService.search(status, pagination, query);
 		}
 		
 		for (Product product : products) {
@@ -300,19 +307,19 @@ public class ProductAction extends ActionSupport {
 		this.query = query;
 	}
 
-	public int getJtStartIndex() {
+	public String getJtStartIndex() {
 		return jtStartIndex;
 	}
 
-	public void setJtStartIndex(int jtStartIndex) {
+	public void setJtStartIndex(String jtStartIndex) {
 		this.jtStartIndex = jtStartIndex;
 	}
 
-	public int getJtPageSize() {
+	public String getJtPageSize() {
 		return jtPageSize;
 	}
 
-	public void setJtPageSize(int jtPageSize) {
+	public void setJtPageSize(String jtPageSize) {
 		this.jtPageSize = jtPageSize;
 	}
 

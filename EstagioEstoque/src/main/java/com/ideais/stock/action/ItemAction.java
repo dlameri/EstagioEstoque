@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Image;
 import com.ideais.stock.domain.Item;
+import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.internal.InternalItemJSON;
 import com.ideais.stock.service.ItemService;
@@ -23,13 +24,17 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class ItemAction extends ActionSupport {
 	
+	private static final String DEFAULT_ORDER = "asc";
+
+	private static final String DEFAULT_ORDER_COLUMN = "id";
+	
 	private static final long serialVersionUID = 1L;
 
 	private String id;
 	private Long productId;
 	private Boolean status;
-	private int jtStartIndex;
-	private int jtPageSize;
+	private String jtStartIndex;
+	private String jtPageSize;
 	
 	@Autowired
 	private ProductService productService;
@@ -94,7 +99,9 @@ public class ItemAction extends ActionSupport {
 		Product product = new Product();
 		product.setId(productId);
 		
-		items = itemService.findByProductId(product, "id", "asc", String.valueOf(true), String.valueOf(jtStartIndex), String.valueOf(jtPageSize));
+		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
+		
+		items = itemService.findByProductId(product, true, pagination);
 		
 		for (Item item : items) {
 			itemJSONList.add(new InternalItemJSON(item));
@@ -176,19 +183,19 @@ public class ItemAction extends ActionSupport {
 		this.status = status;
 	}
 
-	public int getJtStartIndex() {
+	public String getJtStartIndex() {
 		return jtStartIndex;
 	}
 
-	public void setJtStartIndex(int jtStartIndex) {
+	public void setJtStartIndex(String jtStartIndex) {
 		this.jtStartIndex = jtStartIndex;
 	}
 
-	public int getJtPageSize() {
+	public String getJtPageSize() {
 		return jtPageSize;
 	}
 
-	public void setJtPageSize(int jtPageSize) {
+	public void setJtPageSize(String jtPageSize) {
 		this.jtPageSize = jtPageSize;
 	}
 
