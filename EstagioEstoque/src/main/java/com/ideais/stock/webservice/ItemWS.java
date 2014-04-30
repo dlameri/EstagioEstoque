@@ -38,11 +38,20 @@ public class ItemWS {
 			@QueryParam("order") @DefaultValue("desc") String order,
 			@QueryParam("active") @DefaultValue("true") Boolean active,
 			@QueryParam("firstResult") @DefaultValue("0") String firstResult,
-			@QueryParam("maxResults") @DefaultValue("20") String maxResults) {
+			@QueryParam("maxResults") @DefaultValue("20") String maxResults,
+			@QueryParam("promo") @DefaultValue("false") Boolean promo) {
 		List<ItemJSON> itemJSONs = new ArrayList<ItemJSON>();
 		Pagination pagination = new Pagination(orderColumn, order, firstResult,
 				maxResults);
 
+		if (promo) {
+			for (Item item : itemService.findPromoItems()) {
+				itemJSONs.add(new ItemJSON(item));
+			}
+
+			return itemJSONs;
+		}
+		
 		for (Item item : itemService.findAllWithPagination(active, pagination)) {
 			itemJSONs.add(new ItemJSON(item));
 		}

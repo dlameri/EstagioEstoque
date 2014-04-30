@@ -113,4 +113,8 @@ public class ItemService {
 		}
 	}
 
+	public List<Item> findPromoItems() {
+		return itemDao.findPromoItems();
+	}
+
 }
