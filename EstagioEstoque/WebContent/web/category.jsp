@@ -27,7 +27,7 @@
 					</select><br>
 					<br>
 					<button class="btn btn-submit btn-primary btn-search">Buscar Categoria</button>
-					<button class="btn btn-submit btn-primary btn-search">Limpar Campo</button>
+					<button class="btn btn-submit btn-primary btn-clean">Limpar Campo</button>
 				</form>
 			</div>
 			<div id="texto">

@@ -22,9 +22,34 @@ public class CategoryService {
 	SubcategoryService subcategoryService;
 
 	public Category save(Category category) {
+		if (category.getId() == null) {
+			return create(category);
+		}
+		return update(category);
+	}
+	
+	private Category create(Category category) {
 		try {
 			category.setActive(true);
 			return categoryDao.save(category);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar a categoria ", e);
+			return null;
+		}
+	}
+
+	private Category update(Category category) {
+		Category categoryToBeEdited = categoryDao.findById(category.getId());
+		
+		if (categoryToBeEdited == null) {
+			return null;
+		}
+		
+		categoryToBeEdited.setActive(category.getActive());
+		categoryToBeEdited.setName(category.getName());
+		
+		try {
+			return categoryDao.save(categoryToBeEdited);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar a categoria ", e);
 			return null;

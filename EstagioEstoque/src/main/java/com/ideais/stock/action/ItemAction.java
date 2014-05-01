@@ -24,10 +24,6 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class ItemAction extends ActionSupport {
 	
-	private static final String DEFAULT_ORDER = "asc";
-
-	private static final String DEFAULT_ORDER_COLUMN = "id";
-	
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -40,6 +36,7 @@ public class ItemAction extends ActionSupport {
 	private Boolean status;
 	private String jtStartIndex;
 	private String jtPageSize;
+	private String jtSorting;
 	
 	private Item item;
 	
@@ -98,15 +95,19 @@ public class ItemAction extends ActionSupport {
 		Product product = new Product();
 		product.setId(productId);
 		
-		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
+		String[] orderSettings = jtSorting.split(" ");
+
+		Pagination pagination = new Pagination(orderSettings[0].toLowerCase(),
+				orderSettings[1].toLowerCase(), jtStartIndex, jtPageSize);
 		
 		items = itemService.findByProductId(product, true, pagination);
+		int totalRecordCount = itemService.getCount(status, product);
 		
 		for (Item item : items) {
 			itemsJSON.add(new InternalItemJSON(item));
 		}
 		
-		responseOutput = new ResponseJSON<InternalItemJSON>("OK", itemsJSON, 10 );
+		responseOutput = new ResponseJSON<InternalItemJSON>("OK", itemsJSON, totalRecordCount);
 		return SUCCESS;
 	}
 	

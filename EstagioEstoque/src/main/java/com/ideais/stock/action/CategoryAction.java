@@ -24,98 +24,86 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class CategoryAction extends ActionSupport {
 
-	private static final String DEFAULT_ORDER = "asc";
-
-	private static final String DEFAULT_ORDER_COLUMN = "id";
-
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
 	private SubcategoryService subcategoryService;
-	
+
 	private String id;
 	private String query;
 	private Boolean status;
 	private Long categoryId;
 	private String jtStartIndex;
 	private String jtPageSize;
+	private String jtSorting;
 
 	private Category category = new Category();
-	
+
 	private ResponseJSON<InternalCategoryJSON> responseOutput;
-	private ResponseJSON<InternalCategoryJSON> inputResponseError = new ResponseJSON<InternalCategoryJSON>("ERROR", "Por favor, verifique os campos.");
+	private ResponseJSON<InternalCategoryJSON> inputResponseError = new ResponseJSON<InternalCategoryJSON>(
+			"ERROR", "Por favor, verifique os campos.");
 	private List<SubcategoryJSON> subcategoriesJSON = new ArrayList<SubcategoryJSON>();
 
-
-	@Validations(
-		requiredStrings={ 
-			@RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") 
-		}, 
-		stringLengthFields={ 
-			@StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
-		}
-	)
+	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") })
 	public String saveCategory() {
 		Category savedCategory = null;
 
 		if (Validade.isValid(id)) {
-		Category categoryToBeEdited = categoryService.findById(Long.valueOf(id));
-		
-			if (categoryToBeEdited != null) {
-				categoryToBeEdited.setActive(category.getActive());
-				categoryToBeEdited.setName(category.getName());
-	
-				savedCategory = categoryService.save(categoryToBeEdited);
-			}
-		} else {
-			savedCategory = categoryService.save(category);
+			category.setId(Long.valueOf(id));
 		}
-		
-	
+
+		savedCategory = categoryService.save(category);
+
 		if (savedCategory == null) {
-			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Erro ao salvar categoria.");
+			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR",
+					"Erro ao salvar categoria.");
 			return ERROR;
 		}
-		
-		responseOutput = new ResponseJSON<InternalCategoryJSON>("OK", new InternalCategoryJSON(savedCategory));
+
+		responseOutput = new ResponseJSON<InternalCategoryJSON>("OK",
+				new InternalCategoryJSON(savedCategory));
 		return SUCCESS;
 	}
 
 	@SkipValidation
 	public String checkCategoryBeforeDeleting() {
 		if (!Validade.isValid(id)) {
-			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Id inválido.");
+			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR",
+					"Id inválido.");
 			return ERROR;
 		}
-		
+
 		category = categoryService.findById(Long.valueOf(id));
 
-		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(
+				category, true);
 
-		if( subcategories == null ) {
+		if (subcategories == null) {
 			return SUCCESS;
 		}
-			
+
 		for (Subcategory subcategory : subcategories) {
 			subcategoriesJSON.add(new SubcategoryJSON(subcategory));
 		}
 
 		return SUCCESS;
 	}
-		
+
 	@SkipValidation
 	public String deleteCategory() {
 		category = categoryService.findById(Long.valueOf(id));
 		Category deletedCategory = categoryService.delete(category);
-		
+
 		if (deletedCategory == null) {
-			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR", "Erro ao deletar categoria.");
+			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR",
+					"Erro ao deletar categoria.");
 			return ERROR;
 		}
-		
-		responseOutput = new ResponseJSON<InternalCategoryJSON>("OK", new InternalCategoryJSON(deletedCategory));
+
+		responseOutput = new ResponseJSON<InternalCategoryJSON>("OK",
+				new InternalCategoryJSON(deletedCategory));
 		return SUCCESS;
 	}
 
@@ -123,26 +111,31 @@ public class CategoryAction extends ActionSupport {
 	public String listCategories() {
 		return SUCCESS;
 	}
-	
+
 	@SkipValidation
 	public String getPaginatedCategories() {
 		List<Category> categories;
 		List<InternalCategoryJSON> categoriesJSON = new ArrayList<InternalCategoryJSON>();
-		
-		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
-		
+
+		String[] orderSettings = jtSorting.split(" ");
+
+		Pagination pagination = new Pagination(orderSettings[0].toLowerCase(),
+				orderSettings[1].toLowerCase(), jtStartIndex, jtPageSize);
+
 		if (StringUtils.isBlank(query)) {
-			categories = categoryService.findAllWithPagination(status, pagination);
+			categories = categoryService.findAllWithPagination(status,
+					pagination);
 		} else {
 			categories = categoryService.search(status, pagination, query);
 		}
-		
+
 		for (Category category : categories) {
 			categoriesJSON.add(new InternalCategoryJSON(category));
 		}
-		
-		responseOutput = new ResponseJSON<InternalCategoryJSON>( "OK", categoriesJSON, categoryService.getCount(status) );
-		
+
+		responseOutput = new ResponseJSON<InternalCategoryJSON>("OK",
+				categoriesJSON, categoryService.getCount(status));
+
 		return SUCCESS;
 	}
 
@@ -210,6 +203,14 @@ public class CategoryAction extends ActionSupport {
 		this.jtPageSize = jtPageSize;
 	}
 
+	public String getJtSorting() {
+		return jtSorting;
+	}
+
+	public void setJtSorting(String jtSorting) {
+		this.jtSorting = jtSorting;
+	}
+
 	public ResponseJSON<InternalCategoryJSON> getJsonOutput() {
 		return responseOutput;
 	}
@@ -222,7 +223,8 @@ public class CategoryAction extends ActionSupport {
 		return responseOutput;
 	}
 
-	public void setResponseOutput(ResponseJSON<InternalCategoryJSON> responseOutput) {
+	public void setResponseOutput(
+			ResponseJSON<InternalCategoryJSON> responseOutput) {
 		this.responseOutput = responseOutput;
 	}
 
@@ -242,5 +244,5 @@ public class CategoryAction extends ActionSupport {
 	public void setSubcategoriesJSON(List<SubcategoryJSON> subcategoriesJSON) {
 		this.subcategoriesJSON = subcategoriesJSON;
 	}
-	
+
 }

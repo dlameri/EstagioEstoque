@@ -34,10 +34,6 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 public class ProductAction extends ActionSupport {
 
-	private static final String DEFAULT_ORDER = "asc";
-
-	private static final String DEFAULT_ORDER_COLUMN = "id";
-	
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -56,6 +52,7 @@ public class ProductAction extends ActionSupport {
 	private Long subcategoryId;
 	private String jtStartIndex;
 	private String jtPageSize;
+	private String jtSorting;
 
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
@@ -180,8 +177,10 @@ public class ProductAction extends ActionSupport {
 		List<InternalProductJSON> productsJSON = new ArrayList<InternalProductJSON>();
 		List<Product> products;
 		Integer totalRecordCount;
-		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
-		
+		String[] orderSettings = jtSorting.split(" ");
+
+		Pagination pagination = new Pagination(orderSettings[0].toLowerCase(),
+				orderSettings[1].toLowerCase(), jtStartIndex, jtPageSize);
 		if (StringUtils.isBlank(query)) {
 			products = productService.findAllWithPagination(status, pagination, false);
 			totalRecordCount = productService.getCount(status);
@@ -270,6 +269,14 @@ public class ProductAction extends ActionSupport {
 
 	public void setJtStartIndex(String jtStartIndex) {
 		this.jtStartIndex = jtStartIndex;
+	}
+
+	public String getJtSorting() {
+		return jtSorting;
+	}
+
+	public void setJtSorting(String jtSorting) {
+		this.jtSorting = jtSorting;
 	}
 
 	public String getJtPageSize() {

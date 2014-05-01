@@ -90,6 +90,10 @@ public class ItemService {
 			return null;
 		}
 	}
+	
+	public int getCount(Boolean active, Product product) {
+		return itemDao.getCount(active, product);
+	}
 
 	public Item delete(Item item) {
 		try {

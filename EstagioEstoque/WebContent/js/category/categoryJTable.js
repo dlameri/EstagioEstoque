@@ -3,10 +3,12 @@ var cachedCategoryOptions = null;
 $(function() {
 	
 	 $('#categoryContainer').jtable({
-         title: 'Produtos',
+         title: 'Categorias',
          paging: true,
          pageSize: 10,
          pageSizes: [10, 20, 35, 50],
+         sorting: true,
+         defaultSorting: 'id asc', 
          deleteConfirmation: function(data) {
         	
         	 $.ajax({
@@ -34,7 +36,7 @@ $(function() {
                  console.log("Recebendo lista do server...");
                  return $.Deferred(function ($dfd) {
                      $.ajax({
-                         url: '/EstagioEstoque/web/getPaginatedCategories?jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize,
+                         url: '/EstagioEstoque/web/getPaginatedCategories?jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting,
                          type: 'POST',
                          dataType: 'json',
                          data: postData,
@@ -124,7 +126,7 @@ $(function() {
                     	 $('#categoryContainer').jtable('openChildTable',
                                  $img.closest('tr'), //Parent row
                                  {
-                                 title: 'Itens de - ' + categoryData.record.name,
+                                 title: 'Subcategorias de: ' + categoryData.record.name,
                                  paging: true,
                                  pageSize: 10,
                                  pageSizes: [10, 20, 35, 50],
@@ -281,7 +283,7 @@ $(function() {
              },
              name: {
                  title: 'Nome da categoria',
-                 width: '40%',
+                 width: '95%',
                  input: function (data) {
                      if (data.record) {
                          return '<input type="text" name="category.name" class="categoryName" value="' + data.record.name + '" />';
@@ -331,4 +333,11 @@ $(function() {
 
      //Load all records when page is first shown
      $('.btn-search').click();
+     
+     $('.btn-clean').click(function (e) {
+         e.preventDefault();
+         $('.searchBar').val("");
+         $('.statusSelector').val("true");
+         $('.btn-search').click();
+     });
  });

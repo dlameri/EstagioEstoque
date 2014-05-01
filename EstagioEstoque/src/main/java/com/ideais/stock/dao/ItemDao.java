@@ -90,4 +90,7 @@ public class ItemDao extends AbstractDao<Item>{
 		return items;
 	}
 
+	public int getCount(Boolean active, Product product) {
+		return ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_ITEM) FROM ITEM WHERE BO_ATIVO =" + active + " AND CD_PRODUTO =" + product.getId()).list().get(0)).intValue();
+	}
 }

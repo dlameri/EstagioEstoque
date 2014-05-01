@@ -7,6 +7,8 @@ $(function() {
          paging: true,
          pageSize: 10,
          pageSizes: [10, 20, 35, 50],
+         sorting: true,
+         defaultSorting: 'id asc',
          deleteConfirmation: function(data) {
          	
         	 $.ajax({
@@ -29,7 +31,7 @@ $(function() {
                  console.log("Recebendo lista do server...");
                  return $.Deferred(function ($dfd) {
                      $.ajax({
-                         url: '/EstagioEstoque/web/getPaginatedProducts?jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize,
+                         url: '/EstagioEstoque/web/getPaginatedProducts?jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting,
                          type: 'POST',
                          dataType: 'json',
                          data: postData,
@@ -102,7 +104,7 @@ $(function() {
                  type: 'hidden'
              },
              items: {
-                 title: '',
+                 title: 'ITEM',
                  width: '5%',
                  sorting: false,
                  edit: false,
@@ -116,10 +118,12 @@ $(function() {
                     	 $('#productContainer').jtable('openChildTable',
                                  $img.closest('tr'), //Parent row
                                  {
-                                 title: 'Itens de - ' + productData.record.name,
+                                 title: 'Itens de: ' + productData.record.name,
                                  paging: true,
                                  pageSize: 10,
                                  pageSizes: [10, 20, 35, 50],
+                                 sorting: true,
+                                 defaultSorting: 'id asc',
                                  actions: {
                                 	 listAction: function (postData, jtParams) {
                                          console.log("Recebendo lista do server...");
@@ -250,6 +254,7 @@ $(function() {
                                      optionName: {
                                          title: 'Opção',
                                          width: '10%',
+                                         sorting: false,
                                          input: function (data) {
                                              if (data.record) {
                                                  return '<input type="text" name="item.optionName" class="optionName" value="' + data.record.optionName + '" />';
@@ -261,6 +266,7 @@ $(function() {
                                      optionValue: {
                                          title: 'Valor',
                                          width: '10%',
+                                         sorting: false,
                                          input: function (data) {
                                              if (data.record) {
                                                  return '<input type="text" name="item.optionValue" class="optionValue" value="' + data.record.optionValue + '" />';
@@ -374,7 +380,7 @@ $(function() {
              },
              brand: {
                  title: 'Marca',
-                 width: '10%',
+                 width: '8%',
                  input: function (data) {
                      if (data.record) {
                          return '<input type="text" name="product.brand" class="brand" value="' + data.record.brand + '" />';
@@ -385,7 +391,7 @@ $(function() {
              },
              model: {
                  title: 'Modelo',
-                 width: '10%',
+                 width: '8%',
                  input: function (data) {
                      if (data.record) {
                          return '<input type="text" name="product.model" class="model" value="' + data.record.model + '" />';
@@ -407,13 +413,13 @@ $(function() {
              },
              rank: {
             	 title: 'Ranking',
-            	 width: '5%',
+            	 width: '6%',
             	 create: false,
             	 edit: false
              },
              weight: {
             	 title: 'Peso',
-            	 list: false,
+            	 width: '4%',
             	 input: function (data) {
                      if (data.record) {
                          return '<input type="text" name="product.weight" class="weight" value="' + data.record.weight + '" />';
@@ -424,7 +430,7 @@ $(function() {
              },
              warranty: {
             	 title: 'Garantia',
-            	 width: '5%',
+            	 width: '6%',
             	 input: function (data) {
                      if (data.record) {
                          return '<input type="text" name="product.warranty" class="warranty" value="' + data.record.warranty + '" />';
@@ -527,4 +533,11 @@ $(function() {
 
      //Load all records when page is first shown
      $('.btn-search').click();
+     
+     $('.btn-clean').click(function (e) {
+         e.preventDefault();
+         $('.searchBar').val("");
+         $('.statusSelector').val("true");
+         $('.btn-search').click();
+     });
  });
