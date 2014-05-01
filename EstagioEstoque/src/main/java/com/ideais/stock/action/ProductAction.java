@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.validation.SkipValidation;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Category;
 import com.ideais.stock.domain.Dimensions;
@@ -18,12 +17,7 @@ import com.ideais.stock.json.internal.InternalCategoryJSON;
 import com.ideais.stock.json.internal.InternalProductJSON;
 import com.ideais.stock.json.internal.InternalSubcategoryJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
-import com.ideais.stock.service.CategoryService;
-import com.ideais.stock.service.ItemService;
-import com.ideais.stock.service.ProductService;
-import com.ideais.stock.service.SubcategoryService;
 import com.ideais.stock.util.Validade;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -32,34 +26,13 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-public class ProductAction extends ActionSupport {
+public class ProductAction extends AbstractAction<Product, InternalProductJSON> {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private CategoryService categoryService;
-	@Autowired
-	private SubcategoryService subcategoryService;
-	@Autowired
-	private ProductService productService;
-	@Autowired
-	private ItemService itemService;
-
-	private String id;
-	private String query;
-	private Boolean status;
-	private Long categoryId;
-	private Long subcategoryId;
-	private String jtStartIndex;
-	private String jtPageSize;
-	private String jtSorting;
 
 	private Product product = new Product();
 	private Dimensions dimensions = new Dimensions();
 
-	private ResponseJSON<InternalProductJSON> responseOutput;
-	private ResponseJSON<InternalProductJSON> inputResponseError = new ResponseJSON<InternalProductJSON>("ERROR", "Por favor, verifique os campos.");
-	
 	private List<InternalCategoryJSON> categoriesJSON = new ArrayList<InternalCategoryJSON>();
 	private List<InternalSubcategoryJSON> subcategoriesJSON = new ArrayList<InternalSubcategoryJSON>();
 	
@@ -223,14 +196,6 @@ public class ProductAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
 	public Product getProduct() {
 		return product;
 	}
@@ -245,87 +210,6 @@ public class ProductAction extends ActionSupport {
 
 	public Dimensions getDimensions() {
 		return dimensions;
-	}
-
-	public List<ItemJSON> getItemJSONs() {
-		return itemsJSON;
-	}
-
-	public void setItemJSONs(List<ItemJSON> itemJSONs) {
-		this.itemsJSON = itemJSONs;
-	}
-
-	public String getQuery() {
-		return query;
-	}
-
-	public void setQuery(String query) {
-		this.query = query;
-	}
-
-	public String getJtStartIndex() {
-		return jtStartIndex;
-	}
-
-	public void setJtStartIndex(String jtStartIndex) {
-		this.jtStartIndex = jtStartIndex;
-	}
-
-	public String getJtSorting() {
-		return jtSorting;
-	}
-
-	public void setJtSorting(String jtSorting) {
-		this.jtSorting = jtSorting;
-	}
-
-	public String getJtPageSize() {
-		return jtPageSize;
-	}
-
-	public void setJtPageSize(String jtPageSize) {
-		this.jtPageSize = jtPageSize;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public Long getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public Long getSubcategoryId() {
-		return subcategoryId;
-	}
-
-	public void setSubcategoryId(Long subcategoryId) {
-		this.subcategoryId = subcategoryId;
-	}
-
-	public ResponseJSON<InternalProductJSON> getResponseOutput() {
-		return responseOutput;
-	}
-
-	public void setResponseOutput(ResponseJSON<InternalProductJSON> responseOutput) {
-		this.responseOutput = responseOutput;
-	}
-
-	public ResponseJSON<InternalProductJSON> getInputResponseError() {
-		return inputResponseError;
-	}
-
-	public void setInputResponseError(
-			ResponseJSON<InternalProductJSON> inputResponseError) {
-		this.inputResponseError = inputResponseError;
 	}
 
 	public List<InternalCategoryJSON> getCategoriesJSON() {

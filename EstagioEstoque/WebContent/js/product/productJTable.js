@@ -129,7 +129,7 @@ $(function() {
                                          console.log("Recebendo lista do server...");
                                          return $.Deferred(function ($dfd) {
                                              $.ajax({
-                                                 url: '/EstagioEstoque/web/getItemsByProductId?productId=' + productData.record.id + '&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize,
+                                                 url: '/EstagioEstoque/web/getItemsByProductId?productId=' + productData.record.id + '&jtStartIndex=' + jtParams.jtStartIndex + '&jtPageSize=' + jtParams.jtPageSize + '&jtSorting=' + jtParams.jtSorting,
                                                  type: 'POST',
                                                  dataType: 'json',
                                                  data: postData,

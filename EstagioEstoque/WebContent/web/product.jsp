@@ -8,8 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Produtos</title>
-<link href="../css/product.css" rel="stylesheet" type="text/css"
-	media="all" />
 <script type="text/javascript" src="../js/product/validate.product.js"></script>
 <script type="text/javascript" src="../js/product/productJTable.js"></script>
 </head>

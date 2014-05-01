@@ -22,11 +22,36 @@ public class SubcategoryService {
 	ProductService productService;
 
 	public Subcategory save(Subcategory subcategory) {
+		if (subcategory.getId() == null) {
+			return create(subcategory);
+		}
+		return update(subcategory);
+	}
+
+	private Subcategory create(Subcategory subcategory) {
 		subcategory.setActive(true);
 		try {
 			return subcategoryDao.save(subcategory);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar a subcategoria ", e);
+			return null;
+		}
+	}
+
+	private Subcategory update(Subcategory subcategory) {
+		Subcategory subcategoryToBeEdited = subcategoryDao.findById(subcategory.getId());
+		
+		if (subcategoryToBeEdited == null) {
+			return null;
+		}
+		
+		subcategoryToBeEdited.setActive(subcategory.getActive());
+		subcategoryToBeEdited.setName(subcategory.getName());
+		
+		try {
+			return subcategoryDao.save(subcategoryToBeEdited);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar a categoria ", e);
 			return null;
 		}
 	}

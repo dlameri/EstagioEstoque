@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.interceptor.validation.SkipValidation;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.internal.InternalItemJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
-import com.ideais.stock.service.ItemService;
-import com.ideais.stock.service.ProductService;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -22,28 +18,11 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
-public class ItemAction extends ActionSupport {
+public class ItemAction extends AbstractAction<Item, InternalItemJSON> {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private ProductService productService;
-	@Autowired
-	private ItemService itemService;
-
-	private String id;
-	private Long productId;
-	private Boolean status;
-	private String jtStartIndex;
-	private String jtPageSize;
-	private String jtSorting;
-	
 	private Item item;
-	
-	private List<Item> items = new ArrayList<Item>();
-	
-	private ResponseJSON<InternalItemJSON> responseOutput;
-	private ResponseJSON<InternalItemJSON> inputResponseError = new ResponseJSON<InternalItemJSON>("ERROR", "Por favor, verifique os campos.");
 	
 	@Validations(
 		requiredStrings={
@@ -100,7 +79,7 @@ public class ItemAction extends ActionSupport {
 		Pagination pagination = new Pagination(orderSettings[0].toLowerCase(),
 				orderSettings[1].toLowerCase(), jtStartIndex, jtPageSize);
 		
-		items = itemService.findByProductId(product, true, pagination);
+		List<Item> items = itemService.findByProductId(product, true, pagination);
 		int totalRecordCount = itemService.getCount(status, product);
 		
 		for (Item item : items) {
@@ -126,85 +105,12 @@ public class ItemAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public ItemService getItemService() {
-		return itemService;
-	}
-
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
-
 	public Item getItem() {
 		return item;
 	}
 
 	public void setItem(Item item) {
 		this.item = item;
-	}
-
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public Long getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public String getJtStartIndex() {
-		return jtStartIndex;
-	}
-
-	public void setJtStartIndex(String jtStartIndex) {
-		this.jtStartIndex = jtStartIndex;
-	}
-
-	public String getJtPageSize() {
-		return jtPageSize;
-	}
-
-	public void setJtPageSize(String jtPageSize) {
-		this.jtPageSize = jtPageSize;
-	}
-
-	public ResponseJSON<InternalItemJSON> getResponseOutput() {
-		return responseOutput;
-	}
-
-	public void setResponseOutput(ResponseJSON<InternalItemJSON> responseOutput) {
-		this.responseOutput = responseOutput;
-	}
-
-	public ResponseJSON<InternalItemJSON> getInputResponseError() {
-		return inputResponseError;
-	}
-
-	public void setInputResponseError(
-			ResponseJSON<InternalItemJSON> inputResponseError) {
-		this.inputResponseError = inputResponseError;
 	}
 
 }
