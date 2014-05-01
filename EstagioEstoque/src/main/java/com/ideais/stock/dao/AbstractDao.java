@@ -1,5 +1,6 @@
 package com.ideais.stock.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -104,20 +105,31 @@ public abstract class AbstractDao<T> {
 		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
-	public int getCount(Class<T> persistenceClass,
-			List<Criterion> restrictions, Boolean active)
-			throws HibernateException {
+	public int getCount(Boolean active, String table) throws HibernateException {
 
-		Criteria criteria = session().createCriteria(persistenceClass);
-
-		for (Criterion restriction : restrictions) {
-			criteria.add(restriction);
+		return ((BigInteger) session()
+				.createSQLQuery("SELECT COUNT(CD_" + table + ") FROM " + table + " WHERE BO_ATIVO=" + active).list().get(0)).intValue();
+	}
+	
+	public int getCount(Boolean active, String table, String query)	throws HibernateException {
+		String getCountQuery = "SELECT COUNT(CD_" + table + ") FROM " + table + " WHERE BO_ATIVO=" + active;
+		
+		String[] splittedQuery = query.split(" ");
+		
+		getCountQuery = getCountQuery.concat(" AND (" ); 
+		
+		for (int i = 0; i < splittedQuery.length ; i++ ) {
+			if (i == 0)
+				getCountQuery = getCountQuery.concat(" NM_NOME like \"%"+splittedQuery[i]+"%\"");
+			else
+				getCountQuery = getCountQuery.concat(" OR NM_NOME like \"%"+splittedQuery[i]+"%\"");
+			if ("PRODUTO".equals(table))
+				getCountQuery = getCountQuery.concat(" OR NM_DESCRICAO_LONGA like \"%"+splittedQuery[i]+"%\"");
 		}
-
-		criteria.add(Restrictions.like("active", active));
-
-		return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.list().size();
+		
+		getCountQuery = getCountQuery.concat(")" );
+		
+		return ((BigInteger) session().createSQLQuery(getCountQuery).list().get(0)).intValue();
 	}
 
 	private int setFirstResult(String firstResult) {

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.dao.ProductDao;
 import com.ideais.stock.domain.Category;
-import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
@@ -95,6 +94,14 @@ public class ProductService {
 					+ textToSearch, e);
 			return null;
 		}
+	}
+	
+	public int getCount(Boolean active) {
+		return productDao.getCount(active);
+	}
+	
+	public int getCount(Boolean active, String textToSearch) {
+		return productDao.getCount(active, textToSearch);
 	}
 
 	public Product delete(Product product) {

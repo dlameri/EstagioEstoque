@@ -179,20 +179,22 @@ public class ProductAction extends ActionSupport {
 	public String getPaginatedProducts() {
 		List<InternalProductJSON> productsJSON = new ArrayList<InternalProductJSON>();
 		List<Product> products;
-		
+		Integer totalRecordCount;
 		Pagination pagination = new Pagination(DEFAULT_ORDER_COLUMN, DEFAULT_ORDER, jtStartIndex, jtPageSize);
 		
 		if (StringUtils.isBlank(query)) {
 			products = productService.findAllWithPagination(status, pagination, false);
+			totalRecordCount = productService.getCount(status);
 		} else {
 			products = productService.search(status, pagination, query);
+			totalRecordCount = productService.getCount(status, query);
 		}
 		
 		for (Product product : products) {
 			productsJSON.add(new InternalProductJSON(product));
 		}
 		
-		responseOutput = new ResponseJSON<InternalProductJSON>("OK", productsJSON, 10 );
+		responseOutput = new ResponseJSON<InternalProductJSON>("OK", productsJSON, totalRecordCount);
 		return SUCCESS;
 	}
 

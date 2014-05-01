@@ -490,6 +490,29 @@ $(function() {
                      }
                  }
              }
+         },
+       //Initialize validation logic when a form is created
+         formCreated: function (event, data) {
+             data.form.find('input[name="product.name"]').addClass('validate[required]');
+             data.form.find('input[name="product.brand"]').addClass('validate[required]');
+             data.form.find('input[name="product.model"]').addClass('validate[required]');
+             data.form.find('input[name="product.shortDescription"]').addClass('validate[required]');
+             data.form.find('input[name="product.shortDescription"]').addClass('validate[required]');
+             data.form.find('input[name="product.weight"]').addClass('validate[required]');
+             data.form.find('input[name="product.warranty"]').addClass('validate[required]');
+             data.form.find('input[name="dimensions.width"]').addClass('validate[required,custom[number]]');
+             data.form.find('input[name="dimensions.height"]').addClass('validate[required,custom[number]]');
+             data.form.find('input[name="dimensions.depth"]').addClass('validate[required,custom[number]]');
+             data.form.validationEngine();
+         },
+         //Validate form when it is being submitted
+         formSubmitting: function (event, data) {
+             return data.form.validationEngine('validate');
+         },
+         //Dispose validation logic when form is closed
+         formClosed: function (event, data) {
+             data.form.validationEngine('hide');
+             data.form.validationEngine('detach');
          }
      });
 	 

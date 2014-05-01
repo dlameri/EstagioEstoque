@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Propagation;
@@ -85,19 +86,30 @@ public class ProductDao extends AbstractDao<Product>{
 
 	public List<Product> search(Boolean active, Pagination pagination, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
-		restrictions.add( Restrictions.or( Restrictions.like("name", "%"+textToSearch+"%") ) );
-		restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+textToSearch+"%") ) );
+		Disjunction disjunction = Restrictions.or();
+		
+		String getCountQuery = "SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO=" + active;
 		
 		String[] splittedQuery = textToSearch.split(" ");
+		getCountQuery = getCountQuery.concat(" AND (" ); 
 		
-		for (String string : splittedQuery) {
-			restrictions.add( Restrictions.or( Restrictions.like("name", "%"+string+"%") ) );
-			restrictions.add( Restrictions.or( Restrictions.like("longDescription", "%"+string+"%") ) );
-		}
+		for (int i = 0; i < splittedQuery.length ; i++ ) {
+			disjunction.add( Restrictions.like("name", "%"+splittedQuery[i]+"%") );
+			disjunction.add( Restrictions.like("longDescription", "%"+splittedQuery[i]+"%") );
 
+			if (i == 0)
+				getCountQuery = getCountQuery.concat(" NM_NOME like \"%"+splittedQuery[i]+"%\"");
+			else
+				getCountQuery = getCountQuery.concat(" OR NM_NOME like \"%"+splittedQuery[i]+"%\"");
+				getCountQuery = getCountQuery.concat(" OR NM_DESCRICAO_LONGA like \"%"+splittedQuery[i]+"%\"");
+		}
+		getCountQuery = getCountQuery.concat(")" );
+		
+		restrictions.add(disjunction);
+		
 		List<Product> products = findByParams(Product.class, restrictions, active, pagination);
 
-		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active  + " AND NM_NOME like \"%"+textToSearch+"%\"").list().get(0)).intValue();
+		Integer count = ((BigInteger) session().createSQLQuery(getCountQuery).list().get(0)).intValue();
 		
 		for (Product product: products) {
 			product.setCount(count);
@@ -112,5 +124,13 @@ public class ProductDao extends AbstractDao<Product>{
 		restrictions.add(Restrictions.like("promo", true));
 
 		return super.findByRestrictions(Product.class, restrictions);
+	}
+	
+	public int getCount(Boolean active) {
+		return super.getCount(active, "PRODUTO");
+	}
+	
+	public int getCount(Boolean active, String textToSearch) {
+		return super.getCount(active, "PRODUTO", textToSearch);
 	}
 }
