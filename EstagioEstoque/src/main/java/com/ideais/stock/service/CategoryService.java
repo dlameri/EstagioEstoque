@@ -29,8 +29,9 @@ public class CategoryService {
 	}
 	
 	private Category create(Category category) {
+		if(category.getActive() == null)
+			category.setActive(false);
 		try {
-			category.setActive(true);
 			return categoryDao.save(category);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar a categoria ", e);
@@ -47,6 +48,9 @@ public class CategoryService {
 		
 		categoryToBeEdited.setActive(category.getActive());
 		categoryToBeEdited.setName(category.getName());
+		
+		if(category.getActive() == null)
+			categoryToBeEdited.setActive(false);
 		
 		try {
 			return categoryDao.save(categoryToBeEdited);

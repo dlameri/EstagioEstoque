@@ -22,6 +22,7 @@ public class InternalProductJSON implements Serializable {
 	private String brand;
 	private String model;
 	private Boolean active;
+	private Boolean promo;
 	private Integer rank;
 	private Integer count;
 	
@@ -43,6 +44,7 @@ public class InternalProductJSON implements Serializable {
 		this.brand = product.getBrand();
 		this.model = product.getModel();
 		this.active = product.getActive();
+		this.promo = product.getPromo();
 		this.rank = product.getRank();
 		this.count = product.getCount();
 		this.categoryId = product.getCategory().getId();
@@ -187,4 +189,13 @@ public class InternalProductJSON implements Serializable {
 	public void setDepth(Double depth) {
 		this.depth = depth;
 	}
+
+	public Boolean getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Boolean promo) {
+		this.promo = promo;
+	}
+	
 }

@@ -17,9 +17,6 @@ public class SubcategoryJSON implements Serializable {
 	private Boolean active;
 	private List<Link> links = new ArrayList<Link>();
 	
-	@Transient
-	private List<ProductJSON> products = new ArrayList<ProductJSON>();
-
 	public SubcategoryJSON(Subcategory subcategory) {
 		this.id = subcategory.getId();
 		this.name = subcategory.getName();
@@ -70,14 +67,6 @@ public class SubcategoryJSON implements Serializable {
 
 	public void setLinks(List<Link> links) {
 		this.links = links;
-	}
-
-	public List<ProductJSON> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<ProductJSON> products) {
-		this.products = products;
 	}
 
 }

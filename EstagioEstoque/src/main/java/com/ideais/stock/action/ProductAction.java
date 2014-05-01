@@ -12,8 +12,8 @@ import com.ideais.stock.domain.Item;
 import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
-import com.ideais.stock.json.ItemJSON;
 import com.ideais.stock.json.internal.InternalCategoryJSON;
+import com.ideais.stock.json.internal.InternalItemJSON;
 import com.ideais.stock.json.internal.InternalProductJSON;
 import com.ideais.stock.json.internal.InternalSubcategoryJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
@@ -36,7 +36,7 @@ public class ProductAction extends AbstractAction<Product, InternalProductJSON> 
 	private List<InternalCategoryJSON> categoriesJSON = new ArrayList<InternalCategoryJSON>();
 	private List<InternalSubcategoryJSON> subcategoriesJSON = new ArrayList<InternalSubcategoryJSON>();
 	
-	private List<ItemJSON> itemsJSON = new ArrayList<ItemJSON>();
+	private List<InternalItemJSON> itemsJSON = new ArrayList<InternalItemJSON>();
 
 	@Validations(
 		requiredStrings={
@@ -70,31 +70,17 @@ public class ProductAction extends AbstractAction<Product, InternalProductJSON> 
 		}
 	)
 	public String saveProduct() {
-		Product savedProduct = null;
-		Subcategory subcategory = subcategoryService.findById(subcategoryId);
 		
 		if (Validade.isValid(id)) {
-			Product productToBeEdited = productService.findById(Long.valueOf(id));
-			if (productToBeEdited != null) {
-				productToBeEdited.setDimensions(dimensions);
-				productToBeEdited.setSubcategory(subcategory);
-				productToBeEdited.setCategory(subcategory.getCategory());
-				productToBeEdited.setName(product.getName());
-				productToBeEdited.setBrand(product.getBrand());
-				productToBeEdited.setModel(product.getModel());
-				productToBeEdited.setWarranty(product.getWarranty());
-				productToBeEdited.setWeight(product.getWeight());
-				productToBeEdited.setLongDescription(product.getLongDescription());
-				productToBeEdited.setShortDescription(product.getShortDescription());
-				
-				savedProduct = productService.save(productToBeEdited);
-			}
-		} else {
-			product.setDimensions(dimensions);
-			product.setCategory(subcategory.getCategory());
-			product.setSubcategory(subcategory);
-			savedProduct = productService.save(product);
+			product.setId(Long.valueOf(id));
 		}
+		
+		Subcategory subcategory = subcategoryService.findById(subcategoryId);
+		product.setDimensions(dimensions);
+		product.setCategory(subcategory.getCategory());
+		product.setSubcategory(subcategory);
+
+		Product savedProduct = productService.save(product);
 			
 		if (savedProduct == null) {
 			responseOutput = new ResponseJSON<InternalProductJSON>("ERROR", "Erro ao salvar categoria.");
@@ -120,7 +106,7 @@ public class ProductAction extends AbstractAction<Product, InternalProductJSON> 
 		}
 		
 		for (Item item : items) {
-			itemsJSON.add(new ItemJSON(item));
+			itemsJSON.add(new InternalItemJSON(item));
 		}
 
 		return SUCCESS;
@@ -228,12 +214,12 @@ public class ProductAction extends AbstractAction<Product, InternalProductJSON> 
 		this.subcategoriesJSON = subcategoriesJSON;
 	}
 
-	public List<ItemJSON> getItemsJSON() {
+	public List<InternalItemJSON> getItemsJSON() {
 		return itemsJSON;
 	}
 
-	public void setItemsJSON(List<ItemJSON> itemsJSON) {
+	public void setItemsJSON(List<InternalItemJSON> itemsJSON) {
 		this.itemsJSON = itemsJSON;
 	}
-	
+
 }

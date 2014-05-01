@@ -250,9 +250,9 @@ $(function() {
                                     	 input: function (data) {
                                     		 if (data.record) {
                                     			 if (data.record.active)
-                                    				 return '<input class="" type="checkbox" name="subcategory.active" value="' + data.record.active + '" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
+                                    				 return '<input class="" type="checkbox" name="subcategory.active" value="true" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
                                     			 else
-                                    				 return '<input class="" type="checkbox" name="subcategory.active" value="' + data.record.active + '"><span class="jtable-option-text-clickable">Ativo</span>';
+                                    				 return '<input class="" type="checkbox" name="subcategory.active" value="true"><span class="jtable-option-text-clickable">Ativo</span>';
                                              } else {
                                             	 return '<input class="" type="checkbox" name="subcategory.active" value="true" checked="checked" /><span class="jtable-option-text-clickable">Ativo</span>';
                                              }
@@ -297,9 +297,9 @@ $(function() {
             	 input: function (data) {
             		 if (data.record) {
             			 if (data.record.active)
-            				 return '<input class="" type="checkbox" name="category.active" value="' + data.record.active + '" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
+            				 return '<input class="" type="checkbox" name="category.active" value="true" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
             			 else
-            				 return '<input class="" type="checkbox" name="category.active" value="' + data.record.active + '"><span class="jtable-option-text-clickable">Ativo</span>';
+            				 return '<input class="" type="checkbox" name="category.active" value="true"><span class="jtable-option-text-clickable">Ativo</span>';
                      } else {
                     	 return '<input class="" type="checkbox" name="category.active" value="true" checked="checked" /><span class="jtable-option-text-clickable">Ativo</span>';
                      }

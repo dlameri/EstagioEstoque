@@ -705,12 +705,10 @@ ul.contact li a.icon-rss:before {
 
 .longDescriptionContainer{
 	float:none;
-
 }
 
-.activeContainer{
+.nameContainer + .activeContainer{
 	float:none;
-
 }
 
 .priceFromContainer{
@@ -730,9 +728,5 @@ ul.contact li a.icon-rss:before {
 }
 
 .stockContainer{
-	float: none;
-}
-
-.activeContainer{
 	float: none;
 }

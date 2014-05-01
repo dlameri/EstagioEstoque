@@ -275,6 +275,12 @@ $(function() {
                                              }
                                          }
                                      },
+                                     rank: {
+                                    	 title: 'Ranking',
+                                    	 width: '6%',
+                                    	 create: false,
+                                    	 edit: false
+                                     },
                                      stock: {
                                          title: 'Estoque',
                                          width: '5%',
@@ -488,11 +494,24 @@ $(function() {
             	 input: function (data) {
             		 if (data.record) {
             			 if (data.record.active)
-            				 return '<input class="" type="checkbox" name="product.active" value="' + data.record.active + '" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
+            				 return '<input class="" type="checkbox" name="product.active" value="true" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
             			 else
-            				 return '<input class="" type="checkbox" name="product.active" value="' + data.record.active + '"><span class="jtable-option-text-clickable">Ativo</span>';
+            				 return '<input class="" type="checkbox" name="product.active"  value="true"><span class="jtable-option-text-clickable">Ativo</span>';
                      } else {
                     	 return '<input class="" type="checkbox" name="product.active" value="true" checked="checked" /><span class="jtable-option-text-clickable">Ativo</span>';
+                     }
+                 }
+             },
+             promo: {
+            	 list: false,
+            	 input: function (data) {
+            		 if (data.record) {
+            			 if (data.record.promo)
+            				 return '<input class="" type="checkbox" name="product.promo" value="true" checked="checked"><span class="jtable-option-text-clickable">Destaque</span>';
+            			 else
+            				 return '<input class="" type="checkbox" name="product.promo" value="true"><span class="jtable-option-text-clickable">Destaque</span>';
+                     } else {
+                    	 return '<input class="" type="checkbox" name="product.promo" value="true" /><span class="jtable-option-text-clickable">Destaque</span>';
                      }
                  }
              }

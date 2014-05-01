@@ -10,6 +10,7 @@ import com.ideais.stock.domain.Pagination;
 import com.ideais.stock.domain.Product;
 import com.ideais.stock.json.internal.InternalItemJSON;
 import com.ideais.stock.json.internal.ResponseJSON;
+import com.ideais.stock.util.Validade;
 import com.opensymphony.xwork2.validator.annotations.ConversionErrorFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -47,11 +48,14 @@ public class ItemAction extends AbstractAction<Item, InternalItemJSON> {
 		}
 	)
 	public String saveItem() {
-		Product product = productService.findById(productId);
-		Item savedItem;
+		if(Validade.isValid(id)) {
+			item.setId(Long.valueOf(id));
+		}
 		
-		item.setProduct(product);
-		savedItem = itemService.save(item);
+		Product product = productService.findById(productId);
+		item.setProduct(product);		
+
+		Item savedItem = itemService.save(item);
 
 		if (savedItem == null) {
 			responseOutput = new ResponseJSON<InternalItemJSON>("ERROR", new InternalItemJSON(savedItem));

@@ -29,7 +29,8 @@ public class SubcategoryService {
 	}
 
 	private Subcategory create(Subcategory subcategory) {
-		subcategory.setActive(true);
+		if(subcategory.getActive() == null)
+			subcategory.setActive(false);
 		try {
 			return subcategoryDao.save(subcategory);
 		} catch (HibernateException e) {
@@ -47,6 +48,9 @@ public class SubcategoryService {
 		
 		subcategoryToBeEdited.setActive(subcategory.getActive());
 		subcategoryToBeEdited.setName(subcategory.getName());
+		
+		if(subcategory.getActive() == null)
+			subcategoryToBeEdited.setActive(false);
 		
 		try {
 			return subcategoryDao.save(subcategoryToBeEdited);

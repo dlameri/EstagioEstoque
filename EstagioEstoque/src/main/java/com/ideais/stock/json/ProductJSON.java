@@ -3,8 +3,6 @@ package com.ideais.stock.json;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Transient;
-
 import com.ideais.stock.domain.Product;
 
 public class ProductJSON {
@@ -18,13 +16,11 @@ public class ProductJSON {
 	private String brand;
 	private String model;
 	private Boolean active;
+	private Boolean promo;
 	private Integer rank;
 	private List<Link> links = new ArrayList<Link>();
 	private Integer count;
 	
-	@Transient
-	private List<ItemJSON> items = new ArrayList<ItemJSON>();
-
 	public ProductJSON(Product product) {
 		this.id = product.getId();
 		this.name = product.getName();
@@ -35,6 +31,7 @@ public class ProductJSON {
 		this.brand = product.getBrand();
 		this.model = product.getModel();
 		this.active = product.getActive();
+		this.promo = product.getPromo();
 		this.rank = product.getRank();
 		this.count = product.getCount();
 		links.add(new Link("product/" + id + "/item", "item"));
@@ -150,12 +147,12 @@ public class ProductJSON {
 		this.count = count;
 	}
 
-	public List<ItemJSON> getItems() {
-		return items;
+	public Boolean getPromo() {
+		return promo;
 	}
 
-	public void setItems(List<ItemJSON> items) {
-		this.items = items;
+	public void setPromo(Boolean promo) {
+		this.promo = promo;
 	}
 
 }

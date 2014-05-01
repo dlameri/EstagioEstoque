@@ -19,10 +19,40 @@ public class ItemService {
 	ItemDao itemDao;
 
 	public Item save(Item item) {
+		if (item.getId() == null) {
+			return create(item);
+		}
+		return update(item);
+	}
+
+	private Item create(Item item) {
 		item.setRank(0);
-		item.setActive(true);
+		if(item.getActive() == null)
+			item.setActive(false);
 		try {
 			return itemDao.save(item);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar o item ", e);
+			return null;
+		}
+	}
+
+	private Item update(Item item) {
+		Item itemToBeEdited = itemDao.findById(item.getId());
+		
+		itemToBeEdited.setSku(item.getSku());
+		itemToBeEdited.setPriceFor(item.getPriceFor());
+		itemToBeEdited.setPriceFrom(item.getPriceFrom());
+		itemToBeEdited.setOptionName(item.getOptionName());
+		itemToBeEdited.setOptionValue(item.getOptionValue());
+		itemToBeEdited.setStock(item.getStock());
+		itemToBeEdited.setActive(item.getActive());
+		
+		if (item.getActive() == null) 
+			itemToBeEdited.setActive(false);
+		
+		try {
+			return itemDao.save(itemToBeEdited);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar o item ", e);
 			return null;

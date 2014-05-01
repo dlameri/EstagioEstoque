@@ -22,13 +22,58 @@ public class ProductService {
 	ItemService itemService;
 
 	public Product save(Product product) {
+		if (product.getId() == null) {
+			return create(product);
+		}
+		return update(product);
+	}
+
+	private Product create(Product product) {
 		product.setRank(0);
-		product.setPromo(false);
-		product.setActive(true);
+		
+		if (product.getPromo() == null)
+			product.setPromo(false);
+		if (product.getActive() == null)
+			product.setActive(false);
+		
 		try {
 			return productDao.save(product);
 		} catch (HibernateException e) {
 			LOG.error("Error ao salvar o produto ", e);
+			return null;
+		}
+	}
+
+	private Product update(Product product) {
+		Product productToBeEdited = productDao.findById(product.getId());
+		
+		if (productToBeEdited == null) {
+			return null;
+		}
+		
+		
+		productToBeEdited.setDimensions(product.getDimensions());
+		productToBeEdited.setSubcategory(product.getSubcategory());
+		productToBeEdited.setCategory(product.getCategory());
+		productToBeEdited.setName(product.getName());
+		productToBeEdited.setBrand(product.getBrand());
+		productToBeEdited.setModel(product.getModel());
+		productToBeEdited.setWarranty(product.getWarranty());
+		productToBeEdited.setWeight(product.getWeight());
+		productToBeEdited.setLongDescription(product.getLongDescription());
+		productToBeEdited.setShortDescription(product.getShortDescription());
+		productToBeEdited.setActive(product.getActive());
+		productToBeEdited.setPromo(product.getPromo());
+		
+		if (product.getPromo() == null)
+			productToBeEdited.setPromo(false);
+		if (product.getActive() == null)
+			productToBeEdited.setActive(false);
+
+		try {
+			return productDao.save(productToBeEdited);
+		} catch (HibernateException e) {
+			LOG.error("Error ao salvar a categoria ", e);
 			return null;
 		}
 	}
