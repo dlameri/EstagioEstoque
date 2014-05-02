@@ -684,9 +684,9 @@ $(function() {
             	 list: false,
             	 input: function (data) {
             		 if (data.record) {
-                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=75>' + data.record.longDescription + '</textarea>';
+                         return '<textarea name="product.longDescription" class="longDescription">' + data.record.longDescription + '</textarea>';
                      } else {
-                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=75 placeholder="Descrição longa pode conter tags HTML"></textarea>';
+                         return '<textarea name="product.longDescription" class="longDescription" placeholder="Descrição longa pode conter tags HTML"></textarea>';
                      }
                  }
              },

@@ -707,6 +707,11 @@ ul.contact li a.icon-rss:before {
 	float:none;
 }
 
+#Edit-longDescription{
+	width: 490px;
+	height: 80px;
+}
+
 .nameContainer + .activeContainer{
 	float:none;
 }
