@@ -48,7 +48,7 @@ public class ProductAction extends AbstractAction<Product, InternalProductJSON> 
 
 		}, 
 		stringLengthFields={ 
-			@StringLengthFieldValidator(fieldName = "product.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") 
+			@StringLengthFieldValidator(fieldName = "product.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "255", message = "Nome muito curto.") 
 		},
 		requiredFields={
 			@RequiredFieldValidator(fieldName = "product.weight", type = ValidatorType.FIELD, message = "Peso não pode ser nulo."),

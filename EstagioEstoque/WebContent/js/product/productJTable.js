@@ -408,6 +408,8 @@ $(function() {
                                      sku: {
                                     	 title: 'SKU',
                                          width: '10%',
+                                         create: false,
+                                         edit: false,
                                          input: function (data) {
                                              if (data.record) {
                                                  return '<input type="text" name="item.sku" class="sku" value="' + data.record.sku + '" />';
@@ -682,9 +684,9 @@ $(function() {
             	 list: false,
             	 input: function (data) {
             		 if (data.record) {
-                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=50>' + data.record.longDescription + '</textarea>';
+                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=75>' + data.record.longDescription + '</textarea>';
                      } else {
-                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=50 placeholder="Descrição longa pode conter tags HTML"></textarea>';
+                         return '<textarea name="product.longDescription" class="longDescription" rows=4 cols=75 placeholder="Descrição longa pode conter tags HTML"></textarea>';
                      }
                  }
              },
