@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.dao.SubcategoryDao;
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryService {

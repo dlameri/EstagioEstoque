@@ -84,6 +84,25 @@ public class ProductDao extends AbstractDao<Product>{
 		return products;
 	}
 
+	public List<Product> findProductsBySubcategoryId(Boolean active,
+			Pagination pagination, Boolean hasItems, Subcategory subcategory) {
+		List<Criterion> restrictions = new ArrayList<Criterion>();
+		
+		if (hasItems)
+			restrictions.add(Restrictions.isNotEmpty("items"));
+		restrictions.add(Restrictions.like("subcategory", subcategory));
+		
+		List<Product> products = super.findByParams(Product.class, restrictions, active, pagination);
+
+		Integer count = ((BigInteger) session().createSQLQuery("SELECT COUNT(CD_PRODUTO) FROM PRODUTO WHERE BO_ATIVO =" + active + " AND CD_SUBCATEGORIA =" + subcategory.getId()).list().get(0)).intValue();
+		
+		for (Product product: products) {
+			product.setCount(count);
+		}
+		
+		return products;
+	}
+	
 	public List<Product> search(Boolean active, Pagination pagination, String textToSearch) {
 		List<Criterion> restrictions = new ArrayList<Criterion>();
 		Disjunction disjunction = Restrictions.or();

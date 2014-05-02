@@ -130,6 +130,19 @@ public class ProductService {
 			return null;
 		}
 	}
+	
+	public List<Product> findProductsBySubcategoryId(Boolean active, Pagination pagination, Boolean hasItems, Subcategory subcategory) {
+		try {
+			return productDao.findProductsBySubcategoryId(active, pagination, hasItems, subcategory);
+		} catch (HibernateException e) {
+			LOG.error(
+					"Error ao pegar o produto. Parametros passados: orderColumn: "
+							+ pagination.getOrderColumn() + "; order: " + pagination.getOrder() + "; active: "
+							+ active + "; firstResult: " + pagination.getFirstResult()
+							+ "; maxResults: " + pagination.getMaxResults() + "; hasItems: " + hasItems, e);
+			return null;
+		}
+	}
 
 	public List<Product> search(Boolean active, Pagination pagination, String textToSearch) {
 		try {

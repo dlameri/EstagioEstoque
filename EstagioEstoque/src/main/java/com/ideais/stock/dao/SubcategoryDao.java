@@ -1,5 +1,6 @@
 package com.ideais.stock.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ideais.stock.domain.Category;
+import com.ideais.stock.domain.Pagination;
+import com.ideais.stock.domain.Product;
 import com.ideais.stock.domain.Subcategory;
 
 public class SubcategoryDao extends AbstractDao<Subcategory> {
@@ -42,4 +45,5 @@ public class SubcategoryDao extends AbstractDao<Subcategory> {
 		
 		return super.findByRestrictions( Subcategory.class, restrictions );
 	}
+
 }
