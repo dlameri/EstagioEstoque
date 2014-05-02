@@ -27,6 +27,9 @@
 }
 
 .imageInLightBox {
-	max-width: 100%;
-	max-height: 92%;
+  display: block;
+  position: fixed;
+  width: 50%;
+  height: 80%;
+  text-align: center;
 }

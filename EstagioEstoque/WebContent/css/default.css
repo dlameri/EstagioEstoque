@@ -734,3 +734,7 @@ ul.contact li a.icon-rss:before {
 .itemIdContainer{
 	display:none;
 }
+
+.formError{
+	margin-left:-150px;
+}
