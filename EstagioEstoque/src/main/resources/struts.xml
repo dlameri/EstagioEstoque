@@ -330,6 +330,70 @@
 			</result>
 		</action>
 		
+		<!-- Itens -->
+				
+		<action name="imagens" class="com.ideais.stock.action.ImageAction"
+			method="list">
+			<result name="success">image.jsp</result>
+		</action>
+		
+		<action name="saveImage" class="com.ideais.stock.action.ImageAction"
+			method="save">
+			<result name="success" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="input" type="json">
+				<param name="root">
+					inputResponseError
+				</param>
+			</result>
+		</action>
+		
+		<action name="deleteImage" class="com.ideais.stock.action.ImageAction"
+			method="delete">
+			<result name="success" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="input" type="json">
+				<param name="root">
+					inputResponseError
+				</param>
+			</result>
+		</action>
+		
+		<action name="getImagesByItemId" class="com.ideais.stock.action.ImageAction"
+			method="getImagesByItemId">
+			<result name="success" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">
+					responseOutput
+				</param>
+			</result>
+			<result name="input" type="json">
+				<param name="root">
+					inputResponseError
+				</param>
+			</result>
+		</action>
+		
 		
 
 <!-- 		<action name="pageNotFound"> -->

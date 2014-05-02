@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ideais.stock.json.internal.ResponseJSON;
 import com.ideais.stock.service.CategoryService;
+import com.ideais.stock.service.ImageService;
 import com.ideais.stock.service.ItemService;
 import com.ideais.stock.service.ProductService;
 import com.ideais.stock.service.SubcategoryService;
@@ -21,6 +22,8 @@ public abstract class AbstractAction<T, K> extends ActionSupport {
 	protected ProductService productService;
 	@Autowired
 	protected ItemService itemService;
+	@Autowired
+	protected ImageService imageService;
 
 	protected String id;
 	protected String query;
@@ -28,6 +31,7 @@ public abstract class AbstractAction<T, K> extends ActionSupport {
 	protected Long categoryId;
 	protected Long subcategoryId;
 	protected Long productId;
+	protected Long itemId;
 	protected String jtStartIndex;
 	protected String jtPageSize;
 	protected String jtSorting;
@@ -36,6 +40,12 @@ public abstract class AbstractAction<T, K> extends ActionSupport {
 	protected ResponseJSON<K> inputResponseError = new ResponseJSON<K>(
 			"ERROR", "Por favor, verifique os campos.");
 
+//	public abstract String save();
+//	public abstract String checkBeforeDeleting();	
+//	public abstract String delete();
+//	public abstract String list();
+//	public abstract String getPaginated();
+	
 	public String getId() {
 		return id;
 	}
@@ -101,6 +111,12 @@ public abstract class AbstractAction<T, K> extends ActionSupport {
 	}
 	public void setInputResponseError(ResponseJSON<K> inputResponseError) {
 		this.inputResponseError = inputResponseError;
+	}
+	public Long getItemId() {
+		return itemId;
+	}
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
 	}
 
 }

@@ -104,7 +104,7 @@ $(function() {
                  type: 'hidden'
              },
              items: {
-                 title: 'ITEM',
+                 title: '',
                  width: '5%',
                  sorting: false,
                  edit: false,
@@ -198,6 +198,205 @@ $(function() {
                                      productId: {
                                          type: 'hidden',
                                          defaultValue: productData.record.id
+                                     },
+                                     images: {
+                                    	 title: '',
+                                         width: '5%',
+                                         sorting: false,
+                                         edit: false,
+                                         create: false,
+                                         display: function (itemData) {
+                                        	//Create an image that will be used to open child table
+                                             var $imgsub = $('<img class="child-opener-image" src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
+                                             $imgsub.closest('td').addClass("child-opener-image-column");
+                                             //Open child table when user clicks the image
+                                             $imgsub.click(function () {
+                                            	 $('#productContainer').jtable('openChildTable',
+                                                         $imgsub.closest('tr'), //Parent row
+                                                         {
+                                                         title: 'Imagens de: ' + itemData.record.sku,
+                                                         paging: true,
+                                                         pageSize: 10,
+                                                         pageSizes: [10, 20, 35, 50],
+                                                         actions: { 
+                                                        	 listAction:'/EstagioEstoque/web/getImagesByItemId?itemId=' + itemData.record.id, 
+                                                        	 createAction:'/EstagioEstoque/web/saveImage', 
+                                                        	 updateAction:'/EstagioEstoque/web/saveImage', 
+                                                        	 deleteAction:'/EstagioEstoque/web/deleteImage' 
+                                                         },
+                                                         fields: { 
+                                                        	 itemId: {
+                                                        		 list: false,
+                                                        		 input: function (data) {
+                                                                     return '<input type="hidden" name="itemId" value="'+itemData.record.id+'"/>';
+                                                                 }
+                                                        	 },
+                                                        	 id: {
+                                                                 key: true,
+                                                                 create: false,
+                                                                 list: false,
+                                                                 edit: true,
+                                                                 type: 'hidden'
+                                                             },
+                                                        	 showcaseUrl: {
+                                                        		title: 'Vitrine',
+                                                        		width: '10%',
+                                                        		input: function (data) {
+                                                                    if (data.record) {
+                                                                        return '<input type="text" name="image.showcaseUrl" class="showcaseUrl" value="' + data.record.showcaseUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                    } else {
+                                                                        return '<input type="text" name="image.showcaseUrl" class="showcaseUrl" placeholder="Digite a URL da imagem" />';
+                                                                    }
+                                                                },
+                                                                display: function (data) {
+                                                                	if (data.record) {
+                                                               		 	if (data.record.showcaseUrl) {
+                                                               		 		return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.showcaseUrl+'\')">Clique aqui</a>';
+		                                                                } else {
+		                                                       			 return 'N/A';
+		                                                                }
+                                                                	}
+		                                                        }
+                                                        	 },
+                                                        	 productUrl: {
+                                                        		title: 'Pág. Produto',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.productUrl" class="productUrl" value="' + data.record.productUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.productUrl" class="productUrl" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.productUrl) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.productUrl+'\')">Clique aqui</a>';
+                                                                		 } else {
+		                                                        			 return 'N/A';
+		                                                                 }
+		                                                        	 }
+		                                                         }
+                                                        	 },
+                                                        	 superzoomUrl: {
+                                                        		 title: 'Superzoom',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.superzoomUrl" class="superzoomUrl" value="' + data.record.superzoomUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.superzoomUrl" class="superzoomUrl" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.superzoomUrl) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.superzoomUrl+'\')">Clique aqui</a>';
+		                                                                 } else {
+		                                                        			 return 'N/A';
+		                                                                 }
+		                                                        	 }
+		                                                         }
+                                                        	 },
+                                                        	 shoppingCartUrl: {
+                                                        		 title: 'Carrinho',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.shoppingCartUrl" class="shoppingCartUrl" value="' + data.record.shoppingCartUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.shoppingCartUrl" class="shoppingCartUrl" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.shoppingCartUrl) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.shoppingCartUrl+'\')">Clique aqui</a>';
+                                                                		 } else {
+		                                                        			 return 'N/A';
+		                                                                 }
+		                                                        	 }
+		                                                         }
+                                                        	 },
+                                                        	 androidShowcaseUrl: {
+                                                        		 title: 'Android Vitrine',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.androidShowcaseUrl" class="androidShowcaseUrl" value="' + data.record.androidShowcaseUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.androidShowcaseUrl" class="androidShowcaseUrl" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.androidShowcaseUrl) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.androidShowcaseUrl+'\')">Clique aqui</a>';
+		                                                                 } else {
+		                                                        			 return 'N/A';
+		                                                                 }
+		                                                        	 }
+		                                                         }
+                                                        	 },
+                                                        	 androidProductUrl: {
+                                                        		 title: 'Android Produto',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.androidProductUrl" class="androidProductUrl" value="' + data.record.androidProductUrl + '" placeholder="Digite a URL da imagem" />';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.androidProductUrl" class="androidProductUrl" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.androidProductUrl) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.androidProductUrl+'\')">Clique aqui</a>';
+		                                                                 } else {
+		                                                        			 return 'N/A';
+		                                                                 }
+                                                                	 }
+                                                                 }
+                                                        	 },
+                                                        	 promo: {
+                                                        		 title: 'URL Promo',
+                                                         		width: '10%',
+                                                         		input: function (data) {
+                                                                     if (data.record) {
+                                                                         return '<input type="text" name="image.promo" class="promo" value="' + data.record.promo + '" placeholder="Digite a URL da imagem"/>';
+                                                                     } else {
+                                                                         return '<input type="text" name="image.promo" class="promo" placeholder="Digite a URL da imagem" />';
+                                                                     }
+                                                                 },
+                                                                 display: function (data) {
+                                                                	 if (data.record) {
+                                                                		 if (data.record.promo) {
+                                                                			 return '<a href = "javascript:void(0)" onclick = "summonLightBox(\''+data.record.promo+'\')">Clique aqui</a>';
+                                                                		 } else {
+                                                                			 return 'N/A';
+                                                                		 }
+                                                                	 }
+                                                                 }
+                                                        	 },
+                                                        	 main: {
+                                                        		 input: function (data) {
+                                                            		 if (data.record) {
+                                                            			 if (data.record.main)
+                                                            				 return '<input class="" type="checkbox" name="image.main" value="true" checked="checked"><span class="jtable-option-text-clickable">Principal</span>';
+                                                            			 else
+                                                            				 return '<input class="" type="checkbox" name="image.main" value="true"><span class="jtable-option-text-clickable">Principal</span>';
+                                                                     } else {
+                                                                    		 return '<input class="" type="checkbox" name="image.main" value="true" checked="checked" /><span class="jtable-option-text-clickable">Principal</span>';
+                                                                     }
+                                                                 }
+                                                        	 }
+                                                         }
+                                                     }, function (data) { //opened handler
+                                                         data.childTable.jtable('load');
+                                                     });
+                                             });
+                                             return $imgsub;
+                                         }
                                      },
                                      id: {
                                          key: true,
@@ -297,9 +496,9 @@ $(function() {
                                     	 input: function (data) {
                                     		 if (data.record) {
                                     			 if (data.record.active)
-                                    				 return '<input class="" type="checkbox" name="item.active" value="' + data.record.active + '" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
+                                    				 return '<input class="" type="checkbox" name="item.active" value="true" checked="checked"><span class="jtable-option-text-clickable">Ativo</span>';
                                     			 else
-                                    				 return '<input class="" type="checkbox" name="item.active" value="' + data.record.active + '"><span class="jtable-option-text-clickable">Ativo</span>';
+                                    				 return '<input class="" type="checkbox" name="item.active" value="true"><span class="jtable-option-text-clickable">Ativo</span>';
                                              } else {
                                             	 return '<input class="" type="checkbox" name="item.active" value="true" checked="checked" /><span class="jtable-option-text-clickable">Ativo</span>';
                                              }

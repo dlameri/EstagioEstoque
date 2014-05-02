@@ -19,6 +19,7 @@
 <link href="../css/jQuery/jTable/themes/metro/lightgray/jtable.min.css" rel="stylesheet" type="text/css" media="all" />
 <link href="../css/default.css" rel="stylesheet" type="text/css" media="all" />
 
+
 <script type="text/javascript" src="../js/jQuery/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery-ui-1.10.4.min.js"></script>
 <script type="text/javascript" src="../js/jQuery/jquery.mask.min.js"></script>
@@ -48,6 +49,8 @@
 			</ul>
 		</div>	
     <decorator:body />
+    <div id="light" class="white_content hidden"></div>
+			<div id="fade" class="black_overlay hidden"></div>
    </div>	
    <footer id="copyright">
 		<p>Copyright (c) 2014 Stock Team Enterprise All rights reserved. Design by Stock Team Enterprises.</p>

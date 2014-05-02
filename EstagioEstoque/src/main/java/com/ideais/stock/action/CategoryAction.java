@@ -28,13 +28,11 @@ public class CategoryAction extends AbstractAction<Category, InternalCategoryJSO
 
 	@Validations(requiredStrings = { @RequiredStringValidator(fieldName = "category.name", type = ValidatorType.FIELD, message = "Category required") }, stringLengthFields = { @StringLengthFieldValidator(fieldName = "category.name", type = ValidatorType.FIELD, minLength = "3", maxLength = "45", message = "Nome muito curto.") })
 	public String saveCategory() {
-		Category savedCategory = null;
-
 		if (Validade.isValid(id)) {
 			category.setId(Long.valueOf(id));
 		}
 
-		savedCategory = categoryService.save(category);
+		Category savedCategory = categoryService.save(category);
 
 		if (savedCategory == null) {
 			responseOutput = new ResponseJSON<InternalCategoryJSON>("ERROR",

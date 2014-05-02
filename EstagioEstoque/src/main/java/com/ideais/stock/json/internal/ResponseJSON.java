@@ -18,6 +18,11 @@ public class ResponseJSON<T> {
 		this.totalRecordCount = totalRecordCount;
 	}
 	
+	public ResponseJSON(String result, List<T> records) {
+		this.result = result;
+		this.records = records;
+	}
+
 	public ResponseJSON(String result, T record) {
 		this.result = result;
 		this.record = record;
@@ -27,6 +32,11 @@ public class ResponseJSON<T> {
 		this.result = result;
 		this.message = message;
 	}
+	
+	public ResponseJSON(String result) {
+		this.result = result;
+	}
+
 
 	@JSON(name="Result")
 	public String getResult() {

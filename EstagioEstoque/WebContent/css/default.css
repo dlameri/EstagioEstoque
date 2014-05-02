@@ -730,3 +730,7 @@ ul.contact li a.icon-rss:before {
 .stockContainer{
 	float: none;
 }
+
+.itemIdContainer{
+	display:none;
+}
