@@ -13,6 +13,7 @@ public class SubcategoryJSON implements Serializable {
 	private Long id;
 	private String name;
 	private Boolean active;
+	private Long categoryId;
 	private List<Link> links = new ArrayList<Link>();
 	private Integer count;
 	
@@ -21,6 +22,7 @@ public class SubcategoryJSON implements Serializable {
 		this.name = subcategory.getName();
 		this.active = subcategory.getActive();
 		this.count = subcategory.getCount();
+		this.categoryId = subcategory.getCategory().getId();
 		links.add(new Link("subcategory/" + id + "/product", "product"));
 	}
 
@@ -75,6 +77,14 @@ public class SubcategoryJSON implements Serializable {
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }
