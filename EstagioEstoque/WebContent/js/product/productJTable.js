@@ -444,12 +444,14 @@ $(function() {
                                          title: 'Preço De',
                                          width: '20%',
                                          create: false,
+                                         sorting: false,
                                          edit: false
                                      },
                                      formattedPriceFor: {
                                          title: 'Preço Por',
                                          width: '20%',
                                          create: false,
+                                         sorting: false,
                                          edit: false
                                      },
                                      optionName: {
