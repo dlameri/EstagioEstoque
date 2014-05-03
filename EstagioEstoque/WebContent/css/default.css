@@ -31,10 +31,6 @@ p {
 	line-height: 180%;
 }
 
-strong {
-	
-}
-
 a {
 	color: #0000FF;
 	text-decoration: none;
@@ -97,13 +93,7 @@ table {
 	width: 450px;
 	height: 20px;
 	display: inline-block;
-}
-
-#table h3
-	/*********************************************************************************/
-	/* Image Style                                                                   */
-	/*********************************************************************************/
-	
+}	
 	
 .image {
 	display: inline-block;
@@ -135,13 +125,6 @@ table {
 	width: auto;
 }
 
-/*********************************************************************************/
-/* List Styles                                                                   */
-/*********************************************************************************/
-ul.style1 {
-	
-}
-
 .categoryNameList{
 	width: 170px;
 	display: inline-block;
@@ -152,65 +135,6 @@ ul.style1 {
 	display: inline-block;
 }
 
-/*********************************************************************************/
-/* Social Icon Styles                                                            */
-/*********************************************************************************/
-ul.contact {
-	margin: 0;
-	padding: 2em 0em 0em 0em;
-	list-style: none;
-}
-
-ul.contact li {
-	display: inline-block;
-	padding: 0em 0.30em;
-	font-size: 1em;
-}
-
-ul.contact li span {
-	display: none;
-	margin: 0;
-	padding: 0;
-}
-
-ul.contact li a {
-	color: #FFF;
-}
-
-ul.contact li a:before {
-	display: inline-block;
-	background: #3f3f3f;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	border-radius: 20px;
-	text-align: center;
-	color: #FFFFFF;
-}
-
-ul.contact li a.icon-twitter:before {
-	background: #2DAAE4;
-}
-
-ul.contact li a.icon-facebook:before {
-	background: #39599F;
-}
-
-ul.contact li a.icon-dribbble:before {
-	background: #C4376B;
-}
-
-ul.contact li a.icon-tumblr:before {
-	background: #31516A;
-}
-
-ul.contact li a.icon-rss:before {
-	background: #F2600B;
-}
-
-/*********************************************************************************/
-/* Button Style                                                                  */
-/*********************************************************************************/
 .button {
 	display: inline-block;
 	margin-top: 2em;
@@ -257,9 +181,6 @@ ul.contact li a.icon-rss:before {
 	font-size: 1.1em !important;
 }
 
-/*********************************************************************************/
-/* Wrappers                                                                      */
-/*********************************************************************************/
 #wrapper {
 	position: relative;
 	padding: 0em 0em 5em 0em;
@@ -267,16 +188,10 @@ ul.contact li a.icon-rss:before {
 	box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
-/*********************************************************************************/
-/* Header                                                                        */
-/*********************************************************************************/
 #header {
 	height: 10em;
 }
 
-/*********************************************************************************/
-/* Logo                                                                          */
-/*********************************************************************************/
 #logo {
 	margin: 4em auto 4em auto;
 	text-transform: uppercase;
@@ -317,9 +232,6 @@ ul.contact li a.icon-rss:before {
 	color: #828282;
 }
 
-/*********************************************************************************/
-/* Menu                                                                          */
-/*********************************************************************************/
 #menu {
 	background: #292929;
 }
@@ -358,16 +270,6 @@ ul.contact li a.icon-rss:before {
 	color: #FFF;
 }
 
-/*********************************************************************************/
-/* Banner                                                                        */
-/*********************************************************************************/
-#banner {
-	
-}
-
-/*********************************************************************************/
-/* Page                                                                          */
-/*********************************************************************************/
 #page {
 	overflow: hidden;
 	width: 1100px;
@@ -411,13 +313,6 @@ ul.contact li a.icon-rss:before {
 	color: #01A9DC;
 }
 
-/*********************************************************************************/
-/* Content                                                                       */
-/*********************************************************************************/
-#content {
-	
-}
-
 .subcategoryList {
 	display: block;
 }
@@ -426,23 +321,6 @@ ul.contact li a.icon-rss:before {
 	display: none;
 }
 
-/*********************************************************************************/
-/* Sidebar                                                                       */
-/*********************************************************************************/
-#sidebar {
-	
-}
-
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
-#footer {
-	
-}
-
-/*********************************************************************************/
-/* Copyright                                                                     */
-/*********************************************************************************/
 #copyright {
 	padding: 6em 0em;
 	font-size: 0.70em;
@@ -456,103 +334,6 @@ ul.contact li a.icon-rss:before {
 
 #copyright a {
 	color: #747474;
-}
-
-/*********************************************************************************/
-/* Portfolio                                                                     */
-/*********************************************************************************/
-#portfolio {
-	position: relative;
-	overflow: hidden;
-	width: 1050px;
-	padding: 0em 75px 6em 75px;
-	background: #292929 url(images/bg01.png) repeat;
-}
-
-#portfolio ul {
-	margin-bottom: 2em;
-	padding: 0;
-	list-style: none;
-}
-
-#portfolio li {
-	float: left;
-	width: 310px;
-	margin: 0px 10px;
-	padding: 10px 10px;
-}
-
-#portfolio li img {
-	border: 10px solid rgba(0, 0, 0, .10);
-}
-
-#portfolio li a {
-	-webkit-transition: all .25s ease-in-out;
-	-moz-transition: all .25s ease-in-out;
-	-ms-transition: all .25s ease-in-out;
-	-o-transition: all .25s ease-in-out;
-	transition: all .25s ease-in-out;
-	opacity: .5;
-}
-
-#portfolio li a:hover {
-	-webkit-transition: all .25s ease-in-out;
-	-moz-transition: all .25s ease-in-out;
-	-ms-transition: all .25s ease-in-out;
-	-o-transition: all .25s ease-in-out;
-	transition: all .25s ease-in-out;
-	opacity: 1;
-}
-
-#portfolio .current_item a {
-	opacity: 1;
-}
-
-#portfolio .title {
-	padding: 3em 0em;
-	letter-spacing: 0.20em;
-	text-align: justify;
-	text-transform: uppercase;
-}
-
-#portfolio .title h2 {
-	font-size: 2.5em;
-	color: #FFF;
-}
-
-#portfolio .title .byline {
-	padding-top: 0.50em;
-	font-size: 0.90em;
-	color: #858585;
-}
-
-#portfolio .actions {
-	text-align: center;
-}
-
-#portfolio .content {
-	overflow: hidden;
-	padding: 2em 5em 0em 5em;
-	text-align: justify;
-	color: #858585;
-}
-
-#portfolio .content p {
-	text-shadow: 0px 1px 0px #000;
-	font-size: 1.2em;
-}
-
-#portfolio .button {
-	margin: 2em 0.50em 0em 0.50em;
-}
-
-#portfolio .arrow-down {
-	border-top-color: #F4F4F4 !important;
-}
-
-#pbox1,#pbox2,#pbox3 {
-	float: left;
-	width: 400px;
 }
 
 .arrow-down {
@@ -642,42 +423,6 @@ ul.contact li a.icon-rss:before {
 	width: 50px;
 }
 
-/* .categoryIdContainer{ */
-/* 	width: 200px; */
-/* 	display: inline-block; */
-/* } */
-
-/* .subcategoryIdContainer{ */
-/* 	width: 175px; */
-/* 	display: inline-block; */
-/* } */
-
-/* .nameContainer{ */
-/* 	width: 175px; */
-/* 	display:block; */
-/* } */
-
-/* .brandContainer{ */
-/* 	width: 175px; */
-/* 	display:inline-block; */
-/* } */
-
-/* .modelContainer{ */
-
-/* } */
-
-/* .shortDescriptionContainer{ */
-
-/* } */
-
-/* .weightContainer{ */
-
-/* } */
-
-/* .warrantyContainer{ */
-
-/* } */
-
 .jtable-input-field-container{
 	float:left;
 	width: 250px;
@@ -689,18 +434,6 @@ ul.contact li a.icon-rss:before {
 
 .jtable-input-field-container:nth-child(2n) {
 	clear: none;
-}
-
-.widthContainer{
-
-}
-
-.heightContainer{
-	
-}
-
-.depthContainer{
-
 }
 
 .longDescriptionContainer{
