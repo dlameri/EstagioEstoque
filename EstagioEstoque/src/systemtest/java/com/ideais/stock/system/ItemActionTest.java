@@ -14,17 +14,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SubcategoryActionTest extends AbstractSystemTest implements SystemTestBehavior {
+public class ItemActionTest extends AbstractSystemTest implements SystemTestBehavior {
 
 	
 	@Before
 	public void setUp() {
 		driver.get("http://localhost:8080/EstagioEstoque/web/");
 		driver.findElement(By.name("email")).submit();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='categorias']")));
-		driver.findElement(By.xpath("//a[@href='categorias']")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='produtos']")));
+		driver.findElement(By.xpath("//a[@href='produtos']")).click();
 		
-		//Abrir jTable de Subcategoria
+		//Abrir jTable de Item
 		wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[@data-record-key='1']/td/img"))));
 		driver.findElement(By.xpath("//tr[@data-record-key='1']/td/img")).click();
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("jtable-delete-command-button")));
@@ -34,18 +34,22 @@ public class SubcategoryActionTest extends AbstractSystemTest implements SystemT
 	public void create() {
 		driver.findElements(By.className("jtable-toolbar-item-add-record")).get(1).click();
 		
-		wait.until((ExpectedConditions.visibilityOfElementLocated(By.name("subcategory.name"))));
-		WebElement element = driver.findElement(By.name("subcategory.name"));
-	    element.sendKeys("Subcategoria T");
+		wait.until((ExpectedConditions.visibilityOfElementLocated(By.name("item.active"))));
+		driver.findElement(By.name("item.priceFrom")).sendKeys("100.50");
+		driver.findElement(By.name("item.priceFor")).sendKeys("100.49");
+		driver.findElement(By.name("item.optionName")).sendKeys("Option Name");
+		driver.findElement(By.name("item.optionValue")).sendKeys("Option Value");
+		WebElement element = driver.findElement(By.name("item.stock"));
+		element.sendKeys("99");
 	    element.submit();
 	    
 	    try {
 	    	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr[@data-record-key='4']")));
 	    } catch (Exception e) {
-	    	fail("Subcategoria criada não foi encontrada."); 
+	    	fail("Item criado não foi encontrada."); 
 	    }
 
-	    assertEquals(1, jdbcTemplate.queryForInt("SELECT COUNT(*) FROM SUBCATEGORIA WHERE NM_NOME = ?", new Object[]{"Subcategoria T"}));
+	    assertEquals(1, jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ITEM WHERE NR_PRECO_DE = ?", new Object[]{"100.50"}));
 	    
 		List<WebElement> elements = driver.findElements(By.xpath("//tr[@data-record-key='4']/td"));
 		assertEquals("Subcategoria T", elements.get(0).getText());
@@ -93,7 +97,7 @@ public class SubcategoryActionTest extends AbstractSystemTest implements SystemT
 			
 		}
 		
-		assertEquals(0, jdbcTemplate.queryForInt("SELECT COUNT(*) FROM SUBCATEGORIA WHERE NM_NOME = ? AND BO_ATIVO = ?", new Object[]{"Subcategoria 1","1"}));		
+		assertEquals(0, jdbcTemplate.queryForInt("SELECT COUNT(*) FROM SUBCATEGORIA WHERE NM_NOME = ?", new Object[]{"Subcategoria 1"}));
 	}
 	
 }

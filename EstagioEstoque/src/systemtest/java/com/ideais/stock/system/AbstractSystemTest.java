@@ -1,5 +1,6 @@
 package com.ideais.stock.system;
 
+import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -7,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,11 +22,13 @@ public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContext
 	protected JdbcTemplate jdbcTemplate;
 	
 	protected WebDriver driver;
+	protected WebDriverWait wait;
 	
 	@Before
 	public void setUpEnviroment() {
 		prepareDatabase();
 		driver = new FirefoxDriver();
+		wait = new WebDriverWait(driver, 10);
 	}
 	
 	@After
@@ -46,5 +50,13 @@ public class AbstractSystemTest extends AbstractTransactionalJUnit4SpringContext
 	
 	protected String getTextById(String id) {
 		return findElement( By.id(id) ).getText();
+	}
+	
+	protected void sleep() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			fail("Erro no sleep");
+		}
 	}
 }

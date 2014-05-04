@@ -43,7 +43,7 @@ public class SubcategoryWSTest extends AbstractWebserviceTest {
 	
 	@Test
 	public void get_products_by_category_id() {
-		assertEquals(2, subcategoryWS.getProductsBySubcategoryId(2L).size());
+		assertEquals(2, subcategoryWS.getProductsBySubcategoryId(2L, "rank", "desc", true, "0", "10", true).size());
 	}
 	
 }
