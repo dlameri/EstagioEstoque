@@ -2,7 +2,6 @@ $(function() {
 	$(document).on('click', "#fade", function() {
 		killLightBoxWithFire();
 	});
-
 	$(document).on('focus', ".warranty", function() {
 		$(".warranty").mask('00');
 	});
@@ -17,6 +16,9 @@ $(function() {
 	});
 	$(document).on('focus', ".depth", function() {
 		$(".depth").mask('099.00');
+	});
+	$(document).on('focus', ".sku", function() {
+		$(".sku").mask('0000000');
 	});
 	$(document).on('focus', ".priceFor", function() {
 		$(".priceFor").mask('099.00');

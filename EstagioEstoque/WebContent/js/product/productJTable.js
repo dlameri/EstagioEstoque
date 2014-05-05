@@ -424,8 +424,15 @@ $(function() {
                                      sku: {
                                     	 title: 'SKU',
                                          width: '10%',
-                                         create: false,
-                                         edit: false
+                                         create: true,
+                                         edit: false,
+                                         input: function (data) {
+                                             if (data.record) {
+                                                 return '<input type="text" name="item.sku" class="sku" value="' + data.record.sku + '" />';
+                                             } else {
+                                                 return '<input type="text" name="item.sku" class="sku" placeholder="Digite o sku" />';
+                                             }
+                                         }
                                      },
                                      priceFrom: {
                                          title: 'Preço De',
