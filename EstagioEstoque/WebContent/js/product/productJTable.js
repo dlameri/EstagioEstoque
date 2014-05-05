@@ -112,6 +112,7 @@ $(function() {
                  display: function (productData) {
                      //Create an image that will be used to open child table
                      var $img = $('<img class="child-opener-image" src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
+                     var active = true;
                      $img.closest('td').addClass("child-opener-image-column");
                      //Open child table when user clicks the image
                      $img.click(function () {
@@ -122,6 +123,21 @@ $(function() {
                                  paging: true,
                                  pageSize: 10,
                                  pageSizes: [10, 20, 35, 50],
+                                 toolbar: {
+                             	    items: [{
+                             	        text: 'Exibir inativos',
+                             	        click: function () {
+                             	        	active = false;
+                             	        	$img.click();
+                             	        }
+                             	    },{
+                             	        text: 'Exibir ativos',
+                             	        click: function () {
+                             	        	active = true;
+                             	        	$img.click();
+                             	        }
+                             	    }]
+                                  },
                                  sorting: true,
                                  defaultSorting: 'id asc',
                                  actions: {
@@ -409,14 +425,7 @@ $(function() {
                                     	 title: 'SKU',
                                          width: '10%',
                                          create: false,
-                                         edit: false,
-                                         input: function (data) {
-                                             if (data.record) {
-                                                 return '<input type="text" name="item.sku" class="sku" value="' + data.record.sku + '" />';
-                                             } else {
-                                                 return '<input type="text" name="item.sku" class="sku" placeholder="Digite o SKU" />';
-                                             }
-                                         }
+                                         edit: false
                                      },
                                      priceFrom: {
                                          title: 'Preço De',
@@ -508,9 +517,27 @@ $(function() {
                                              }
                                          }
                                      }
+                                 },
+                                 //Initialize validation logic when a form is created
+                                 formCreated: function (event, data) {
+                                     data.form.find('input[name="item.priceFrom"]').addClass('validate[required,custom[number],min[0]]');
+                                     data.form.find('input[name="item.priceFor"]').addClass('validate[required,custom[number],min[0],funcCall[leThan[priceFrom]]]');
+                                     data.form.find('input[name="item.optionName"]').addClass('validate[required,minSize[3]]');
+                                     data.form.find('input[name="item.optionValue"]').addClass('validate[required,minSize[3]]');
+                                     data.form.find('input[name="item.stock"]').addClass('validate[required,custom[onlyNumberSp]]');
+                                     data.form.validationEngine();
+                                 },
+                                 //Validate form when it is being submitted
+                                 formSubmitting: function (event, data) {
+                                     return data.form.validationEngine('validate');
+                                 },
+                                 //Dispose validation logic when form is closed
+                                 formClosed: function (event, data) {
+                                     data.form.validationEngine('hide');
+                                     data.form.validationEngine('detach');
                                  }
                              }, function (data) { //opened handler
-                                 data.childTable.jtable('load');
+                                 data.childTable.jtable('load', {status: active});
                              });
                      });
                      //Return image to show on the person row
@@ -721,7 +748,7 @@ $(function() {
          },
        //Initialize validation logic when a form is created
          formCreated: function (event, data) {
-             data.form.find('input[name="product.name"]').addClass('validate[required]');
+             data.form.find('input[name="product.name"]').addClass('validate[required],minSize[3]');
              data.form.find('input[name="product.brand"]').addClass('validate[required]');
              data.form.find('input[name="product.model"]').addClass('validate[required]');
              data.form.find('input[name="product.shortDescription"]').addClass('validate[required]');

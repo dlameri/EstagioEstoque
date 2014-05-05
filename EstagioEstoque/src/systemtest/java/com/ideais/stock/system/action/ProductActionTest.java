@@ -1,4 +1,4 @@
-package com.ideais.stock.system;
+package com.ideais.stock.system.action;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;

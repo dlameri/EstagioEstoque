@@ -2,7 +2,7 @@ $(function() {
 	$(document).on('click', "#fade", function() {
 		killLightBoxWithFire();
 	});
-	
+
 	$(document).on('focus', ".warranty", function() {
 		$(".warranty").mask('00');
 	});
@@ -30,7 +30,8 @@ $(function() {
 });
 
 function summonLightBox(url) {
-	var content = '<img class="imageInLightBox" src="'+url+'" alt="Imagem" />';
+	var content = '<img class="imageInLightBox" src="' + url
+			+ '" alt="Imagem" />';
 	$('#light').removeClass("hidden").html(content);
 	$('#fade').removeClass("hidden");
 }
@@ -38,4 +39,11 @@ function summonLightBox(url) {
 function killLightBoxWithFire() {
 	$('#light').addClass("hidden");
 	$('#fade').addClass("hidden");
+}
+
+function leThan(field, rules, i, options) {
+	var a = rules[i + 2];
+	if (parseFloat(field.val()) >= parseFloat(jQuery("." + a).val())) {
+		return "Deve ser menor que Preço De";
+	}
 }

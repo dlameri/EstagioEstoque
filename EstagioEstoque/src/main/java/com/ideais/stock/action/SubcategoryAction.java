@@ -52,7 +52,7 @@ public class SubcategoryAction extends AbstractAction<Subcategory, InternalSubca
 
 	@SkipValidation
 	public String checkSubcategoryBeforeDeleting() {
-		if (Validade.isValid(id)) {
+		if (!Validade.isValid(id)) {
 			responseOutput = new ResponseJSON<InternalSubcategoryJSON>("ERROR", "Id inválido.");
 			return ERROR;
 		}
@@ -96,7 +96,7 @@ public class SubcategoryAction extends AbstractAction<Subcategory, InternalSubca
 		
 		Category category = new Category();
 		category.setId(categoryId);
-		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, true);
+		List<Subcategory> subcategories = subcategoryService.findByCategoryId(category, status);
 		
 		for (Subcategory subcategory : subcategories) {
 			subcategoriesJSON.add(new InternalSubcategoryJSON(subcategory));
@@ -118,12 +118,12 @@ public class SubcategoryAction extends AbstractAction<Subcategory, InternalSubca
 		this.subcategory = subcategory;
 	}
 
-	public List<ProductJSON> getProductJSONs() {
+	public List<ProductJSON> getProductsJSON() {
 		return productsJSON;
 	}
 
-	public void setProductJSONs(List<ProductJSON> productJSONs) {
-		this.productsJSON = productJSONs;
+	public void setProductsJSON(List<ProductJSON> productsJSON) {
+		this.productsJSON = productsJSON;
 	}
 
 }

@@ -59,6 +59,9 @@ public class Item {
 	@Column(name="BO_ATIVO", nullable=false)
 	private Boolean active;
 	
+	@Column(name="BO_PROMO", nullable=false)
+	private Boolean promo = false;
+	
 	@Transient
 	private Integer count;
 	
@@ -195,6 +198,14 @@ public class Item {
 		this.count = count;
 	}
 	
+	public Boolean getPromo() {
+		return promo;
+	}
+
+	public void setPromo(Boolean promo) {
+		this.promo = promo;
+	}
+
 	@Override
 	public String toString() {
 		return id.toString();

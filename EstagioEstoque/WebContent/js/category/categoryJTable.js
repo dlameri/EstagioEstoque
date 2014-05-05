@@ -121,15 +121,31 @@ $(function() {
                  display: function (categoryData) {
                      //Create an image that will be used to open child table
                      var $img = $('<img src="/EstagioEstoque/css/jQuery/jTable/themes/metro/list_metro.png" title="Editar itens" />');
+                     var active = true;
                      //Open child table when user clicks the image
                      $img.click(function () {
                     	 $('#categoryContainer').jtable('openChildTable',
                                  $img.closest('tr'), //Parent row
                                  {
                                  title: 'Subcategorias de: ' + categoryData.record.name,
-                                 paging: true,
-                                 pageSize: 10,
-                                 pageSizes: [10, 20, 35, 50],
+//                                 paging: true,
+//                                 pageSize: 10,
+//                                 pageSizes: [10, 20, 35, 50],
+                                 toolbar: {
+                            	    items: [{
+                            	        text: 'Exibir inativos',
+                            	        click: function () {
+                            	        	active = false;
+                            	        	$img.click();
+                            	        }
+                            	    },{
+                            	        text: 'Exibir ativos',
+                            	        click: function () {
+                            	        	active = true;
+                            	        	$img.click();
+                            	        }
+                            	    }]
+                                 },
                                  deleteConfirmation: function(data) {
                                  	
                                 	 $.ajax({
@@ -140,12 +156,7 @@ $(function() {
                              			beforeSend : console.log("Enviando dados pro serv"),
                              			success : function(response) {
                              				if (response.length > 0 ) {
-                             					data.deleteConfirmMessage = "Esta subcategoria tem os seguintes produtos atrelados a ela: <br/> ";
-                        	 					$.each(response, function(index) {
-                        	 						var name = response[index].name;
-                        	 						var subcategoryId = response[index].id;
-                        	 						data.deleteConfirmMessage += subcategoryId + " - " + name + "<br/>";
-                        		 				});
+                             					data.deleteConfirmMessage = "Esta subcategoria tem produtos atrelados a ela.<br/> Você tem certeza que deseja deletá-la? ";
                              				} else {
                              					data.deleteConfirmMessage = "Você tem certeza que deseja deletar a categoria?<br/> ";
                              				}
@@ -261,7 +272,7 @@ $(function() {
                                  },
                                  //Initialize validation logic when a form is created
                                  formCreated: function (event, data) {
-                                     data.form.find('input[name="subcategory.name"]').addClass('validate[required]');
+                                     data.form.find('input[name="subcategory.name"]').addClass('validate[required,minSize[3]]');
                                      data.form.validationEngine();
                                  },
                                  //Validate form when it is being submitted
@@ -274,7 +285,7 @@ $(function() {
                                      data.form.validationEngine('detach');
                                  }
                              }, function (data) { //opened handler
-                                 data.childTable.jtable('load');
+                                 data.childTable.jtable('load', {status: active});
                              });
                      });
                      //Return image to show on the category row
@@ -308,7 +319,7 @@ $(function() {
          },
          //Initialize validation logic when a form is created
          formCreated: function (event, data) {
-             data.form.find('input[name="category.name"]').addClass('validate[required]');
+             data.form.find('input[name="category.name"]').addClass('validate[required,minSize[3]]');
              data.form.validationEngine();
          },
          //Validate form when it is being submitted

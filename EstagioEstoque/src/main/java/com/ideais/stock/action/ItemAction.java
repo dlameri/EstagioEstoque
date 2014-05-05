@@ -82,9 +82,8 @@ public class ItemAction extends AbstractAction<Item, InternalItemJSON> {
 		Pagination pagination = new Pagination(orderSettings[0].toLowerCase(),
 				orderSettings[1].toLowerCase(), jtStartIndex, jtPageSize);
 		
-		List<Item> items = itemService.findByProductId(product, true, pagination);
+		List<Item> items = itemService.findByProductId(product, status, pagination);
 		int totalRecordCount = itemService.getCount(status, product);
-		
 		for (Item item : items) {
 			itemsJSON.add(new InternalItemJSON(item));
 		}

@@ -1,4 +1,4 @@
-package com.ideais.stock.system;
+package com.ideais.stock.system.action;
 
 public interface SystemTestBehavior {
 

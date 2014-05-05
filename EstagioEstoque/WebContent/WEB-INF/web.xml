@@ -34,10 +34,10 @@
 		    <param-value>loginFilter</param-value>
 		</init-param>
 	</filter>
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>loginFilter</filter-name> -->
-<!-- 		<url-pattern>/web/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/web/*</url-pattern>
+	</filter-mapping>
 	
 	<servlet>
 		<servlet-name>loginServlet</servlet-name>
